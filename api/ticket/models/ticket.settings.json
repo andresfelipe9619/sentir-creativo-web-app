@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "name": "Ticket"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "formato": {
+      "type": "string"
+    },
+    "impacto": {
+      "type": "string"
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "fechaCreacion": {
+      "type": "datetime"
+    }
+  }
+}
