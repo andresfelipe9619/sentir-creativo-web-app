@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API_ROOT = 'http://localhost:1337'
+const API_ROOT = 'http://ec2-13-58-59-70.us-east-2.compute.amazonaws.com:1337'
 
 const server = axios.create({
   baseURL: API_ROOT
@@ -12,6 +12,10 @@ const tokenInterceptor = config => {
     config.headers['token'] = token
   }
   return config
+}
+
+const setToken = _token => {
+  token = _token
 }
 
 const responseBody = response => response.data
@@ -33,37 +37,20 @@ const Auth = {
   register: user => serverRequests.post('/user', user)
 }
 
-const Account = {
-  getAll: () => serverRequests.get(`/account`),
-  get: id => serverRequests.get(`/account/${id}`),
-  create: account => serverRequests.post('/account', account),
-  update: account => serverRequests.put(`/account/${account._id}`, account),
-  delete: id => serverRequests.del(`/account/${id}`)
+const Ticket = {
+  getAll: () => serverRequests.get(`/tickets`),
+  get: id => serverRequests.get(`/tickets/${id}`),
+  create: account => serverRequests.post('/tickets', account),
+  update: account => serverRequests.put(`/tickets/${account._id}`, account),
+  delete: id => serverRequests.del(`/tickets/${id}`)
 }
 
-const Transaction = {
-  getAll: () => serverRequests.get(`/transaction`),
-  delete: id => serverRequests.del(`/transaction/${id}`),
-  get: id => serverRequests.get(`/transaction/${id}`),
-  update: transaction =>
-    serverRequests.put(`/transaction/${transaction.id}`, transaction),
-  create: transaction => serverRequests.post('/transaction', transaction)
-}
-
-const Budget = {
-  getAll: () => serverRequests.get(`/budget`),
-  delete: id => serverRequests.del(`/budget/${id}`),
-  get: id => serverRequests.get(`/budget/${id}`),
-  update: budget => serverRequests.put(`/budget/${budget._id}`, budget),
-  create: budget => serverRequests.post('/budget', budget)
-}
-
-const Category = {
-  getAll: () => serverRequests.get(`/category`),
-  delete: id => serverRequests.del(`/category/${id}`),
-  get: id => serverRequests.get(`/category/${id}`),
-  update: category => serverRequests.put(`/category/${category._id}`, category),
-  create: category => serverRequests.post('/category', category)
+const Service = {
+  getAll: () => serverRequests.get(`/services`),
+  get: id => serverRequests.get(`/services/${id}`),
+  create: account => serverRequests.post('/services', account),
+  update: account => serverRequests.put(`/services/${account._id}`, account),
+  delete: id => serverRequests.del(`/services/${id}`)
 }
 
 const User = {
@@ -77,13 +64,9 @@ const User = {
 const API = {
   Auth,
   User,
-  Budget,
-  Category,
-  Account,
-  Transaction,
-  setToken: _token => {
-    token = _token
-  }
+  Ticket,
+  Service,
+  setToken
 }
 
 export default API
