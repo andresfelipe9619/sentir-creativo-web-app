@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "motivacions",
+  "info": {
+    "name": "motivacion",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idMotivacion": {
+      "type": "uid",
+      "required": true
+    },
+    "Nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "audiencia": {
+      "via": "motivacion",
+      "model": "audiencia"
+    }
+  }
+}
