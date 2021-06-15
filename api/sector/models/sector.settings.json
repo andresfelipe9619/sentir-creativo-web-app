@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sectors",
+  "info": {
+    "name": "sector"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idSector": {
+      "type": "uid",
+      "required": true
+    },
+    "Nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "audiencia": {
+      "via": "sector",
+      "model": "audiencia"
+    }
+  }
+}

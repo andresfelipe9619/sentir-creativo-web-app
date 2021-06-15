@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "areas",
+  "info": {
+    "name": "Areas",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idArea": {
+      "type": "string",
+      "required": true,
+      "maxLength": 15,
+      "unique": true
+    },
+    "Area": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "colorPrimario": {
+      "type": "string",
+      "required": true,
+      "maxLength": 20
+    },
+    "colorSecundario": {
+      "type": "string",
+      "required": true,
+      "maxLength": 20
+    },
+    "imagen": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "Slogan": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "Focus": {
+      "type": "enumeration",
+      "enum": [
+        "Alta",
+        "Media",
+        "Baja"
+      ],
+      "default": "Baja",
+      "required": true
+    },
+    "Prioridad": {
+      "type": "enumeration",
+      "enum": [
+        "Alta",
+        "Media",
+        "Baja"
+      ],
+      "default": "Baja",
+      "required": true
+    },
+    "tipo_proyectos": {
+      "via": "area",
+      "collection": "tipo-proyectos"
+    }
+  }
+}

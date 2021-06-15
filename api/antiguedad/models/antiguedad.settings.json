@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "antiguedads",
+  "info": {
+    "name": "antiguedad",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idAntiguedad": {
+      "type": "uid",
+      "required": true
+    },
+    "Nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "audiencia": {
+      "via": "antiguedad",
+      "model": "audiencia"
+    }
+  }
+}
