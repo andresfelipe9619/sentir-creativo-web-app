@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "cercanias",
   "info": {
-    "name": "cercania"
+    "name": "cercania",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,11 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "idCercania": {
+    "internalId": {
       "type": "uid",
       "required": true
     },
-    "Nombre": {
+    "nombre": {
       "type": "string",
       "required": true,
       "maxLength": 40
