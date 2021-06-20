@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tipo-proyectos",
+      "handler": "tipo-proyectos.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipo-proyectos/count",
+      "handler": "tipo-proyectos.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipo-proyectos/:id",
+      "handler": "tipo-proyectos.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tipo-proyectos",
+      "handler": "tipo-proyectos.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tipo-proyectos/:id",
+      "handler": "tipo-proyectos.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tipo-proyectos/:id",
+      "handler": "tipo-proyectos.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
