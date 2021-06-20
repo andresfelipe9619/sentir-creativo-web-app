@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "idAudiencia": {
+    "internalId": {
       "type": "string",
       "required": true,
       "unique": true
@@ -50,20 +50,20 @@
       "dominant": true
     },
     "antiguedad": {
-      "model": "antiguedad",
-      "via": "audiencia"
+      "via": "audiencia",
+      "model": "antiguedad"
     },
     "cercania": {
-      "model": "cercania",
-      "via": "audiencia"
+      "via": "audiencia",
+      "model": "cercania"
     },
     "motivacion": {
-      "model": "motivacion",
-      "via": "audiencia"
+      "via": "audiencia",
+      "model": "motivacion"
     },
     "sector": {
-      "model": "sector",
-      "via": "audiencia"
+      "via": "audiencia",
+      "model": "sector"
     }
   }
 }

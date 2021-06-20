@@ -12,13 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "idArea": {
+    "internalId": {
       "type": "string",
       "required": true,
       "maxLength": 15,
       "unique": true
     },
-    "Area": {
+    "area": {
       "type": "string",
       "required": true
     },
@@ -48,12 +48,12 @@
       "required": false,
       "pluginOptions": {}
     },
-    "Slogan": {
+    "slogan": {
       "type": "string",
       "required": true,
       "maxLength": 60
     },
-    "Focus": {
+    "focus": {
       "type": "enumeration",
       "enum": [
         "Alta",
@@ -63,7 +63,7 @@
       "default": "Baja",
       "required": true
     },
-    "Prioridad": {
+    "prioridad": {
       "type": "enumeration",
       "enum": [
         "Alta",
@@ -73,7 +73,7 @@
       "default": "Baja",
       "required": true
     },
-    "tipo_proyectos": {
+    "tipoProyectos": {
       "via": "area",
       "collection": "tipo-proyectos"
     }

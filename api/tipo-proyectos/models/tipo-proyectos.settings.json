@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "tipo_proyectos",
   "info": {
-    "name": "tipoProyectos"
+    "name": "tipoProyecto",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,18 +12,18 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "idTipoProyecto": {
+    "internalId": {
       "type": "uid",
       "required": true
     },
-    "tipodeProyecto": {
+    "tipo": {
       "type": "string",
       "required": true,
       "maxLength": 60
     },
     "area": {
-      "model": "areas",
-      "via": "tipo_proyectos"
+      "via": "tipoProyectos",
+      "model": "areas"
     }
   }
 }

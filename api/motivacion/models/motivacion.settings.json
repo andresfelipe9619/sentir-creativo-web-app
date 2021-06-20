@@ -12,11 +12,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "idMotivacion": {
+    "internalId": {
       "type": "uid",
       "required": true
     },
-    "Nombre": {
+    "nombre": {
       "type": "string",
       "required": true,
       "maxLength": 60
