@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/antiguedads",
+      "handler": "antiguedad.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/antiguedads/count",
+      "handler": "antiguedad.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/antiguedads/:id",
+      "handler": "antiguedad.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/antiguedads",
+      "handler": "antiguedad.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/antiguedads/:id",
+      "handler": "antiguedad.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/antiguedads/:id",
+      "handler": "antiguedad.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

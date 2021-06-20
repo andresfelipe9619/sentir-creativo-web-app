@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cercanias",
+  "info": {
+    "name": "cercania"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idCercania": {
+      "type": "uid",
+      "required": true
+    },
+    "Nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "audiencia": {
+      "via": "cercania",
+      "model": "audiencia"
+    }
+  }
+}

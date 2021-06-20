@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "audiencias",
+  "info": {
+    "name": "Audiencia",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "idAudiencia": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "fechaCreacion": {
+      "type": "date",
+      "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 80
+    },
+    "email": {
+      "type": "email"
+    },
+    "celular": {
+      "type": "biginteger"
+    },
+    "organizacion": {
+      "type": "string",
+      "required": true
+    },
+    "departamento": {
+      "type": "string",
+      "required": true
+    },
+    "cargo": {
+      "type": "string",
+      "required": true
+    },
+    "ticketsAsociados": {
+      "collection": "ticket",
+      "via": "audiencias",
+      "dominant": true
+    },
+    "antiguedad": {
+      "model": "antiguedad",
+      "via": "audiencia"
+    },
+    "cercania": {
+      "model": "cercania",
+      "via": "audiencia"
+    },
+    "motivacion": {
+      "model": "motivacion",
+      "via": "audiencia"
+    },
+    "sector": {
+      "model": "sector",
+      "via": "audiencia"
+    }
+  }
+}
