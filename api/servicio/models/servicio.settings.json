@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "servicios",
+  "info": {
+    "name": "Servicio",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "slogan": {
+      "type": "string"
+    },
+    "picture": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "individual": {
+      "type": "boolean"
+    },
+    "pareja": {
+      "type": "boolean"
+    },
+    "grupos": {
+      "type": "boolean"
+    },
+    "bebes": {
+      "type": "boolean"
+    },
+    "ninos": {
+      "type": "boolean"
+    },
+    "adolescentes": {
+      "type": "boolean"
+    },
+    "adultos": {
+      "type": "boolean"
+    },
+    "sintesis": {
+      "type": "text"
+    }
+  }
+}
