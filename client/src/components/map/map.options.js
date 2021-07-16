@@ -1,17 +1,25 @@
 import L from "leaflet";
-const token =
-  "pk.eyJ1IjoiYW5kcmVzOTYxOSIsImEiOiJjanExdTFodjMwYXQyNDNuMmVvazV6eHBlIn0.kOpHKEx5EBGD8YIXmKRQWA";
-const center = new L.LatLng(3.399992, -76.516708);
-const TILE_LAYER = `https://api.mapbox.com/styles/v1/andres9619/ckhjmykyt17vf19mx0tn74dzg/tiles/256/{z}/{x}/{y}@2x?access_token=${token}`;
-const VISCOSITY = 0.5;
-const MAX_ZOOM_MAP = 18;
-const INITIAL_ZOOM = 4;
+const TILE_LAYER =
+  "http://{s}.sm.mapstack.stamen.com/" +
+  "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
+  "{z}/{x}/{y}.png";
+const TILE_LAYER_CONFIG = {
+  attribution: "Tiles &copy; Esri &mdash;",
+};
+const BOUNDS = new L.LatLngBounds(
+  new L.LatLng(-20.1470544, -78.2535974),
+  new L.LatLng(-25.1217061, -71.60004932)
+);
+const VISCOSITY = 0.1;
+const MAX_ZOOM_MAP = 14;
+const INITIAL_ZOOM = 5;
 const MAP_OPTIONS = {
-  center,
   zoom: INITIAL_ZOOM,
-  minZoom: INITIAL_ZOOM,
+  center: BOUNDS.getCenter(),
+  minZoom: INITIAL_ZOOM - 1,
   maxZoom: MAX_ZOOM_MAP,
+  preferCanvas: true,
   maxBoundsViscosity: VISCOSITY,
 };
-export { TILE_LAYER };
+export { TILE_LAYER, TILE_LAYER_CONFIG };
 export default MAP_OPTIONS;

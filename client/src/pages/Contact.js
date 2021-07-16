@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-// import Map from "../components/map/Map";
+import Map from "../components/map/Map";
 import { makeStyles } from '@material-ui/core/styles'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -181,11 +181,11 @@ export default function Contact () {
           )}
         </Formik>
       </Grid>
-      {/* <Grid item md={7}>
+      <Grid item md={12}>
         <div classes={classes.root}>
           <Map />
         </div>
-      </Grid> */}
+      </Grid>
     </Grid>
   )
 }

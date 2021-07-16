@@ -4,7 +4,7 @@ import MAP_OPTIONS, { TILE_LAYER } from "./map.options";
 import { makeStyles } from "@material-ui/core/styles";
 
 export default function Map() {
-  const myPosition = [3.399995, -76.517272];
+  const myPosition = [-23.5779732, -70.387888];
   const classes = useStyles();
 
   const initMarker = (ref) => {
