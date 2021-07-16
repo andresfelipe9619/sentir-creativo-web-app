@@ -12,15 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "internalId": {
-      "type": "string",
-      "required": true,
-      "unique": true
-    },
-    "fechaCreacion": {
-      "type": "date",
-      "required": true
-    },
     "nombre": {
       "type": "string",
       "required": true,
@@ -44,10 +35,9 @@
       "type": "string",
       "required": true
     },
-    "ticketsAsociados": {
-      "collection": "ticket",
-      "via": "audiencias",
-      "dominant": true
+    "proyectos_asociados": {
+      "via": "audiencia",
+      "collection": "ticket"
     },
     "antiguedad": {
       "via": "audiencia",

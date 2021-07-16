@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "tickets",
   "info": {
-    "name": "Ticket"
+    "name": "Proyecto",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -20,12 +21,34 @@
     "nombre": {
       "type": "string"
     },
-    "fechaCreacion": {
+    "audiencia": {
+      "via": "proyectos_asociados",
+      "model": "audiencia"
+    },
+    "servicios": {
+      "collection": "servicio",
+      "via": "proyectos",
+      "dominant": true
+    },
+    "presupuesto": {
+      "via": "proyecto",
+      "model": "presupuesto"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "avance": {
+      "type": "decimal"
+    },
+    "tipoProyecto": {
+      "model": "tipo-proyectos",
+      "via": "proyectos"
+    },
+    "fechaInicio": {
       "type": "datetime"
     },
-    "audiencias": {
-      "via": "ticketsAsociados",
-      "collection": "audiencia"
+    "fechaFin": {
+      "type": "datetime"
     }
   }
 }
