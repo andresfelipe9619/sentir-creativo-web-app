@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "internalId": {
-      "type": "string",
-      "required": true,
-      "maxLength": 15,
-      "unique": true
-    },
     "area": {
       "type": "string",
       "required": true

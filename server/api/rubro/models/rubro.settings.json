@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rubros",
+  "info": {
+    "name": "rubro"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "emailGroup": {
+      "type": "email"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    }
+  }
+}

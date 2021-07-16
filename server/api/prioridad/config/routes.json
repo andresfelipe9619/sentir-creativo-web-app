@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/prioridads",
+      "handler": "prioridad.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/prioridads/count",
+      "handler": "prioridad.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/prioridads/:id",
+      "handler": "prioridad.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/prioridads",
+      "handler": "prioridad.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/prioridads/:id",
+      "handler": "prioridad.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/prioridads/:id",
+      "handler": "prioridad.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "internalId": {
-      "type": "uid",
-      "required": true
-    },
     "nombre": {
       "type": "string",
       "required": true,
