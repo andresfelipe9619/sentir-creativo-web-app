@@ -14,10 +14,6 @@
     "nombre": {
       "type": "string"
     },
-    "proyecto": {
-      "via": "presupuesto",
-      "model": "ticket"
-    },
     "plan": {
       "model": "plan",
       "via": "presupuestos"

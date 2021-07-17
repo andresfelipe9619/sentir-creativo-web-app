@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proyectos",
+  "info": {
+    "name": "proyecto"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "formato": {
+      "type": "string"
+    },
+    "impacto": {
+      "type": "string"
+    },
+    "fechaInicio": {
+      "type": "datetime"
+    },
+    "fechaFin": {
+      "type": "datetime"
+    },
+    "avance": {
+      "type": "decimal"
+    },
+    "tipoProyecto": {
+      "model": "tipo-proyectos",
+      "via": "proyectos"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "audiencia": {
+      "model": "audiencia",
+      "via": "proyectos"
+    }
+  }
+}

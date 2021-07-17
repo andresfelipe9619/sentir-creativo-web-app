@@ -23,7 +23,7 @@
     },
     "proyectos": {
       "via": "tipoProyecto",
-      "collection": "ticket"
+      "collection": "proyecto"
     }
   }
 }
