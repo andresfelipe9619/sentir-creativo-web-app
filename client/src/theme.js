@@ -1,57 +1,51 @@
-import { useState } from "react";
-
-const primaryColor = "#f44336";
-const secondaryColor = "#2979ff";
+import { useState } from 'react'
+const primaryColor = '#ff1744'
+const secondaryColor = '#2196f3'
 
 const Palette = {
-  type: "light",
+  type: 'light',
   primary: {
-    main: primaryColor,
+    main: primaryColor
   },
   secondary: {
-    main: secondaryColor,
+    main: secondaryColor
   },
   success: {
-    main: "#5cb860",
+    main: '#5cb860'
   },
   warning: {
-    main: "#ffa21a",
+    main: '#ffa21a'
   },
   error: {
-    main: "#f55a4e",
+    main: '#f55a4e'
   },
   info: {
-    main: "#00d3ee",
-  },
-};
-
-const Typography = {
-  fontFamily: ["Montserrat", "open-sans"].join(","),
-};
+    main: '#00d3ee'
+  }
+}
 
 const Theme = {
-  palette: Palette,
-  typography: Typography,
-};
+  palette: Palette
+}
 
-export function useDarkMode() {
-  const [theme, setTheme] = useState(Theme);
+export function useDarkMode () {
+  const [theme, setTheme] = useState(Theme)
   const {
-    palette: { type },
-  } = theme;
+    palette: { type }
+  } = theme
 
   const toggleDarkMode = () => {
     const updatedTheme = {
       ...theme,
       palette: {
         ...theme.palette,
-        type: type === "light" ? "dark" : "light",
-      },
-    };
-    setTheme(updatedTheme);
-  };
+        type: type === 'light' ? 'dark' : 'light'
+      }
+    }
+    setTheme(updatedTheme)
+  }
 
-  return [theme, toggleDarkMode];
+  return [theme, toggleDarkMode]
 }
 
-export default Theme;
+export default Theme

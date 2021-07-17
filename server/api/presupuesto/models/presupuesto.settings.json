@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "presupuestos",
+  "info": {
+    "name": "presupuesto"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "proyecto": {
+      "via": "presupuesto",
+      "model": "ticket"
+    },
+    "plan": {
+      "model": "plan",
+      "via": "presupuestos"
+    }
+  }
+}

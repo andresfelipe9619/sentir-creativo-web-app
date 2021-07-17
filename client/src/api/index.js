@@ -1,8 +1,7 @@
 import axios from 'axios'
-const API_ROOT = 'http://ec2-13-58-59-70.us-east-2.compute.amazonaws.com:1337'
 
 const server = axios.create({
-  baseURL: API_ROOT
+  baseURL: process.env.REACT_APP_API_ROOT
 })
 
 let token = null
@@ -37,26 +36,34 @@ const Auth = {
   register: user => serverRequests.post('/user', user)
 }
 
-const Ticket = {
-  getAll: () => serverRequests.get(`/tickets`),
-  get: id => serverRequests.get(`/tickets/${id}`),
-  create: account => serverRequests.post('/tickets', account),
-  update: account => serverRequests.put(`/tickets/${account._id}`, account),
-  delete: id => serverRequests.del(`/tickets/${id}`)
+const Project = {
+  getAll: () => serverRequests.get(`/proyectos`),
+  get: id => serverRequests.get(`/proyectos/${id}`),
+  create: project => serverRequests.post('/proyectos', project),
+  update: project => serverRequests.put(`/proyectos/${project._id}`, project),
+  delete: id => serverRequests.del(`/proyectos/${id}`)
 }
 
 const Service = {
-  getAll: () => serverRequests.get(`/services`),
-  get: id => serverRequests.get(`/services/${id}`),
-  create: account => serverRequests.post('/services', account),
-  update: account => serverRequests.put(`/services/${account._id}`, account),
-  delete: id => serverRequests.del(`/services/${id}`)
+  getAll: () => serverRequests.get(`/servicios`),
+  get: id => serverRequests.get(`/servicios/${id}`),
+  create: service => serverRequests.post('/servicios', service),
+  update: service => serverRequests.put(`/servicios/${service._id}`, service),
+  delete: id => serverRequests.del(`/servicios/${id}`)
+}
+
+const Audience = {
+  getAll: () => serverRequests.get(`/audiencias`),
+  get: id => serverRequests.get(`/audiencias/${id}`),
+  create: audience => serverRequests.post('/audiencias', audience),
+  update: audience => serverRequests.put(`/audiencias/${audience._id}`, audience),
+  delete: id => serverRequests.del(`/audiencias/${id}`)
 }
 
 const User = {
   getAll: () => serverRequests.get(`/user`),
-  get: id => serverRequests.get(`/user/${id}`),
   profile: () => serverRequests.get('/profile'),
+  get: id => serverRequests.get(`/user/${id}`),
   delete: id => serverRequests.del(`/user/${id}`),
   update: user => serverRequests.put(`/user/${user._id}`, user)
 }
@@ -64,7 +71,8 @@ const User = {
 const API = {
   Auth,
   User,
-  Ticket,
+  Project,
+  Audience,
   Service,
   setToken
 }
