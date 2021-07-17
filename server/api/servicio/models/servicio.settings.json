@@ -54,13 +54,14 @@
     "sintesis": {
       "type": "text"
     },
-    "proyectos": {
-      "via": "servicios",
-      "collection": "ticket"
-    },
     "planes": {
       "via": "servicio",
       "collection": "servicio-plan"
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "servicios",
+      "dominant": true
     }
   }
 }

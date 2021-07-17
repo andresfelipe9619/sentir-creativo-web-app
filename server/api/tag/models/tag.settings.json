@@ -26,6 +26,10 @@
     },
     "prioridad": {
       "model": "prioridad"
+    },
+    "servicios": {
+      "via": "tags",
+      "collection": "servicio"
     }
   }
 }

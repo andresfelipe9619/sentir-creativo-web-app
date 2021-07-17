@@ -12,8 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "servicio": {
-      "model": "servicio",
-      "via": "planes"
+      "via": "planes",
+      "model": "servicio"
     },
     "plan": {
       "model": "plan",
