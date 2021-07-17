@@ -43,6 +43,10 @@
     },
     "focus": {
       "type": "string"
+    },
+    "servicios": {
+      "via": "area",
+      "collection": "servicio"
     }
   }
 }
