@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "presupuestos",
+  "collectionName": "sub_tipo_proyectos",
   "info": {
-    "name": "presupuesto"
+    "name": "SubTipoProyectos"
   },
   "options": {
     "increments": true,
@@ -11,16 +11,15 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
+    "subTipo": {
       "type": "string"
     },
-    "plan": {
-      "model": "plan",
-      "via": "presupuestos"
+    "icon": {
+      "type": "string"
     },
-    "proyecto": {
-      "via": "presupuestos",
-      "model": "proyecto"
+    "tipo_proyecto": {
+      "via": "sub_tipo_proyectos",
+      "model": "tipo-proyectos"
     }
   }
 }
