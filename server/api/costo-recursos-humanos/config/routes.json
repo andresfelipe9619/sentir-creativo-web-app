@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/costo-recursos-humanos",
+      "handler": "costo-recursos-humanos.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/costo-recursos-humanos/count",
+      "handler": "costo-recursos-humanos.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/costo-recursos-humanos/:id",
+      "handler": "costo-recursos-humanos.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/costo-recursos-humanos",
+      "handler": "costo-recursos-humanos.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/costo-recursos-humanos/:id",
+      "handler": "costo-recursos-humanos.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/costo-recursos-humanos/:id",
+      "handler": "costo-recursos-humanos.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
