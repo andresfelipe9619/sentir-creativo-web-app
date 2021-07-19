@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "plans",
   "info": {
-    "name": "Plan"
+    "name": "Plan",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -21,6 +22,10 @@
     "presupuestos": {
       "via": "plan",
       "collection": "presupuesto"
+    },
+    "requerimientos": {
+      "collection": "requerimientos",
+      "via": "planRequerimientos"
     }
   }
 }

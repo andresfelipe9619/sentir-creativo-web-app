@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_de_requerimientos",
+  "info": {
+    "name": "TipoDeRequerimiento"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "requerimiento": {
+      "via": "tipoDeRequerimiento",
+      "model": "requerimientos"
+    }
+  }
+}
