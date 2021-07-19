@@ -24,6 +24,13 @@
     "proyectos": {
       "via": "tipoProyecto",
       "collection": "proyecto"
+    },
+    "sub_tipo_proyectos": {
+      "collection": "sub-tipo-proyectos",
+      "via": "tipo_proyecto"
+    },
+    "icon": {
+      "type": "string"
     }
   }
 }
