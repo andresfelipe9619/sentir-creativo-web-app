@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "requerimientos",
+  "info": {
+    "name": "Requerimiento"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}
