@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "presupuestos",
+  "collectionName": "sub_tipo_costo_recursos_humanos",
   "info": {
-    "name": "presupuesto"
+    "name": "SubTipoCostoRecursosHumanos"
   },
   "options": {
     "increments": true,
@@ -13,14 +13,6 @@
   "attributes": {
     "nombre": {
       "type": "string"
-    },
-    "plan": {
-      "via": "presupuestos",
-      "model": "plan"
-    },
-    "proyecto": {
-      "via": "presupuestos",
-      "model": "proyecto"
     }
   }
 }

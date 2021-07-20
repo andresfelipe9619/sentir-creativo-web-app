@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "costo_logisticas",
+  "info": {
+    "name": "CostoLogistica",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subTipoCostoLogistica": {
+      "collection": "sub-tipo-costo-logistica",
+      "via": "subTipoCosto"
+    },
+    "cantidadVeces": {
+      "type": "integer"
+    },
+    "cantidadUnidades": {
+      "type": "integer"
+    },
+    "valorUnitario": {
+      "type": "float"
+    },
+    "descuento": {
+      "type": "decimal"
+    },
+    "Moneda": {
+      "collection": "moneda",
+      "via": "UnidadMonetaria"
+    }
+  }
+}
