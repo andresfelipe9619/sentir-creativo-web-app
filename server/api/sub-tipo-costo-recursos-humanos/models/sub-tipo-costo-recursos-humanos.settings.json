@@ -13,10 +13,6 @@
   "attributes": {
     "nombre": {
       "type": "string"
-    },
-    "subTipoCostoRecursoHumano": {
-      "via": "subTipoCostoRecursosHumanos",
-      "model": "costo-recursos-humanos"
     }
   }
 }
