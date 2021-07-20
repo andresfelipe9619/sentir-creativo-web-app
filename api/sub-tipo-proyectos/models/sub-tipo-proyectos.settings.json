@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "sub_tipo_proyectos",
   "info": {
-    "name": "SubTipoProyectos"
+    "name": "SubTipoProyecto",
+    "description": ""
   },
   "options": {
     "increments": true,
