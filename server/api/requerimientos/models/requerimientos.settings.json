@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "requerimientos",
+  "info": {
+    "name": "Requerimientos",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Item": {
+      "type": "string"
+    },
+    "tipoDeRequerimiento": {
+      "collection": "tipo-de-requerimiento",
+      "via": "requerimiento"
+    },
+    "planRequerimientos": {
+      "via": "requerimientos",
+      "model": "plan"
+    }
+  }
+}

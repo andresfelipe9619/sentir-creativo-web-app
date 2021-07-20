@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "presupuestos",
+  "collectionName": "sub_tipo_costo_logisticas",
   "info": {
-    "name": "presupuesto"
+    "name": "SubTipoCostoLogistica"
   },
   "options": {
     "increments": true,
@@ -14,13 +14,9 @@
     "nombre": {
       "type": "string"
     },
-    "plan": {
-      "via": "presupuestos",
-      "model": "plan"
-    },
-    "proyecto": {
-      "via": "presupuestos",
-      "model": "proyecto"
+    "subTipoCosto": {
+      "via": "subTipoCostoLogistica",
+      "model": "costo-logistica"
     }
   }
 }
