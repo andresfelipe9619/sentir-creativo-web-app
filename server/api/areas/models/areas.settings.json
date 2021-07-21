@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "areas",
   "info": {
-    "name": "Areas",
+    "name": "Area",
     "description": ""
   },
   "options": {
@@ -12,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "area": {
+    "nombre": {
       "type": "string",
       "required": true
     },
@@ -30,46 +30,23 @@
       "required": true,
       "maxLength": 20
     },
-    "imagen": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
-    },
     "slogan": {
       "type": "string",
       "required": true,
       "maxLength": 60
     },
-    "focus": {
-      "type": "enumeration",
-      "enum": [
-        "Alta",
-        "Media",
-        "Baja"
-      ],
-      "default": "Baja",
-      "required": true
+    "imagen": {
+      "type": "text"
     },
     "prioridad": {
-      "type": "enumeration",
-      "enum": [
-        "Alta",
-        "Media",
-        "Baja"
-      ],
-      "default": "Baja",
-      "required": true
+      "model": "prioridad"
     },
-    "tipoProyectos": {
+    "focus": {
+      "type": "string"
+    },
+    "servicios": {
       "via": "area",
-      "collection": "tipo-proyectos"
+      "collection": "servicio"
     }
   }
 }

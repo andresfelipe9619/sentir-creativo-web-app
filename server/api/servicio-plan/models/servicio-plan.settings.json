@@ -16,8 +16,8 @@
       "model": "servicio"
     },
     "plan": {
-      "model": "plan",
-      "via": "servicios"
+      "via": "servicios",
+      "model": "plan"
     }
   }
 }
