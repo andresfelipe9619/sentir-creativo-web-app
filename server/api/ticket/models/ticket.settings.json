@@ -26,8 +26,8 @@
       "model": "audiencia"
     },
     "servicios": {
-      "collection": "servicio",
       "via": "proyectos",
+      "collection": "servicio",
       "dominant": true
     },
     "presupuesto": {

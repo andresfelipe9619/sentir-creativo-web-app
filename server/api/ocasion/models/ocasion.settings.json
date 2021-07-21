@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "servicio_plans",
+  "collectionName": "ocasions",
   "info": {
-    "name": "servicioPlan"
+    "name": "ocasion"
   },
   "options": {
     "increments": true,
@@ -11,13 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "servicio": {
-      "via": "planes",
-      "model": "servicio"
+    "nombre": {
+      "type": "string"
     },
-    "plan": {
-      "model": "plan",
-      "via": "servicios"
+    "servicios": {
+      "via": "ocasions",
+      "collection": "servicio"
     }
   }
 }

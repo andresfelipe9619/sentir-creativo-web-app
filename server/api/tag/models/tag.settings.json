@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tags",
+  "info": {
+    "name": "tag"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "colorPrimario": {
+      "type": "string"
+    },
+    "colorSecundario": {
+      "type": "string"
+    },
+    "servicios": {
+      "via": "tags",
+      "collection": "servicio"
+    }
+  }
+}
