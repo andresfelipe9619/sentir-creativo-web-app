@@ -22,10 +22,6 @@
     "presupuestos": {
       "via": "plan",
       "collection": "presupuesto"
-    },
-    "requerimientos": {
-      "collection": "requerimientos",
-      "via": "planRequerimientos"
     }
   }
 }

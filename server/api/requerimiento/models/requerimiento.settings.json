@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "sub_tipo_costo_recursos_humanos",
+  "collectionName": "requerimientos",
   "info": {
-    "name": "SubTipoCostoRecursosHumanos"
+    "name": "requerimiento"
   },
   "options": {
     "increments": true,

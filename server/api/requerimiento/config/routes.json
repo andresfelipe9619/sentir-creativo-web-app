@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/bonos",
-      "handler": "bonos.find",
+      "path": "/requerimientos",
+      "handler": "requerimiento.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/bonos/count",
-      "handler": "bonos.count",
+      "path": "/requerimientos/count",
+      "handler": "requerimiento.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/bonos/:id",
-      "handler": "bonos.findOne",
+      "path": "/requerimientos/:id",
+      "handler": "requerimiento.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/bonos",
-      "handler": "bonos.create",
+      "path": "/requerimientos",
+      "handler": "requerimiento.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/bonos/:id",
-      "handler": "bonos.update",
+      "path": "/requerimientos/:id",
+      "handler": "requerimiento.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/bonos/:id",
-      "handler": "bonos.delete",
+      "path": "/requerimientos/:id",
+      "handler": "requerimiento.delete",
       "config": {
         "policies": []
       }
