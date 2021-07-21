@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/ocasions",
+      "handler": "ocasion.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/ocasions/count",
+      "handler": "ocasion.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/ocasions/:id",
+      "handler": "ocasion.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/ocasions",
+      "handler": "ocasion.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/ocasions/:id",
+      "handler": "ocasion.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/ocasions/:id",
+      "handler": "ocasion.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
