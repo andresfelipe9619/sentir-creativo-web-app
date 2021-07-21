@@ -54,6 +54,27 @@
     "proyectos": {
       "via": "audiencia",
       "collection": "proyecto"
+    },
+    "photo": {
+      "type": "string"
+    },
+    "apellido": {
+      "type": "string"
+    },
+    "profesion": {
+      "type": "string"
+    },
+    "estadoAudiencias": {
+      "collection": "estado-audiencia",
+      "via": "audiencia"
+    },
+    "notasAudiencia": {
+      "collection": "notas-audiencia",
+      "via": "audienciaNotas"
+    },
+    "bitacoraAudiencia": {
+      "collection": "bitacora-audiencia",
+      "via": "audienciaBitacora"
     }
   }
 }

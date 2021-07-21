@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/notas-organizaciones",
+      "handler": "notas-organizaciones.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/notas-organizaciones/count",
+      "handler": "notas-organizaciones.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/notas-organizaciones/:id",
+      "handler": "notas-organizaciones.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/notas-organizaciones",
+      "handler": "notas-organizaciones.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/notas-organizaciones/:id",
+      "handler": "notas-organizaciones.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/notas-organizaciones/:id",
+      "handler": "notas-organizaciones.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

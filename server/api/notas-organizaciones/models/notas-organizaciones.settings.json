@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "notas_audiencias",
+  "collectionName": "notas_organizaciones",
   "info": {
-    "name": "NotasAudiencia"
+    "name": "notasOrganizaciones"
   },
   "options": {
     "increments": true,
@@ -12,11 +12,11 @@
   "pluginOptions": {},
   "attributes": {
     "nota": {
-      "type": "text"
+      "type": "string"
     },
-    "audienciaNotas": {
-      "via": "notasAudiencia",
-      "model": "audiencia"
+    "notaOrganizacion": {
+      "via": "nota",
+      "model": "organizacion"
     }
   }
 }

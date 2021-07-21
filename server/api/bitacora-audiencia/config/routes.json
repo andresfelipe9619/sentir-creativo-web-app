@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/bitacora-audiencias",
+      "handler": "bitacora-audiencia.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/bitacora-audiencias/count",
+      "handler": "bitacora-audiencia.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/bitacora-audiencias/:id",
+      "handler": "bitacora-audiencia.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/bitacora-audiencias",
+      "handler": "bitacora-audiencia.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/bitacora-audiencias/:id",
+      "handler": "bitacora-audiencia.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/bitacora-audiencias/:id",
+      "handler": "bitacora-audiencia.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
