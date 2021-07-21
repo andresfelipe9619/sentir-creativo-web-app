@@ -38,8 +38,8 @@
       "type": "text"
     },
     "audiencia": {
-      "model": "audiencia",
-      "via": "proyectos"
+      "via": "proyectos",
+      "model": "audiencia"
     },
     "servicios": {
       "collection": "proyecto-servicio",

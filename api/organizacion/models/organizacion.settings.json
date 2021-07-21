@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "organizacions",
   "info": {
-    "name": "Organizacion"
+    "name": "Organizacion",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -12,6 +13,33 @@
   "pluginOptions": {},
   "attributes": {
     "nombre": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "twitter": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "tamano": {
+      "collection": "tamano",
+      "via": "tamanoOrganizacion"
+    },
+    "rubro": {
+      "collection": "rubro",
+      "via": "rubroOrganizacion"
+    },
+    "nota": {
+      "collection": "notas-organizaciones",
+      "via": "notaOrganizacion"
+    },
+    "historial": {
       "type": "string"
     }
   }

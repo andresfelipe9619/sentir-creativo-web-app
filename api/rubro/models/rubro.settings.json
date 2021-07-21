@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "rubros",
   "info": {
-    "name": "rubro"
+    "name": "rubro",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -25,6 +26,18 @@
     },
     "image": {
       "type": "string"
+    },
+    "prioridad": {
+      "type": "enumeration",
+      "enum": [
+        "Alta",
+        "Media",
+        "Baja"
+      ]
+    },
+    "rubroOrganizacion": {
+      "via": "rubro",
+      "model": "organizacion"
     }
   }
 }

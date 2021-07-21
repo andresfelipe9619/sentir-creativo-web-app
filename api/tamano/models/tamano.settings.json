@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "estado_audiencias",
+  "collectionName": "tamanos",
   "info": {
-    "name": "EstadoAudiencia"
+    "name": "tamano"
   },
   "options": {
     "increments": true,
@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombreEstado": {
+    "nombre": {
       "type": "string"
     },
     "prioridad": {
@@ -22,18 +22,9 @@
         "Baja"
       ]
     },
-    "color": {
-      "type": "string"
-    },
-    "image": {
-      "type": "string"
-    },
-    "icon": {
-      "type": "string"
-    },
-    "audiencia": {
-      "via": "estadoAudiencias",
-      "model": "audiencia"
+    "tamanoOrganizacion": {
+      "via": "tamano",
+      "model": "organizacion"
     }
   }
 }
