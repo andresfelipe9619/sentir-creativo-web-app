@@ -21,13 +21,16 @@
       "required": true,
       "maxLength": 60
     },
-    "area": {
-      "via": "tipoProyectos",
-      "model": "areas"
-    },
     "proyectos": {
       "via": "tipoProyecto",
-      "collection": "ticket"
+      "collection": "proyecto"
+    },
+    "sub_tipo_proyectos": {
+      "via": "tipo_proyecto",
+      "collection": "sub-tipo-proyectos"
+    },
+    "icon": {
+      "type": "string"
     }
   }
 }

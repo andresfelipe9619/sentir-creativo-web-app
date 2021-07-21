@@ -35,10 +35,6 @@
       "type": "string",
       "required": true
     },
-    "proyectos_asociados": {
-      "via": "audiencia",
-      "collection": "ticket"
-    },
     "antiguedad": {
       "via": "audiencia",
       "model": "antiguedad"
@@ -54,6 +50,10 @@
     "sector": {
       "via": "audiencia",
       "model": "sector"
+    },
+    "proyectos": {
+      "via": "audiencia",
+      "collection": "proyecto"
     }
   }
 }

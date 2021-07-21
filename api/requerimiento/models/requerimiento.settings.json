@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "presupuestos",
+  "collectionName": "requerimientos",
   "info": {
-    "name": "presupuesto"
+    "name": "requerimiento"
   },
   "options": {
     "increments": true,
@@ -13,14 +13,6 @@
   "attributes": {
     "nombre": {
       "type": "string"
-    },
-    "plan": {
-      "via": "presupuestos",
-      "model": "plan"
-    },
-    "proyecto": {
-      "via": "presupuestos",
-      "model": "proyecto"
     }
   }
 }

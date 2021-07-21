@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "plans",
+  "collectionName": "proyecto_servicios",
   "info": {
-    "name": "Plan",
-    "description": ""
+    "name": "ProyectoServicio"
   },
   "options": {
     "increments": true,
@@ -15,13 +14,15 @@
     "nombre": {
       "type": "string"
     },
-    "servicios": {
-      "via": "plan",
-      "collection": "servicio-plan"
+    "status": {
+      "type": "string"
     },
-    "presupuestos": {
-      "via": "plan",
-      "collection": "presupuesto"
+    "tags": {
+      "type": "string"
+    },
+    "proyectoServicio": {
+      "via": "servicios",
+      "model": "proyecto"
     }
   }
 }

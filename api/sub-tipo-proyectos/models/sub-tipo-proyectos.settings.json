@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "plans",
+  "collectionName": "sub_tipo_proyectos",
   "info": {
-    "name": "Plan",
+    "name": "SubTipoProyecto",
     "description": ""
   },
   "options": {
@@ -12,16 +12,15 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
+    "subTipo": {
       "type": "string"
     },
-    "servicios": {
-      "via": "plan",
-      "collection": "servicio-plan"
+    "icon": {
+      "type": "string"
     },
-    "presupuestos": {
-      "via": "plan",
-      "collection": "presupuesto"
+    "tipo_proyecto": {
+      "via": "sub_tipo_proyectos",
+      "model": "tipo-proyectos"
     }
   }
 }

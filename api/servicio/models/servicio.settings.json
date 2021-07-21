@@ -18,24 +18,8 @@
     "slogan": {
       "type": "string"
     },
-    "picture": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
-    },
     "sintesis": {
       "type": "text"
-    },
-    "proyectos": {
-      "via": "servicios",
-      "collection": "ticket"
     },
     "planes": {
       "via": "servicio",
@@ -74,6 +58,13 @@
     },
     "publico_objetivos": {
       "collection": "publico-objetivo"
+    },
+    "area": {
+      "model": "areas",
+      "via": "servicios"
+    },
+    "imagen": {
+      "type": "text"
     }
   }
 }
