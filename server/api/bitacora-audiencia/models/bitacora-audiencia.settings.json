@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "notas_audiencias",
+  "collectionName": "bitacora_audiencias",
   "info": {
-    "name": "NotasAudiencia"
+    "name": "BitacoraAudiencia"
   },
   "options": {
     "increments": true,
@@ -11,11 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nota": {
-      "type": "text"
+    "bitacora": {
+      "type": "string"
     },
-    "audienciaNotas": {
-      "via": "notasAudiencia",
+    "audienciaBitacora": {
+      "via": "bitacoraAudiencia",
       "model": "audiencia"
     }
   }
