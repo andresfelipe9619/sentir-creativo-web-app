@@ -23,10 +23,6 @@
     "celular": {
       "type": "biginteger"
     },
-    "organizacion": {
-      "type": "string",
-      "required": true
-    },
     "departamento": {
       "type": "string",
       "required": true
@@ -36,19 +32,15 @@
       "required": true
     },
     "antiguedad": {
-      "via": "audiencia",
       "model": "antiguedad"
     },
     "cercania": {
-      "via": "audiencia",
       "model": "cercania"
     },
     "motivacion": {
-      "via": "audiencia",
       "model": "motivacion"
     },
     "sector": {
-      "via": "audiencia",
       "model": "sector"
     },
     "proyectos": {
@@ -64,17 +56,16 @@
     "profesion": {
       "type": "string"
     },
-    "estadoAudiencias": {
-      "collection": "estado-audiencia",
+    "estado": {
+      "model": "estado-audiencia"
+    },
+    "bitacoras": {
+      "collection": "bitacora-audiencia",
       "via": "audiencia"
     },
-    "notasAudiencia": {
+    "notas": {
       "collection": "notas-audiencia",
-      "via": "audienciaNotas"
-    },
-    "bitacoraAudiencia": {
-      "collection": "bitacora-audiencia",
-      "via": "audienciaBitacora"
+      "via": "audiencia"
     }
   }
 }
