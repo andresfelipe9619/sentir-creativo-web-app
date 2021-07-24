@@ -18,27 +18,6 @@
     "slogan": {
       "type": "string"
     },
-    "individual": {
-      "type": "boolean"
-    },
-    "pareja": {
-      "type": "boolean"
-    },
-    "grupos": {
-      "type": "boolean"
-    },
-    "bebes": {
-      "type": "boolean"
-    },
-    "ninos": {
-      "type": "boolean"
-    },
-    "adolescentes": {
-      "type": "boolean"
-    },
-    "adultos": {
-      "type": "boolean"
-    },
     "sintesis": {
       "type": "text"
     },
@@ -46,10 +25,39 @@
       "via": "servicio",
       "collection": "servicio-plan"
     },
+    "descripcion": {
+      "type": "text"
+    },
     "tags": {
       "collection": "tag",
       "via": "servicios",
       "dominant": true
+    },
+    "tecnica_artisticas": {
+      "collection": "tecnica-artistica",
+      "via": "servicios",
+      "dominant": true
+    },
+    "ocasions": {
+      "collection": "ocasion",
+      "via": "servicios",
+      "dominant": true
+    },
+    "colorPrimario": {
+      "type": "string"
+    },
+    "colorSecundario": {
+      "type": "string"
+    },
+    "prioridad": {
+      "model": "prioridad"
+    },
+    "notas": {
+      "collection": "nota",
+      "via": "servicio"
+    },
+    "publico_objetivos": {
+      "collection": "publico-objetivo"
     },
     "area": {
       "model": "areas",
