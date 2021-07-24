@@ -15,7 +15,10 @@
     "nombre": {
       "type": "string"
     },
-    "color": {
+    "colorPrimario": {
+      "type": "string"
+    },
+    "colorSecundario": {
       "type": "string"
     },
     "imagen": {
