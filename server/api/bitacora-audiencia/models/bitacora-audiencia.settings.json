@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "bitacora_audiencias",
   "info": {
-    "name": "BitacoraAudiencia"
+    "name": "BitacoraAudiencia",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -14,8 +15,8 @@
     "bitacora": {
       "type": "string"
     },
-    "audienciaBitacora": {
-      "via": "bitacoraAudiencia",
+    "audiencia": {
+      "via": "bitacoras",
       "model": "audiencia"
     }
   }

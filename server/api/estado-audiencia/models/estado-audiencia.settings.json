@@ -30,10 +30,6 @@
     },
     "icon": {
       "type": "string"
-    },
-    "audiencia": {
-      "via": "estadoAudiencias",
-      "model": "audiencia"
     }
   }
 }

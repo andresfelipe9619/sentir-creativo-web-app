@@ -20,10 +20,6 @@
       "type": "string",
       "required": true,
       "maxLength": 60
-    },
-    "audiencia": {
-      "via": "sector",
-      "model": "audiencia"
     }
   }
 }
