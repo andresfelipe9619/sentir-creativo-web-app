@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "ocasions",
+  "collectionName": "sugerencias",
   "info": {
-    "name": "ocasion"
+    "name": "sugerencia"
   },
   "options": {
     "increments": true,
@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
+    "descripcion": {
       "type": "string"
     }
   }
