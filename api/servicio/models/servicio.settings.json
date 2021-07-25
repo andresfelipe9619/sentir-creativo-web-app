@@ -29,19 +29,13 @@
       "type": "text"
     },
     "tags": {
-      "collection": "tag",
-      "via": "servicios",
-      "dominant": true
+      "collection": "tag"
     },
     "tecnica_artisticas": {
-      "collection": "tecnica-artistica",
-      "via": "servicios",
-      "dominant": true
+      "collection": "tecnica-artistica"
     },
     "ocasions": {
-      "collection": "ocasion",
-      "via": "servicios",
-      "dominant": true
+      "collection": "ocasion"
     },
     "colorPrimario": {
       "type": "string"
@@ -65,6 +59,12 @@
     },
     "imagen": {
       "type": "text"
+    },
+    "condicions": {
+      "collection": "condicion"
+    },
+    "sugerencias": {
+      "collection": "sugerencia"
     }
   }
 }
