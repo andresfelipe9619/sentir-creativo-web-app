@@ -13,10 +13,6 @@
   "attributes": {
     "nombre": {
       "type": "string"
-    },
-    "servicios": {
-      "via": "tecnica_artisticas",
-      "collection": "servicio"
     }
   }
 }
