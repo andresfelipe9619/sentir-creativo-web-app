@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "plans",
+  "collectionName": "tipo_requerimientos",
   "info": {
-    "name": "Plan",
-    "description": ""
+    "name": "tipoRequerimiento"
   },
   "options": {
     "increments": true,
@@ -14,10 +13,6 @@
   "attributes": {
     "nombre": {
       "type": "string"
-    },
-    "servicios": {
-      "via": "plan",
-      "collection": "servicio-plan"
     }
   }
 }
