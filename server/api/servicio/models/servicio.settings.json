@@ -25,9 +25,6 @@
       "via": "servicio",
       "collection": "servicio-plan"
     },
-    "descripcion": {
-      "type": "text"
-    },
     "tags": {
       "collection": "tag"
     },

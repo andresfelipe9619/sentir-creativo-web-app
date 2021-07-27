@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/proyecto-servicios",
-      "handler": "proyecto-servicio.find",
+      "path": "/tipo-requerimientos",
+      "handler": "tipo-requerimiento.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/proyecto-servicios/count",
-      "handler": "proyecto-servicio.count",
+      "path": "/tipo-requerimientos/count",
+      "handler": "tipo-requerimiento.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/proyecto-servicios/:id",
-      "handler": "proyecto-servicio.findOne",
+      "path": "/tipo-requerimientos/:id",
+      "handler": "tipo-requerimiento.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/proyecto-servicios",
-      "handler": "proyecto-servicio.create",
+      "path": "/tipo-requerimientos",
+      "handler": "tipo-requerimiento.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/proyecto-servicios/:id",
-      "handler": "proyecto-servicio.update",
+      "path": "/tipo-requerimientos/:id",
+      "handler": "tipo-requerimiento.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/proyecto-servicios/:id",
-      "handler": "proyecto-servicio.delete",
+      "path": "/tipo-requerimientos/:id",
+      "handler": "tipo-requerimiento.delete",
       "config": {
         "policies": []
       }

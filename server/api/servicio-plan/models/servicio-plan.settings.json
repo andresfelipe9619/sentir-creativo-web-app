@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "servicio_plans",
   "info": {
-    "name": "servicioPlan"
+    "name": "servicioPlan",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -18,6 +19,13 @@
     "plan": {
       "via": "servicios",
       "model": "plan"
+    },
+    "presupuestos": {
+      "via": "servicioPlan",
+      "collection": "presupuesto"
+    },
+    "requerimientos": {
+      "collection": "requerimiento"
     }
   }
 }
