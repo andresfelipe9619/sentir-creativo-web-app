@@ -16,10 +16,6 @@
       "type": "string",
       "required": true,
       "maxLength": 40
-    },
-    "audiencia": {
-      "via": "antiguedad",
-      "model": "audiencia"
     }
   }
 }

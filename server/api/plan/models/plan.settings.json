@@ -18,10 +18,6 @@
     "servicios": {
       "via": "plan",
       "collection": "servicio-plan"
-    },
-    "presupuestos": {
-      "via": "plan",
-      "collection": "presupuesto"
     }
   }
 }

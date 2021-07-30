@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "ocasions",
+  "collectionName": "tipo_requerimientos",
   "info": {
-    "name": "ocasion"
+    "name": "tipoRequerimiento"
   },
   "options": {
     "increments": true,

@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/proyecto-servicios",
-      "handler": "proyecto-servicio.find",
+      "path": "/condicions",
+      "handler": "condicion.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/proyecto-servicios/count",
-      "handler": "proyecto-servicio.count",
+      "path": "/condicions/count",
+      "handler": "condicion.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/proyecto-servicios/:id",
-      "handler": "proyecto-servicio.findOne",
+      "path": "/condicions/:id",
+      "handler": "condicion.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/proyecto-servicios",
-      "handler": "proyecto-servicio.create",
+      "path": "/condicions",
+      "handler": "condicion.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/proyecto-servicios/:id",
-      "handler": "proyecto-servicio.update",
+      "path": "/condicions/:id",
+      "handler": "condicion.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/proyecto-servicios/:id",
-      "handler": "proyecto-servicio.delete",
+      "path": "/condicions/:id",
+      "handler": "condicion.delete",
       "config": {
         "policies": []
       }
