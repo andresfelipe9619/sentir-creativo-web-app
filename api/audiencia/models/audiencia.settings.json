@@ -40,9 +40,6 @@
     "motivacion": {
       "model": "motivacion"
     },
-    "sector": {
-      "model": "sector"
-    },
     "proyectos": {
       "via": "audiencia",
       "collection": "proyecto"
@@ -66,6 +63,14 @@
     "notas": {
       "collection": "notas-audiencia",
       "via": "audiencia"
+    },
+    "organizaciones": {
+      "collection": "organizacion",
+      "via": "audienciaOrganizacion"
+    },
+    "intereses": {
+      "collection": "intereses",
+      "via": "audienciaIntereses"
     }
   }
 }

@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "comentarios",
+  "collectionName": "scrum_teams",
   "info": {
-    "name": "comentario",
-    "description": ""
+    "name": "scrumTeam"
   },
   "options": {
     "increments": true,
@@ -12,12 +11,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "comentario": {
+    "nombre": {
       "type": "string"
-    },
-    "staf": {
-      "via": "comentarios",
-      "model": "staf"
     }
   }
 }

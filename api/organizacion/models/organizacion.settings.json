@@ -41,6 +41,10 @@
     },
     "historial": {
       "type": "string"
+    },
+    "audienciaOrganizacion": {
+      "via": "organizaciones",
+      "model": "audiencia"
     }
   }
 }
