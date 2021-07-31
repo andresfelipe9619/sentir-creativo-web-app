@@ -64,13 +64,8 @@
       "collection": "notas-audiencia",
       "via": "audiencia"
     },
-    "organizaciones": {
-      "collection": "organizacion",
-      "via": "audienciaOrganizacion"
-    },
-    "intereses": {
-      "collection": "intereses",
-      "via": "audienciaIntereses"
+    "organizacion": {
+      "model": "organizacion"
     }
   }
 }
