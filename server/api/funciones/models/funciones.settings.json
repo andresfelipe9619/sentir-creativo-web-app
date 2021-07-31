@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "comentarios",
+  "collectionName": "funciones",
   "info": {
-    "name": "comentario",
-    "description": ""
+    "name": "funciones"
   },
   "options": {
     "increments": true,
@@ -12,12 +11,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "comentario": {
+    "nombre": {
       "type": "string"
     },
-    "staf": {
-      "via": "comentarios",
-      "model": "staf"
+    "contexto": {
+      "model": "contexto",
+      "via": "funciones"
+    },
+    "rol": {
+      "via": "funciones",
+      "model": "rol"
     }
   }
 }

@@ -1,0 +1,88 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stafs",
+  "info": {
+    "name": "Staf",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "userId": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "primaryEmail": {
+      "type": "email"
+    },
+    "givenName": {
+      "type": "string"
+    },
+    "admin": {
+      "type": "string"
+    },
+    "primary": {
+      "type": "string"
+    },
+    "phone1Value": {
+      "type": "biginteger"
+    },
+    "tipo": {
+      "type": "string"
+    },
+    "eTag": {
+      "type": "text"
+    },
+    "lastLoginTime": {
+      "type": "date"
+    },
+    "organizationTitle": {
+      "type": "string"
+    },
+    "organizationPrimary": {
+      "type": "string"
+    },
+    "organizationCustomType": {
+      "type": "string"
+    },
+    "organizationDepartment": {
+      "type": "string"
+    },
+    "organizationDescription": {
+      "type": "string"
+    },
+    "costCenter": {
+      "type": "string"
+    },
+    "thumbnailPhotoEtag": {
+      "type": "string"
+    },
+    "thumbnailPhotoUrl": {
+      "type": "string"
+    },
+    "relationValue": {
+      "type": "string"
+    },
+    "relationType": {
+      "type": "string"
+    },
+    "acuerdos": {
+      "collection": "acuerdos",
+      "via": "staf"
+    },
+    "comentarios": {
+      "collection": "comentario",
+      "via": "staf"
+    },
+    "rol": {
+      "via": "stafs",
+      "model": "rol"
+    }
+  }
+}
