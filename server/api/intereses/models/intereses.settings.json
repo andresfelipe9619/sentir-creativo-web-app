@@ -27,10 +27,6 @@
     },
     "icon": {
       "type": "string"
-    },
-    "audienciaIntereses": {
-      "via": "intereses",
-      "model": "audiencia"
     }
   }
 }
