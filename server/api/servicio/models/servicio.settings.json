@@ -54,14 +54,20 @@
       "model": "areas",
       "via": "servicios"
     },
-    "imagen": {
-      "type": "text"
-    },
     "condicions": {
       "collection": "condicion"
     },
     "sugerencias": {
       "collection": "sugerencia"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "formatos": {
+      "collection": "formato"
+    },
+    "propositos": {
+      "collection": "proposito"
     }
   }
 }
