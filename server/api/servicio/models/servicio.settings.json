@@ -21,10 +21,6 @@
     "sintesis": {
       "type": "text"
     },
-    "planes": {
-      "via": "servicio",
-      "collection": "servicio-plan"
-    },
     "tags": {
       "collection": "tag"
     },
@@ -68,6 +64,10 @@
     },
     "propositos": {
       "collection": "proposito"
+    },
+    "servicioPlanes": {
+      "via": "servicio",
+      "collection": "servicio-plan"
     }
   }
 }
