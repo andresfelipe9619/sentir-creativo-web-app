@@ -52,11 +52,28 @@ const Service = {
   delete: id => serverRequests.del(`/servicios/${id}`)
 }
 
+const Area = {
+  getAll: () => serverRequests.get(`/areas`),
+  get: id => serverRequests.get(`/areas/${id}`),
+  create: area => serverRequests.post('/areas', area),
+  update: area => serverRequests.put(`/areas/${area._id}`, area),
+  delete: id => serverRequests.del(`/areas/${id}`)
+}
+
+const Tag = {
+  getAll: () => serverRequests.get(`/tags`),
+  get: id => serverRequests.get(`/tags/${id}`),
+  create: tag => serverRequests.post('/tags', tag),
+  update: tag => serverRequests.put(`/tags/${tag._id}`, tag),
+  delete: id => serverRequests.del(`/tags/${id}`)
+}
+
 const Audience = {
   getAll: () => serverRequests.get(`/audiencias`),
   get: id => serverRequests.get(`/audiencias/${id}`),
   create: audience => serverRequests.post('/audiencias', audience),
-  update: audience => serverRequests.put(`/audiencias/${audience._id}`, audience),
+  update: audience =>
+    serverRequests.put(`/audiencias/${audience._id}`, audience),
   delete: id => serverRequests.del(`/audiencias/${id}`)
 }
 
@@ -71,6 +88,8 @@ const User = {
 const API = {
   Auth,
   User,
+  Area,
+  Tag,
   Project,
   Audience,
   Service,
