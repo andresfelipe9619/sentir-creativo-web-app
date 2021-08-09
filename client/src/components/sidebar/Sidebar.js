@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
+import Icon from '@material-ui/core/Icon'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -19,7 +19,10 @@ import HomeIcon from '@material-ui/icons/HomeOutlined'
 import PersonIcon from '@material-ui/icons/PersonOutlined'
 import BookIcon from '@material-ui/icons/Book'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { useHistory, useLocation } from 'react-router-dom'
+import API from '../../api'
 import { useStyles } from './styles'
 
 export default function Sidebar ({ children }) {
@@ -28,6 +31,7 @@ export default function Sidebar ({ children }) {
   const location = useLocation()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+  const [areas, setAreas] = useState([])
 
   const handleDrawerOpen = () => setOpen(true)
 
@@ -35,6 +39,13 @@ export default function Sidebar ({ children }) {
 
   const goTo = path => () => history.push(path)
   const isSelected = path => location.pathname === path
+
+  useEffect(() => {
+    ;(async () => {
+      const result = await API.Area.getAll()
+      setAreas(result)
+    })()
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -55,9 +66,22 @@ export default function Sidebar ({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap>
-            Sentir Creativo
-          </Typography>
+          <BottomNavigation
+            // value={value}
+            // onChange={(event, newValue) => {
+            //   setValue(newValue)
+            // }}
+            showLabels
+            className={classes.root}
+          >
+            {areas.map(area => (
+              <BottomNavigationAction
+                key={area.nombre}
+                label={area.nombre}
+                icon={<Icon>star</Icon>}
+              />
+            ))}
+          </BottomNavigation>
         </Toolbar>
       </AppBar>
       <Drawer

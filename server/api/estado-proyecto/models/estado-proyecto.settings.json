@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "requerimientos",
+  "collectionName": "estado_proyectos",
   "info": {
-    "name": "requerimiento",
-    "description": ""
+    "name": "EstadoProyecto"
   },
   "options": {
     "increments": true,
@@ -15,11 +14,11 @@
     "nombre": {
       "type": "string"
     },
-    "costo": {
-      "type": "float"
+    "color": {
+      "type": "string"
     },
-    "tipoRequerimiento": {
-      "model": "tipo-requerimiento"
+    "prioridad": {
+      "model": "prioridad"
     }
   }
 }

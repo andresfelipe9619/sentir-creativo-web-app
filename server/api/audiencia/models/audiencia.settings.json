@@ -66,6 +66,9 @@
     },
     "organizacion": {
       "model": "organizacion"
+    },
+    "intereses": {
+      "collection": "intereses"
     }
   }
 }
