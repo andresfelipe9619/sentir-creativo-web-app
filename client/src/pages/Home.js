@@ -59,7 +59,7 @@ const items = [
 export default function Home () {
   const [services, setServices] = useState([])
   const [tags, setTags] = useState([])
-  const classes = useStyles()
+
   useEffect(() => {
     ;(async () => {
       const serviceResult = await API.Service.getAll()
