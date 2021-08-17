@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "archivos",
+  "collectionName": "logs",
   "info": {
-    "name": "archivo",
-    "description": ""
+    "name": "Log"
   },
   "options": {
     "increments": true,
@@ -12,10 +11,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "path": {
+    "descripcion": {
+      "type": "text"
+    },
+    "tipo": {
       "type": "string"
     },
-    "nombre": {
+    "idEmisor": {
       "type": "string"
     }
   }
