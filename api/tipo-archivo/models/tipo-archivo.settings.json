@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "archivos",
+  "collectionName": "tipo_archivos",
   "info": {
-    "name": "archivo",
+    "name": "tipoArchivo",
     "description": ""
   },
   "options": {
@@ -12,15 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "path": {
-      "type": "string"
-    },
     "nombre": {
       "type": "string"
     },
-    "tipoArchivos": {
-      "via": "archivos",
-      "collection": "tipo-archivo"
+    "archivos": {
+      "collection": "archivo",
+      "via": "tipoArchivos",
+      "dominant": true
     }
   }
 }

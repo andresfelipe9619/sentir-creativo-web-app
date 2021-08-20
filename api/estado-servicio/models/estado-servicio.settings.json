@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "archivos",
+  "collectionName": "estado_servicios",
   "info": {
-    "name": "archivo",
-    "description": ""
+    "name": "estadoServicio"
   },
   "options": {
     "increments": true,
@@ -12,15 +11,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "path": {
-      "type": "string"
-    },
     "nombre": {
       "type": "string"
-    },
-    "tipoArchivos": {
-      "via": "archivos",
-      "collection": "tipo-archivo"
     }
   }
 }
