@@ -44,9 +44,6 @@
       "via": "audiencia",
       "collection": "proyecto"
     },
-    "photo": {
-      "type": "string"
-    },
     "apellido": {
       "type": "string"
     },
@@ -69,6 +66,10 @@
     },
     "intereses": {
       "collection": "intereses"
+    },
+    "tags": {
+      "via": "audiencias",
+      "collection": "tag"
     }
   }
 }
