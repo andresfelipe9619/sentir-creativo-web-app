@@ -1,53 +1,80 @@
-import { lazy } from "react";
-const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
+import { lazy } from 'react'
+const Home = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home'))
 const About = lazy(() =>
-  import(/* webpackChunkName: "about" */ "../pages/About")
-);
+  import(/* webpackChunkName: "about" */ '../pages/About')
+)
 const Contact = lazy(() =>
-  import(/* webpackChunkName: "contact" */ "../pages/Contact")
-);
-const Blog = lazy(() => import(/* webpackChunkName: "blog" */ "../pages/Blog"));
+  import(/* webpackChunkName: "contact" */ '../pages/Contact')
+)
+const Blog = lazy(() => import(/* webpackChunkName: "blog" */ '../pages/Blog'))
+const Dashboard = lazy(() =>
+  import(/* webpackChunkName: "dashboard" */ '../pages/Dashboard')
+)
+const Login = lazy(() =>
+  import(/* webpackChunkName: "login" */ '../pages/Login')
+)
+const Register = lazy(() =>
+  import(/* webpackChunkName: "register" */ '../pages/Register')
+)
 
 const routerConfig = [
   {
-    path: "/",
+    path: '/',
     component: Home,
-    name: "Home",
+    name: 'Home',
     exact: true,
-    strict: true,
+    strict: true
   },
   {
-    path: "/about",
+    path: '/about',
     component: About,
-    name: "About",
+    name: 'About',
     exact: true,
-    strict: true,
+    strict: true
   },
   {
-    path: "/contact",
+    path: '/contact',
     component: Contact,
-    name: "Contact",
+    name: 'Contact',
     exact: true,
-    strict: true,
+    strict: true
   },
   {
-    path: "/blog",
+    path: '/blog',
     component: Blog,
-    name: "Blog",
+    name: 'Blog',
     exact: true,
-    strict: true,
+    strict: true
   },
-  // {
-  //   path: "/risks",
-  //   component: Risks,
-  //   name: "Risks",
-  //   routes: [
-  //     {
-  //       path: "/risks/:id",
-  //       name: "Risks Id",
-  //     },
-  //   ],
-  // },
-];
+  {
+    path: '/login',
+    name: 'Inicio',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'Registro',
+    component: Register
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Dashboard,
+    routes: [
+      {
+        path: '/admin/audiencia',
+        name: 'Audiencia'
+      },
+      {
+        path: '/admin/servicios',
+        name: 'Servicios'
+      },
+      {
+        path: '/admin/proyectos',
+        name: 'Proyectos'
+      }
+    ]
+  }
+]
 
-export default routerConfig;
+export default routerConfig
