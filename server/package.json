@@ -12,6 +12,7 @@
   "devDependencies": {},
   "dependencies": {
     "knex": "^0.95.6",
+    "mui-datatables": "^3.7.7",
     "mysql": "^2.18.1",
     "strapi": "3.6.2",
     "strapi-admin": "3.6.2",
