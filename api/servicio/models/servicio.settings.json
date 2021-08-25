@@ -68,6 +68,10 @@
     "servicioPlanes": {
       "via": "servicio",
       "collection": "servicio-plan"
+    },
+    "estado": {
+      "model": "estado-servicio",
+      "via": "servicios"
     }
   }
 }
