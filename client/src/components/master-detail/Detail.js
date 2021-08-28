@@ -112,7 +112,7 @@ function FormItem ({
   const { size, type, ...fieldProps } = item.form
   const key = item.name
   let value = values[key]
-  console.log('value', value)
+
   const canRender = name => type === name
   const content = {
     input: canRender('input') && (
@@ -129,7 +129,7 @@ function FormItem ({
         {...fieldProps}
       />
     ),
-    tag: canRender('tag') && <Tags tags={value} />
+    tag: canRender('tag') && <Tags tags={value} title={item.label} />
   }
   return (
     <Grid item md={size}>
