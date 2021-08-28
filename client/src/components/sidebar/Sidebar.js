@@ -23,6 +23,7 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { useHistory, useLocation } from 'react-router-dom'
 import API from '../../api'
 import { useStyles } from './styles'
+import { Box } from '@material-ui/core'
 
 export default function Sidebar ({ children }) {
   const classes = useStyles()
@@ -56,7 +57,7 @@ export default function Sidebar ({ children }) {
       >
         <Toolbar>
           <IconButton
-            color='inherit'
+            color='primary'
             aria-label='open drawer'
             onClick={handleDrawerOpen}
             edge='start'
@@ -64,22 +65,25 @@ export default function Sidebar ({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <BottomNavigation
-            // value={value}
-            // onChange={(event, newValue) => {
-            //   setValue(newValue)
-            // }}
-            showLabels
-            className={classes.root}
-          >
-            {areas.map(area => (
-              <BottomNavigationAction
-                key={area.nombre}
-                label={area.nombre}
-                icon={<Icon>star</Icon>}
-              />
-            ))}
-          </BottomNavigation>
+          <Box width='100%' display='flex' justifyContent='center'>
+            <BottomNavigation
+              // value={value}
+              // onChange={(event, newValue) => {
+              //   setValue(newValue)
+              // }}
+              showLabels
+              className={classes.root}
+            >
+              {areas.map(area => (
+                <BottomNavigationAction
+                  key={area.nombre}
+                  style={{ background: area.colorPrimario, color: 'white' }}
+                  label={area.nombre}
+                  icon={<Icon>star</Icon>}
+                />
+              ))}
+            </BottomNavigation>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -110,7 +114,7 @@ export default function Sidebar ({ children }) {
               selected={isSelected(path)}
             >
               <ListItemIcon>
-                <Icon color='secondary' fontSize='large' />
+                <Icon color='primary' fontSize='large' />
               </ListItemIcon>
               <ListItemText primary={name} />
             </ListItem>
