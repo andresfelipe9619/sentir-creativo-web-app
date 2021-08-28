@@ -8,7 +8,7 @@ let token = null
 
 const tokenInterceptor = config => {
   if (token) {
-    config.headers['token'] = token
+    config.headers['Authorization'] = 'Bearer ' + token
   }
   return config
 }
@@ -31,9 +31,9 @@ const serverRequests = {
 }
 
 const Auth = {
-  login: user => serverRequests.post('/login', user),
+  login: user => serverRequests.post('/auth/local', user),
   loginGoogle: user => serverRequests.post('/login/google', user),
-  register: user => serverRequests.post('/user', user)
+  register: user => serverRequests.post('/auth/local/register', user)
 }
 
 const Project = {

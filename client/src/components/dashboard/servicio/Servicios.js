@@ -52,6 +52,45 @@ const columns = [
       size: 12,
       type: 'tag'
     }
+  },
+  {
+    name: 'tecnica_artisticas',
+    label: 'Técnicas Artísticas',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'tag'
+    }
+  },
+  {
+    name: 'ocasions',
+    label: 'Ocasiones',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'tag'
+    }
+  },
+  {
+    name: 'publico_objetivos',
+    label: 'Público Objetivo',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'tag'
+    }
   }
 ]
 
