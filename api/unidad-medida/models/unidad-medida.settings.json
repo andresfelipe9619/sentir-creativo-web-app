@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "requerimientos",
+  "collectionName": "unidad_medidas",
   "info": {
-    "name": "requerimiento",
-    "description": ""
+    "name": "unidadMedida"
   },
   "options": {
     "increments": true,
@@ -15,13 +14,7 @@
     "nombre": {
       "type": "string"
     },
-    "tipoRequerimiento": {
-      "model": "tipo-requerimiento"
-    },
-    "cantidad": {
-      "type": "float"
-    },
-    "impuesto": {
+    "valor": {
       "type": "float"
     }
   }

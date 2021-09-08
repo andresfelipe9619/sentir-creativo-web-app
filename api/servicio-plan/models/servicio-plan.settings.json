@@ -22,6 +22,9 @@
     "presupuestos": {
       "via": "servicioPlan",
       "collection": "presupuesto"
+    },
+    "nombre": {
+      "type": "string"
     }
   }
 }
