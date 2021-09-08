@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "unidad_medidas",
+  "info": {
+    "name": "unidadMedida"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "valor": {
+      "type": "float"
+    }
+  }
+}

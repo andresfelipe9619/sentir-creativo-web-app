@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
+import Icon from '@material-ui/core/Icon'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -19,8 +18,12 @@ import HomeIcon from '@material-ui/icons/HomeOutlined'
 import PersonIcon from '@material-ui/icons/PersonOutlined'
 import BookIcon from '@material-ui/icons/Book'
 import EmailIcon from '@material-ui/icons/EmailOutlined'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { useHistory, useLocation } from 'react-router-dom'
+import API from '../../api'
 import { useStyles } from './styles'
+import { Box } from '@material-ui/core'
 
 export default function Sidebar ({ children }) {
   const classes = useStyles()
@@ -28,6 +31,7 @@ export default function Sidebar ({ children }) {
   const location = useLocation()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+  const [areas, setAreas] = useState([])
 
   const handleDrawerOpen = () => setOpen(true)
 
@@ -36,9 +40,15 @@ export default function Sidebar ({ children }) {
   const goTo = path => () => history.push(path)
   const isSelected = path => location.pathname === path
 
+  useEffect(() => {
+    ;(async () => {
+      const result = await API.Area.getAll()
+      setAreas(result)
+    })()
+  }, [])
+
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppBar
         position='fixed'
         className={clsx(classes.appBar, {
@@ -47,7 +57,7 @@ export default function Sidebar ({ children }) {
       >
         <Toolbar>
           <IconButton
-            color='inherit'
+            color='primary'
             aria-label='open drawer'
             onClick={handleDrawerOpen}
             edge='start'
@@ -55,9 +65,25 @@ export default function Sidebar ({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap>
-            Sentir Creativo
-          </Typography>
+          <Box width='100%' display='flex' justifyContent='center'>
+            <BottomNavigation
+              // value={value}
+              // onChange={(event, newValue) => {
+              //   setValue(newValue)
+              // }}
+              showLabels
+              className={classes.root}
+            >
+              {areas.map(area => (
+                <BottomNavigationAction
+                  key={area.nombre}
+                  style={{ background: area.colorPrimario, color: 'white' }}
+                  label={area.nombre}
+                  icon={<Icon>star</Icon>}
+                />
+              ))}
+            </BottomNavigation>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -88,7 +114,7 @@ export default function Sidebar ({ children }) {
               selected={isSelected(path)}
             >
               <ListItemIcon>
-                <Icon color='secondary' fontSize='large' />
+                <Icon color='primary' fontSize='large' />
               </ListItemIcon>
               <ListItemText primary={name} />
             </ListItem>

@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "presupuesto_requerimientos",
+  "info": {
+    "name": "PresupuestoRequerimiento",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "requerimiento": {
+      "model": "requerimiento"
+    },
+    "presupuesto": {
+      "model": "presupuesto"
+    }
+  }
+}

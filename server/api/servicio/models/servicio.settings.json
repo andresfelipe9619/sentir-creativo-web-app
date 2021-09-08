@@ -18,45 +18,60 @@
     "slogan": {
       "type": "string"
     },
-    "individual": {
-      "type": "boolean"
-    },
-    "pareja": {
-      "type": "boolean"
-    },
-    "grupos": {
-      "type": "boolean"
-    },
-    "bebes": {
-      "type": "boolean"
-    },
-    "ninos": {
-      "type": "boolean"
-    },
-    "adolescentes": {
-      "type": "boolean"
-    },
-    "adultos": {
-      "type": "boolean"
-    },
     "sintesis": {
       "type": "text"
     },
-    "planes": {
+    "tags": {
+      "collection": "tag"
+    },
+    "tecnica_artisticas": {
+      "collection": "tecnica-artistica"
+    },
+    "ocasions": {
+      "collection": "ocasion"
+    },
+    "colorPrimario": {
+      "type": "string"
+    },
+    "colorSecundario": {
+      "type": "string"
+    },
+    "prioridad": {
+      "model": "prioridad"
+    },
+    "notas": {
+      "collection": "nota",
+      "via": "servicio"
+    },
+    "publico_objetivos": {
+      "collection": "publico-objetivo"
+    },
+    "area": {
+      "via": "servicios",
+      "model": "areas"
+    },
+    "condicions": {
+      "collection": "condicion"
+    },
+    "sugerencias": {
+      "collection": "sugerencia"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "formatos": {
+      "collection": "formato"
+    },
+    "propositos": {
+      "collection": "proposito"
+    },
+    "servicioPlanes": {
       "via": "servicio",
       "collection": "servicio-plan"
     },
-    "tags": {
-      "collection": "tag",
-      "via": "servicios",
-      "dominant": true
-    },
-    "area": {
-      "model": "areas",
+    "estado": {
+      "model": "estado-servicio",
       "via": "servicios"
-    },
-    "imagen": {
-      "type": "text"
     }
   }
 }

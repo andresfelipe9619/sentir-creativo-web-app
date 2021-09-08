@@ -38,19 +38,15 @@
       "type": "text"
     },
     "audiencia": {
-      "model": "audiencia",
-      "via": "proyectos"
-    },
-    "servicios": {
-      "collection": "proyecto-servicio",
-      "via": "proyectoServicio"
+      "via": "proyectos",
+      "model": "audiencia"
     },
     "imagenProyecto": {
       "type": "string"
     },
     "presupuestos": {
-      "collection": "presupuesto",
-      "via": "proyecto"
+      "via": "proyecto",
+      "collection": "presupuesto"
     }
   }
 }

@@ -23,10 +23,6 @@
     "celular": {
       "type": "biginteger"
     },
-    "organizacion": {
-      "type": "string",
-      "required": true
-    },
     "departamento": {
       "type": "string",
       "required": true
@@ -36,24 +32,44 @@
       "required": true
     },
     "antiguedad": {
-      "via": "audiencia",
       "model": "antiguedad"
     },
     "cercania": {
-      "via": "audiencia",
       "model": "cercania"
     },
     "motivacion": {
-      "via": "audiencia",
       "model": "motivacion"
-    },
-    "sector": {
-      "via": "audiencia",
-      "model": "sector"
     },
     "proyectos": {
       "via": "audiencia",
       "collection": "proyecto"
+    },
+    "apellido": {
+      "type": "string"
+    },
+    "profesion": {
+      "type": "string"
+    },
+    "estado": {
+      "model": "estado-audiencia"
+    },
+    "bitacoras": {
+      "collection": "bitacora-audiencia",
+      "via": "audiencia"
+    },
+    "notas": {
+      "collection": "notas-audiencia",
+      "via": "audiencia"
+    },
+    "organizacion": {
+      "model": "organizacion"
+    },
+    "intereses": {
+      "collection": "intereses"
+    },
+    "tags": {
+      "via": "audiencias",
+      "collection": "tag"
     }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notas",
+  "info": {
+    "name": "nota"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcion": {
+      "type": "string"
+    },
+    "servicio": {
+      "via": "notas",
+      "model": "servicio"
+    }
+  }
+}

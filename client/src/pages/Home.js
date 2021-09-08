@@ -1,54 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import API from '../api'
 import Card from '../components/card/Card'
+import Carousel from 'react-material-ui-carousel'
+import Tags from '../components/tags/Tags'
+import { splitArrayIntoChunksOfLen } from '../utils'
 
 export default function Home () {
   const [services, setServices] = useState([])
-  const classes = useStyles()
+  const [tags, setTags] = useState([])
+
   useEffect(() => {
     ;(async () => {
-      const result = await API.Service.getAll()
-      setServices(result)
+      const serviceResult = await API.Service.getAll()
+      setServices(serviceResult)
+
+      const tagResult = await API.Tag.getAll()
+      setTags(tagResult)
     })()
   }, [])
-  console.log(`services`, services)
+
+  const chunks = splitArrayIntoChunksOfLen(services, 3)
   return (
-    <Box mt={16}>
-      <Typography className={classes.title} variant='h2' gutterBottom>
-        Sentir Creativo{' '}
-        <Typography
-          variant='h2'
-          component='span'
-          color='primary'
-          className={classes.title}
-        >
-          ¡Anímate!
-        </Typography>
-      </Typography>
-      <Typography variant='h5' gutterBottom color='textSecondary' paragraph>
-        Agencia de Talentos en Antofagasta Abierto las 24 horas.
-      </Typography>
-      <Button variant='contained' color='primary'>
-        Contactanos
-      </Button>
-      <Box mt={8}>
-        {services.map(s => (
-          <Card
-            key={s.nombre}
-            title={s.nombre}
-            imageUrl={
-              'https://lh3.googleusercontent.com/MBD0jOYrgUVHTZIvHgHoZJUWyAwXrL-VVuJ-hhvG_c--qKkfVkS0VFuId8wU57ChBZO8IsJ2aOY6ueEByg=w960-h960-n-o-v1'
-            }
-            imageTitle={''}
-            sintesis={s.sintesis}
-            slogan={s.slogan}
-          />
+    <Box mt={8}>
+      <Tags tags={tags} />
+      <Carousel navButtonsAlwaysVisible>
+        {chunks.map(chunk => (
+          <Grid container component={Box} my={8} alignItems='center'>
+            {chunk.map(s => (
+              <Grid xs={4} item>
+                <Card
+                  key={s.nombre}
+                  title={s.nombre}
+                  imageUrl={(s?.archivos || [])[0]?.path}
+                  imageTitle={''}
+                  sintesis={s.sintesis}
+                  slogan={s.slogan}
+                />
+              </Grid>
+            ))}
+          </Grid>
         ))}
-      </Box>
+      </Carousel>
     </Box>
   )
 }
