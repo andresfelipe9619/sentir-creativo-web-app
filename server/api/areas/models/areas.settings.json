@@ -35,9 +35,6 @@
       "required": true,
       "maxLength": 60
     },
-    "imagen": {
-      "type": "text"
-    },
     "prioridad": {
       "model": "prioridad"
     },
@@ -47,6 +44,9 @@
     "servicios": {
       "via": "area",
       "collection": "servicio"
+    },
+    "archivos": {
+      "collection": "archivo"
     }
   }
 }

@@ -47,8 +47,8 @@
       "collection": "publico-objetivo"
     },
     "area": {
-      "model": "areas",
-      "via": "servicios"
+      "via": "servicios",
+      "model": "areas"
     },
     "condicions": {
       "collection": "condicion"

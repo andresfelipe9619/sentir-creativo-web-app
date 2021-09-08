@@ -27,6 +27,7 @@ function Copyright () {
     </Typography>
   )
 }
+
 const schema = yup.object().shape({
   username: yup.string().required(),
   email: yup.string().email(),
