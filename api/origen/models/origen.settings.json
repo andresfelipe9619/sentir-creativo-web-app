@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "origens",
+  "info": {
+    "name": "origen",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/scrum-teams",
+      "handler": "scrum-team.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/scrum-teams/count",
+      "handler": "scrum-team.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/scrum-teams/:id",
+      "handler": "scrum-team.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/scrum-teams",
+      "handler": "scrum-team.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/scrum-teams/:id",
+      "handler": "scrum-team.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/scrum-teams/:id",
+      "handler": "scrum-team.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

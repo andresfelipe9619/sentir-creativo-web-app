@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tecnica_artisticas",
+  "info": {
+    "name": "tecnicaArtistica"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

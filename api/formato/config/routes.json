@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/formatoes",
+      "handler": "formato.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/formatoes/count",
+      "handler": "formato.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/formatoes/:id",
+      "handler": "formato.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/formatoes",
+      "handler": "formato.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/formatoes/:id",
+      "handler": "formato.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/formatoes/:id",
+      "handler": "formato.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

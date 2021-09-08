@@ -26,8 +26,8 @@
       "collection": "proyecto"
     },
     "sub_tipo_proyectos": {
-      "collection": "sub-tipo-proyectos",
-      "via": "tipo_proyecto"
+      "via": "tipo_proyecto",
+      "collection": "sub-tipo-proyectos"
     },
     "icon": {
       "type": "string"

@@ -15,7 +15,10 @@
     "nombre": {
       "type": "string"
     },
-    "color": {
+    "colorPrimario": {
+      "type": "string"
+    },
+    "colorSecundario": {
       "type": "string"
     },
     "imagen": {
@@ -27,9 +30,10 @@
     "prioridad": {
       "model": "prioridad"
     },
-    "servicios": {
+    "audiencias": {
+      "collection": "audiencia",
       "via": "tags",
-      "collection": "servicio"
+      "dominant": true
     }
   }
 }

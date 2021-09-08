@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "acuerdos",
+  "info": {
+    "name": "acuerdos"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "staf": {
+      "via": "acuerdos",
+      "model": "staf"
+    }
+  }
+}
