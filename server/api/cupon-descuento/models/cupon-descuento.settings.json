@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "unidad_medidas",
+  "collectionName": "cupon_descuentos",
   "info": {
-    "name": "unidadMedida",
-    "description": ""
+    "name": "cuponDescuento"
   },
   "options": {
     "increments": true,
@@ -12,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
+    "codigo": {
       "type": "string"
     }
   }
