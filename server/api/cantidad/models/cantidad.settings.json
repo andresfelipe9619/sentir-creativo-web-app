@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "unidad_medidas",
+  "collectionName": "cantidads",
   "info": {
-    "name": "unidadMedida",
-    "description": ""
+    "name": "cantidad"
   },
   "options": {
     "increments": true,
@@ -12,8 +11,11 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
-      "type": "string"
+    "valor": {
+      "type": "integer"
+    },
+    "unidadMedida": {
+      "model": "unidad-medida"
     }
   }
 }

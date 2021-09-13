@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "unidad_medidas",
+  "collectionName": "atributos",
   "info": {
-    "name": "unidadMedida",
-    "description": ""
+    "name": "Atributo"
   },
   "options": {
     "increments": true,
@@ -12,7 +11,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
+    "name": {
+      "type": "string"
+    },
+    "value": {
       "type": "string"
     }
   }
