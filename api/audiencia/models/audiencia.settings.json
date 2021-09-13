@@ -70,6 +70,9 @@
     "tags": {
       "via": "audiencias",
       "collection": "tag"
+    },
+    "prefijo": {
+      "type": "string"
     }
   }
 }
