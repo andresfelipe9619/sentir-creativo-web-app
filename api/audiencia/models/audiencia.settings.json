@@ -25,11 +25,11 @@
     },
     "departamento": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "cargo": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "antiguedad": {
       "model": "antiguedad"
@@ -73,6 +73,9 @@
     },
     "prefijo": {
       "type": "string"
+    },
+    "comentarios": {
+      "collection": "comentario"
     }
   }
 }
