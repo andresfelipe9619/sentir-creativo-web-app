@@ -48,7 +48,7 @@ export default function DashboardSidebar ({ children }) {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            Dashboard Ignacio
           </Typography>
         </Toolbar>
       </AppBar>
