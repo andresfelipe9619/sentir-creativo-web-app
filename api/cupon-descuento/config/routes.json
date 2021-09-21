@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cupon-descuentos",
+      "handler": "cupon-descuento.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cupon-descuentos/count",
+      "handler": "cupon-descuento.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cupon-descuentos/:id",
+      "handler": "cupon-descuento.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cupon-descuentos",
+      "handler": "cupon-descuento.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cupon-descuentos/:id",
+      "handler": "cupon-descuento.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cupon-descuentos/:id",
+      "handler": "cupon-descuento.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

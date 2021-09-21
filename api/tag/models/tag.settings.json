@@ -31,8 +31,8 @@
       "model": "prioridad"
     },
     "audiencias": {
-      "collection": "audiencia",
       "via": "tags",
+      "collection": "audiencia",
       "dominant": true
     }
   }
