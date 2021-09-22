@@ -72,6 +72,10 @@ const routerConfig = [
       {
         path: '/admin/proyectos',
         name: 'Proyectos'
+      },
+      {
+        path: '/admin/archivos',
+        name: 'Archivos'
       }
     ]
   }

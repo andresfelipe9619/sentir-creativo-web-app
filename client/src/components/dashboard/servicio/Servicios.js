@@ -53,6 +53,7 @@ const columns = [
       type: 'tag'
     }
   },
+
   {
     name: 'tecnica_artisticas',
     label: 'Técnicas Artísticas',
@@ -82,6 +83,19 @@ const columns = [
   {
     name: 'publico_objetivos',
     label: 'Público Objetivo',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'tag'
+    }
+  },
+  {
+    name: 'archivos',
+    label: 'Archivos',
     options: {
       display: false,
       filter: false,

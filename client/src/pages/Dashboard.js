@@ -7,6 +7,7 @@ import Servicios from '../components/dashboard/servicio/Servicios'
 import Proyectos from '../components/dashboard/proyecto/Proyectos'
 import Audiencia from '../components/dashboard/audiencia/Audiencia'
 import Reports from '../components/dashboard/reports/Reports'
+import Archivos from '../components/dashboard/archivos/Archivos'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -37,6 +38,10 @@ export default function Dashboard (props) {
           <Route
             render={routerProps => <Reports {...routerProps} />}
             path={`${props.match.url}/reportes`}
+          />
+          <Route
+            render={routerProps => <Archivos {...routerProps} />}
+            path={`${props.match.url}/archivos`}
           />
         </Switch>
       </Grid>

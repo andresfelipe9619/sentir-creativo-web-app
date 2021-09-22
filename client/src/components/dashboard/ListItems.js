@@ -8,13 +8,15 @@ import PeopleIcon from '@material-ui/icons/People'
 import BarChartIcon from '@material-ui/icons/BarChart'
 import LayersIcon from '@material-ui/icons/Layers'
 import AssignmentIcon from '@material-ui/icons/Assignment'
+import ArchiveIcon from '@material-ui/icons/Archive';
 import { useHistory } from 'react-router-dom'
 
 const items = [
   { path: '/admin/audiencia', label: 'Audiencia', icon: PeopleIcon },
   { path: '/admin/servicios', label: 'Servicios', icon: ShoppingCartIcon },
   { path: '/admin/proyectos', label: 'Proyectos', icon: LayersIcon },
-  { path: '/admin/reportes', label: 'Reportes', icon: BarChartIcon }
+  { path: '/admin/reportes', label: 'Reportes', icon: BarChartIcon },
+  { path: '/admin/archivos', label: 'Archivos', icon: ArchiveIcon }
 ]
 const secondaryItems = [
   { label: 'Current month', icon: AssignmentIcon },
