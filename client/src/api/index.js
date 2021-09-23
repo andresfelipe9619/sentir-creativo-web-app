@@ -68,6 +68,14 @@ const Tag = {
   delete: id => serverRequests.del(`/tags/${id}`)
 }
 
+const File = {
+  getAll: () => serverRequests.get(`/archivos`),
+  get: id => serverRequests.get(`/archivos/${id}`),
+  create: archivo => serverRequests.post('/archivos', archivo),
+  update: (id, archivo) => serverRequests.put(`/archivos/${id}`, archivo),
+  delete: id => serverRequests.del(`/archivos/${id}`)
+}
+
 const Audience = {
   getAll: () => serverRequests.get(`/audiencias`),
   get: id => serverRequests.get(`/audiencias/${id}`),
@@ -89,6 +97,7 @@ const API = {
   User,
   Area,
   Tag,
+  File,
   Project,
   Audience,
   Service,
