@@ -26,11 +26,11 @@ export default function Home () {
   return (
     <Box mt={8}>
       <Tags tags={tags} />
-      <Carousel navButtonsAlwaysVisible>
+      <Carousel autoPlay={true} navButtonsAlwaysVisible={false} interval={7000} slide>
         {chunks.map(chunk => (
-          <Grid container component={Box} my={8} alignItems='center'>
+          <Grid container component={Box} my={0} m={0} p={0} alignItems='center' >
             {chunk.map(s => (
-              <Grid xs={4} item>
+              <Grid xs={4} component={Box} m={0} p={0} item >
                 <Card
                   key={s.nombre}
                   title={s.nombre}
@@ -38,6 +38,7 @@ export default function Home () {
                   imageTitle={''}
                   sintesis={s.sintesis}
                   slogan={s.slogan}
+                 
                 />
               </Grid>
             ))}

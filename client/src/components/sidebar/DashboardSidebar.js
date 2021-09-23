@@ -48,8 +48,11 @@ export default function DashboardSidebar ({ children }) {
             noWrap
             className={classes.title}
           >
+
+            
             Dashboard
           </Typography>
+         
         </Toolbar>
       </AppBar>
       <Drawer
@@ -72,6 +75,7 @@ export default function DashboardSidebar ({ children }) {
         <List>
           <SecondaryListItems />
         </List> */}
+      
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
