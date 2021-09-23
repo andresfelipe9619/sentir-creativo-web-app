@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 
 const server = axios.create({
@@ -84,6 +85,14 @@ const Audience = {
   delete: id => serverRequests.del(`/audiencias/${id}`)
 }
 
+const Archive = {
+  getAll: () => serverRequests.get(`/archivos`),
+  get: id => serverRequests.get(`/archivos/${id}`),
+  create: archive => serverRequests.post('/archivos', archive),
+  update: (id, archive) => serverRequests.put(`/archivos/${id}`, archive),
+  delete: id => serverRequests.del(`/archivos/${id}`)
+}
+
 const User = {
   getAll: () => serverRequests.get(`/user`),
   profile: () => serverRequests.get('/profile'),
@@ -100,6 +109,7 @@ const API = {
   File,
   Project,
   Audience,
+  Archive,
   Service,
   setToken
 }
