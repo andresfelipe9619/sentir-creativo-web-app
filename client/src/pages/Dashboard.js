@@ -19,35 +19,34 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard (props) {
   const classes = useStyles()
-
+  const items = [
+    {
+      path: '/audiencia',
+      render: routerProps => <Audiencia {...routerProps} />
+    },
+    {
+      path: '/servicios',
+      render: routerProps => <Servicios {...routerProps} />
+    },
+    {
+      path: '/proyectos',
+      render: routerProps => <Proyectos {...routerProps} />
+    },
+    { path: '/reportes', render: routerProps => <Reports {...routerProps} /> },
+    { path: '/archivos', render: routerProps => <Archivos {...routerProps} /> },
+    { path: '/tags', render: routerProps => <Tags {...routerProps} /> }
+  ]
   return (
     <Container maxWidth='lg' className={classes.container}>
       <Grid container spacing={3}>
         <Switch>
-          <Route
-            render={routerProps => <Audiencia {...routerProps} />}
-            path={`${props.match.url}/audiencia`}
-          />
-          <Route
-            render={routerProps => <Servicios {...routerProps} />}
-            path={`${props.match.url}/servicios`}
-          />
-          <Route
-            render={routerProps => <Proyectos {...routerProps} />}
-            path={`${props.match.url}/proyectos`}
-          />
-          <Route
-            render={routerProps => <Reports {...routerProps} />}
-            path={`${props.match.url}/reportes`}
-          />
-          <Route
-            render={routerProps => <Archivos {...routerProps} />}
-            path={`${props.match.url}/archivos`}
-          />
-          <Route
-            render={routerProps => <Tags {...routerProps} />}
-            path={`${props.match.url}/tags`}
-          />
+          {items.map((item, i) => (
+            <Route
+              key={i}
+              render={item.render}
+              path={`${props.match.url}${item.path}`}
+            />
+          ))}
         </Switch>
       </Grid>
     </Container>
