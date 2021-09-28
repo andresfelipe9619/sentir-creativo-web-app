@@ -1,6 +1,8 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
-import MasterDetail from '../../master-detail/MasterDetail'
+import MasterDetail, {
+  customBodyRender
+} from '../../master-detail/MasterDetail'
 
 const columns = [
   {
@@ -41,6 +43,20 @@ const columns = [
     options: {
       filter: true,
       sort: false
+    }
+  },
+  {
+    name: 'estado',
+    label: 'Estado',
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'AudienceState'
     }
   },
   {

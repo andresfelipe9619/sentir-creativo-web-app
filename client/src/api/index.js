@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 
 const server = axios.create({
@@ -101,6 +100,22 @@ const User = {
   update: (id, user) => serverRequests.put(`/user/${id}`, user)
 }
 
+const ServiceState = {
+  getAll: () => serverRequests.get(`/estado-servicios`),
+  get: id => serverRequests.get(`/estado-servicios/${id}`),
+  create: state => serverRequests.post('/estado-servicios', state),
+  update: (id, state) => serverRequests.put(`/estado-servicios/${id}`, state),
+  delete: id => serverRequests.del(`/estado-servicios/${id}`)
+}
+
+const AudienceState = {
+  getAll: () => serverRequests.get(`/estado-audiencias`),
+  get: id => serverRequests.get(`/estado-audiencias/${id}`),
+  create: state => serverRequests.post('/estado-audiencias', state),
+  update: (id, state) => serverRequests.put(`/estado-audiencias/${id}`, state),
+  delete: id => serverRequests.del(`/estado-audiencias/${id}`)
+}
+
 const API = {
   Auth,
   User,
@@ -111,6 +126,8 @@ const API = {
   Audience,
   Archive,
   Service,
+  AudienceState,
+  ServiceState,
   setToken
 }
 

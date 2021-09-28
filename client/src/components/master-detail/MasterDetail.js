@@ -58,3 +58,19 @@ export default function MasterDetail ({ masterProps, detailProps, service }) {
     </Switch>
   )
 }
+
+const isObject = item => !!item && typeof item === 'object'
+
+export function customBodyRender (type) {
+  return value => {
+    if (type) return bodyType(type, value)
+    if (isObject(value)) {
+      return value.nombre
+    }
+    if (Array.isArray(value)) {
+      return value.map(i => i.nombre).join(', ')
+    }
+  }
+}
+
+function bodyType (type, value) {}

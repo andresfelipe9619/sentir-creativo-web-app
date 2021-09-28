@@ -18,9 +18,8 @@
     "nombre": {
       "type": "string"
     },
-    "tipoArchivos": {
-      "via": "archivos",
-      "collection": "tipo-archivo"
+    "tipo_archivo": {
+      "model": "tipo-archivo"
     }
   }
 }

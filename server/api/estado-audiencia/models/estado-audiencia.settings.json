@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "estado_audiencias",
   "info": {
-    "name": "EstadoAudiencia"
+    "name": "EstadoAudiencia",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,7 +12,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombreEstado": {
+    "nombre": {
       "type": "string"
     },
     "prioridad": {

@@ -165,7 +165,7 @@ export default function Contact () {
                     variant='outlined'
                   />
                 </Grid>
-                <Grid item md={12} container justify='flex-end'>
+                <Grid item md={12} container justifyContent='flex-end'>
                   <Button
                     type='submit'
                     color='primary'
