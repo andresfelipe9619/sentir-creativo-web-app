@@ -11,6 +11,10 @@ const columns = [
     options: {
       filter: true,
       sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -19,6 +23,10 @@ const columns = [
     options: {
       filter: true,
       sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -27,14 +35,10 @@ const columns = [
     options: {
       filter: true,
       sort: false
-    }
-  },
-  {
-    name: 'impacto',
-    label: 'Impacto',
-    options: {
-      filter: true,
-      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -43,6 +47,23 @@ const columns = [
     options: {
       filter: true,
       sort: false
+    },
+    form: {
+      size: 6,
+      type: 'input'
+    }
+  },
+  {
+    name: 'impacto',
+    label: 'Impacto',
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -65,6 +86,10 @@ const columns = [
     options: {
       filter: true,
       sort: false
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -73,6 +98,10 @@ const columns = [
     options: {
       filter: true,
       sort: false
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   }
 ]
@@ -82,7 +111,9 @@ export default function Audiencia () {
     columns,
     title: 'Audiencia'
   }
-  const detail = {}
+  const detail = {
+    columns
+  }
   return (
     <Grid item md={12}>
       <MasterDetail
