@@ -34,7 +34,7 @@ const columns = [
     label: 'Email',
     options: {
       filter: true,
-      sort: false
+      sort: true
     },
     form: {
       size: 6,
@@ -46,7 +46,7 @@ const columns = [
     label: 'Celular',
     options: {
       filter: true,
-      sort: false
+      sort: true
     },
     form: {
       size: 6,
@@ -58,7 +58,7 @@ const columns = [
     label: 'Impacto',
     options: {
       filter: true,
-      sort: false,
+      sort: true,
       customBodyRender: customBodyRender()
     },
     form: {
@@ -71,7 +71,7 @@ const columns = [
     label: 'Estado',
     options: {
       filter: true,
-      sort: false,
+      sort: true,
       customBodyRender: customBodyRender()
     },
     form: {
@@ -85,7 +85,7 @@ const columns = [
     label: 'Cargo',
     options: {
       filter: true,
-      sort: false
+      sort: true
     },
     form: {
       size: 6,
@@ -97,7 +97,7 @@ const columns = [
     label: 'Departamento',
     options: {
       filter: true,
-      sort: false
+      sort: true
     },
     form: {
       size: 6,

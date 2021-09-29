@@ -22,7 +22,7 @@ const columns = [
     label: 'Slogan',
     options: {
       filter: true,
-      sort: false
+      sort: true
     },
     form: {
       size: 8,
@@ -33,7 +33,8 @@ const columns = [
     name: 'sintesis',
     label: 'Sintesis',
     options: {
-      filter: true,
+      display: false,
+      filter: false,
       sort: false
     },
     form: {
@@ -47,7 +48,7 @@ const columns = [
     label: 'Estado',
     options: {
       filter: true,
-      sort: false,
+      sort: true,
       customBodyRender: customBodyRender()
     },
     form: {
