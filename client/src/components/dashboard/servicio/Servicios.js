@@ -1,6 +1,8 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
-import MasterDetail from '../../master-detail/MasterDetail'
+import MasterDetail, {
+  customBodyRender
+} from '../../master-detail/MasterDetail'
 
 const columns = [
   {
@@ -41,12 +43,26 @@ const columns = [
     }
   },
   {
+    name: 'estado',
+    label: 'Estado',
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'ServiceState'
+    }
+  },
+  {
     name: 'tags',
     label: 'Tags',
     options: {
-      display: false,
       filter: false,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 12,
@@ -84,9 +100,9 @@ const columns = [
     name: 'publico_objetivos',
     label: 'Público Objetivo',
     options: {
-      display: false,
       filter: false,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 12,
@@ -103,7 +119,7 @@ const columns = [
     },
     form: {
       size: 12,
-      type: 'tag'
+      type: 'file'
     }
   }
 ]
