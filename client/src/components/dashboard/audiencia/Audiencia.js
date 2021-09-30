@@ -11,6 +11,10 @@ const columns = [
     options: {
       filter: true,
       sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -19,6 +23,10 @@ const columns = [
     options: {
       filter: true,
       sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -26,15 +34,11 @@ const columns = [
     label: 'Email',
     options: {
       filter: true,
-      sort: false
-    }
-  },
-  {
-    name: 'impacto',
-    label: 'Impacto',
-    options: {
-      filter: true,
-      sort: false
+      sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -42,7 +46,24 @@ const columns = [
     label: 'Celular',
     options: {
       filter: true,
-      sort: false
+      sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
+    }
+  },
+  {
+    name: 'impacto',
+    label: 'Impacto',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -50,7 +71,7 @@ const columns = [
     label: 'Estado',
     options: {
       filter: true,
-      sort: false,
+      sort: true,
       customBodyRender: customBodyRender()
     },
     form: {
@@ -64,7 +85,11 @@ const columns = [
     label: 'Cargo',
     options: {
       filter: true,
-      sort: false
+      sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   },
   {
@@ -72,7 +97,11 @@ const columns = [
     label: 'Departamento',
     options: {
       filter: true,
-      sort: false
+      sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
     }
   }
 ]
@@ -82,7 +111,9 @@ export default function Audiencia () {
     columns,
     title: 'Audiencia'
   }
-  const detail = {}
+  const detail = {
+    columns
+  }
   return (
     <Grid item md={12}>
       <MasterDetail
