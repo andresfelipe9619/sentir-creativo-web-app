@@ -30,7 +30,7 @@ export default function Files ({ files, title }) {
           {title}
         </Typography>
       )}
-      <Box width='100%'>
+      <Box width='100%' display='flex'>
         {(files || []).map(f => (
           <ImgMediaCard key={f.nombre} {...f} />
         ))}
@@ -46,8 +46,11 @@ export function ImgMediaCard ({ id, nombre, path, tipo_archivo }) {
   function handleView () {
     history.push(`/admin/archivos/${id}`)
   }
+  function handleLink(){
+    window.open(path, "_blank")
+  }
   return (
-    <Card style={{ maxWidth: 180 }}>
+    <Card style={{ maxWidth: 180, margin: 8 }}>
       {isImage(path) && (
         <CardMedia component='img' alt='file' height='120' image={path} />
       )}
@@ -64,6 +67,9 @@ export function ImgMediaCard ({ id, nombre, path, tipo_archivo }) {
       <CardActions>
         <Button size='small' color='primary' onClick={handleView}>
           Ver
+        </Button>
+        <Button size='small' color='primary' onClick={handleLink}>
+          Abir Link
         </Button>
       </CardActions>
     </Card>
