@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/servicios/:id/archivos",
+      "handler": "servicio.addFiles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/servicios/:id",
       "handler": "servicio.update",
