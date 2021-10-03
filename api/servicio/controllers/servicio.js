@@ -1,5 +1,6 @@
 const { sanitizeEntity } = require('strapi-utils')
 const populate = [
+  'id',
   'area',
   'tags',
   'estado',
@@ -37,23 +38,29 @@ module.exports = {
   async addFiles (ctx) {
     const { request, params } = ctx
     const { id } = params
-    const { body: files } = request
-    const entity = await strapi.services.servicio.findOne({ id }, ['id'])
-    let result = []
+    let { body: files } = request
+    const entity = await strapi.services.servicio.findOne({ id }, populate)
+    let ids = []
     if (!entity) throw new Error('Servicio No Encontrado')
     if (!Array.isArray(files)) throw new Error('No hay archivos para agregar')
-
+    let serviceFiles = (entity.archivos || []).map(({ id }) => id)
+    files = files.filter(f => !serviceFiles.includes(f))
     const knex = strapi.connections.default
     await knex.transaction(async trx => {
-      const ids = await trx('servicios__archivos').insert(
+      ids = await trx('servicios__archivos').insert(
         files.map(fileId => ({
           servicio_id: id,
           archivo_id: fileId
-        })),
-        'id'
+        }))
       )
-      result = ids
     })
+    let result = []
+    if (ids.length) {
+      result = await knex
+        .select('*')
+        .from('servicios__archivos')
+        .whereIn('id', ids)
+    }
     return result
   }
 }
