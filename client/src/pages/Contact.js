@@ -7,9 +7,15 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import API from '../api'
-const initialValues = { nombre: '', email: '', celular: '', message: '', organizacion:"",
-cargo: "",
-departamento:"" }
+const initialValues = {
+  nombre: '',
+  email: '',
+  celular: '',
+  message: '',
+  organizacion: '',
+  cargo: '',
+  departamento: ''
+}
 
 const contactSchema = Yup.object().shape({
   nombre: Yup.string()
@@ -40,14 +46,14 @@ export default function Contact () {
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid container item md={12}>
-      <Grid container item md={6}>
-        <Typography variant='h3' paragraph>
-          Contactanos
-        </Typography>
-        <Typography variant='h6' component='p' paragraph>
-          Lo mejor que encontraras en todo el mundo!
-        </Typography>
-      </Grid>
+        <Grid container item md={6}>
+          <Typography variant='h3' paragraph>
+            Contactanos
+          </Typography>
+          <Typography variant='h6' component='p' paragraph>
+            Lo mejor que encontraras en todo el mundo!
+          </Typography>
+        </Grid>
 
         <Formik
           onSubmit={handleFormSubmit}

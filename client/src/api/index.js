@@ -116,6 +116,23 @@ const AudienceState = {
   delete: id => serverRequests.del(`/estado-audiencias/${id}`)
 }
 
+const TargetAudience = {
+  getAll: () => serverRequests.get(`/publico-objetivos`),
+  get: id => serverRequests.get(`/publico-objetivos/${id}`),
+  create: target => serverRequests.post('/publico-objetivos', target),
+  update: (id, target) =>
+    serverRequests.put(`/publico-objetivos/${id}`, target),
+  delete: id => serverRequests.del(`/publico-objetivos/${id}`)
+}
+
+const Format = {
+  getAll: () => serverRequests.get(`/formatoes`),
+  get: id => serverRequests.get(`/formatoes/${id}`),
+  create: format => serverRequests.post('/formatoes', format),
+  update: (id, format) => serverRequests.put(`/formatoes/${id}`, format),
+  delete: id => serverRequests.del(`/formatoes/${id}`)
+}
+
 const API = {
   Auth,
   User,
@@ -126,8 +143,10 @@ const API = {
   Audience,
   Archive,
   Service,
+  Format,
   AudienceState,
   ServiceState,
+  TargetAudience,
   setToken
 }
 
