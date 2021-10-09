@@ -5,24 +5,36 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-export default function Modal ({ title, open, children, handleClose }) {
+export default function Modal ({
+  open,
+  title,
+  children,
+  handleClose,
+  handleConfirm,
+  hideCloseButton,
+  hideConfirmButton
+}) {
   return (
     <Dialog
       fullWidth
-      maxWidth="md"
+      maxWidth='md'
       open={open}
       onClose={handleClose}
       aria-labelledby='form-dialog-title'
     >
-      <DialogTitle id='form-dialog-title'>{title}</DialogTitle>
+      {title && <DialogTitle id='form-dialog-title'>{title}</DialogTitle>}
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color='primary'>
-          Cancelar
-        </Button>
-        <Button onClick={handleClose} color='primary'>
-          Aceptar
-        </Button>
+        {!hideCloseButton && (
+          <Button onClick={handleClose} color='primary'>
+            Cancelar
+          </Button>
+        )}
+        {!hideConfirmButton && (
+          <Button onClick={handleConfirm} color='primary'>
+            Aceptar
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   )

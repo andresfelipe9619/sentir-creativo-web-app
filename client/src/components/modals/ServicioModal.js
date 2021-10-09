@@ -23,9 +23,13 @@ const initialValues = {
   nombre: '',
   email: '',
   celular: '',
-  message: '',
+  comentario: '',
   organizacion: '',
-  cargo: '',
+  rubro: '',
+  publicoObjetivo: '',
+  ciudad: '',
+  formato: '',
+  impacto: '',
   departamento: ''
 }
 
@@ -36,7 +40,7 @@ const contactSchema = Yup.object().shape({
     .required('Required'),
   celular: Yup.string()
     .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .max(20, 'Too Long!')
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
@@ -94,12 +98,8 @@ export default function ServicioModal ({ open, service, ...props }) {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
   }
 
-  const handleReset = () => {
-    setActiveStep(0)
-  }
-
   return (
-    <GenericModal open={open} title='Servicio' {...props}>
+    <GenericModal open={open} hideConfirmButton {...props}>
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -117,10 +117,22 @@ export default function ServicioModal ({ open, service, ...props }) {
             <div>
               {activeStep === steps.length ? (
                 <div>
-                  <Typography className={classes.instructions}>
-                    All steps completed
+                  <Typography
+                    variant='h4'
+                    color='primary'
+                    className={classes.instructions}
+                  >
+                    Enviado!
                   </Typography>
-                  <Button onClick={handleReset}>Reset</Button>
+                  <Typography className={classes.instructions}>
+                    Prontamente recibirás un Ticket con todos los detalles
+                  </Typography>
+                  <Button onClick={props.handleClose}>
+                    Volver al Catalago
+                  </Button>
+                  <Button onClick={props.handleClose}>
+                    Leer articulos relacionados
+                  </Button>
                 </div>
               ) : (
                 <div>
@@ -135,13 +147,20 @@ export default function ServicioModal ({ open, service, ...props }) {
                     >
                       Back
                     </Button>
-                    <Button
-                      variant='contained'
-                      color='primary'
-                      onClick={handleNext}
-                    >
-                      {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button>
+
+                    {activeStep === steps.length - 1 ? (
+                      <Button type='submit' variant='contained' color='primary'>
+                        Finish
+                      </Button>
+                    ) : (
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={handleNext}
+                      >
+                        Next
+                      </Button>
+                    )}
                   </div>
                 </div>
               )}
@@ -246,6 +265,7 @@ function Info ({
     </Grid>
   )
 }
+
 function Contact ({
   values,
   errors,
@@ -256,20 +276,6 @@ function Contact ({
 }) {
   return (
     <Grid container spacing={2}>
-      <Grid item md={6}>
-        <TextField
-          required
-          fullWidth
-          id='nombre'
-          label='Nombre'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.nombre}
-          error={!!touched.nombre && !!errors.nombre}
-          variant='outlined'
-        />
-      </Grid>
       <Grid item md={6}>
         <TextField
           required
@@ -302,6 +308,34 @@ function Contact ({
         <TextField
           required
           fullWidth
+          id='ciudad'
+          label='Desde la ciudad'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.ciudad}
+          error={!!touched.ciudad && !!errors.ciudad}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item md={6}>
+        <TextField
+          required
+          fullWidth
+          id='nombre'
+          label='Nombre'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.nombre}
+          error={!!touched.nombre && !!errors.nombre}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item md={6}>
+        <TextField
+          required
+          fullWidth
           id='organizacion'
           label='Organizacion'
           disabled={isSubmitting}
@@ -312,47 +346,19 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
-        <TextField
-          required
-          fullWidth
-          id='cargo'
-          label='Cargo'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.cargo}
-          error={!!touched.cargo && !!errors.cargo}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item md={6}>
-        <TextField
-          required
-          fullWidth
-          id='departamento'
-          label='Departamento'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.departamento}
-          error={!!touched.departamento && !!errors.departamento}
-          variant='outlined'
-        />
-      </Grid>
       <Grid item md={12}>
         <TextField
           required
           fullWidth
           multiline
           rows={6}
-          id='message'
+          id='comentario'
           label='Message'
           disabled={isSubmitting}
           onBlur={handleBlur}
           onChange={handleChange}
-          value={values.message}
-          error={!!touched.message && !!errors.message}
+          value={values.comentario}
+          error={!!touched.comentario && !!errors.comentario}
           variant='outlined'
         />
       </Grid>
