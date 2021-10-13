@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import FormLabel from '@material-ui/core/FormLabel'
 import FormControl from '@material-ui/core/FormControl'
@@ -15,36 +15,36 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function CheckboxesGroup ({ legend, options }) {
+export default function CheckboxesGroup ({
+  name,
+  legend,
+  options,
+  values,
+  handleChange
+}) {
   const classes = useStyles()
-  const [state, setState] = useState({})
-
-  const handleChange = event => {
-    setState({ ...state, [event.target.name]: event.target.checked })
-  }
-
-  useEffect(() => {
-    let result = options.reduce((acc, o) => ({ ...acc, [o.name]: false }), {})
-    setState(result)
-  }, [options])
-
   return (
     <div className={classes.root}>
       <FormControl component='fieldset' className={classes.formControl}>
         <FormLabel component='legend'>{legend}</FormLabel>
         <FormGroup row>
-          {options.map(option => (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name={option.value}
-                  onChange={handleChange}
-                  checked={state[option.value]}
-                />
-              }
-              label={option.label}
-            />
-          ))}
+          {options.map(option => {
+            const checked = (values[name] || []).some(v => +v === +option.value)
+            return (
+              <FormControlLabel
+                key={option.value}
+                control={
+                  <Checkbox
+                    name={name}
+                    value={option.value}
+                    onChange={handleChange}
+                    checked={checked}
+                  />
+                }
+                label={option.label}
+              />
+            )
+          })}
         </FormGroup>
       </FormControl>
     </div>

@@ -19,6 +19,7 @@ export default function Modal ({
       fullWidth
       maxWidth='md'
       open={open}
+      keepMounted={false}
       onClose={handleClose}
       aria-labelledby='form-dialog-title'
     >

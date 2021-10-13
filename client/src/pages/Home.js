@@ -19,9 +19,9 @@ export default function Home () {
   const [selectedService, setSelectedService] = useState(null)
   const history = useHistory()
   // const [tags, setTags] = useState([])ThemeProvider
-  const [showModal, setShowModal] = useState(false)
   const query = useQuery()
-  console.log(`query`, query)
+  const selectedId = query.get('service')
+
   useEffect(() => {
     ;(async () => {
       const serviceResult = await API.Service.getAll()
@@ -32,15 +32,21 @@ export default function Home () {
     })()
   }, [])
 
+  useEffect(() => {
+    if (!services) return
+
+    if (!selectedService && selectedId) {
+      let found = services.find(s => +s.id === +selectedId)
+      found && setSelectedService(found)
+    }
+  }, [services, selectedService, selectedId])
+
   const handleOpenModal = service => () => {
-    setSelectedService(service)
     history.push({ search: `?service=${service.id}` })
-    setShowModal(true)
   }
 
   const handleCloseModal = () => {
     history.push({ search: '' })
-    setShowModal(false)
     setSelectedService(null)
   }
 
@@ -48,7 +54,7 @@ export default function Home () {
   return (
     <Box mt={8}>
       <ServicioModal
-        open={showModal}
+        open={!!selectedId}
         handleClose={handleCloseModal}
         service={selectedService}
       />
