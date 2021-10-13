@@ -47,6 +47,12 @@
     "presupuestos": {
       "via": "proyecto",
       "collection": "presupuesto"
+    },
+    "comentarios": {
+      "collection": "comentario"
+    },
+    "publicoObjetivos": {
+      "collection": "publico-objetivo"
     }
   }
 }

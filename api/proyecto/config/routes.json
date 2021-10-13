@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/proyectos/start",
+      "handler": "proyecto.start",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/proyectos/:id",
       "handler": "proyecto.update",
