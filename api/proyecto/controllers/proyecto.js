@@ -16,6 +16,7 @@ module.exports = {
       comentario,
       organizacion,
       rubro,
+      servicio,
       publicoObjetivo,
       ciudad,
       formato,
@@ -62,7 +63,7 @@ module.exports = {
       console.log(`audience`, audience)
 
       let project = await strapi.services.proyecto.create({
-        nombre: 'Green Project',
+        nombre: servicio.nombre,
         impacto: `${impacto} personas`,
         // estado: 1,
         tipoProyecto: 3
