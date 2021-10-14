@@ -6,9 +6,9 @@ import API from '../api'
 import Card from '../components/card/Card'
 import Carousel from 'react-material-ui-carousel'
 import { useHistory, useLocation } from 'react-router-dom'
-// import Tags from '../components/tags/Tags'
 import { splitArrayIntoChunksOfLen } from '../utils'
 import ServicioModal from '../components/modals/ServicioModal'
+import DossierModal from '../components/modals/DossierModal'
 
 function useQuery () {
   return new URLSearchParams(useLocation().search)
@@ -17,8 +17,8 @@ function useQuery () {
 export default function Home () {
   const [services, setServices] = useState([])
   const [selectedService, setSelectedService] = useState(null)
+  const [showDossier, setShowDossier] = useState(false)
   const history = useHistory()
-  // const [tags, setTags] = useState([])ThemeProvider
   const query = useQuery()
   const selectedId = query.get('service')
 
@@ -26,9 +26,6 @@ export default function Home () {
     ;(async () => {
       const serviceResult = await API.Service.getAll()
       setServices(serviceResult)
-
-      // const tagResult = await API.Tag.getAll()
-      // setTags(tagResult)
     })()
   }, [])
 
@@ -50,15 +47,29 @@ export default function Home () {
     setSelectedService(null)
   }
 
+  const handleOpenDossier = service => () => {
+    setSelectedService(service)
+    setShowDossier(true)
+  }
+
+  const handleCloseDossier = () => {
+    setShowDossier(false)
+    setSelectedService(null)
+  }
+
   const chunks = splitArrayIntoChunksOfLen(services, 3)
   return (
     <Box mt={8}>
+      <DossierModal
+        open={!!showDossier}
+        handleClose={handleCloseDossier}
+        service={selectedService}
+      />
       <ServicioModal
         open={!!selectedId}
         handleClose={handleCloseModal}
         service={selectedService}
       />
-      {/* <Tags tags={tags} /> */}
       <Carousel autoPlay navButtonsAlwaysVisible={false} interval={7000} slide>
         {chunks.map((chunk, i) => (
           <Grid
@@ -79,6 +90,7 @@ export default function Home () {
                   sintesis={s.sintesis}
                   slogan={s.slogan}
                   handleClickPrimary={handleOpenModal(s)}
+                  handleClickSecundary={handleOpenDossier(s)}
                 />
               </Grid>
             ))}

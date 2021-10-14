@@ -19,6 +19,7 @@ import PublicoObjetivo from '../publico-objetivo/PublicoObjetivo'
 import CheckboxesGroup from '../checkbox'
 import Spinner from '../spinner/Spinner'
 import useAPI from '../../providers/hooks/useAPI'
+import { useAlertDispatch } from '../../providers/context/Alert'
 
 const initialValues = {
   nombre: '',
@@ -91,14 +92,23 @@ export default function ServicioModal ({ open, service, ...props }) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const steps = getSteps()
+  const { openAlert } = useAlertDispatch()
 
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)
-      const result = await API.Project.start(values)
+      const result = await API.Project.start({
+        ...values,
+        servicio: { id: service.id, nombre: service.nombre }
+      })
       console.log(`result`, result)
+      openAlert({ variant: 'success', message: 'Ticket creado con exito' })
     } catch (error) {
       console.error(error)
+      openAlert({
+        variant: 'error',
+        message: 'Algo salio mal. Vuelve a intentarlo mas tarde'
+      })
     }
   }
 
