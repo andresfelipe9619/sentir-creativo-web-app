@@ -7,6 +7,7 @@ import StepLabel from '@material-ui/core/StepLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
@@ -18,17 +19,19 @@ import PublicoObjetivo from '../publico-objetivo/PublicoObjetivo'
 import CheckboxesGroup from '../checkbox'
 import Spinner from '../spinner/Spinner'
 import useAPI from '../../providers/hooks/useAPI'
+import { useAlertDispatch } from '../../providers/context/Alert'
 
 const initialValues = {
   nombre: '',
+  apellido: '',
   email: '',
   celular: '',
   comentario: '',
   organizacion: '',
   rubro: '',
-  publicoObjetivo: '',
+  publicoObjetivo: [],
   ciudad: '',
-  formato: '',
+  formato: [],
   impacto: '',
   departamento: ''
 }
@@ -44,8 +47,17 @@ const contactSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
-    .required('Required')
+    .required('Required'),
+  impacto: Yup.number().required('Required'),
+  formato: Yup.array().required('Required'),
+  publicoObjetivo: Yup.array().required('Required')
 })
+
+const fieldsByStep = [
+  ['impacto', 'publicoObjetivo'],
+  ['formato'],
+  ['nombre', 'celular', 'email']
+]
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -80,22 +92,32 @@ export default function ServicioModal ({ open, service, ...props }) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const steps = getSteps()
+  const { openAlert } = useAlertDispatch()
 
   const handleFormSubmit = async values => {
     try {
-      const result = await API.Audience.create(values)
+      console.log(`values`, values)
+      const result = await API.Project.start({
+        ...values,
+        servicio: { id: service.id, nombre: service.nombre }
+      })
       console.log(`result`, result)
+      openAlert({ variant: 'success', message: 'Ticket creado con exito' })
     } catch (error) {
       console.error(error)
+      openAlert({
+        variant: 'error',
+        message: 'Algo salio mal. Vuelve a intentarlo mas tarde'
+      })
     }
   }
 
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
+    setActiveStep(prevActiveStep => ++prevActiveStep)
   }
 
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1)
+    setActiveStep(prevActiveStep => --prevActiveStep)
   }
 
   return (
@@ -105,96 +127,91 @@ export default function ServicioModal ({ open, service, ...props }) {
         initialValues={initialValues}
         validationSchema={contactSchema}
       >
-        {({ handleSubmit, ...formikProps }) => (
-          <form onSubmit={handleSubmit}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map(label => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <div>
-              {activeStep === steps.length ? (
-                <div>
-                  <Typography
-                    variant='h4'
-                    color='primary'
-                    className={classes.instructions}
-                  >
-                    Enviado!
-                  </Typography>
-                  <Typography className={classes.instructions}>
-                    Prontamente recibirás un Ticket con todos los detalles
-                  </Typography>
-                  <Button onClick={props.handleClose}>
-                    Volver al Catalago
-                  </Button>
-                  <Button onClick={props.handleClose}>
-                    Leer articulos relacionados
-                  </Button>
-                </div>
-              ) : (
-                <div>
-                  <div className={classes.instructions}>
-                    {getStepContent(activeStep, { ...formikProps, service })}
-                  </div>
-                  <div>
-                    <Button
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.backButton}
-                    >
-                      Back
-                    </Button>
+        {({ handleSubmit, ...formikProps }) => {
+          const disableButton =
+            formikProps.isSubmitting ||
+            fieldsByStep[activeStep].some(field => {
+              const value = formikProps.values[field]
+              const hasError =
+                !!formikProps.touched[field] && !!formikProps.errors[field]
+              const isEmpty = Array.isArray(value) ? !value.length : !value
+              const disabled = isEmpty || hasError
+              return disabled
+            })
+          const lastStep = activeStep === steps.length - 1
+          const sent = activeStep === steps.length
 
-                    {activeStep === steps.length - 1 ? (
-                      <Button type='submit' variant='contained' color='primary'>
-                        Finish
-                      </Button>
-                    ) : (
-                      <Button
-                        variant='contained'
-                        color='primary'
-                        onClick={handleNext}
-                      >
-                        Next
-                      </Button>
-                    )}
+          return (
+            <form onSubmit={handleSubmit}>
+              <Stepper activeStep={activeStep} alternativeLabel>
+                {steps.map(label => (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+              <div>
+                {sent ? (
+                  <div>
+                    <Typography
+                      variant='h4'
+                      color='primary'
+                      className={classes.instructions}
+                    >
+                      Enviado!
+                    </Typography>
+                    <Typography className={classes.instructions}>
+                      Prontamente recibirás un Ticket con todos los detalles
+                    </Typography>
+                    <Button onClick={props.handleClose}>
+                      Volver al Catalago
+                    </Button>
+                    <Button onClick={props.handleClose}>
+                      Leer articulos relacionados
+                    </Button>
                   </div>
-                </div>
-              )}
-            </div>
-          </form>
-        )}
+                ) : (
+                  <div>
+                    <div className={classes.instructions}>
+                      {getStepContent(activeStep, { ...formikProps, service })}
+                    </div>
+                    <div>
+                      <Button
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                        className={classes.backButton}
+                      >
+                        Back
+                      </Button>
+
+                      {lastStep ? (
+                        <Button
+                          type='submit'
+                          disabled={disableButton}
+                          variant='contained'
+                          color='primary'
+                        >
+                          Finish
+                        </Button>
+                      ) : (
+                        <Button
+                          variant='contained'
+                          color='primary'
+                          disabled={disableButton}
+                          onClick={handleNext}
+                        >
+                          Next
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </form>
+          )
+        }}
       </Formik>
     </GenericModal>
-  )
-}
-
-function Format ({
-  values,
-  errors,
-  service,
-  touched,
-  handleChange,
-  handleBlur,
-  isSubmitting
-}) {
-  const { data, loading } = useAPI('Format', true)
-
-  return (
-    <Grid container spacing={2}>
-      <Grid item md={12}>
-        <Typography color='primary' variant='h5'>
-          En Formato
-        </Typography>
-      </Grid>
-      <Grid item md={12}>
-        {!loading && <CheckboxesGroup legend='' options={data} />}
-        {loading && <Spinner />}
-      </Grid>
-    </Grid>
   )
 }
 
@@ -214,15 +231,7 @@ const useInfoStyles = makeStyles(theme => ({
   }
 }))
 
-function Info ({
-  values,
-  errors,
-  service,
-  touched,
-  handleChange,
-  handleBlur,
-  isSubmitting
-}) {
+function Info ({ values, errors, touched, service, handleChange, handleBlur }) {
   const classes = useInfoStyles()
   return (
     <Grid container spacing={2}>
@@ -243,17 +252,21 @@ function Info ({
         <FormControl
           className={clsx(classes.margin, classes.textField)}
           variant='outlined'
+          error={!!touched.impacto && !!errors.impacto}
         >
           <OutlinedInput
-            id='outlined-adornment-weight'
-            value={values.weight}
-            onChange={handleChange('weight')}
-            aria-describedby='outlined-weight-helper-text'
-            inputProps={{
-              'aria-label': 'weight'
-            }}
+            name={'impacto'}
+            type='number'
+            value={values.impacto}
+            onBlur={handleBlur}
+            onChange={handleChange}
             labelWidth={0}
           />
+          {!!touched.impacto && !!errors.impacto && (
+            <FormHelperText id='my-helper-text'>
+              {errors.impacto}
+            </FormHelperText>
+          )}
         </FormControl>
         <span>Personas</span>
       </Grid>
@@ -261,7 +274,32 @@ function Info ({
       <Typography color='primary' variant='h5'>
         Principalmente
       </Typography>
-      <PublicoObjetivo />
+      <PublicoObjetivo values={values} handleChange={handleChange} />
+    </Grid>
+  )
+}
+
+function Format ({ values, errors, handleChange }) {
+  const { data, loading } = useAPI('Format', true)
+  return (
+    <Grid container spacing={2}>
+      <Grid item md={12}>
+        <Typography color='primary' variant='h5'>
+          En Formato
+        </Typography>
+      </Grid>
+      <Grid item md={12}>
+        {!loading && (
+          <CheckboxesGroup
+            name='formato'
+            options={data}
+            values={values}
+            errors={errors}
+            handleChange={handleChange}
+          />
+        )}
+        {loading && <Spinner />}
+      </Grid>
     </Grid>
   )
 }
@@ -336,8 +374,21 @@ function Contact ({
         <TextField
           required
           fullWidth
+          id='apellido'
+          label='Apellido'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.apellido}
+          error={!!touched.apellido && !!errors.apellido}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item md={6}>
+        <TextField
+          fullWidth
           id='organizacion'
-          label='Organizacion'
+          label='Organización'
           disabled={isSubmitting}
           onBlur={handleBlur}
           onChange={handleChange}
@@ -348,12 +399,11 @@ function Contact ({
       </Grid>
       <Grid item md={12}>
         <TextField
-          required
           fullWidth
           multiline
           rows={6}
           id='comentario'
-          label='Message'
+          label='Comentarios'
           disabled={isSubmitting}
           onBlur={handleBlur}
           onChange={handleChange}

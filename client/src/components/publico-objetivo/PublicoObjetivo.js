@@ -3,8 +3,16 @@ import CheckboxesGroup from '../checkbox'
 import Spinner from '../spinner/Spinner'
 import useAPI from '../../providers/hooks/useAPI'
 
-export default function PublicoObjetivo () {
+export default function PublicoObjetivo ({ values, handleChange }) {
   const { data, loading } = useAPI('TargetAudience', true)
   if (loading) return <Spinner />
-  return <CheckboxesGroup legend='' options={data} />
+  return (
+    <CheckboxesGroup
+      legend=''
+      name='publicoObjetivo'
+      options={data}
+      values={values}
+      handleChange={handleChange}
+    />
+  )
 }

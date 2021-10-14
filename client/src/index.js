@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
+import { AlertContext } from './providers/context/Alert'
+
 import './index.css'
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <AlertContext>
+        <App />
+      </AlertContext>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

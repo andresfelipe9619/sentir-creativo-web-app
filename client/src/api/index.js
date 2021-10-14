@@ -40,6 +40,7 @@ const Project = {
   getAll: () => serverRequests.get(`/proyectos`),
   get: id => serverRequests.get(`/proyectos/${id}`),
   create: project => serverRequests.post('/proyectos', project),
+  start: project => serverRequests.post('/proyectos/start', project),
   update: (id, project) => serverRequests.put(`/proyectos/${id}`, project),
   delete: id => serverRequests.del(`/proyectos/${id}`)
 }

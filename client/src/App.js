@@ -6,6 +6,7 @@ import Sidebar from './components/sidebar/Sidebar'
 import DashboardSidebar from './components/sidebar/DashboardSidebar'
 import RouterApp from './router/router.app'
 import { useLocation } from 'react-router-dom'
+import { Alert } from './components/snackbar-alert'
 
 function App () {
   const [theme] = useDarkMode()
@@ -20,6 +21,7 @@ function App () {
   return (
     <MuiThemeProvider theme={themeConfig}>
       <CssBaseline />
+      <Alert />
       {content}
     </MuiThemeProvider>
   )
