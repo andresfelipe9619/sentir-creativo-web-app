@@ -14,12 +14,10 @@ import { Badge } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 330,
     height: 300,
     marginBottom: '10%',
     margin: 1,
     marginLeft: '5%',
-    borderRadius: '3%'
   },
   media: {
     maxHeight: 300,
