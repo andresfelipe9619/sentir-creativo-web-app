@@ -24,6 +24,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import API from '../../api'
 import { useStyles } from './styles'
 import { Box } from '@material-ui/core'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export default function Sidebar ({ children }) {
   const classes = useStyles()
@@ -32,6 +33,7 @@ export default function Sidebar ({ children }) {
   const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [areas, setAreas] = useState([])
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   const handleDrawerOpen = () => setOpen(true)
 
@@ -71,13 +73,17 @@ export default function Sidebar ({ children }) {
               // onChange={(event, newValue) => {
               //   setValue(newValue)
               // }}
-              showLabels
+              showLabels={!isMobile}
               className={classes.root}
             >
               {areas.map(area => (
                 <BottomNavigationAction
                   key={area.nombre}
-                  style={{ background: area.colorPrimario, color: 'white' }}
+                  style={{
+                    background: area.colorPrimario,
+                    color: 'white',
+                    flex: 1
+                  }}
                   label={area.nombre}
                   icon={<Icon>star</Icon>}
                 />
@@ -88,7 +94,6 @@ export default function Sidebar ({ children }) {
       </AppBar>
       <Drawer
         className={classes.drawer}
-        variant='persistent'
         anchor='left'
         open={open}
         classes={{
@@ -121,11 +126,7 @@ export default function Sidebar ({ children }) {
           ))}
         </List>
       </Drawer>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open
-        })}
-      >
+      <main className={clsx(classes.content)}>
         <div className={classes.drawerHeader} />
         {children}
       </main>

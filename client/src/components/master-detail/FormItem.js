@@ -62,7 +62,7 @@ export default function FormItem ({
     file: canRender('file') && <Files files={value} title={item.label} />
   }
   return (
-    <Grid item md={size}>
+    <Grid item xs={12} md={size}>
       {content[type]}
     </Grid>
   )

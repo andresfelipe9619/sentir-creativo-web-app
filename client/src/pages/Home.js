@@ -9,6 +9,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { splitArrayIntoChunksOfLen } from '../utils'
 import ServicioModal from '../components/modals/ServicioModal'
 import DossierModal from '../components/modals/DossierModal'
+import { useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 function useQuery () {
   return new URLSearchParams(useLocation().search)
@@ -21,6 +23,9 @@ export default function Home () {
   const history = useHistory()
   const query = useQuery()
   const selectedId = query.get('service')
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
   useEffect(() => {
     ;(async () => {
@@ -57,7 +62,8 @@ export default function Home () {
     setSelectedService(null)
   }
 
-  const chunks = splitArrayIntoChunksOfLen(services, 3)
+  const length = isSmall ? 1 : isMedium ? 2 : 3
+  const chunks = splitArrayIntoChunksOfLen(services, length)
   return (
     <Box mt={8}>
       <DossierModal
@@ -70,7 +76,12 @@ export default function Home () {
         handleClose={handleCloseModal}
         service={selectedService}
       />
-      <Carousel autoPlay navButtonsAlwaysVisible={false} interval={7000} slide>
+      <Carousel
+        autoPlay
+        navButtonsAlwaysVisible={isSmall}
+        interval={7000}
+        slide
+      >
         {chunks.map((chunk, i) => (
           <Grid
             key={i}
@@ -82,7 +93,14 @@ export default function Home () {
             alignItems='center'
           >
             {chunk.map(s => (
-              <Grid xs={4} component={Box} m={0} p={0} item key={s.id}>
+              <Grid
+                xs={12 / length}
+                component={Box}
+                m={0}
+                p={0}
+                item
+                key={s.id}
+              >
                 <Card
                   title={s.nombre}
                   imageUrl={(s?.archivos || [])[0]?.path}
