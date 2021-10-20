@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-  async start (ctx) {
+  async start(ctx) {
     const { request } = ctx
     let {
       nombre,
@@ -29,22 +29,19 @@ module.exports = {
       const knex = strapi.connections.default
       let audience = await strapi.services.audiencia.findOne({ email })
       console.log(`audience`, audience)
-      let rub = await strapi.services.rubro.findOne({
-        nombre: rubro
-      })
-      if (!rub) {
-        rub = await strapi.services.rubro.create({ nombre: rubro })
+      let org = null
+
+      async function findOrCreate(model, find, props) {
+        let result = await strapi.services[model].findOne(find)
+        if (!result) {
+          result = await strapi.services[model].create({ ...find, ...props })
+        }
+        return result
       }
-      console.log(`rub`, rub)
-      let org = await strapi.services.organizacion.findOne({
-        nombre: organizacion
-      })
-      if (!org) {
-        org = await strapi.services.organizacion.create({
-          nombre: organizacion
-        })
+
+      if (organizacion) {
+        org = findOrCreate("organizacion", { nombre: organizacion }, { rubro })
       }
-      console.log(`org`, org)
 
       if (!audience) {
         audience = await strapi.services.audiencia.create({
@@ -64,7 +61,9 @@ module.exports = {
 
       let project = await strapi.services.proyecto.create({
         nombre: servicio.nombre,
+        formato,
         impacto: `${impacto} personas`,
+        audiencia: audience.id,
         // estado: 1,
         tipoProyecto: 3
       })
@@ -78,12 +77,12 @@ module.exports = {
             comentario_id: comment.id
           }
         ])
-        // await trx('proyectos__publico_objetivos').insert([
-        //   {
-        //     proyecto_id: project.id,
-        //     "publico-objetivo_id": publicoObjetivo.id
-        //   }
-        // ])
+        await trx('proyectos__publico_objetivos').insert(
+          publicoObjetivo.map(id => ({
+            proyecto_id: project.id,
+            "publico-objetivo_id": id
+          }))
+        )
       })
 
       return { project }

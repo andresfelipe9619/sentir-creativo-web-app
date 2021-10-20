@@ -15,9 +15,6 @@
     "nombre": {
       "type": "string"
     },
-    "formato": {
-      "type": "string"
-    },
     "impacto": {
       "type": "string"
     },

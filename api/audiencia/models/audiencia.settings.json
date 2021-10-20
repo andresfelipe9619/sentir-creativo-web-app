@@ -79,6 +79,9 @@
     },
     "ciudad": {
       "type": "string"
+    },
+    "publicoObjetivos": {
+      "collection": "publico-objetivo"
     }
   }
 }
