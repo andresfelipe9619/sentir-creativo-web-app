@@ -138,7 +138,7 @@ export default function Servicios () {
       <MasterDetail
         masterProps={master}
         detailProps={detail}
-        service='Service'
+        service='Servicio'
       />
     </Grid>
   )

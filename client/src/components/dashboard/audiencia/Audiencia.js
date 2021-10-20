@@ -119,7 +119,7 @@ export default function Audiencia () {
       <MasterDetail
         masterProps={master}
         detailProps={detail}
-        service='Audience'
+        service='Audiencia'
       />
     </Grid>
   )

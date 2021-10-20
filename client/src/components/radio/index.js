@@ -19,7 +19,7 @@ export default function RadioButtonsGroup ({
   name,
   legend,
   options,
-  value,
+  values,
   handleChange
 }) {
   const classes = useStyles()
@@ -27,15 +27,22 @@ export default function RadioButtonsGroup ({
     <div className={classes.root}>
       <FormControl component='fieldset' className={classes.formControl}>
         <FormLabel component='legend'>{legend}</FormLabel>
-        <RadioGroup name={name} value={value} onChange={handleChange}>
-          {options.map(o => (
-            <FormControlLabel
-              key={o.value}
-              value={o.value}
-              control={<Radio />}
-              label={o.label}
-            />
-          ))}
+        <RadioGroup
+          row
+          name={name}
+          value={+values[name]}
+          onChange={handleChange}
+        >
+          {options.map(o => {
+            return (
+              <FormControlLabel
+                key={o.value}
+                value={o.value}
+                control={<Radio />}
+                label={o.label}
+              />
+            )
+          })}
         </RadioGroup>
       </FormControl>
     </div>

@@ -36,7 +36,7 @@ const Auth = {
   register: user => serverRequests.post('/auth/local/register', user)
 }
 
-const Project = {
+const Proyecto = {
   getAll: () => serverRequests.get(`/proyectos`),
   get: id => serverRequests.get(`/proyectos/${id}`),
   create: project => serverRequests.post('/proyectos', project),
@@ -45,7 +45,7 @@ const Project = {
   delete: id => serverRequests.del(`/proyectos/${id}`)
 }
 
-const Service = {
+const Servicio = {
   getAll: () => serverRequests.get(`/servicios`),
   get: id => serverRequests.get(`/servicios/${id}`),
   create: service => serverRequests.post('/servicios', service),
@@ -69,7 +69,7 @@ const Tag = {
   delete: id => serverRequests.del(`/tags/${id}`)
 }
 
-const File = {
+const Archivo = {
   getAll: () => serverRequests.get(`/archivos`),
   get: id => serverRequests.get(`/archivos/${id}`),
   create: archivo => serverRequests.post('/archivos', archivo),
@@ -77,20 +77,12 @@ const File = {
   delete: id => serverRequests.del(`/archivos/${id}`)
 }
 
-const Audience = {
+const Audiencia = {
   getAll: () => serverRequests.get(`/audiencias`),
   get: id => serverRequests.get(`/audiencias/${id}`),
   create: audience => serverRequests.post('/audiencias', audience),
   update: (id, audience) => serverRequests.put(`/audiencias/${id}`, audience),
   delete: id => serverRequests.del(`/audiencias/${id}`)
-}
-
-const Archive = {
-  getAll: () => serverRequests.get(`/archivos`),
-  get: id => serverRequests.get(`/archivos/${id}`),
-  create: archive => serverRequests.post('/archivos', archive),
-  update: (id, archive) => serverRequests.put(`/archivos/${id}`, archive),
-  delete: id => serverRequests.del(`/archivos/${id}`)
 }
 
 const User = {
@@ -117,7 +109,7 @@ const AudienceState = {
   delete: id => serverRequests.del(`/estado-audiencias/${id}`)
 }
 
-const TargetAudience = {
+const PublicoObjetivo = {
   getAll: () => serverRequests.get(`/publico-objetivos`),
   get: id => serverRequests.get(`/publico-objetivos/${id}`),
   create: target => serverRequests.post('/publico-objetivos', target),
@@ -126,7 +118,7 @@ const TargetAudience = {
   delete: id => serverRequests.del(`/publico-objetivos/${id}`)
 }
 
-const Format = {
+const Formato = {
   getAll: () => serverRequests.get(`/formatoes`),
   get: id => serverRequests.get(`/formatoes/${id}`),
   create: format => serverRequests.post('/formatoes', format),
@@ -134,20 +126,28 @@ const Format = {
   delete: id => serverRequests.del(`/formatoes/${id}`)
 }
 
+const Rubro = {
+  getAll: () => serverRequests.get(`/rubros`),
+  get: id => serverRequests.get(`/rubros/${id}`),
+  create: format => serverRequests.post('/rubros', format),
+  update: (id, format) => serverRequests.put(`/rubros/${id}`, format),
+  delete: id => serverRequests.del(`/rubros/${id}`)
+}
+
 const API = {
   Auth,
   User,
   Area,
   Tag,
-  File,
-  Project,
-  Audience,
-  Archive,
-  Service,
-  Format,
+  Rubro,
+  Archivo,
+  Proyecto,
+  Audiencia,
+  Servicio,
+  Formato,
   AudienceState,
   ServiceState,
-  TargetAudience,
+  PublicoObjetivo,
   setToken
 }
 
