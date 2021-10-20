@@ -29,7 +29,7 @@ export default function Home () {
 
   useEffect(() => {
     ;(async () => {
-      const serviceResult = await API.Service.getAll()
+      const serviceResult = await API.Servicio.getAll()
       setServices(serviceResult)
     })()
   }, [])

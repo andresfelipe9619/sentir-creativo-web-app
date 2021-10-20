@@ -10,10 +10,12 @@ export default function useAPI (service, map = false) {
       try {
         let result = await API[service].getAll()
         if (map) {
-          result = result.map(({ id, nombre }) => ({
-            value: id,
-            label: nombre
-          }))
+          result = result
+            .map(({ id, nombre }) => ({
+              value: id,
+              label: nombre
+            }))
+            .filter(i => i.label)
         }
         setData(result)
       } catch (error) {

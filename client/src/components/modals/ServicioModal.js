@@ -18,6 +18,7 @@ import API from '../../api'
 import PublicoObjetivo from '../publico-objetivo/PublicoObjetivo'
 import CheckboxesGroup from '../checkbox'
 import Spinner from '../spinner/Spinner'
+import RadioGroup from '../radio'
 import useAPI from '../../providers/hooks/useAPI'
 import { useAlertDispatch } from '../../providers/context/Alert'
 
@@ -25,13 +26,14 @@ const initialValues = {
   nombre: '',
   apellido: '',
   email: '',
+  prefijo: '',
   celular: '',
   comentario: '',
   organizacion: '',
   rubro: '',
   publicoObjetivo: [],
   ciudad: '',
-  formato: [],
+  formato: '',
   impacto: '',
   departamento: ''
 }
@@ -40,10 +42,6 @@ const contactSchema = Yup.object().shape({
   nombre: Yup.string()
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
-    .required('Required'),
-  celular: Yup.string()
-    .min(2, 'Too Short!')
-    .max(20, 'Too Long!')
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
@@ -56,7 +54,7 @@ const contactSchema = Yup.object().shape({
 const fieldsByStep = [
   ['impacto', 'publicoObjetivo'],
   ['formato'],
-  ['nombre', 'celular', 'email']
+  ['nombre', 'email']
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -97,17 +95,17 @@ export default function ServicioModal ({ open, service, ...props }) {
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)
-      const result = await API.Project.start({
-        ...values,
-        servicio: { id: service.id, nombre: service.nombre }
-      })
-      console.log(`result`, result)
-      openAlert({ variant: 'success', message: 'Ticket creado con exito' })
+      // const result = await API.Proyecto.start({
+      //   ...values,
+      //   servicio: { id: service.id, nombre: service.nombre }
+      // })
+      // console.log(`result`, result)
+      openAlert({ variant: 'success', message: 'Ticket creado con éxito' })
     } catch (error) {
       console.error(error)
       openAlert({
         variant: 'error',
-        message: 'Algo salio mal. Vuelve a intentarlo mas tarde'
+        message: 'Algo salió mal. Vuelve a intentarlo más tarde'
       })
     }
   }
@@ -140,7 +138,6 @@ export default function ServicioModal ({ open, service, ...props }) {
             })
           const lastStep = activeStep === steps.length - 1
           const sent = activeStep === steps.length
-
           return (
             <form onSubmit={handleSubmit}>
               <Stepper activeStep={activeStep} alternativeLabel>
@@ -158,16 +155,16 @@ export default function ServicioModal ({ open, service, ...props }) {
                       color='primary'
                       className={classes.instructions}
                     >
-                      Enviado!
+                      Envíado!
                     </Typography>
                     <Typography className={classes.instructions}>
                       Prontamente recibirás un Ticket con todos los detalles
                     </Typography>
                     <Button onClick={props.handleClose}>
-                      Volver al Catalago
+                      Volver al Catálago
                     </Button>
                     <Button onClick={props.handleClose}>
-                      Leer articulos relacionados
+                      Leer artículos relacionados
                     </Button>
                   </div>
                 ) : (
@@ -181,9 +178,8 @@ export default function ServicioModal ({ open, service, ...props }) {
                         onClick={handleBack}
                         className={classes.backButton}
                       >
-                        Back
+                        Atrás
                       </Button>
-
                       {lastStep ? (
                         <Button
                           type='submit'
@@ -191,7 +187,7 @@ export default function ServicioModal ({ open, service, ...props }) {
                           variant='contained'
                           color='primary'
                         >
-                          Finish
+                          Enviar
                         </Button>
                       ) : (
                         <Button
@@ -200,7 +196,7 @@ export default function ServicioModal ({ open, service, ...props }) {
                           disabled={disableButton}
                           onClick={handleNext}
                         >
-                          Next
+                          Siguiente
                         </Button>
                       )}
                     </div>
@@ -280,7 +276,7 @@ function Info ({ values, errors, touched, service, handleChange, handleBlur }) {
 }
 
 function Format ({ values, errors, handleChange }) {
-  const { data, loading } = useAPI('Format', true)
+  const { data, loading } = useAPI('Formato', true)
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>
@@ -290,7 +286,7 @@ function Format ({ values, errors, handleChange }) {
       </Grid>
       <Grid item md={12}>
         {!loading && (
-          <CheckboxesGroup
+          <RadioGroup
             name='formato'
             options={data}
             values={values}
@@ -312,9 +308,10 @@ function Contact ({
   handleBlur,
   isSubmitting
 }) {
+  const { data, loading } = useAPI('Rubro', true)
   return (
     <Grid container spacing={2}>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -328,9 +325,8 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
-          required
           fullWidth
           id='celular'
           label='Celular'
@@ -342,21 +338,7 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
-        <TextField
-          required
-          fullWidth
-          id='ciudad'
-          label='Desde la ciudad'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.ciudad}
-          error={!!touched.ciudad && !!errors.ciudad}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -370,7 +352,7 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -384,7 +366,21 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
+        <TextField
+          required
+          fullWidth
+          id='ciudad'
+          label='Desde la ciudad'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.ciudad}
+          error={!!touched.ciudad && !!errors.ciudad}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
         <TextField
           fullWidth
           id='organizacion'
@@ -396,6 +392,18 @@ function Contact ({
           error={!!touched.organizacion && !!errors.organizacion}
           variant='outlined'
         />
+      </Grid>
+      <Grid item md={12}>
+        {!loading && values.organizacion && (
+          <RadioGroup
+            name='rubro'
+            options={data}
+            values={values}
+            errors={errors}
+            handleChange={handleChange}
+          />
+        )}
+        {loading && <Spinner />}
       </Grid>
       <Grid item md={12}>
         <TextField

@@ -31,8 +31,8 @@
       "collection": "tamano",
       "via": "tamanoOrganizacion"
     },
-    "rubros": {
-      "collection": "rubro"
+    "rubro": {
+      "model": "rubro"
     },
     "nota": {
       "collection": "notas-organizaciones",

@@ -36,7 +36,7 @@ export default function Contact () {
 
   const handleFormSubmit = async values => {
     try {
-      const result = await API.Audience.create(values)
+      const result = await API.Audiencia.create(values)
       console.log(`result`, result)
     } catch (error) {
       console.error(error)

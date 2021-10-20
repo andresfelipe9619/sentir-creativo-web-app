@@ -31,7 +31,6 @@ const columns = [
   {
     name: 'updated_at',
     label: 'Última Actualización',
-    
     options: {
       filter: true,
       sort: false
@@ -45,7 +44,6 @@ const columns = [
   {
     name: 'created_at',
     label: 'Creado el',
-    
     options: {
       filter: true,
       sort: false,
@@ -69,7 +67,7 @@ export default function Archivos () {
       <MasterDetail
         masterProps={master}
         detailProps={detail}
-        service='Archive'
+        service='Archivo'
       />
     </Grid>
   )

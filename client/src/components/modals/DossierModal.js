@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-// import API from '../../api'
+import API from '../../api'
 import { useAlertDispatch } from '../../providers/context/Alert'
 
 const initialValues = {
@@ -14,6 +14,7 @@ const initialValues = {
   email: '',
   celular: '',
   comentario: '',
+  prefijo: '',
   ciudad: ''
 }
 
@@ -48,16 +49,16 @@ export default function DossierModal ({ open, service, ...props }) {
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)
-      //   const result = await API.Project.start({
-      //     ...values,
-      //     servicio: { id: service.id, nombre: service.nombre }
-      //   })
-      openAlert({ variant: 'success', message: 'Datos enviados con exito' })
+      const result = await API.Audiencia.create({
+        ...values
+      })
+      console.log(`result`, result)
+      openAlert({ variant: 'success', message: 'Datos enviados con éxito!' })
     } catch (error) {
       console.error(error)
       openAlert({
         variant: 'error',
-        message: 'Algo salio mal. Vuelve a intentarlo mas tarde'
+        message: 'Algo salió mal. Vuelve a intentarlo más tarde'
       })
     }
   }
@@ -93,7 +94,7 @@ function Contact ({
 }) {
   return (
     <Grid container spacing={2}>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -107,7 +108,7 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -121,7 +122,7 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -135,7 +136,21 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
+        <TextField
+          required
+          fullWidth
+          id='prefijo'
+          label='Prefijo'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.prefijo}
+          error={!!touched.prefijo && !!errors.prefijo}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
@@ -149,7 +164,7 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item md={6}>
+      <Grid item xs={12} md={6}>
         <TextField
           required
           fullWidth
