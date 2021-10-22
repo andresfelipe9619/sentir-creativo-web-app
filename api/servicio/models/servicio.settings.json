@@ -72,6 +72,11 @@
     "estado": {
       "model": "estado-servicio",
       "via": "servicios"
+    },
+    "stafs": {
+      "collection": "staf",
+      "via": "servicios",
+      "dominant": true
     }
   }
 }
