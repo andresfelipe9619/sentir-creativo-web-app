@@ -77,6 +77,10 @@
       "collection": "staf",
       "via": "servicios",
       "dominant": true
+    },
+    "coleccion": {
+      "via": "servicios",
+      "model": "coleccion"
     }
   }
 }
