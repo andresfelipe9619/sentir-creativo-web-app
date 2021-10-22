@@ -83,6 +83,14 @@
     "rol": {
       "via": "stafs",
       "model": "rol"
+    },
+    "proyectos": {
+      "via": "staf",
+      "collection": "proyecto"
+    },
+    "servicios": {
+      "via": "stafs",
+      "collection": "servicio"
     }
   }
 }

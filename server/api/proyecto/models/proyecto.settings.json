@@ -50,6 +50,10 @@
     },
     "publicoObjetivos": {
       "collection": "publico-objetivo"
+    },
+    "staf": {
+      "model": "staf",
+      "via": "proyectos"
     }
   }
 }
