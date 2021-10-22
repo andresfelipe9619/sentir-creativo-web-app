@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/coleccions",
+      "handler": "coleccion.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/coleccions/count",
+      "handler": "coleccion.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/coleccions/:id",
+      "handler": "coleccion.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/coleccions",
+      "handler": "coleccion.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/coleccions/:id",
+      "handler": "coleccion.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/coleccions/:id",
+      "handler": "coleccion.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

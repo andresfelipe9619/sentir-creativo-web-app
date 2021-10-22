@@ -37,7 +37,7 @@ export default function RadioButtonsGroup ({
             return (
               <FormControlLabel
                 key={o.value}
-                value={o.value}
+                value={+o.value}
                 control={<Radio />}
                 label={o.label}
               />

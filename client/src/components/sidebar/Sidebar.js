@@ -33,6 +33,7 @@ export default function Sidebar ({ children }) {
   const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [areas, setAreas] = useState([])
+  const [value, setValue] = React.useState(0)
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   const handleDrawerOpen = () => setOpen(true)
@@ -41,7 +42,6 @@ export default function Sidebar ({ children }) {
 
   const goTo = path => () => history.push(path)
   const isSelected = path => location.pathname === path
-
   useEffect(() => {
     ;(async () => {
       const result = await API.Area.getAll()
@@ -69,10 +69,12 @@ export default function Sidebar ({ children }) {
           </IconButton>
           <Box width='100%' display='flex' justifyContent='center'>
             <BottomNavigation
-              // value={value}
-              // onChange={(event, newValue) => {
-              //   setValue(newValue)
-              // }}
+              value={value}
+              onChange={(_, newValue) => {
+                let id = areas[newValue].id
+                setValue(newValue)
+                goTo(`/areas/${id}`)()
+              }}
               showLabels={!isMobile}
               className={classes.root}
             >

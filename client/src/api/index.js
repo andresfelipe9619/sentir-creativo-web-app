@@ -24,8 +24,8 @@ server.interceptors.request.use(tokenInterceptor, error =>
 )
 
 const serverRequests = {
-  del: url => server.delete(`${url}`).then(responseBody),
-  get: url => server.get(`${url}`).then(responseBody),
+  del: (url, config) => server.delete(`${url}`, config).then(responseBody),
+  get: (url, config) => server.get(`${url}`, config).then(responseBody),
   put: (url, body) => server.put(`${url}`, body).then(responseBody),
   post: (url, body) => server.post(`${url}`, body).then(responseBody)
 }
@@ -46,7 +46,7 @@ const Proyecto = {
 }
 
 const Servicio = {
-  getAll: () => serverRequests.get(`/servicios`),
+  getAll: config => serverRequests.get(`/servicios`, config),
   get: id => serverRequests.get(`/servicios/${id}`),
   create: service => serverRequests.post('/servicios', service),
   update: (id, service) => serverRequests.put(`/servicios/${id}`, service),

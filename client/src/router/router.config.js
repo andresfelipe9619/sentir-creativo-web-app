@@ -1,5 +1,8 @@
 import { lazy } from 'react'
 const Home = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home'))
+const Areas = lazy(() =>
+  import(/* webpackChunkName: "areas" */ '../pages/Areas')
+)
 const About = lazy(() =>
   import(/* webpackChunkName: "about" */ '../pages/About')
 )
@@ -22,6 +25,13 @@ const routerConfig = [
     path: '/',
     component: Home,
     name: 'Home',
+    exact: true,
+    strict: true
+  },
+  {
+    path: '/areas/:id',
+    component: Areas,
+    name: 'Areas',
     exact: true,
     strict: true
   },

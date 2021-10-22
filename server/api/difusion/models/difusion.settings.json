@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "origens",
+  "collectionName": "difusions",
   "info": {
-    "name": "origen",
-    "description": ""
+    "name": "difusion"
   },
   "options": {
     "increments": true,
@@ -15,12 +14,17 @@
     "nombre": {
       "type": "string"
     },
-    "color": {
-      "type": "string"
+    "descripcion": {
+      "type": "text"
     },
     "audiencias": {
-      "via": "origen",
-      "collection": "audiencia"
+      "collection": "audiencia",
+      "via": "difusiones",
+      "dominant": true
+    },
+    "plataforma": {
+      "via": "difusiones",
+      "model": "plataforma"
     }
   }
 }

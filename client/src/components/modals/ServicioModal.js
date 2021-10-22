@@ -16,7 +16,6 @@ import * as Yup from 'yup'
 import clsx from 'clsx'
 import API from '../../api'
 import PublicoObjetivo from '../publico-objetivo/PublicoObjetivo'
-import CheckboxesGroup from '../checkbox'
 import Spinner from '../spinner/Spinner'
 import RadioGroup from '../radio'
 import useAPI from '../../providers/hooks/useAPI'
@@ -47,7 +46,7 @@ const contactSchema = Yup.object().shape({
     .email('Invalid email')
     .required('Required'),
   impacto: Yup.number().required('Required'),
-  formato: Yup.array().required('Required'),
+  formato: Yup.number().required('Required'),
   publicoObjetivo: Yup.array().required('Required')
 })
 
@@ -95,12 +94,13 @@ export default function ServicioModal ({ open, service, ...props }) {
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)
-      // const result = await API.Proyecto.start({
-      //   ...values,
-      //   servicio: { id: service.id, nombre: service.nombre }
-      // })
-      // console.log(`result`, result)
+      const result = await API.Proyecto.start({
+        ...values,
+        servicio: { id: service.id, nombre: service.nombre }
+      })
+      console.log(`result`, result)
       openAlert({ variant: 'success', message: 'Ticket creado con éxito' })
+      handleNext()
     } catch (error) {
       console.error(error)
       openAlert({
@@ -126,18 +126,20 @@ export default function ServicioModal ({ open, service, ...props }) {
         validationSchema={contactSchema}
       >
         {({ handleSubmit, ...formikProps }) => {
-          const disableButton =
-            formikProps.isSubmitting ||
-            fieldsByStep[activeStep].some(field => {
-              const value = formikProps.values[field]
-              const hasError =
-                !!formikProps.touched[field] && !!formikProps.errors[field]
-              const isEmpty = Array.isArray(value) ? !value.length : !value
-              const disabled = isEmpty || hasError
-              return disabled
-            })
           const lastStep = activeStep === steps.length - 1
           const sent = activeStep === steps.length
+          const disableButton =
+            formikProps.isSubmitting ||
+            (!sent &&
+              fieldsByStep[activeStep].some(field => {
+                const value = formikProps.values[field]
+                const hasError =
+                  !!formikProps.touched[field] && !!formikProps.errors[field]
+                const isEmpty = Array.isArray(value) ? !value.length : !value
+                const disabled = isEmpty || hasError
+                return disabled
+              }))
+
           return (
             <form onSubmit={handleSubmit}>
               <Stepper activeStep={activeStep} alternativeLabel>
@@ -338,7 +340,20 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
+        <TextField
+          fullWidth
+          id='prefijo'
+          label='Prefijo'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.prefijo}
+          error={!!touched.prefijo && !!errors.prefijo}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item xs={12} md={4}>
         <TextField
           required
           fullWidth
@@ -352,9 +367,8 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
         <TextField
-          required
           fullWidth
           id='apellido'
           label='Apellido'
@@ -368,7 +382,6 @@ function Contact ({
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
-          required
           fullWidth
           id='ciudad'
           label='Desde la ciudad'

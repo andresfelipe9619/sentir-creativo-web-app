@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "origens",
+  "collectionName": "coleccions",
   "info": {
-    "name": "origen",
-    "description": ""
+    "name": "coleccion"
   },
   "options": {
     "increments": true,
@@ -15,12 +14,12 @@
     "nombre": {
       "type": "string"
     },
-    "color": {
-      "type": "string"
+    "descripcion": {
+      "type": "text"
     },
-    "audiencias": {
-      "via": "origen",
-      "collection": "audiencia"
+    "servicios": {
+      "collection": "servicio",
+      "via": "coleccion"
     }
   }
 }
