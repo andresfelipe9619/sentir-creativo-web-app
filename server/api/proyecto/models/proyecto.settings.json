@@ -54,6 +54,9 @@
     "staf": {
       "model": "staf",
       "via": "proyectos"
+    },
+    "estadoProyecto": {
+      "model": "estado-proyecto"
     }
   }
 }

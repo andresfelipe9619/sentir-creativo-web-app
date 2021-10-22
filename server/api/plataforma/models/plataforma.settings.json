@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "origens",
+  "collectionName": "plataformas",
   "info": {
-    "name": "origen",
-    "description": ""
+    "name": "plataforma"
   },
   "options": {
     "increments": true,
@@ -15,12 +14,9 @@
     "nombre": {
       "type": "string"
     },
-    "color": {
-      "type": "string"
-    },
-    "audiencias": {
-      "via": "origen",
-      "collection": "audiencia"
+    "difusiones": {
+      "collection": "difusion",
+      "via": "plataforma"
     }
   }
 }

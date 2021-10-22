@@ -82,6 +82,17 @@
     },
     "publicoObjetivos": {
       "collection": "publico-objetivo"
+    },
+    "origen": {
+      "via": "audiencias",
+      "model": "origen"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "difusiones": {
+      "via": "audiencias",
+      "collection": "difusion"
     }
   }
 }
