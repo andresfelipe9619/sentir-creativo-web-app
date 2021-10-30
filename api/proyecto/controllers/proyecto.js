@@ -1,12 +1,45 @@
 'use strict'
-
+const { sanitizeEntity } = require('strapi-utils')
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
  * to customize this controller
  */
 
+const populate = [
+  'id',
+  'staf',
+  'audiencia',
+  'formato',
+  'propositos',
+  'tipo_proyecto',
+  'estado_proyecto',
+  'publico_objetivos',
+  'archivos',
+  'comentarios',
+  'presupuestos',
+  'audiencia.organizacion',
+  'archivos.tipo_archivo'
+]
+
 module.exports = {
-  async start(ctx) {
+  async find (ctx) {
+    let entities
+    if (ctx.query._q) {
+      entities = await strapi.services.proyecto.search(ctx.query)
+    } else {
+      entities = await strapi.services.proyecto.find(ctx.query, populate)
+    }
+
+    return entities.map(entity =>
+      sanitizeEntity(entity, { model: strapi.models.proyecto })
+    )
+  },
+  async findOne (ctx) {
+    const { id } = ctx.params
+    const entity = await strapi.services.proyecto.findOne({ id }, populate)
+    return sanitizeEntity(entity, { model: strapi.models.proyecto })
+  },
+  async start (ctx) {
     const { request } = ctx
     let {
       nombre,
@@ -31,7 +64,7 @@ module.exports = {
       console.log(`audience`, audience)
       let org = null
 
-      async function findOrCreate(model, find, props) {
+      async function findOrCreate (model, find, props) {
         let result = await strapi.services[model].findOne(find)
         if (!result) {
           result = await strapi.services[model].create({ ...find, ...props })
@@ -40,7 +73,7 @@ module.exports = {
       }
 
       if (organizacion) {
-        org = findOrCreate("organizacion", { nombre: organizacion }, { rubro })
+        org = findOrCreate('organizacion', { nombre: organizacion }, { rubro })
       }
 
       if (!audience) {
@@ -80,7 +113,7 @@ module.exports = {
         await trx('proyectos__publico_objetivos').insert(
           publicoObjetivo.map(id => ({
             proyecto_id: project.id,
-            "publico-objetivo_id": id
+            'publico-objetivo_id': id
           }))
         )
       })

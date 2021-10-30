@@ -21,16 +21,16 @@
       "required": true,
       "maxLength": 60
     },
-    "proyectos": {
-      "via": "tipoProyecto",
-      "collection": "proyecto"
-    },
     "sub_tipo_proyectos": {
       "via": "tipo_proyecto",
       "collection": "sub-tipo-proyectos"
     },
     "icon": {
       "type": "string"
+    },
+    "proyectos": {
+      "via": "tipo_proyecto",
+      "collection": "proyecto"
     }
   }
 }
