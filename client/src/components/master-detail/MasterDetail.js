@@ -1,37 +1,37 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom'
 import Master from './Master'
 import Detail from './Detail'
-import API from '../../api'
+import useAPI from '../../providers/hooks/useAPI'
+import Spinner from '../spinner/Spinner'
 
-export default function MasterDetail ({ masterProps, detailProps, service }) {
+export default function MasterDetail ({
+  masterProps,
+  detailProps,
+  service,
+  renderMaster
+}) {
   const match = useRouteMatch()
   const history = useHistory()
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
   const masterPath = match.path
   const detailPath = `${masterPath}/:id`
-
-  const init = useCallback(async () => {
-    try {
-      let result = await API[service].getAll()
-      setData(result)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-  }, [service])
+  const { data, loading } = useAPI(service)
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id
     history.push(`${masterPath}/${entityId}`)
   }
 
-  useEffect(() => {
-    init()
-    //eslint-disable-next-line
-  }, [])
+  const defaultRender = props => (
+    <Master
+      {...masterProps}
+      {...props}
+      data={data}
+      loading={loading}
+      onRowClick={handleClickRow}
+    />
+  )
+  if (loading) return <Spinner />
 
   return (
     <Switch>
@@ -39,15 +39,11 @@ export default function MasterDetail ({ masterProps, detailProps, service }) {
         exact
         strict
         path={masterPath}
-        render={props => (
-          <Master
-            {...masterProps}
-            {...props}
-            data={data}
-            loading={loading}
-            onRowClick={handleClickRow}
-          />
-        )}
+        render={
+          renderMaster
+            ? props => renderMaster({ data, handleClickRow, ...props })
+            : defaultRender
+        }
       />
       <Route
         path={detailPath}

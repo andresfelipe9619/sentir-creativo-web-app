@@ -7,3 +7,24 @@ export function splitArrayIntoChunksOfLen (arr, len) {
   }
   return chunks
 }
+
+
+const longFormatOptions = {
+  weekday: 'short',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric'
+}
+const shortFormatOptions = {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+}
+
+export const formatDate = (date, long = true) =>
+  new Date(date).toLocaleString(
+    'en-US',
+    long ? longFormatOptions : shortFormatOptions
+  )

@@ -126,6 +126,14 @@ const Formato = {
   delete: id => serverRequests.del(`/formatoes/${id}`)
 }
 
+const EstadoProyecto = {
+  getAll: () => serverRequests.get(`/estado-proyectos`),
+  get: id => serverRequests.get(`/estado-proyectos/${id}`),
+  create: state => serverRequests.post('/estado-proyectos', state),
+  update: (id, state) => serverRequests.put(`/estado-proyectos/${id}`, state),
+  delete: id => serverRequests.del(`/estado-proyectos/${id}`)
+}
+
 const Rubro = {
   getAll: () => serverRequests.get(`/rubros`),
   get: id => serverRequests.get(`/rubros/${id}`),
@@ -148,6 +156,7 @@ const API = {
   AudienceState,
   ServiceState,
   PublicoObjetivo,
+  EstadoProyecto,
   setToken
 }
 

@@ -17,7 +17,7 @@ export default function useAPI (service, map = false) {
             }))
             .filter(i => i.label)
         }
-        setData(result)
+        setData(result || [])
       } catch (error) {
         console.error(error)
       } finally {
