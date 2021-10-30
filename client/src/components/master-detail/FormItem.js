@@ -1,3 +1,12 @@
+import 'date-fns'
+import React from 'react'
+import DateFnsUtils from '@date-io/date-fns'
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from '@material-ui/pickers'
+
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -24,6 +33,22 @@ export default function FormItem ({
   let value = values[key]
   const canRender = name => type === name
   const content = {
+    date: canRender('date') && (
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          disableToolbar
+          variant='inline'
+          format='MM/dd/yyyy'
+          margin='normal'
+          id={key}
+          label={item.label}
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={value}
+        />
+      </MuiPickersUtilsProvider>
+    ),
     input: canRender('input') && (
       <TextField
         fullWidth

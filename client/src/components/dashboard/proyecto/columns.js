@@ -12,18 +12,6 @@ const columns = [
     }
   },
   {
-    name: 'formato',
-    label: 'Formato',
-    options: {
-      filter: true,
-      sort: false
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
     name: 'impacto',
     label: 'Impacto',
     options: {
@@ -36,19 +24,6 @@ const columns = [
     }
   },
   {
-    name: 'descripcion',
-    label: 'Descripcion',
-    options: {
-      filter: true,
-      sort: false
-    },
-    form: {
-      size: 8,
-      type: 'input',
-      multiline: true
-    }
-  },
-  {
     name: 'avance',
     label: 'Avance',
     options: {
@@ -58,6 +33,69 @@ const columns = [
     form: {
       size: 4,
       type: 'input'
+    }
+  },
+  {
+    name: 'formato',
+    label: 'Formato',
+    options: {
+      filter: true,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Formato'
+    }
+  },
+  {
+    name: 'estado_proyecto',
+    label: 'Estado',
+    options: {
+      filter: true,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'EstadoProyecto'
+    }
+  },
+  {
+    name: 'fechaInicio',
+    label: 'Fecha Inicio',
+    options: {
+      filter: true,
+      sort: false
+    },
+    form: {
+      size: 4,
+      type: 'date'
+    }
+  },
+  {
+    name: 'fechaFin',
+    label: 'Fecha Fin',
+    options: {
+      filter: true,
+      sort: false
+    },
+    form: {
+      size: 4,
+      type: 'date'
+    }
+  },
+  {
+    name: 'descripcion',
+    label: 'Descripcion',
+    options: {
+      filter: true,
+      sort: false
+    },
+    form: {
+      size: 10,
+      type: 'input',
+      multiline: true
     }
   },
   {

@@ -12,6 +12,7 @@ import { useHistory } from 'react-router'
 import columns from './columns'
 import MasterDetail from '../../master-detail/MasterDetail'
 import { formatDate } from '../../../utils'
+import { Chip } from '@material-ui/core'
 
 export default function Proyectos () {
   const theme = useTheme()
@@ -53,7 +54,15 @@ const useStyles = makeStyles({
   }
 })
 
-function ProjectCard ({ id, nombre, audiencia, fechaInicio, fechaFin }) {
+function ProjectCard ({
+  id,
+  nombre,
+  fechaFin,
+  audiencia,
+  fechaInicio,
+  tipo_proyecto,
+  estado_proyecto
+}) {
   const classes = useStyles()
   const history = useHistory()
   const handleClick = () => {
@@ -76,6 +85,10 @@ function ProjectCard ({ id, nombre, audiencia, fechaInicio, fechaFin }) {
           {fechaInicio && fechaFin && ' - '}
           {fechaFin ? formatDate(fechaFin, false) : ''}
         </Typography>
+        {tipo_proyecto && <Chip label={tipo_proyecto.tipo} />}
+        {estado_proyecto && (
+          <Chip label={estado_proyecto.nombre} variant='outlined' />
+        )}
       </CardContent>
       <CardActions>
         <Button
