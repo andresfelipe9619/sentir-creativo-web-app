@@ -1,9 +1,7 @@
 import React from 'react'
 import MUIDataTable from 'mui-datatables'
-import Spinner from '../spinner/Spinner'
 
-export default function Master ({ title, data, columns, loading, onRowClick }) {
-  if (loading) return <Spinner />
+export default function Master ({ title, data, columns, onRowClick }) {
   return (
     <MUIDataTable
       data={data}

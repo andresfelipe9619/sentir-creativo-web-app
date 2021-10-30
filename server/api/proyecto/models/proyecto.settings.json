@@ -27,9 +27,9 @@
     "avance": {
       "type": "decimal"
     },
-    "tipoProyecto": {
-      "via": "proyectos",
-      "model": "tipo-proyectos"
+    "tipo_proyecto": {
+      "model": "tipo-proyectos",
+      "via": "proyectos"
     },
     "descripcion": {
       "type": "text"
@@ -38,7 +38,7 @@
       "via": "proyectos",
       "model": "audiencia"
     },
-    "imagenProyecto": {
+    "imagen": {
       "type": "string"
     },
     "presupuestos": {
@@ -48,15 +48,21 @@
     "comentarios": {
       "collection": "comentario"
     },
-    "publicoObjetivos": {
+    "publico_objetivos": {
       "collection": "publico-objetivo"
     },
     "staf": {
       "model": "staf",
       "via": "proyectos"
     },
-    "estadoProyecto": {
+    "estado_proyecto": {
       "model": "estado-proyecto"
+    },
+    "formato": {
+      "model": "formato"
+    },
+    "archivos": {
+      "collection": "archivo"
     }
   }
 }
