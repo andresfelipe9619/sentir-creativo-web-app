@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Route, Switch, useHistory, useRouteMatch } from 'react-router-dom'
 import Master from './Master'
 import Detail from './Detail'
