@@ -8,7 +8,7 @@ import Spinner from '../spinner/Spinner'
 import { Button } from '@material-ui/core'
 import FormItem from './FormItem'
 
-export default function Detail ({ columns, service, match }) {
+export default function Detail ({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null)
   const [dependencies, setDependencies] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -19,13 +19,14 @@ export default function Detail ({ columns, service, match }) {
       try {
         const result = await API[service].update(entityId, values)
         console.log(`result`, result)
+        reloadMaster && reloadMaster()
       } catch (error) {
         console.error(error)
       } finally {
         setLoading(false)
       }
     },
-    [entityId, service]
+    [entityId, service, reloadMaster]
   )
 
   const loadDependencies = useCallback(async () => {

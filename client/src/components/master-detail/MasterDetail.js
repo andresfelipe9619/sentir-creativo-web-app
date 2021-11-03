@@ -15,7 +15,7 @@ export default function MasterDetail ({
   const history = useHistory()
   const masterPath = match.path
   const detailPath = `${masterPath}/:id`
-  const { data, loading } = useAPI(service)
+  const { data, loading, init } = useAPI(service)
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id
@@ -48,7 +48,7 @@ export default function MasterDetail ({
       <Route
         path={detailPath}
         render={props => (
-          <Detail {...detailProps} {...props} service={service} />
+          <Detail {...detailProps} {...props} service={service} reloadMaster={init}/>
         )}
       />
     </Switch>
