@@ -18,8 +18,8 @@
       "type": "email"
     },
     "stafs": {
-      "collection": "staf",
-      "via": "rol"
+      "via": "rol",
+      "collection": "staf"
     },
     "candidatos": {
       "type": "text"

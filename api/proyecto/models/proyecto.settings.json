@@ -52,8 +52,8 @@
       "collection": "publico-objetivo"
     },
     "staf": {
-      "model": "staf",
-      "via": "proyectos"
+      "via": "proyectos",
+      "model": "staf"
     },
     "estado_proyecto": {
       "model": "estado-proyecto"

@@ -12,51 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "userId": {
-      "type": "string"
-    },
-    "fullName": {
-      "type": "string"
-    },
-    "primaryEmail": {
-      "type": "email"
-    },
-    "givenName": {
-      "type": "string"
-    },
-    "admin": {
-      "type": "string"
-    },
-    "primary": {
-      "type": "string"
-    },
-    "phone1Value": {
-      "type": "biginteger"
-    },
-    "tipo": {
-      "type": "string"
-    },
-    "eTag": {
-      "type": "text"
-    },
-    "lastLoginTime": {
-      "type": "date"
-    },
-    "organizationTitle": {
-      "type": "string"
-    },
-    "organizationPrimary": {
-      "type": "string"
-    },
-    "organizationCustomType": {
-      "type": "string"
-    },
-    "organizationDepartment": {
-      "type": "string"
-    },
-    "organizationDescription": {
-      "type": "string"
-    },
     "costCenter": {
       "type": "string"
     },
@@ -64,12 +19,6 @@
       "type": "string"
     },
     "thumbnailPhotoUrl": {
-      "type": "string"
-    },
-    "relationValue": {
-      "type": "string"
-    },
-    "relationType": {
       "type": "string"
     },
     "acuerdos": {
@@ -91,6 +40,41 @@
     "servicios": {
       "via": "stafs",
       "collection": "servicio"
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "apellido": {
+      "type": "string"
+    },
+    "nombreArtistico": {
+      "type": "string"
+    },
+    "oficio": {
+      "type": "string"
+    },
+    "edad": {
+      "type": "integer"
+    },
+    "nacionalidad": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "celular": {
+      "type": "biginteger"
+    },
+    "tecnica_artisticas": {
+      "collection": "tecnica-artistica",
+      "via": "stafs",
+      "dominant": true
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "origen": {
+      "model": "origen"
     }
   }
 }
