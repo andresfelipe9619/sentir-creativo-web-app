@@ -41,7 +41,7 @@ export default function Proyectos () {
 
 const useStyles = makeStyles({
   root: {
-    height: 180,
+    height: 200,
     marginBottom: '10%',
     margin: 1,
     marginLeft: '5%'
@@ -76,7 +76,7 @@ function ProjectCard ({
           {audiencia?.organizacion?.nombre || 'No Org'}
         </Typography>
         <Tooltip title={nombre}>
-          <Typography variant='h5' component='h2' className={classes.title}>
+          <Typography variant='h6' component='h2' className={classes.title}>
             {nombre}
           </Typography>
         </Tooltip>

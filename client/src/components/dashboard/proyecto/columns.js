@@ -62,6 +62,19 @@ const columns = [
     }
   },
   {
+    name: 'tipo_proyecto',
+    label: 'Tipo Proyecto',
+    options: {
+      filter: true,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'TipoProyecto'
+    }
+  },
+  {
     name: 'fechaInicio',
     label: 'Fecha Inicio',
     options: {

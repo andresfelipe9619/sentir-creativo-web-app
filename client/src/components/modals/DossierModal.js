@@ -23,10 +23,6 @@ const contactSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  celular: Yup.string()
-    .min(2, 'Too Short!')
-    .max(20, 'Too Long!')
-    .required('Required'),
   email: Yup.string()
     .email('Invalid email')
     .required('Required')
@@ -49,8 +45,9 @@ export default function DossierModal ({ open, service, ...props }) {
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)
-      const result = await API.Audiencia.create({
-        ...values
+      const result = await API.Audiencia.dossier({
+        ...values,
+        servicio: service
       })
       console.log(`result`, result)
       openAlert({ variant: 'success', message: 'Datos enviados con éxito!' })
@@ -71,10 +68,15 @@ export default function DossierModal ({ open, service, ...props }) {
     >
       {({ handleSubmit, ...formikProps }) => {
         return (
-          <GenericModal open={open} {...props} handleConfirm={handleSubmit}>
+          <GenericModal
+            {...props}
+            open={open}
+            title={service?.nombre || ''}
+            handleConfirm={handleSubmit}
+          >
             <form>
               <div className={classes.instructions}>
-                <Contact {...{ ...formikProps, service }} />
+                <Contact {...formikProps} />
               </div>
             </form>
           </GenericModal>
@@ -94,48 +96,6 @@ function Contact ({
 }) {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='email'
-          label='Email'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.email}
-          error={!!touched.email && !!errors.email}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='celular'
-          label='Celular'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.celular}
-          error={!!touched.celular && !!errors.celular}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='ciudad'
-          label='Desde la ciudad'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.ciudad}
-          error={!!touched.ciudad && !!errors.ciudad}
-          variant='outlined'
-        />
-      </Grid>
       <Grid item xs={12} md={6}>
         <TextField
           required
@@ -178,6 +138,48 @@ function Contact ({
           variant='outlined'
         />
       </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          required
+          fullWidth
+          id='email'
+          label='Email'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.email}
+          error={!!touched.email && !!errors.email}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          fullWidth
+          id='celular'
+          label='Celular'
+          placeholder='Celular (Opcional)'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.celular}
+          error={!!touched.celular && !!errors.celular}
+          variant='outlined'
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          fullWidth
+          id='ciudad'
+          label='Desde la ciudad'
+          disabled={isSubmitting}
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.ciudad}
+          error={!!touched.ciudad && !!errors.ciudad}
+          variant='outlined'
+        />
+      </Grid>
+
       <Grid item md={12}>
         <TextField
           fullWidth

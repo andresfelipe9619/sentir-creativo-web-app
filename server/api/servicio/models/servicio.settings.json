@@ -74,8 +74,8 @@
       "via": "servicios"
     },
     "stafs": {
-      "collection": "staf",
       "via": "servicios",
+      "collection": "staf",
       "dominant": true
     },
     "coleccion": {
