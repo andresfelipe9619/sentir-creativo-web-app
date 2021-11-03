@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/audiencias/dossier",
+      "handler": "audiencia.dossier",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/audiencias/:id",
       "handler": "audiencia.update",
