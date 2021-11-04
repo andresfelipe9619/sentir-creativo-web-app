@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prefijos",
+  "info": {
+    "name": "prefijo"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

@@ -71,8 +71,9 @@ export default function DossierModal ({ open, service, ...props }) {
           <GenericModal
             {...props}
             open={open}
-            title={service?.nombre || ''}
             handleConfirm={handleSubmit}
+            title={service?.nombre || ''}
+            isSubmitting={formikProps.isSubmitting}
           >
             <form>
               <div className={classes.instructions}>

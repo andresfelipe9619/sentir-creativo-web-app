@@ -12,15 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "costCenter": {
-      "type": "string"
-    },
-    "thumbnailPhotoEtag": {
-      "type": "string"
-    },
-    "thumbnailPhotoUrl": {
-      "type": "string"
-    },
     "acuerdos": {
       "collection": "acuerdos",
       "via": "staf"
@@ -53,9 +44,6 @@
     "oficio": {
       "type": "string"
     },
-    "edad": {
-      "type": "integer"
-    },
     "nacionalidad": {
       "type": "string"
     },
@@ -75,6 +63,9 @@
     },
     "origen": {
       "model": "origen"
+    },
+    "fechaNacimiento": {
+      "type": "date"
     }
   }
 }
