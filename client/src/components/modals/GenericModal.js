@@ -21,6 +21,7 @@ export default function Modal ({
   title,
   children,
   handleClose,
+  isSubmitting,
   handleConfirm,
   hideCloseButton,
   hideConfirmButton
@@ -44,13 +45,17 @@ export default function Modal ({
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {!hideCloseButton && (
-          <Button onClick={handleClose} color='primary'>
+          <Button onClick={handleClose} color='primary' disabled={isSubmitting}>
             Cancelar
           </Button>
         )}
         {!hideConfirmButton && (
-          <Button onClick={handleConfirm} color='primary'>
-            Aceptar
+          <Button
+            color='primary'
+            onClick={handleConfirm}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Enviando...' : 'Aceptar'}
           </Button>
         )}
       </DialogActions>

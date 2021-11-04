@@ -18,7 +18,9 @@
       "maxLength": 80
     },
     "email": {
-      "type": "email"
+      "type": "email",
+      "required": true,
+      "unique": true
     },
     "celular": {
       "type": "biginteger"
@@ -71,9 +73,6 @@
       "via": "audiencias",
       "collection": "tag"
     },
-    "prefijo": {
-      "type": "string"
-    },
     "comentarios": {
       "collection": "comentario"
     },
@@ -93,6 +92,9 @@
     "difusiones": {
       "via": "audiencias",
       "collection": "difusion"
+    },
+    "prefijo": {
+      "model": "prefijo"
     }
   }
 }

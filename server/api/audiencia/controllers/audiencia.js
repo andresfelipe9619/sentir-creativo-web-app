@@ -13,7 +13,7 @@ module.exports = {
       const { request } = ctx
       const { body } = request
       console.log(`body`, body)
-      const { comentario, service, ...data } = body
+      const { comentario, servicio, ...data } = body
       const knex = strapi.connections.default
       console.log(`webhook`, webhook)
       if (!body.email) throw new Error('Email is required')
@@ -28,8 +28,8 @@ module.exports = {
           }
         ])
       })
-
-      const { data: result } = await axios.post(webhook, audience)
+      const webhookData = { ...audience, servicio }
+      const { data: result } = await axios.post(webhook, webhookData)
       return result
     } catch (error) {
       console.error(error)

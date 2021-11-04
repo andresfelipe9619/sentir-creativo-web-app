@@ -18,8 +18,8 @@
       "type": "text"
     },
     "audiencias": {
-      "collection": "audiencia",
       "via": "difusiones",
+      "collection": "audiencia",
       "dominant": true
     },
     "plataforma": {
