@@ -151,6 +151,14 @@ const Rubro = {
   delete: id => serverRequests.del(`/rubros/${id}`)
 }
 
+const Prefijo = {
+  getAll: () => serverRequests.get(`/prefijos`),
+  get: id => serverRequests.get(`/prefijos/${id}`),
+  create: format => serverRequests.post('/prefijos', format),
+  update: (id, format) => serverRequests.put(`/prefijos/${id}`, format),
+  delete: id => serverRequests.del(`/prefijos/${id}`)
+}
+
 const API = {
   Auth,
   User,
@@ -162,6 +170,7 @@ const API = {
   Audiencia,
   Servicio,
   Formato,
+  Prefijo,
   AudienceState,
   ServiceState,
   PublicoObjetivo,

@@ -39,15 +39,18 @@ const initialValues = {
 
 const contactSchema = Yup.object().shape({
   nombre: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .max(50, 'Demasiado largo!')
+    .required('¡Reflautillas! El nombre es requerido'),
   email: Yup.string()
-    .email('Invalid email')
-    .required('Required'),
-  impacto: Yup.number().required('Required'),
-  formato: Yup.number().required('Required'),
-  publicoObjetivo: Yup.array().required('Required')
+    .email('¡Reflautillas! Un email correcto por favor.')
+    .required('¡Reflautillas! Un email es requerido'),
+  impacto: Yup.number().required(
+    '¡Reflautillas! El # de personas es requerido'
+  ),
+  formato: Yup.number().required('¡Reflautillas! El formato es requerido'),
+  publicoObjetivo: Yup.array().required(
+    '¡Reflautillas! Almenos un publico objetivo  es requerido'
+  )
 })
 
 const fieldsByStep = [
@@ -119,7 +122,12 @@ export default function ServicioModal ({ open, service, ...props }) {
   }
 
   return (
-    <GenericModal open={open} hideConfirmButton {...props}>
+    <GenericModal
+      open={open}
+      hideConfirmButton
+      title={service?.nombre}
+      {...props}
+    >
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -234,15 +242,12 @@ function Info ({ values, errors, touched, service, handleChange, handleBlur }) {
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>
-        <Typography color='primary' variant='h4'>
+        <Typography color='primary' variant='h4' paragraph>
           Para cuántas personas?
         </Typography>
-        <Typography paragraph>
+        <Typography>
           Responde esta pregunta y recibe un TICKET con los detalles del
-          presupuesto de nuestro servicio de:
-        </Typography>
-        <Typography paragraph color='primary' variant='h5'>
-          {service?.nombre}
+          presupuesto de nuestro servicio
         </Typography>
       </Grid>
       <Grid item md={12} container alignItems='center'>
