@@ -121,7 +121,7 @@ module.exports = {
       return { project }
     } catch (error) {
       console.error(error)
-      return { error: true }
+      return ctx.throw(500, error.toString())
     }
   }
 }
