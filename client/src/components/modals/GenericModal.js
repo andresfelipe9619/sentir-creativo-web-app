@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
+import Typography from '@material-ui/core/Typography'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
@@ -36,12 +37,18 @@ export default function Modal ({
       open={open}
       className={classes.root}
       fullScreen={fullScreen}
-      keepMounted={false}
       onClose={handleClose}
+      closeAfterTransition
       aria-labelledby='form-dialog-title'
       TransitionComponent={Transition}
     >
-      {title && <DialogTitle id='form-dialog-title'>{title}</DialogTitle>}
+      {title && (
+        <DialogTitle id='form-dialog-title' disableTypography>
+          <Typography color='primary' variant='h4'>
+            {title}
+          </Typography>
+        </DialogTitle>
+      )}
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {!hideCloseButton && (

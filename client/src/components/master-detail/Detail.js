@@ -7,12 +7,17 @@ import API from '../../api'
 import Spinner from '../spinner/Spinner'
 import { Button } from '@material-ui/core'
 import FormItem from './FormItem'
+import useFormDependencies from '../../providers/hooks/useFormDependencies'
 
 export default function Detail ({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null)
-  const [dependencies, setDependencies] = useState(null)
   const [loading, setLoading] = useState(true)
   const entityId = match?.params?.id
+  const {
+    dependencies,
+    loadDependencies,
+    loadingDependencies
+  } = useFormDependencies(columns)
 
   const handleFormSubmit = useCallback(
     async values => {
@@ -29,35 +34,6 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
     [entityId, service, reloadMaster]
   )
 
-  const loadDependencies = useCallback(async () => {
-    try {
-      let dependencyColumns = columns.reduce((acc, col) => {
-        let dependency = col?.form?.dependency
-        if (dependency) {
-          acc = acc.concat(dependency)
-        }
-        return acc
-      }, [])
-      await Promise.all(
-        dependencyColumns.map(async dependecy => {
-          let result = await API[dependecy].getAll()
-          setDependencies(prev => ({
-            ...prev,
-            [dependecy]: result.map(item => ({
-              label: item.nombre,
-              value: item.id
-            }))
-          }))
-        })
-      )
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-    //eslint-disable-next-line
-  }, [])
-
   const init = useCallback(async () => {
     try {
       const result = await API[service].get(entityId)
@@ -69,7 +45,8 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
     } finally {
       setLoading(false)
     }
-  }, [entityId, service, loadDependencies])
+    //eslint-disable-next-line
+  }, [entityId, service])
 
   useEffect(() => {
     init()
@@ -89,7 +66,7 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
   }, {})
 
   console.log(`initialValues`, initialValues)
-  if (loading) return <Spinner />
+  if (loading || loadingDependencies) return <Spinner />
   return (
     <Formik
       enableReinitialize

@@ -5,14 +5,14 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers'
-
+// import MuiPhoneNumber from 'material-ui-phone-number'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
-
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import Tags from '../tags/Tags'
 import Files from '../files/Files'
 
@@ -27,10 +27,18 @@ export default function FormItem ({
   handleBlur
 }) {
   if (!item?.form) return null
-  const { size, type, dependency, ...fieldProps } = item.form
+  const {
+    size,
+    type,
+    dependency,
+    inputType = 'text',
+    ...fieldProps
+  } = item.form
   const key = item.name
   let value = values[key]
   const canRender = name => type === name
+  const options = (dependencies || {})[dependency] || []
+
   const content = {
     date: canRender('date') && (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -48,6 +56,29 @@ export default function FormItem ({
         />
       </MuiPickersUtilsProvider>
     ),
+    autocomplete: canRender('autocomplete') && (
+      <Autocomplete
+        id={key}
+        freeSolo
+        options={options.map(option => option.label)}
+        renderInput={params => (
+          <TextField
+            fullWidth
+            label={item.label}
+            disabled={isSubmitting}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            value={value}
+            type={inputType}
+            error={!!touched[key] && !!errors[key]}
+            variant='outlined'
+            helperText={!!touched[key] && errors[key] ? errors[key] : ''}
+            {...params}
+            {...fieldProps}
+          />
+        )}
+      />
+    ),
     input: canRender('input') && (
       <TextField
         fullWidth
@@ -57,13 +88,28 @@ export default function FormItem ({
         onBlur={handleBlur}
         onChange={handleChange}
         value={value}
+        type={inputType}
         error={!!touched[key] && !!errors[key]}
         variant='outlined'
+        helperText={!!touched[key] && errors[key] ? errors[key] : ''}
         {...fieldProps}
       />
     ),
+    // phone: canRender('phone') && (
+    //   <MuiPhoneNumber
+    //     defaultCountry={'us'}
+    //     label={item.label}
+    //     disabled={isSubmitting}
+    //     onBlur={handleBlur}
+    //     onChange={handleChange}
+    //     value={value}
+    //     helperText={errors[key] || ''}
+    //     error={!!touched[key] && !!errors[key]}
+    //     {...fieldProps}
+    //   />
+    // ),
     select: canRender('select') && (
-      <FormControl fullWidth>
+      <FormControl fullWidth variant='outlined'>
         <InputLabel id={`${item.name}-label`}>{item.label}</InputLabel>
         <Select
           labelId={`${item.name}-label`}
@@ -71,10 +117,10 @@ export default function FormItem ({
           name={item.name}
           disabled={isSubmitting}
           value={value || ''}
-          label={item.label}
           onChange={handleChange}
+          helperText={!!touched[key] && errors[key] ? errors[key] : ''}
         >
-          {((dependencies || {})[dependency] || []).map(d => (
+          {options.map(d => (
             <MenuItem key={d.value} value={d.value}>
               {d.label}
             </MenuItem>

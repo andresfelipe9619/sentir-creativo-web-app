@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import GenericModal from './GenericModal'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import API from '../../api'
 import { useAlertDispatch } from '../../providers/context/Alert'
+import FormItem from '../master-detail/FormItem'
+import useFormDependencies from '../../providers/hooks/useFormDependencies'
+import Spinner from '../spinner/Spinner'
 
 const initialValues = {
   nombre: '',
@@ -20,12 +22,11 @@ const initialValues = {
 
 const contactSchema = Yup.object().shape({
   nombre: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .max(50, 'Demasiado largo!')
+    .required('¡Reflautillas! El nombre es requerido'),
   email: Yup.string()
-    .email('Invalid email')
-    .required('Required')
+    .email('¡Reflautillas! Un email correcto por favor.')
+    .required('¡Reflautillas! Un email es requerido')
 })
 
 const useStyles = makeStyles(theme => ({
@@ -87,115 +88,123 @@ export default function DossierModal ({ open, service, ...props }) {
   )
 }
 
-function Contact ({
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  isSubmitting
-}) {
+const columns = [
+  {
+    name: 'prefijo',
+    label: 'Prefijo',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 2,
+      type: 'select',
+      required: true,
+      dependency: 'Prefijo'
+    }
+  },
+  {
+    name: 'nombre',
+    label: 'Nombre',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 5,
+      type: 'input',
+      required: true
+    }
+  },
+  {
+    name: 'apellido',
+    label: 'Apellido',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 5,
+      type: 'input'
+    }
+  },
+  {
+    name: 'email',
+    label: 'Email',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input',
+      required: true
+    }
+  },
+  {
+    name: 'celular',
+    label: 'Celular',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input',
+      inputType: 'number'
+    }
+  },
+  {
+    name: 'ciudad',
+    label: 'Desde la ciudad',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input'
+    }
+  },
+  {
+    name: 'comentario',
+    label: 'Comentarios',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 12,
+      type: 'input',
+      multiline: true,
+      rows: 6
+    }
+  }
+]
+
+function Contact (formProps) {
+  const {
+    dependencies,
+    loadDependencies,
+    loadingDependencies
+  } = useFormDependencies(columns)
+
+  useEffect(() => {
+    loadDependencies()
+    //eslint-disable-next-line
+  }, [])
+
+  if (loadingDependencies) return <Spinner />
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='prefijo'
-          label='Prefijo'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.prefijo}
-          error={!!touched.prefijo && !!errors.prefijo}
-          variant='outlined'
+      {columns.map((item, i) => (
+        <FormItem
+          key={i}
+          item={item}
+          {...formProps}
+          dependencies={dependencies}
         />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='nombre'
-          label='Nombre'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.nombre}
-          error={!!touched.nombre && !!errors.nombre}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='apellido'
-          label='Apellido'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.apellido}
-          error={!!touched.apellido && !!errors.apellido}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='email'
-          label='Email'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.email}
-          error={!!touched.email && !!errors.email}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          id='celular'
-          label='Celular'
-          placeholder='Celular (Opcional)'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.celular}
-          error={!!touched.celular && !!errors.celular}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          id='ciudad'
-          label='Desde la ciudad'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.ciudad}
-          error={!!touched.ciudad && !!errors.ciudad}
-          variant='outlined'
-        />
-      </Grid>
-
-      <Grid item md={12}>
-        <TextField
-          fullWidth
-          multiline
-          rows={6}
-          id='comentario'
-          label='Comentarios'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.comentario}
-          error={!!touched.comentario && !!errors.comentario}
-          variant='outlined'
-        />
-      </Grid>
+      ))}
     </Grid>
   )
 }
