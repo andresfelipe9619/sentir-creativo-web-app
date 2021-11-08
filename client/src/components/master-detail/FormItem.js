@@ -31,12 +31,16 @@ export default function FormItem ({
     size,
     type,
     dependency,
+    visibleWith,
     inputType = 'text',
     ...fieldProps
   } = item.form
   const key = item.name
   let value = values[key]
-  const canRender = name => type === name
+  const canRender = name => {
+    if (!visibleWith) return type === name
+    return type === name && values[visibleWith]
+  }
   const options = (dependencies || {})[dependency] || []
 
   const content = {

@@ -42,6 +42,7 @@ module.exports = {
   async start (ctx) {
     const { request } = ctx
     let {
+      prefijo,
       nombre,
       email,
       apellido,
@@ -83,9 +84,12 @@ module.exports = {
           email,
           celular,
           ciudad,
+          prefijo,
           departamento,
-          cercania: 4,
-          antiguedad: 2,
+          cercania: 3,
+          origen: 1,
+          antiguedad: 3,
+          motivacion: 5,
           estado: 7,
           organizacion: org.id
         })

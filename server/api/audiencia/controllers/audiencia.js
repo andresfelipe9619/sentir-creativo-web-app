@@ -17,7 +17,14 @@ module.exports = {
       const knex = strapi.connections.default
       console.log(`webhook`, webhook)
       if (!body.email) throw new Error('Email is required')
-      const audience = await strapi.services.audiencia.create(data)
+      const audience = await strapi.services.audiencia.create({
+        ...data,
+        cercania: 2,
+        origen: 1,
+        antiguedad: 2,
+        motivacion: 7,
+        estado: 8,
+      })
       const comment = await strapi.services.comentario.create({ comentario })
       console.log(`comment`, comment)
       await knex.transaction(async trx => {
