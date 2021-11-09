@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GenericModal from './GenericModal'
 import { makeStyles } from '@material-ui/core/styles'
 import Stepper from '@material-ui/core/Stepper'
@@ -9,10 +9,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import { Formik } from 'formik'
-import * as Yup from 'yup'
 import clsx from 'clsx'
 import API from '../../api'
 import PublicoObjetivo from '../publico-objetivo/PublicoObjetivo'
@@ -20,38 +18,9 @@ import Spinner from '../spinner/Spinner'
 import RadioGroup from '../radio'
 import useAPI from '../../providers/hooks/useAPI'
 import { useAlertDispatch } from '../../providers/context/Alert'
-
-const initialValues = {
-  nombre: '',
-  apellido: '',
-  email: '',
-  prefijo: '',
-  celular: '',
-  comentario: '',
-  organizacion: '',
-  rubro: '',
-  publicoObjetivo: [],
-  ciudad: '',
-  formato: '',
-  impacto: '',
-  departamento: ''
-}
-
-const contactSchema = Yup.object().shape({
-  nombre: Yup.string()
-    .max(50, 'Demasiado largo!')
-    .required('¡Reflautillas! El nombre es requerido'),
-  email: Yup.string()
-    .email('¡Reflautillas! Un email correcto por favor.')
-    .required('¡Reflautillas! Un email es requerido'),
-  impacto: Yup.number().required(
-    '¡Reflautillas! El # de personas es requerido'
-  ),
-  formato: Yup.number().required('¡Reflautillas! El formato es requerido'),
-  publicoObjetivo: Yup.array().required(
-    '¡Reflautillas! Almenos un publico objetivo  es requerido'
-  )
-})
+import { columns, serviceSchema, serviceValues } from './schema'
+import FormItem from '../master-detail/FormItem'
+import useFormDependencies from '../../providers/hooks/useFormDependencies'
 
 const fieldsByStep = [
   ['impacto', 'publicoObjetivo'],
@@ -130,8 +99,8 @@ export default function ServicioModal ({ open, service, ...props }) {
     >
       <Formik
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={contactSchema}
+        initialValues={serviceValues}
+        validationSchema={serviceSchema}
       >
         {({ handleSubmit, ...formikProps }) => {
           const lastStep = activeStep === steps.length - 1
@@ -307,137 +276,30 @@ function Format ({ values, errors, handleChange }) {
   )
 }
 
-function Contact ({
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  isSubmitting
-}) {
-  const { data, loading } = useAPI('Rubro', true)
+function Contact ({ ...formProps }) {
+  const contactColumns = columns(true)
+  const {
+    dependencies,
+    loadDependencies,
+    loadingDependencies
+  } = useFormDependencies(contactColumns)
+
+  useEffect(() => {
+    loadDependencies()
+    //eslint-disable-next-line
+  }, [])
+
+  if (loadingDependencies) return <Spinner />
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          fullWidth
-          id='email'
-          label='Email'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.email}
-          error={!!touched.email && !!errors.email}
-          variant='outlined'
+      {contactColumns.map((item, i) => (
+        <FormItem
+          key={i}
+          item={item}
+          {...formProps}
+          dependencies={dependencies}
         />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          id='celular'
-          label='Celular'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.celular}
-          error={!!touched.celular && !!errors.celular}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          id='prefijo'
-          label='Prefijo'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.prefijo}
-          error={!!touched.prefijo && !!errors.prefijo}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <TextField
-          required
-          fullWidth
-          id='nombre'
-          label='Nombre'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.nombre}
-          error={!!touched.nombre && !!errors.nombre}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          id='apellido'
-          label='Apellido'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.apellido}
-          error={!!touched.apellido && !!errors.apellido}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          id='ciudad'
-          label='Desde la ciudad'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.ciudad}
-          error={!!touched.ciudad && !!errors.ciudad}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          fullWidth
-          id='organizacion'
-          label='Organización'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.organizacion}
-          error={!!touched.organizacion && !!errors.organizacion}
-          variant='outlined'
-        />
-      </Grid>
-      <Grid item md={12}>
-        {!loading && values.organizacion && (
-          <RadioGroup
-            name='rubro'
-            options={data}
-            values={values}
-            errors={errors}
-            handleChange={handleChange}
-          />
-        )}
-        {loading && <Spinner />}
-      </Grid>
-      <Grid item md={12}>
-        <TextField
-          fullWidth
-          multiline
-          rows={6}
-          id='comentario'
-          label='Comentarios'
-          disabled={isSubmitting}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          value={values.comentario}
-          error={!!touched.comentario && !!errors.comentario}
-          variant='outlined'
-        />
-      </Grid>
+      ))}
     </Grid>
   )
 }

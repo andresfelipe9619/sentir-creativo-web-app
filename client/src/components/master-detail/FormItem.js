@@ -12,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import Tags from '../tags/Tags'
 import Files from '../files/Files'
@@ -31,12 +32,16 @@ export default function FormItem ({
     size,
     type,
     dependency,
+    visibleWith,
     inputType = 'text',
     ...fieldProps
   } = item.form
   const key = item.name
   let value = values[key]
-  const canRender = name => type === name
+  const canRender = name => {
+    if (!visibleWith) return type === name
+    return type === name && values[visibleWith]
+  }
   const options = (dependencies || {})[dependency] || []
 
   const content = {
@@ -118,7 +123,6 @@ export default function FormItem ({
           disabled={isSubmitting}
           value={value || ''}
           onChange={handleChange}
-          helperText={!!touched[key] && errors[key] ? errors[key] : ''}
         >
           {options.map(d => (
             <MenuItem key={d.value} value={d.value}>
@@ -126,6 +130,9 @@ export default function FormItem ({
             </MenuItem>
           ))}
         </Select>
+        <FormHelperText>
+          {!!touched[key] && errors[key] ? errors[key] : ''}
+        </FormHelperText>
       </FormControl>
     ),
     tag: canRender('tag') && <Tags tags={value} title={item.label} />,
