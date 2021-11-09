@@ -70,11 +70,12 @@ export default function DossierModal ({ open, service, ...props }) {
 }
 
 function Contact (formProps) {
+  const contactColumns = columns()
   const {
     dependencies,
     loadDependencies,
     loadingDependencies
-  } = useFormDependencies(columns)
+  } = useFormDependencies(contactColumns)
 
   useEffect(() => {
     loadDependencies()
@@ -84,7 +85,7 @@ function Contact (formProps) {
   if (loadingDependencies) return <Spinner />
   return (
     <Grid container spacing={2}>
-      {columns().map((item, i) => (
+      {contactColumns.map((item, i) => (
         <FormItem
           key={i}
           item={item}

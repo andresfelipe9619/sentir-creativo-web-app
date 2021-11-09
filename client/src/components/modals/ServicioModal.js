@@ -277,11 +277,12 @@ function Format ({ values, errors, handleChange }) {
 }
 
 function Contact ({ ...formProps }) {
+  const contactColumns = columns(true)
   const {
     dependencies,
     loadDependencies,
     loadingDependencies
-  } = useFormDependencies(columns)
+  } = useFormDependencies(contactColumns)
 
   useEffect(() => {
     loadDependencies()
@@ -291,7 +292,7 @@ function Contact ({ ...formProps }) {
   if (loadingDependencies) return <Spinner />
   return (
     <Grid container spacing={2}>
-      {columns(true).map((item, i) => (
+      {contactColumns.map((item, i) => (
         <FormItem
           key={i}
           item={item}
