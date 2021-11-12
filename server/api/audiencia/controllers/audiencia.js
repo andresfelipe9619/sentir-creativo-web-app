@@ -25,15 +25,19 @@ module.exports = {
         }
         return result
       }
-      const audience = await findOrCreate('audiencia', { email }, {
-        ...data,
-        email,
-        cercania: 2,
-        origen: 1,
-        antiguedad: 2,
-        motivacion: 7,
-        estado: 8,
-      })
+      const audience = await findOrCreate(
+        'audiencia',
+        { email },
+        {
+          ...data,
+          email,
+          cercania: 2,
+          origen: 1,
+          antiguedad: 2,
+          motivacion: 7,
+          estado: 8
+        }
+      )
       const comment = await strapi.services.comentario.create({ comentario })
       console.log(`comment`, comment)
       await knex.transaction(async trx => {
@@ -56,7 +60,10 @@ module.exports = {
     const { request, params } = ctx
     const { id } = params
     let { body: files } = request
-    const entity = await strapi.services.audiencia.findOne({ id }, populate)
+    const entity = await strapi.services.audiencia.findOne({ id }, [
+      'id',
+      'archivos'
+    ])
     let ids = []
     if (!entity) throw new Error('Audiencia No Encontrada')
     if (!Array.isArray(files)) throw new Error('No hay archivos para agregar')

@@ -105,7 +105,7 @@ export default function Areas () {
           align='center'
           paragraph
           gutterBottom
-          style={{ color, fontSize: '4rem' }}
+          style={{ color }}
         >
           {selectedArea.nombre}
         </Typography>
@@ -113,7 +113,7 @@ export default function Areas () {
           {selectedArea.descripcion}
         </Typography>
         <Typography variant='caption' paragraph gutterBottom>
-          A continuación presentamos nuestro Catálogo de Creaciones Cuánticas.
+          A continuación presentamos nuestro Catálogo de {selectedArea.nombre}.
           Revisa las experiencias que disponemos de nuestra Red de Artístas,
           solicita un Ticket y obtendrás un presupuesto detallado, sin
           compromiso.

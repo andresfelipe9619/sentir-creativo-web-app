@@ -41,6 +41,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/audiencias/:id/archivos",
+      "handler": "audiencia.addFiles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/audiencias/:id",
       "handler": "audiencia.update",
