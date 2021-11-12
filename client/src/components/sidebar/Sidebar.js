@@ -84,10 +84,11 @@ export default function Sidebar ({ children }) {
                   style={{
                     background: area.colorPrimario,
                     color: 'white',
-                    flex: 1
+                    flex: 1,
+                    fontSize: 10
                   }}
                   label={area.nombre}
-                  icon={<Icon>star</Icon>}
+                  icon={<Icon fontSize='small'>star</Icon>}
                 />
               ))}
             </BottomNavigation>
