@@ -24,8 +24,40 @@ const Palette = {
   }
 }
 
+const Typography = {
+  fontSize: 14,
+  htmlFontSize: 14,
+  useNextVariants: true,
+  fontFamily: ['Roboto', 'sans-serif'].join(','),
+  h1: {
+    fontWeight: 600,
+    fontSize: '1.6rem'
+  },
+  h2: {
+    fontWeight: 600,
+    fontSize: '1.5rem'
+  },
+  h3: {
+    fontWeight: 500,
+    fontSize: '1.35rem'
+  },
+  h4: {
+    fontWeight: 500,
+    fontSize: '1.3rem'
+  },
+  h5: {
+    fontWeight: 500,
+    fontSize: '1.3rem'
+  },
+  h6: {
+    fontWeight: 500,
+    fontSize: '1.2rem'
+  }
+}
+
 const Theme = {
-  palette: Palette
+  palette: Palette,
+  typography: Typography
 }
 
 export function useDarkMode () {

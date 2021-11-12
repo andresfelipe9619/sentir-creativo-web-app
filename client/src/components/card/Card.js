@@ -14,14 +14,13 @@ import { Badge } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
-    height: 300,
     marginBottom: '10%',
     margin: 1,
-    marginLeft: '5%',
+    marginLeft: '5%'
   },
   media: {
-    maxHeight: 300,
-    minHeight: 90
+    height: 0,
+    paddingTop: '56.25%' // 16:9
   }
 })
 
@@ -31,7 +30,7 @@ export default function MediaCard ({
   imageUrl,
   imageTitle,
   handleClickPrimary,
-  handleClickSecundary,
+  handleClickSecundary
 }) {
   const classes = useStyles()
 
@@ -44,7 +43,7 @@ export default function MediaCard ({
           title={
             /* Agregando Badges & Chimps_byColibri */
             <Badge component={Box} p={0} badgeContent='new' color='primary'>
-              {title}
+              <Typography variant='h3'>{title}</Typography>
             </Badge>
 
             /* la idea es traer las Tecnicas Artisticas o los tags en vez de slogan_byColibri */
