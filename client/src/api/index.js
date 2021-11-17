@@ -159,6 +159,22 @@ const Prefijo = {
   delete: id => serverRequests.del(`/prefijos/${id}`)
 }
 
+const Staf = {
+  getAll: () => serverRequests.get(`/stafs`),
+  get: id => serverRequests.get(`/stafs/${id}`),
+  create: format => serverRequests.post('/stafs', format),
+  update: (id, format) => serverRequests.put(`/stafs/${id}`, format),
+  delete: id => serverRequests.del(`/stafs/${id}`)
+}
+
+const Coleccion = {
+  getAll: () => serverRequests.get(`/coleccions`),
+  get: id => serverRequests.get(`/coleccions/${id}`),
+  create: format => serverRequests.post('/coleccions', format),
+  update: (id, format) => serverRequests.put(`/coleccions/${id}`, format),
+  delete: id => serverRequests.del(`/coleccions/${id}`)
+}
+
 const API = {
   Auth,
   User,
@@ -171,6 +187,8 @@ const API = {
   Servicio,
   Formato,
   Prefijo,
+  Staf,
+  Coleccion,
   AudienceState,
   ServiceState,
   PublicoObjetivo,
