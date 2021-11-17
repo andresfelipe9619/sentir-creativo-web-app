@@ -40,6 +40,12 @@
     },
     "historial": {
       "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "telefono": {
+      "type": "biginteger"
     }
   }
 }

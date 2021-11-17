@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "coleccions",
   "info": {
-    "name": "coleccion"
+    "name": "coleccion",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -20,6 +21,9 @@
     "servicios": {
       "collection": "servicio",
       "via": "coleccion"
+    },
+    "archivos": {
+      "collection": "archivo"
     }
   }
 }
