@@ -1,6 +1,6 @@
 'use strict'
 const axios = require('axios')
-const webhook = process.env.WEBHOOK_URL
+const webhook = process.env.WEBHOOK_DOSSIER
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)

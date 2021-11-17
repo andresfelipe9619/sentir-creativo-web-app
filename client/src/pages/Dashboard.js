@@ -6,6 +6,8 @@ import { Switch, Route } from 'react-router-dom'
 import Servicios from '../components/dashboard/servicio/Servicios'
 import Proyectos from '../components/dashboard/proyecto/Proyectos'
 import Audiencia from '../components/dashboard/audiencia/Audiencia'
+import Staf from '../components/dashboard/staf/Staf'
+import Colecciones from '../components/dashboard/coleccion/Colecciones'
 import Reports from '../components/dashboard/reports/Reports'
 import Archivos from '../components/dashboard/archivos/Archivos'
 import Tags from '../components/dashboard/tag/Tags'
@@ -34,6 +36,11 @@ export default function Dashboard (props) {
     },
     { path: '/reportes', render: routerProps => <Reports {...routerProps} /> },
     { path: '/archivos', render: routerProps => <Archivos {...routerProps} /> },
+    { path: '/staf', render: routerProps => <Staf {...routerProps} /> },
+    {
+      path: '/colecciones',
+      render: routerProps => <Colecciones {...routerProps} />
+    },
     { path: '/tags', render: routerProps => <Tags {...routerProps} /> }
   ]
   return (

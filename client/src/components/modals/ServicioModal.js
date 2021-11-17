@@ -57,7 +57,12 @@ function getStepContent (stepIndex, props) {
   }
 }
 
-export default function ServicioModal ({ open, service, ...props }) {
+export default function ServicioModal ({
+  open,
+  service,
+  handleClose,
+  ...props
+}) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const steps = getSteps()
@@ -95,6 +100,10 @@ export default function ServicioModal ({ open, service, ...props }) {
       open={open}
       hideConfirmButton
       title={service?.nombre}
+      handleClose={async () => {
+        await handleClose()
+        setActiveStep(0)
+      }}
       {...props}
     >
       <Formik
