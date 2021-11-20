@@ -1,5 +1,8 @@
 'use strict'
 const { sanitizeEntity } = require('strapi-utils')
+const axios = require('axios')
+const webhook = process.env.WEBHOOK_TICKET
+
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
  * to customize this controller
@@ -96,7 +99,7 @@ module.exports = {
       }
       console.log(`audience`, audience)
 
-      let project = await strapi.services.proyecto.create({
+      const proyecto = await strapi.services.proyecto.create({
         nombre: servicio.nombre,
         formato,
         impacto: `${impacto} personas`,
@@ -104,25 +107,32 @@ module.exports = {
         // estado: 1,
         tipoProyecto: 3
       })
-      console.log(`project`, project)
-      let comment = await strapi.services.comentario.create({ comentario })
-      console.log(`comment`, comment)
-      await knex.transaction(async trx => {
-        await trx('proyectos__comentarios').insert([
-          {
-            proyecto_id: project.id,
-            comentario_id: comment.id
-          }
-        ])
-        await trx('proyectos__publico_objetivos').insert(
-          publicoObjetivo.map(id => ({
-            proyecto_id: project.id,
-            'publico-objetivo_id': id
-          }))
-        )
-      })
+      console.log(`proyecto`, proyecto)
+      if (comentario) {
+        const comment = await strapi.services.comentario.create({ comentario })
+        await knex.transaction(async trx => {
+          await trx('proyectos__comentarios').insert([
+            {
+              proyecto_id: proyecto.id,
+              comentario_id: comment.id
+            }
+          ])
+        })
+      }
+      if (publicoObjetivo) {
+        await knex.transaction(async trx => {
+          await trx('proyectos__publico_objetivos').insert(
+            publicoObjetivo.map(id => ({
+              proyecto_id: proyecto.id,
+              'publico-objetivo_id': id
+            }))
+          )
+        })
+      }
 
-      return { project }
+      const webhookData = { ...audience, servicio, proyecto }
+      const { data: result } = await axios.post(webhook, webhookData)
+      return result
     } catch (error) {
       console.error(error)
       return ctx.throw(500, error.toString())

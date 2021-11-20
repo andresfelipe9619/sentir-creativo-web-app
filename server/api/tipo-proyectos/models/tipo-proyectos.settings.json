@@ -16,7 +16,7 @@
       "type": "uid",
       "required": true
     },
-    "tipo": {
+    "nombre": {
       "type": "string",
       "required": true,
       "maxLength": 60

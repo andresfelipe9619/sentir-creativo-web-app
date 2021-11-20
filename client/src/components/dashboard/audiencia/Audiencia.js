@@ -103,6 +103,19 @@ const columns = [
       size: 6,
       type: 'input'
     }
+  },
+  {
+    name: 'archivos',
+    label: 'Archivos',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'file'
+    }
   }
 ]
 
