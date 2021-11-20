@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Tooltip from '@material-ui/core/Tooltip'
+import Box from '@material-ui/core/Box'
 import { useHistory } from 'react-router'
 import columns from './columns'
 import MasterDetail from '../../master-detail/MasterDetail'
@@ -39,12 +40,21 @@ export default function Proyectos () {
   )
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    height: 200,
+    height: 280,
     marginBottom: '10%',
     margin: 1,
     marginLeft: '5%'
+  },
+  content: {
+    height: '80%'
+  },
+  chips: {
+    '& > *': {
+      maxWidth: '100%',
+      margin: theme.spacing(0.5)
+    }
   },
   title: {
     width: 260,
@@ -52,7 +62,7 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis'
   }
-})
+}))
 
 function ProjectCard ({
   id,
@@ -70,7 +80,7 @@ function ProjectCard ({
   }
   return (
     <Card className={classes.root} elevation={5}>
-      <CardContent>
+      <CardContent className={classes.content}>
         <Typography color='textSecondary' gutterBottom>
           {audiencia?.nombre || 'No Audiencia'} -{' '}
           {audiencia?.organizacion?.nombre || 'No Org'}
@@ -85,10 +95,23 @@ function ProjectCard ({
           {fechaInicio && fechaFin && ' - '}
           {fechaFin ? formatDate(fechaFin, false) : ''}
         </Typography>
-        {tipo_proyecto && <Chip label={tipo_proyecto.tipo} />}
-        {estado_proyecto && (
-          <Chip label={estado_proyecto.nombre} variant='outlined' />
-        )}
+        <Box
+          display='flex'
+          flexDirection='column'
+          alignItems='flex-start'
+          className={classes.chips}
+        >
+          {tipo_proyecto && <Chip label={tipo_proyecto.nombre} />}
+          {estado_proyecto && (
+            <Tooltip title={estado_proyecto.nombre}>
+              <Chip
+                label={estado_proyecto.nombre}
+                variant='outlined'
+                style={{ background: estado_proyecto.color }}
+              />
+            </Tooltip>
+          )}
+        </Box>
       </CardContent>
       <CardActions>
         <Button

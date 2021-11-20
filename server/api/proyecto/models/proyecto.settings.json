@@ -28,8 +28,8 @@
       "type": "decimal"
     },
     "tipo_proyecto": {
-      "model": "tipo-proyectos",
-      "via": "proyectos"
+      "via": "proyectos",
+      "model": "tipo-proyectos"
     },
     "descripcion": {
       "type": "text"
