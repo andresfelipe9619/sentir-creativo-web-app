@@ -38,16 +38,19 @@ module.exports = {
           estado: 8
         }
       )
-      const comment = await strapi.services.comentario.create({ comentario })
-      console.log(`comment`, comment)
-      await knex.transaction(async trx => {
-        await trx('audiencias__comentarios').insert([
-          {
-            audiencia_id: audience.id,
-            comentario_id: comment.id
-          }
-        ])
-      })
+      if (comentario) {
+        const comment = await strapi.services.comentario.create({ comentario })
+        console.log(`comment`, comment)
+        await knex.transaction(async trx => {
+          await trx('audiencias__comentarios').insert([
+            {
+              audiencia_id: audience.id,
+              comentario_id: comment.id
+            }
+          ])
+        })
+      }
+
       const webhookData = { ...audience, servicio }
       const { data: result } = await axios.post(webhook, webhookData)
       return result
