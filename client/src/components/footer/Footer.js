@@ -76,6 +76,7 @@ export default function AppFooter () {
             <Grid container spacing={5}>
               <Block
                 title='Somos'
+                key='Somos'
                 items={[
                   {
                     title:
@@ -85,6 +86,7 @@ export default function AppFooter () {
               />
               <Block
                 title='Áreas'
+                key='Áreas'
                 items={[
                   {
                     title: 'Creaciones Cuánticas'
@@ -102,6 +104,7 @@ export default function AppFooter () {
               />
               <Block
                 title='Colecciones'
+                key='Colecciones'
                 items={[
                   {
                     title: 'Navidad 2021'
@@ -113,6 +116,7 @@ export default function AppFooter () {
               />
               <Block
                 title='Redes'
+                key='Redes'
                 items={[
                   {
                     title: 'Facebook'
@@ -130,6 +134,7 @@ export default function AppFooter () {
               />
               <Block
                 title='¡Únete a la red!'
+                key='¡Únete a la red!'
                 items={[
                   {
                     title:
@@ -139,6 +144,7 @@ export default function AppFooter () {
               />
               <Block
                 title='Sede central'
+                key='Sede central'
                 items={[
                   {
                     title: 'Avenida Juan Pablo II #446 Antofagasta - Chile'
@@ -147,6 +153,7 @@ export default function AppFooter () {
               />
               <Block
                 title='Contacto'
+                key='Contacto'
                 items={[
                   {
                     title: 'Whatsapp: +569 684 98 645'
