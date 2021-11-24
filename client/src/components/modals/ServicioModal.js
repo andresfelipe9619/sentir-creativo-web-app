@@ -67,13 +67,13 @@ export default function ServicioModal ({
   const [activeStep, setActiveStep] = useState(0)
   const steps = getSteps()
   const { openAlert } = useAlertDispatch()
-
+  console.log(`service`, service)
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)
       const result = await API.Proyecto.start({
         ...values,
-        servicio: { id: service.id, nombre: service.nombre }
+        servicio: service
       })
       console.log(`result`, result)
       openAlert({ variant: 'success', message: 'Ticket creado con éxito' })

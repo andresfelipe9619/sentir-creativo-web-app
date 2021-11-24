@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 export default function DossierModal ({ open, service, ...props }) {
   const classes = useStyles()
   const { openAlert } = useAlertDispatch()
-
+  console.log(`service`, service)
   const handleFormSubmit = async values => {
     try {
       console.log(`values`, values)

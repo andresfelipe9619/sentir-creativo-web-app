@@ -87,7 +87,7 @@ export default function Areas () {
     .flatMap(f => f)
   ocassions = [...new Set(ocassions)]
   return (
-    <Grid mt={3} container justifyContent='center' flexDirection='column'>
+    <Grid mt={3} container justifyContent='center'>
       <DossierModal
         open={!!showDossier}
         handleClose={handleCloseDossier}
@@ -98,8 +98,7 @@ export default function Areas () {
         handleClose={handleCloseModal}
         service={selectedService}
       />
-
-      <Grid sm={12} md={6}>
+      <Grid item sm={12} md={6}>
         <Typography
           variant='h1'
           align='center'
