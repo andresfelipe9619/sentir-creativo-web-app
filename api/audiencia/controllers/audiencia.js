@@ -15,7 +15,6 @@ module.exports = {
       console.log(`body`, body)
       const { comentario, servicio, email, ...data } = body
       const knex = strapi.connections.default
-      console.log(`webhook`, webhook)
       if (!body.email) throw new Error('Email is required')
 
       async function findOrCreate (model, find, props) {
@@ -40,7 +39,6 @@ module.exports = {
       )
       if (comentario) {
         const comment = await strapi.services.comentario.create({ comentario })
-        console.log(`comment`, comment)
         await knex.transaction(async trx => {
           await trx('audiencias__comentarios').insert([
             {
