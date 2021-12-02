@@ -26,6 +26,14 @@
     },
     {
       "method": "POST",
+      "path": "/coleccions/:id/archivos",
+      "handler": "coleccion.addFiles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
       "path": "/coleccions",
       "handler": "coleccion.create",
       "config": {
