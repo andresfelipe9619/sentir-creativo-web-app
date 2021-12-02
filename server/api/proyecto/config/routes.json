@@ -41,6 +41,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/proyectos/:id/archivos",
+      "handler": "proyecto.addFiles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/proyectos/:id",
       "handler": "proyecto.update",

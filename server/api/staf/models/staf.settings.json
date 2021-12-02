@@ -66,6 +66,9 @@
     },
     "fechaNacimiento": {
       "type": "date"
+    },
+    "cuponDescuento": {
+      "model": "cupon-descuento"
     }
   }
 }

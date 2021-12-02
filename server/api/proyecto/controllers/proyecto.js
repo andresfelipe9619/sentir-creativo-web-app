@@ -137,5 +137,16 @@ module.exports = {
       console.error(error)
       return ctx.throw(500, error.toString())
     }
+  },
+  async addFiles (ctx) {
+    const { request, params } = ctx
+    const { id } = params
+    const { body: files } = request
+    const result = await strapi.services.archivo.addFiles({
+      id,
+      files,
+      collection: 'proyecto'
+    })
+    return result
   }
 }
