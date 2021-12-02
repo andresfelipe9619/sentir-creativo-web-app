@@ -95,6 +95,9 @@
     },
     "prefijo": {
       "model": "prefijo"
+    },
+    "cuponDescuento": {
+      "model": "cupon-descuento"
     }
   }
 }
