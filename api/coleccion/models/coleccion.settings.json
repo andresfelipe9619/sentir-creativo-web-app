@@ -24,6 +24,9 @@
     },
     "archivos": {
       "collection": "archivo"
+    },
+    "cuponDescuento": {
+      "model": "cupon-descuento"
     }
   }
 }
