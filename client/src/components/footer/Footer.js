@@ -8,19 +8,10 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles } from '@material-ui/core/styles'
 
-function Copyright () {
-  const name = 'sentircreativo.com'
-  return (
-    <Box bgcolor='secondary.dark' width='100%' textAlign='center' p={1}>
-      <Link color='inherit' href={`https://${name}/`}>
-        {name}
-      </Link>{' '}
-      {' ® • '}
-      {new Date().getFullYear()}
-    </Box>
-  )
-}
 const useStyles = makeStyles(theme => ({
+  title: {
+    fontWeight: 900
+  },
   appBar: {
     marginTop: '15%',
     top: 'auto',
@@ -30,23 +21,50 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Block ({ title, items }) {
+function Copyright () {
+  const classes = useStyles()
+  const name = 'sentircreativo.com'
   return (
-    <Grid item xs={6} sm={4}>
-      <Typography variant='h6' marked='left' gutterBottom>
+    <Box
+      bgcolor='secondary.dark'
+      className={classes.title}
+      width='100%'
+      textAlign='center'
+      p={1}
+    >
+      <Link color='inherit' href={`https://${name}/`}>
+        {name}
+      </Link>{' '}
+      {' ® • '}
+      {new Date().getFullYear()}
+    </Box>
+  )
+}
+
+function Block ({ title, items }) {
+  const classes = useStyles()
+  return (
+    <Grid item xs={12} sm={4}>
+      <Typography
+        variant='h3'
+        component='h5'
+        marked='left'
+        gutterBottom
+        className={classes.title}
+      >
         {title}
       </Typography>
       <Box component='ul' sx={{ m: 0, listStyle: 'none', p: 0 }}>
         {items.map(i => {
           if (!i.link) {
             return (
-              <Box component='li' sx={{ py: 0.5 }}>
+              <Box component='li' sx={{ py: 0.5 }} key={i.title}>
                 <Typography>{i.title}</Typography>
               </Box>
             )
           }
           return (
-            <Box component='li' sx={{ py: 0.5 }}>
+            <Box component='li' sx={{ py: 0.5 }} key={i.title}>
               <Link href={i.link}>{i.title}</Link>
             </Box>
           )
@@ -68,7 +86,7 @@ export default function AppFooter () {
           bottom={0}
           width='100%'
           bgcolor='secondary.light'
-          px={12}
+          px={0}
           pt={8}
           pb={2}
         >
@@ -89,16 +107,20 @@ export default function AppFooter () {
                 key='Áreas'
                 items={[
                   {
-                    title: 'Creaciones Cuánticas'
+                    title: 'Creaciones Cuánticas',
+                    link: 'https://www.sentircreativo.com/areas/1'
                   },
                   {
-                    title: 'Felicidad Organizacional'
+                    title: 'Felicidad Organizacional',
+                    link: 'https://www.sentircreativo.com/areas/2'
                   },
                   {
-                    title: 'Universidad Creativa'
+                    title: 'Universidad Creativa',
+                    link: 'https://www.sentircreativo.com/areas/3'
                   },
                   {
-                    title: 'Innovación Digital'
+                    title: 'Innovación Digital',
+                    link: 'https://www.sentircreativo.com/areas/4'
                   }
                 ]}
               />
@@ -119,16 +141,20 @@ export default function AppFooter () {
                 key='Redes'
                 items={[
                   {
-                    title: 'Facebook'
+                    title: 'Facebook',
+                    link: 'https://es-la.facebook.com/Sentircreativo/'
                   },
                   {
-                    title: 'Twitter'
+                    title: 'Twitter',
+                    link: 'https://twitter.com/sentir_creativo?lang=es'
                   },
                   {
-                    title: 'Instagram'
+                    title: 'Instagram',
+                    link: 'https://www.instagram.com/sentircreativo/?hl=es-la'
                   },
                   {
-                    title: 'Albúm Fotográfico'
+                    title: 'Albúm Fotográfico',
+                    link: 'https://flickr.com/photos/sentircreativo/'
                   }
                 ]}
               />
@@ -138,7 +164,9 @@ export default function AppFooter () {
                 items={[
                   {
                     title:
-                      'Si eres artista y quieres ser parte de la Red de Artístas ¡Súmate aquí!'
+                      'Si eres artista y quieres ser parte de la Red de Artístas ¡Súmate aquí!',
+                    link:
+                      'https://docs.google.com/forms/d/1FVd6VYloB6CSqSVOO_cYyxKz4K7SFNpdzf39x0zRMAc'
                   }
                 ]}
               />
@@ -156,7 +184,8 @@ export default function AppFooter () {
                 key='Contacto'
                 items={[
                   {
-                    title: 'Whatsapp: +569 684 98 645'
+                    title: 'Whatsapp: +569 684 98 645',
+                    link: 'https://wa.me/56968498645'
                   },
                   {
                     title: 'Email: holabuendia@sentircreativo.com'
