@@ -25,6 +25,7 @@ export default function Proyectos () {
 
   return (
     <MasterDetail
+      create
       detailProps={detail}
       service='Proyecto'
       renderMaster={({ data }) => (

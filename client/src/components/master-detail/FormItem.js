@@ -50,14 +50,17 @@ export default function FormItem ({
         <KeyboardDatePicker
           disableToolbar
           variant='inline'
-          format='MM/dd/yyyy'
+          minDate={new Date()}
+          format='dd/MM/yyyy'
           margin='normal'
           id={key}
+          inputVariant='outlined'
           label={item.label}
           disabled={isSubmitting}
           onBlur={handleBlur}
-          onChange={handleChange}
-          value={value}
+          InputAdornmentProps={{ position: 'start' }}
+          onChange={date => handleChange(date)}
+          value={value || new Date()}
         />
       </MuiPickersUtilsProvider>
     ),

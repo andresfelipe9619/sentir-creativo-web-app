@@ -24,9 +24,26 @@ export default function useAPI (service, map = false) {
     }
   }, [service, map])
 
+  const create = useCallback(
+    async values => {
+      try {
+        setLoading(true)
+        const created = await API[service].create(values)
+        const result = await API[service].get(created.id)
+        setData(prev => prev.concat(result))
+        return result
+      } catch (error) {
+        throw error
+      } finally {
+        setLoading(false)
+      }
+    },
+    [service]
+  )
+
   useEffect(() => {
     init()
   }, [init])
 
-  return { data, loading, init }
+  return { data, loading, init, create }
 }
