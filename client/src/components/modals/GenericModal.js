@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import Slide from '@material-ui/core/Slide'
 import { useTheme, makeStyles } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
@@ -13,14 +14,16 @@ const Transition = React.forwardRef(function Transition (props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles(() => ({
   root: { backdropFilter: 'blur(3px)' }
 }))
 
 export default function Modal ({
   open,
   title,
+  loading,
   children,
+  disableOk,
   handleClose,
   isSubmitting,
   handleConfirm,
@@ -30,6 +33,7 @@ export default function Modal ({
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
+  const showLoader = loading || isSubmitting
   return (
     <Dialog
       fullWidth
@@ -42,6 +46,7 @@ export default function Modal ({
       aria-labelledby='form-dialog-title'
       TransitionComponent={Transition}
     >
+      {showLoader && <LinearProgress />}
       {title && (
         <DialogTitle id='form-dialog-title' disableTypography>
           <Typography color='primary' variant='h4'>
@@ -52,7 +57,7 @@ export default function Modal ({
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {!hideCloseButton && (
-          <Button onClick={handleClose} color='primary' disabled={isSubmitting}>
+          <Button onClick={handleClose} color='primary' disabled={showLoader}>
             Cancelar
           </Button>
         )}
@@ -60,9 +65,13 @@ export default function Modal ({
           <Button
             color='primary'
             onClick={handleConfirm}
-            disabled={isSubmitting}
+            disabled={disableOk || showLoader}
           >
-            {isSubmitting ? 'Enviando...' : 'Aceptar'}
+            {isSubmitting
+              ? 'Enviando...'
+              : showLoader
+              ? 'Cargando ...'
+              : 'Aceptar'}
           </Button>
         )}
       </DialogActions>
