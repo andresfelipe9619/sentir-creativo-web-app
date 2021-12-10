@@ -8,6 +8,9 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles } from '@material-ui/core/styles'
 
+const DOMAIN = "sentircreativo"
+const HOST = `https://www.${DOMAIN}.com`
+
 const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 900
@@ -23,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 function Copyright () {
   const classes = useStyles()
-  const name = 'sentircreativo.com'
+
   return (
     <Box
       bgcolor='secondary.dark'
@@ -32,8 +35,8 @@ function Copyright () {
       textAlign='center'
       p={1}
     >
-      <Link color='inherit' href={`https://${name}/`}>
-        {name}
+      <Link color='inherit' href={HOST}>
+        {DOMAIN}.com
       </Link>{' '}
       {' ® • '}
       {new Date().getFullYear()}
@@ -108,19 +111,19 @@ export default function AppFooter () {
                 items={[
                   {
                     title: 'Creaciones Cuánticas',
-                    link: 'https://www.sentircreativo.com/areas/1'
+                    link: `${HOST}/areas/1`
                   },
                   {
                     title: 'Felicidad Organizacional',
-                    link: 'https://www.sentircreativo.com/areas/2'
+                    link: `${HOST}/areas/2`
                   },
                   {
                     title: 'Universidad Creativa',
-                    link: 'https://www.sentircreativo.com/areas/3'
+                    link: `${HOST}/areas/3`
                   },
                   {
                     title: 'Innovación Digital',
-                    link: 'https://www.sentircreativo.com/areas/4'
+                    link: `${HOST}/areas/4`
                   }
                 ]}
               />
@@ -188,7 +191,7 @@ export default function AppFooter () {
                     link: 'https://wa.me/56968498645'
                   },
                   {
-                    title: 'Email: holabuendia@sentircreativo.com'
+                    title: `Email: holabuendia@${DOMAIN}.com`
                   }
                 ]}
               />
