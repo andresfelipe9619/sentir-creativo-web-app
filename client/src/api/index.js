@@ -4,7 +4,7 @@ const server = axios.create({
   baseURL: process.env.REACT_APP_API_ROOT
 })
 
-let token = null
+let token = localStorage.getItem('colibri-token') || null
 
 const tokenInterceptor = config => {
   if (token) {
@@ -15,13 +15,12 @@ const tokenInterceptor = config => {
 
 const setToken = _token => {
   token = _token
+  localStorage.setItem('colibri-token', _token)
 }
 
 const responseBody = response => response.data
 
-server.interceptors.request.use(tokenInterceptor, error =>
-  Promise.reject(error)
-)
+server.interceptors.request.use(tokenInterceptor, Promise.reject)
 
 const serverRequests = {
   del: (url, config) => server.delete(`${url}`, config).then(responseBody),
