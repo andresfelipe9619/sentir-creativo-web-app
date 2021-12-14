@@ -115,6 +115,7 @@ export const useDashboardStyles = makeStyles(theme => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
+    overflowX: 'hidden',
     height: '100%'
   }
 }))
