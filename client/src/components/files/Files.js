@@ -30,7 +30,7 @@ export default function Files ({ files, title }) {
           {title}
         </Typography>
       )}
-      <Box width='100%' display='flex'>
+      <Box width='100%' display='flex' flexWrap={"wrap"}>
         {(files || []).map(f => (
           <ImgMediaCard key={f.nombre} {...f} />
         ))}

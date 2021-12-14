@@ -6,6 +6,20 @@ import MasterDetail, {
 
 const columns = [
   {
+    name: 'prefijo',
+    label: 'Prefijo',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Prefijo'
+    }
+  },
+  {
     name: 'nombre',
     label: 'Nombre',
     options: {
@@ -104,6 +118,179 @@ const columns = [
       type: 'input'
     }
   },
+  {
+    name: 'ciudad',
+    label: 'Ciudad',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 6,
+      type: 'input'
+    }
+  },
+    {
+    name: 'antiguedad',
+    label: 'Antiguedad',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Antiguedad',
+    }
+  },
+    {
+    name: 'cuponDescuento',
+    label: 'Cupon Descuento',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'CuponDescuento',
+    }
+  },
+    {
+    name: 'cercania',
+    label: 'Cercania',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Cercania',
+    }
+  },
+    {
+    name: 'origen',
+    label: 'Origen',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Origen',
+    }
+  },
+    {
+    name: 'motivacion',
+    label: 'Motivacion',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Motivacion',
+    }
+  },
+  //   {
+  //   name: 'proyectos',
+  //   label: 'Proyectos',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Proyectos'
+  //   }
+  // },
+  //   {
+  //   name: 'bitacoras',
+  //   label: 'Bitacoras',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Bitacora'
+  //   }
+  // },
+  //   {
+  //   name: 'notas',
+  //   label: 'Notas',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Notas'
+  //   }
+  // },
+  //   {
+  //   name: 'comentarios',
+  //   label: 'Comentarios',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Comentarios'
+  //   }
+  // },
+  //   {
+  //   name: 'intereses',
+  //   label: 'Interes',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Interes'
+  //   }
+  // },
+  //   {
+  //   name: 'tags',
+  //   label: 'Tags',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Tag'
+  //   }
+  // },
+  //   {
+  //   name: 'difusiones',
+  //   label: 'Difusiones',
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  //   form: {
+  //     size: 6,
+  //     type: 'select',
+  //     dependency: 'Difusion'
+  //   }
+  // },
   {
     name: 'archivos',
     label: 'Archivos',

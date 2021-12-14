@@ -3,8 +3,9 @@ import React from 'react'
 import DateFnsUtils from '@date-io/date-fns'
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker
+  KeyboardDateTimePicker
 } from '@material-ui/pickers'
+import esLocale from 'date-fns/locale/es'
 // import MuiPhoneNumber from 'material-ui-phone-number'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -46,20 +47,23 @@ export default function FormItem ({
 
   const content = {
     date: canRender('date') && (
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+        <KeyboardDateTimePicker
           disableToolbar
           variant='inline'
-          minDate={new Date()}
-          format='dd/MM/yyyy'
+          format='dd/MM/yyyy HH:mm'
           margin='normal'
           id={key}
+          style={{ margin: 0 }}
           inputVariant='outlined'
           label={item.label}
           disabled={isSubmitting}
           onBlur={handleBlur}
           InputAdornmentProps={{ position: 'start' }}
-          onChange={date => handleChange(date)}
+          onChange={date => {
+            const event = { target: { name: key, value: date } }
+            return handleChange(event)
+          }}
           value={value || new Date()}
         />
       </MuiPickersUtilsProvider>
