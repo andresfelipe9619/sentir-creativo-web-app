@@ -29,7 +29,9 @@ export default function Home () {
 
   useEffect(() => {
     ;(async () => {
-      const serviceResult = await API.Servicio.getAll()
+      const serviceResult = await API.Servicio.getAll({
+        params: { 'estado.id': 12 }
+      })
       setServices(serviceResult)
     })()
   }, [])
