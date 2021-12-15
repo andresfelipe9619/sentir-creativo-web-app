@@ -37,7 +37,7 @@ export default function Areas () {
       try {
         setLoading(true)
         const serviceResult = await API.Servicio.getAll({
-          params: { area: areaId }
+          params: { area: areaId, 'estado.id': 12 }
         })
         const areaResult = await API.Area.get(areaId)
         setSelectedArea(areaResult)
