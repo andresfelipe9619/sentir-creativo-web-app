@@ -9,6 +9,8 @@ import FormItem from '../master-detail/FormItem'
 import useFormDependencies from '../../providers/hooks/useFormDependencies'
 import Spinner from '../spinner/Spinner'
 import { columns, dossiersSchema, dossierValues } from './schema'
+import { useState } from 'react'
+import FinishForm from '../finish-form'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +25,8 @@ const useStyles = makeStyles(theme => ({
 export default function DossierModal ({ open, service, ...props }) {
   const classes = useStyles()
   const { openAlert } = useAlertDispatch()
+  const [finish, setFinish] = useState(false)
+
   console.log(`service`, service)
   const handleFormSubmit = async values => {
     try {
@@ -33,6 +37,7 @@ export default function DossierModal ({ open, service, ...props }) {
       })
       console.log(`result`, result)
       openAlert({ variant: 'success', message: 'Datos enviados con éxito!' })
+      setFinish(true)
     } catch (error) {
       console.error(error)
       openAlert({
@@ -54,14 +59,29 @@ export default function DossierModal ({ open, service, ...props }) {
             {...props}
             open={open}
             handleConfirm={handleSubmit}
+            hideCloseButton={finish}
+            hideConfirmButton={finish}
             title={service?.nombre || ''}
             isSubmitting={formikProps.isSubmitting}
           >
-            <form>
-              <div className={classes.instructions}>
-                <Contact {...formikProps} />
-              </div>
-            </form>
+            {!finish && (
+              <form>
+                <div className={classes.instructions}>
+                  <Contact {...formikProps} />
+                </div>
+              </form>
+            )}
+            {!!finish && (
+              <FinishForm
+                title='¡Cosmicósmico!'
+                text='el dossier solicitado'
+                handleClick={() => {
+                  setFinish(false)
+                  formikProps.resetForm()
+                  props.handleClose()
+                }}
+              />
+            )}
           </GenericModal>
         )
       }}

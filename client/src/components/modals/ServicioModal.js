@@ -21,6 +21,7 @@ import { useAlertDispatch } from '../../providers/context/Alert'
 import { columns, serviceSchema, serviceValues } from './schema'
 import FormItem from '../master-detail/FormItem'
 import useFormDependencies from '../../providers/hooks/useFormDependencies'
+import FinishForm from '../finish-form'
 
 const fieldsByStep = [
   ['impacto', 'publicoObjetivo'],
@@ -94,16 +95,21 @@ export default function ServicioModal ({
   const handleBack = () => {
     setActiveStep(prevActiveStep => --prevActiveStep)
   }
+  const lastStep = activeStep === steps.length - 1
+  const sent = activeStep === steps.length
+
+  const handleCloseModal = async () => {
+    await handleClose()
+    setActiveStep(0)
+  }
 
   return (
     <GenericModal
       open={open}
       hideConfirmButton
+      hideCloseButton={sent}
       title={service?.nombre}
-      handleClose={async () => {
-        await handleClose()
-        setActiveStep(0)
-      }}
+      handleClose={handleCloseModal}
       {...props}
     >
       <Formik
@@ -112,8 +118,6 @@ export default function ServicioModal ({
         validationSchema={serviceSchema}
       >
         {({ handleSubmit, ...formikProps }) => {
-          const lastStep = activeStep === steps.length - 1
-          const sent = activeStep === steps.length
           const disableButton =
             formikProps.isSubmitting ||
             (!sent &&
@@ -137,24 +141,11 @@ export default function ServicioModal ({
               </Stepper>
               <div>
                 {sent ? (
-                  <div>
-                    <Typography
-                      variant='h4'
-                      color='primary'
-                      className={classes.instructions}
-                    >
-                      Envíado!
-                    </Typography>
-                    <Typography className={classes.instructions}>
-                      Prontamente recibirás un Ticket con todos los detalles
-                    </Typography>
-                    <Button onClick={props.handleClose}>
-                      Volver al Catálago
-                    </Button>
-                    <Button onClick={props.handleClose}>
-                      Leer artículos relacionados
-                    </Button>
-                  </div>
+                  <FinishForm
+                    title='¡Genialístico!'
+                    text='un email con el detalle de su cotización'
+                    handleClick={handleCloseModal}
+                  />
                 ) : (
                   <div>
                     <div className={classes.instructions}>
