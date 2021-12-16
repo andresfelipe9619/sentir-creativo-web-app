@@ -34,6 +34,11 @@ export default function Modal ({
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const classes = useStyles()
   const showLoader = loading || isSubmitting
+
+  let confirmText = 'Aceptar'
+  if (isSubmitting) confirmText = 'Enviando...'
+  if (showLoader) confirmText = 'Cargando ...'
+
   return (
     <Dialog
       fullWidth
@@ -67,11 +72,7 @@ export default function Modal ({
             onClick={handleConfirm}
             disabled={disableOk || showLoader}
           >
-            {isSubmitting
-              ? 'Enviando...'
-              : showLoader
-              ? 'Cargando ...'
-              : 'Aceptar'}
+            {confirmText}
           </Button>
         )}
       </DialogActions>
