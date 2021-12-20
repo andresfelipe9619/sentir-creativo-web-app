@@ -21,7 +21,7 @@ export default function useFormDependencies (columns) {
           setDependencies(prev => ({
             ...prev,
             [dependecy]: result.map(item => ({
-              label: item.nombre,
+              label: item.nombre || item.codigo,
               value: item.id
             }))
           }))

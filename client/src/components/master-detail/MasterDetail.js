@@ -89,7 +89,10 @@ export function customBodyRender (type) {
     if (Array.isArray(value)) {
       return value.map(i => i.nombre).join(', ')
     }
-    if (isObject(value)) return value.nombre
+    if (isObject(value)) {
+      if(value.codigo) return value.codigo
+      return value.nombre
+    }
   }
 }
 
