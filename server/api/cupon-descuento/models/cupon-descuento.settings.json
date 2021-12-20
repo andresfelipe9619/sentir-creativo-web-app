@@ -20,6 +20,9 @@
     },
     "fechaFin": {
       "type": "datetime"
+    },
+    "descripcion": {
+      "type": "text"
     }
   }
 }

@@ -174,6 +174,46 @@ const Coleccion = {
   delete: id => serverRequests.del(`/coleccions/${id}`)
 }
 
+const Motivacion = {
+  getAll: () => serverRequests.get(`/motivacions`),
+  get: id => serverRequests.get(`/motivacions/${id}`),
+  create: format => serverRequests.post('/motivacions', format),
+  update: (id, format) => serverRequests.put(`/motivacions/${id}`, format),
+  delete: id => serverRequests.del(`/motivacions/${id}`)
+}
+
+const Antiguedad = {
+  getAll: () => serverRequests.get(`/antiguedads`),
+  get: id => serverRequests.get(`/antiguedads/${id}`),
+  create: format => serverRequests.post('/antiguedads', format),
+  update: (id, format) => serverRequests.put(`/antiguedads/${id}`, format),
+  delete: id => serverRequests.del(`/antiguedads/${id}`)
+}
+
+const CuponDescuento = {
+  getAll: () => serverRequests.get(`/cupon-descuentos`),
+  get: id => serverRequests.get(`/cupon-descuentos/${id}`),
+  create: format => serverRequests.post('/cupon-descuentos', format),
+  update: (id, format) => serverRequests.put(`/cupon-descuentos/${id}`, format),
+  delete: id => serverRequests.del(`/cupon-descuentos/${id}`)
+}
+
+const Cercania = {
+  getAll: () => serverRequests.get(`/cercanias`),
+  get: id => serverRequests.get(`/cercanias/${id}`),
+  create: format => serverRequests.post('/cercanias', format),
+  update: (id, format) => serverRequests.put(`/cercanias/${id}`, format),
+  delete: id => serverRequests.del(`/cercanias/${id}`)
+}
+
+const Origen = {
+  getAll: () => serverRequests.get(`/origens`),
+  get: id => serverRequests.get(`/origens/${id}`),
+  create: format => serverRequests.post('/origens', format),
+  update: (id, format) => serverRequests.put(`/origens/${id}`, format),
+  delete: id => serverRequests.del(`/origens/${id}`)
+}
+
 const API = {
   Auth,
   User,
@@ -187,6 +227,11 @@ const API = {
   Formato,
   Prefijo,
   Staf,
+  Motivacion,
+  Antiguedad,
+  CuponDescuento,
+  Cercania,
+  Origen,
   Coleccion,
   AudienceState,
   ServiceState,
