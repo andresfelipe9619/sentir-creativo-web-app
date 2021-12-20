@@ -55,10 +55,6 @@
     "estado": {
       "model": "estado-audiencia"
     },
-    "bitacoras": {
-      "collection": "bitacora-audiencia",
-      "via": "audiencia"
-    },
     "notas": {
       "collection": "notas-audiencia",
       "via": "audiencia"

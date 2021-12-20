@@ -10,9 +10,10 @@ const webhook = process.env.WEBHOOK_DOSSIER
 module.exports = {
   async dossier (ctx) {
     try {
-      const { request } = ctx
+      const { request, state } = ctx
       const { body } = request
       console.log(`body`, body)
+      console.log(`state`, state.user)
       const { comentario, servicio, email, ...data } = body
       const knex = strapi.connections.default
       if (!body.email) throw new Error('Email is required')
@@ -51,6 +52,13 @@ module.exports = {
 
       const webhookData = { ...audience, servicio }
       const { data: result } = await axios.post(webhook, webhookData)
+      await strapi.services.bitacora.create({
+        entidad: "audiencia",
+        entidadId: audience.id,
+        accion: 'DOSSIER',
+        autor: audience,
+        contenido: webhookData
+      })
       return result
     } catch (error) {
       console.error(error)
