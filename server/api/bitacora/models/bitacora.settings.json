@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bitacoras",
+  "info": {
+    "name": "bitacora"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "entidad": {
+      "type": "string"
+    },
+    "accion": {
+      "type": "string"
+    },
+    "autor": {
+      "type": "json"
+    },
+    "contenido": {
+      "type": "json"
+    },
+    "entidadId": {
+      "type": "integer"
+    }
+  }
+}
