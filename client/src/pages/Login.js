@@ -14,6 +14,7 @@ import { Link as RouterLink, useHistory } from 'react-router-dom'
 import API from '../api'
 import { Formik } from 'formik'
 import * as yup from 'yup'
+import { useAlertDispatch } from '../providers/context/Alert'
 
 function Copyright () {
   return (
@@ -74,6 +75,8 @@ const initialValues = {
 export default function SignInSide () {
   const classes = useStyles()
   const history = useHistory()
+  const { openAlert } = useAlertDispatch()
+
   const handleFormSubmit = async values => {
     try {
       const result = await API.Auth.login(values)
@@ -82,6 +85,7 @@ export default function SignInSide () {
       history.push('/admin/audiencia')
     } catch (error) {
       console.error(error)
+      openAlert({ variant: 'error', message: error.toString() })
     }
   }
 
