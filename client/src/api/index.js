@@ -4,7 +4,7 @@ const server = axios.create({
   baseURL: process.env.REACT_APP_API_ROOT
 })
 
-let token = localStorage.getItem('colibri-token') || null
+let token = sessionStorage.getItem('colibri-token') || null
 
 const tokenInterceptor = config => {
   if (token) {
@@ -15,7 +15,7 @@ const tokenInterceptor = config => {
 
 const setToken = _token => {
   token = _token
-  localStorage.setItem('colibri-token', _token)
+  sessionStorage.setItem('colibri-token', _token)
 }
 
 const responseBody = response => response.data
@@ -77,7 +77,7 @@ const Archivo = {
 }
 
 const Audiencia = {
-  getAll: () => serverRequests.get(`/audiencias`),
+  getAll: () => serverRequests.get(`/audiencias?_limit=-1`),
   get: id => serverRequests.get(`/audiencias/${id}`),
   dossier: audiencia => serverRequests.post('/audiencias/dossier', audiencia),
   create: audience => serverRequests.post('/audiencias', audience),
