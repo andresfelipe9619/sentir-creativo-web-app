@@ -81,7 +81,9 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
               {columns.map((item, i) => (
                 <FormItem
                   key={i}
+                  parent={service.toLowerCase()}
                   item={item}
+                  initParent={init}
                   {...formProps}
                   dependencies={dependencies}
                 />

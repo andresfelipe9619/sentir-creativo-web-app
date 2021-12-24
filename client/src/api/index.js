@@ -73,7 +73,9 @@ const Archivo = {
   get: id => serverRequests.get(`/archivos/${id}`),
   create: archivo => serverRequests.post('/archivos', archivo),
   update: (id, archivo) => serverRequests.put(`/archivos/${id}`, archivo),
-  delete: id => serverRequests.del(`/archivos/${id}`)
+  delete: id => serverRequests.del(`/archivos/${id}`),
+  addFiles2Entity: (id, entity, files) =>
+    serverRequests.post(`/${entity}s/${id}/archivos`, files)
 }
 
 const Audiencia = {

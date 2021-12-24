@@ -20,9 +20,11 @@ import Files from '../files/Files'
 
 export default function FormItem ({
   item,
+  parent,
   values,
   errors,
   touched,
+  initParent,
   dependencies,
   isSubmitting,
   handleChange,
@@ -143,7 +145,9 @@ export default function FormItem ({
       </FormControl>
     ),
     tag: canRender('tag') && <Tags tags={value} title={item.label} />,
-    file: canRender('file') && <Files files={value} title={item.label} />
+    file: canRender('file') && (
+      <Files files={value} title={item.label} {...{ parent, initParent }} />
+    )
   }
   return (
     <Grid item xs={12} md={size}>
