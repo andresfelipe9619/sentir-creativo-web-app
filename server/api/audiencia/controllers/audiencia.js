@@ -53,7 +53,7 @@ module.exports = {
       const webhookData = { ...audience, servicio }
       const { data: result } = await axios.post(webhook, webhookData)
       await strapi.services.bitacora.create({
-        entidad: "audiencia",
+        entidad: 'audiencia',
         entidadId: audience.id,
         accion: 'DOSSIER',
         autor: audience,
@@ -69,6 +69,7 @@ module.exports = {
     const { request, params } = ctx
     const { id } = params
     const { body: files } = request
+    console.log(`files`, files)
     const result = await strapi.services.archivo.addFiles({
       id,
       files,

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import API from '../../api'
 
-export default function useAPI (service, map = false) {
+export default function useAPI (service, map = false, initilize = true) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -42,8 +42,8 @@ export default function useAPI (service, map = false) {
   )
 
   useEffect(() => {
-    init()
-  }, [init])
+    initilize && init()
+  }, [initilize, init])
 
-  return { data, loading, init, create }
+  return { data, loading, init, create, api: API[service] }
 }

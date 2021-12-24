@@ -46,7 +46,7 @@ export default function FinishForm ({ title, text, handleClick }) {
           <Button
             color='primary'
             variant='contained'
-            style={{ margin: 8 }}
+            style={{ margin: 14 }}
             onClick={handleClick}
           >
             Seguir explorando

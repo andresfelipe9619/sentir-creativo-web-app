@@ -59,6 +59,7 @@ export default function CreateEntity ({
           <GenericModal
             {...props}
             open={open}
+            handleClose={handleClose}
             loading={loadingDependencies}
             handleConfirm={handleSubmit}
             title={`Crear ${entity}`}
