@@ -75,9 +75,6 @@
     "ciudad": {
       "type": "string"
     },
-    "publicoObjetivos": {
-      "collection": "publico-objetivo"
-    },
     "origen": {
       "via": "audiencias",
       "model": "origen"
@@ -94,6 +91,10 @@
     },
     "cuponDescuento": {
       "model": "cupon-descuento"
+    },
+    "email2": {
+      "type": "email",
+      "unique": true
     }
   }
 }

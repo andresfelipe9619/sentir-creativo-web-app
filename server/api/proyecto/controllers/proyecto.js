@@ -65,7 +65,6 @@ module.exports = {
       if (!email) throw new Error('No hay Email para empezar proyecto')
       const knex = strapi.connections.default
       let audience = await strapi.services.audiencia.findOne({ email })
-      console.log(`audience`, audience)
       let org = null
 
       async function findOrCreate (model, find, props) {
@@ -108,6 +107,9 @@ module.exports = {
         tipoProyecto: 3
       })
       console.log(`proyecto`, proyecto)
+      if (!proyecto) {
+        throw new Error('Algo salió mal creando el proyecto')
+      }
       if (comentario) {
         const comment = await strapi.services.comentario.create({ comentario })
         await knex.transaction(async trx => {
@@ -129,8 +131,12 @@ module.exports = {
           )
         })
       }
+      let [finalResult] = await strapi.services.proyecto.find(
+        { id: proyecto.id },
+        populate
+      )
 
-      const webhookData = { ...audience, servicio, proyecto }
+      const webhookData = { ...audience, servicio, ticket: finalResult }
       const { data: result } = await axios.post(webhook, webhookData)
       return result
     } catch (error) {
