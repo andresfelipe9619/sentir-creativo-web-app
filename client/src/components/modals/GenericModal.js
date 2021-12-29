@@ -9,13 +9,15 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import Slide from '@material-ui/core/Slide'
 import { useTheme, makeStyles } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import image from '../../assets/iso-fullc-large.png'
 
 const Transition = React.forwardRef(function Transition (props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
 })
 
 export const useStyles = makeStyles(() => ({
-  root: { backdropFilter: 'blur(3px)' }
+  root: { backdropFilter: 'blur(3px)' },
+  paper: { overflowY: 'visible' }
 }))
 
 export default function Modal ({
@@ -44,6 +46,7 @@ export default function Modal ({
       fullWidth
       maxWidth='md'
       open={open}
+      classes={{ paper: classes.paper }}
       className={classes.root}
       fullScreen={fullScreen}
       onClose={handleClose}
@@ -52,6 +55,19 @@ export default function Modal ({
       TransitionComponent={Transition}
     >
       {showLoader && <LinearProgress />}
+      <img
+        src={image}
+        alt='sentir creativo logo'
+        width={60}
+        style={{
+          margin: 4,
+          position: 'absolute',
+          left: '46%',
+          zIndex: 1000,
+          top: fullScreen ? 0 : -32
+        }}
+        height='auto'
+      />
       {title && (
         <DialogTitle id='form-dialog-title' disableTypography>
           <Typography color='primary' variant='h4'>
