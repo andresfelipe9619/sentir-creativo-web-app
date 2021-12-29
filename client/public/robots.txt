@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 User-agent: *
-Sitemap: https://latoyma.com/sitemap.xml
+Sitemap: https://sentircreativo.com/sitemap.xml
