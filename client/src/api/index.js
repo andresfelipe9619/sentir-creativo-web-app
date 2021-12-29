@@ -216,6 +216,14 @@ const Origen = {
   delete: id => serverRequests.del(`/origens/${id}`)
 }
 
+const TipoArchivo = {
+  getAll: () => serverRequests.get(`/tipo-archivos`),
+  get: id => serverRequests.get(`/tipo-archivos/${id}`),
+  create: format => serverRequests.post('/tipo-archivos', format),
+  update: (id, format) => serverRequests.put(`/tipo-archivos/${id}`, format),
+  delete: id => serverRequests.del(`/tipo-archivos/${id}`)
+}
+
 const API = {
   Auth,
   User,
@@ -229,6 +237,7 @@ const API = {
   Formato,
   Prefijo,
   Staf,
+  TipoArchivo,
   Motivacion,
   Antiguedad,
   CuponDescuento,

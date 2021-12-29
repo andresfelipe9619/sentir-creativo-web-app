@@ -1,3 +1,5 @@
+import { customBodyRender } from "../../master-detail/MasterDetail"
+
 const columns = [
   {
     name: 'nombre',
@@ -23,7 +25,20 @@ const columns = [
       type: 'input'
     }
   },
-
+  {
+    name: 'tipo_archivo',
+    label: 'Tipo Archivo',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: 'select',
+      dependency: 'TipoArchivo',
+    }
+  },
   {
     name: 'updated_at',
     label: 'Última Actualización',
