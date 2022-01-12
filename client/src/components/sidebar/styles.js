@@ -5,6 +5,10 @@ export const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
   },
+  navigation: {
+    display: 'flex',
+    height: 70
+  },
   appBar: {
     background: theme.palette.background.paper,
     transition: theme.transitions.create(['margin', 'width'], {
@@ -69,6 +73,7 @@ export const useDashboardStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar
   },
   appBar: {
+    padding: 0,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,

@@ -1,6 +1,6 @@
 import React, { memo, Suspense } from 'react'
 import { Redirect, Switch, Route } from 'react-router-dom'
-import RouteWithSubRoutes from './RouteWithSubRoutes'
+import PrivateRoute from './PrivateRoute'
 import routerConfig from './router.config'
 import NotFound from '../pages/NotFound'
 import Spinner from '../components/spinner/Spinner'
@@ -10,7 +10,7 @@ function RouterApp () {
     <Suspense fallback={<Spinner />}>
       <Switch>
         {routerConfig.map(route => (
-          <RouteWithSubRoutes key={route.path} {...route} />
+          <PrivateRoute key={route.path} {...route} />
         ))}
         <Route
           exact
@@ -22,6 +22,5 @@ function RouterApp () {
     </Suspense>
   )
 }
-
 
 export default memo(RouterApp)

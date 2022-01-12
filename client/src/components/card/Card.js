@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 
 export default function MediaCard ({
   title,
+  chip,
   slogan,
   imageUrl,
   imageTitle,
@@ -42,12 +43,16 @@ export default function MediaCard ({
           maxWidth={300}
           title={
             /* Agregando Badges & Chimps_byColibri */
-            <Badge component={Box} p={0} badgeContent='new' color='primary'>
+            chip ? (
+              <Badge component={Box} p={0} badgeContent={chip} color='primary'>
+                <Typography variant='h3'>{title}</Typography>
+              </Badge>
+            ) : (
               <Typography variant='h3'>{title}</Typography>
-            </Badge>
-
-            /* la idea es traer las Tecnicas Artisticas o los tags en vez de slogan_byColibri */
+            )
           }
+          /* la idea es traer las Tecnicas Artisticas o los tags en vez de slogan_byColibri */
+
           subheader={
             <Chip
               component={Box}

@@ -109,6 +109,7 @@ export default function Home () {
                   imageTitle={''}
                   sintesis={s.sintesis}
                   slogan={s.slogan}
+                  chip={(s?.tecnica_artisticas || [])[0]?.nombre}
                   handleClickPrimary={handleOpenModal(s)}
                   handleClickSecundary={handleOpenDossier(s)}
                 />

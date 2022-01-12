@@ -69,6 +69,7 @@ const routerConfig = [
   {
     path: '/admin',
     name: 'Admin',
+    private: true,
     component: Dashboard,
     routes: [
       {
