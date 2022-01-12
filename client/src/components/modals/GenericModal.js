@@ -58,7 +58,7 @@ export default function Modal ({
       <img
         src={image}
         alt='sentir creativo logo'
-        width={60}
+        width={fullScreen ? 60 : 80}
         style={{
           margin: 4,
           position: 'absolute',
@@ -70,7 +70,11 @@ export default function Modal ({
       />
       {title && (
         <DialogTitle id='form-dialog-title' disableTypography>
-          <Typography color='primary' variant='h4'>
+          <Typography
+            color='primary'
+            variant='h4'
+            style={{ marginTop: fullScreen ? 50 : 0 }}
+          >
             {title}
           </Typography>
         </DialogTitle>

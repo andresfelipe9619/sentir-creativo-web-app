@@ -47,6 +47,9 @@
     },
     "archivos": {
       "collection": "archivo"
+    },
+    "icono": {
+      "type": "string"
     }
   }
 }
