@@ -28,7 +28,7 @@
     "strapi-utils": "3.6.8"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Andrés Suárez"
   },
   "strapi": {
     "uuid": "d6c20fd0-d9ea-4197-8aff-454424c6d41c"
