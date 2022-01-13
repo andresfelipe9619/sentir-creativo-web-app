@@ -64,6 +64,10 @@ export default function Home () {
     setSelectedService(null)
   }
 
+  const handleClick = service => () => {
+    history.push(`/servicios/${service.id}`)
+  }
+
   const length = isSmall ? 1 : isMedium ? 2 : 3
   const chunks = splitArrayIntoChunksOfLen(services, length)
   return (
@@ -110,6 +114,7 @@ export default function Home () {
                   sintesis={s.sintesis}
                   slogan={s.slogan}
                   chip={(s?.tecnica_artisticas || [])[0]?.nombre}
+                  handleClick={handleClick(s)}
                   handleClickPrimary={handleOpenModal(s)}
                   handleClickSecundary={handleOpenDossier(s)}
                 />

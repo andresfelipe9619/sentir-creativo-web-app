@@ -32,6 +32,7 @@ export default function MediaCard ({
   slogan,
   imageUrl,
   imageTitle,
+  handleClick,
   handleClickPrimary,
   handleClickSecundary
 }) {
@@ -46,11 +47,10 @@ export default function MediaCard ({
   })
 
   const text = <Typography variant='h3'>{title}</Typography>
-  console.log(`color`, color)
   return (
     <ThemeProvider theme={areaTheme}>
       <Card className={classes.root} elevation={5}>
-        <CardActionArea>
+        <CardActionArea onClick={handleClick}>
           <CardHeader
             component={Box}
             maxWidth={340}
