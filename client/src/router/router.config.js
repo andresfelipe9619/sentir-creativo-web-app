@@ -3,6 +3,9 @@ const Home = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home'))
 const Areas = lazy(() =>
   import(/* webpackChunkName: "areas" */ '../pages/Areas')
 )
+const Servicios = lazy(() =>
+  import(/* webpackChunkName: "servicios" */ '../pages/Servicios')
+)
 const About = lazy(() =>
   import(/* webpackChunkName: "about" */ '../pages/About')
 )
@@ -32,6 +35,13 @@ const routerConfig = [
     path: '/areas/:id',
     component: Areas,
     name: 'Areas',
+    exact: true,
+    strict: true
+  },
+  {
+    path: '/servicios/:id',
+    component: Servicios,
+    name: 'Servicios',
     exact: true,
     strict: true
   },

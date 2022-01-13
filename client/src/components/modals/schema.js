@@ -63,8 +63,7 @@ export const columns = showOrganization => [
     },
     form: {
       size: 4,
-      type: 'input',
-      inputType: 'number'
+      type: 'phone'
     }
   },
   {

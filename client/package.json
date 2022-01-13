@@ -16,7 +16,7 @@
     "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
     "formik": "^2.2.8",
-    "material-ui-phone-number": "^3.0.0",
+    "material-ui-phone-number": "2.2.6",
     "mui-datatables": "^3.7.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

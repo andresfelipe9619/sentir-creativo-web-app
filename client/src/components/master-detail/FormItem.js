@@ -17,13 +17,14 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import Tags from '../tags/Tags'
 import Files from '../files/Files'
-
+import MuiPhoneNumber from 'material-ui-phone-number'
 export default function FormItem ({
   item,
   parent,
   values,
   errors,
   touched,
+  setFieldValue,
   initParent,
   dependencies,
   isSubmitting,
@@ -109,26 +110,30 @@ export default function FormItem ({
         {...fieldProps}
       />
     ),
-    // phone: canRender('phone') && (
-    //   <MuiPhoneNumber
-    //     defaultCountry={'us'}
-    //     label={item.label}
-    //     disabled={isSubmitting}
-    //     onBlur={handleBlur}
-    //     onChange={handleChange}
-    //     value={value}
-    //     helperText={errors[key] || ''}
-    //     error={!!touched[key] && !!errors[key]}
-    //     {...fieldProps}
-    //   />
-    // ),
+    phone: canRender('phone') && (
+      <MuiPhoneNumber
+        id={key}
+        name={key}
+        defaultCountry={'cl'}
+        label={item.label}
+        variant='outlined'
+        disabled={isSubmitting}
+        onChange={v => setFieldValue(key, v.replace('+', ''))}
+        value={value}
+        fullWidth
+        countryCodeEditable={false}
+        autoFormat={false}
+        helperText={errors[key] || ''}
+        error={!!touched[key] && !!errors[key]}
+      />
+    ),
     select: canRender('select') && (
       <FormControl fullWidth variant='outlined'>
-        <InputLabel id={`${item.name}-label`}>{item.label}</InputLabel>
+        <InputLabel id={`${key}-label`}>{item.label}</InputLabel>
         <Select
-          labelId={`${item.name}-label`}
-          id={item.name}
-          name={item.name}
+          labelId={`${key}-label`}
+          id={key}
+          name={key}
           disabled={isSubmitting}
           value={value || ''}
           onChange={handleChange}
