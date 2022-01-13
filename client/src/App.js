@@ -8,12 +8,14 @@ import RouterApp from './router/router.app'
 import { useLocation } from 'react-router-dom'
 import { Alert } from './components/snackbar-alert'
 import Footer from './components/footer/Footer'
+import { useUserState } from './providers/context/User'
 
 function App () {
   const [theme] = useDarkMode()
   const themeConfig = createTheme(theme)
   const location = useLocation()
   const isAdminArea = location.pathname.includes('admin')
+  const user = useUserState()
 
   let content = <RouterApp />
   if (isAdminArea) content = <DashboardSidebar>{content}</DashboardSidebar>
@@ -24,7 +26,7 @@ function App () {
       <CssBaseline />
       <Alert />
       {content}
-      <Footer />
+      {isAdminArea && !user ? null : <Footer />}
     </MuiThemeProvider>
   )
 }

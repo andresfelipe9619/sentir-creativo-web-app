@@ -11,17 +11,21 @@ import Drawer from '@material-ui/core/Drawer'
 import clsx from 'clsx'
 import { MainListItems } from '../dashboard/ListItems'
 import { useDashboardStyles } from './styles'
+import { useUserState } from '../../providers/context/User'
+import AccessDenied from '../../router/AccessDenied'
 
 export default function DashboardSidebar ({ children }) {
   const [open, setOpen] = useState(true)
   const classes = useDashboardStyles()
+  const user = useUserState()
+
   const handleDrawerOpen = () => {
     setOpen(true)
   }
   const handleDrawerClose = () => {
     setOpen(false)
   }
-
+  if (!user) return <AccessDenied />
   return (
     <div className={classes.root}>
       <AppBar
@@ -48,11 +52,8 @@ export default function DashboardSidebar ({ children }) {
             noWrap
             className={classes.title}
           >
-
-            
             Dashboard
           </Typography>
-         
         </Toolbar>
       </AppBar>
       <Drawer
@@ -75,7 +76,6 @@ export default function DashboardSidebar ({ children }) {
         <List>
           <SecondaryListItems />
         </List> */}
-      
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

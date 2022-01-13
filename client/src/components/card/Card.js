@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Chip from '@material-ui/core/Chip'
 import { Badge } from '@material-ui/core'
+import { useTheme, createTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   root: {
@@ -27,72 +28,87 @@ const useStyles = makeStyles({
 export default function MediaCard ({
   title,
   chip,
+  color,
   slogan,
   imageUrl,
   imageTitle,
+  handleClick,
   handleClickPrimary,
   handleClickSecundary
 }) {
   const classes = useStyles()
+  const theme = useTheme()
+  const cardColor = color || theme.palette.primary.main
+  const areaTheme = createTheme({
+    ...theme,
+    palette: {
+      primary: { main: cardColor }
+    }
+  })
 
+  const text = <Typography variant='h3'>{title}</Typography>
   return (
-    <Card className={classes.root} elevation={5}>
-      <CardActionArea>
-        <CardHeader
-          component={Box}
-          maxWidth={300}
-          title={
-            /* Agregando Badges & Chimps_byColibri */
-            chip ? (
-              <Badge component={Box} p={0} badgeContent={chip} color='primary'>
-                <Typography variant='h3'>{title}</Typography>
-              </Badge>
-            ) : (
-              <Typography variant='h3'>{title}</Typography>
-            )
-          }
-          /* la idea es traer las Tecnicas Artisticas o los tags en vez de slogan_byColibri */
-
-          subheader={
-            <Chip
-              component={Box}
-              maxWidth={300}
-              label={slogan}
-              color='secondary'
-              size='small'
-            />
-          }
-        />
-        <CardMedia
-          className={classes.media}
-          image={imageUrl}
-          title={imageTitle}
-        />
-        <CardContent>
-          <Typography gutterBottom variant='h5' component='p'></Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
-            {/* {sintesis} */}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button
-          size='small'
-          color='primary'
-          variant='contained'
-          onClick={handleClickPrimary}
-        >
-          Cotizar
-        </Button>
-        <Button
-          size='small'
-          color='primary'
-          variant='outlined'
-          onClick={handleClickSecundary}
-        >
-          Solicitar dossier
-        </Button>
-      </CardActions>
-    </Card>
+    <ThemeProvider theme={areaTheme}>
+      <Card className={classes.root} elevation={5}>
+        <CardActionArea onClick={handleClick}>
+          <CardHeader
+            component={Box}
+            maxWidth={340}
+            title={
+              chip ? (
+                <Badge
+                  p={1}
+                  badgeContent={chip}
+                  color='primary'
+                  component={Box}
+                >
+                  {text}
+                </Badge>
+              ) : (
+                text
+              )
+            }
+            subheader={
+              <Chip
+                component={Box}
+                maxWidth={300}
+                label={slogan}
+                color={'secondary'}
+                size='small'
+              />
+            }
+          />
+          <CardMedia
+            className={classes.media}
+            image={imageUrl}
+            title={imageTitle}
+          />
+          <CardContent>
+            <Typography gutterBottom variant='h5' component='p'></Typography>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {/* {sintesis} */}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button
+            size='small'
+            color={'primary'}
+            variant='contained'
+            onClick={handleClickPrimary}
+          >
+            Cotizar
+          </Button>
+          <Button
+            size='small'
+            color={'primary'}
+            variant='outlined'
+            onClick={handleClickSecundary}
+          >
+            Solicitar dossier
+          </Button>
+        </CardActions>
+      </Card>
+    </ThemeProvider>
   )
 }

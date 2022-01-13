@@ -9,13 +9,15 @@ export default function AccessDenied () {
       display='flex'
       flexDirection='column'
       width='100%'
-      mt={8}
+      mt={'15%'}
       fontSize={100}
       alignItems='center'
       justifyContent='center'
     >
       <LockIcon fontSize='inherit' />
-      <Typography variant='h1' align='center'>Accesso Denegado</Typography>
+      <Typography variant='h1' align='center'>
+        Accesso Denegado
+      </Typography>
     </Box>
   )
 }

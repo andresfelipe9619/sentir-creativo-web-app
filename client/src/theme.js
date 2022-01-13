@@ -1,14 +1,18 @@
 import { useState } from 'react'
-const primaryColor = '#8300fa'
-const secondaryColor = '#e06565'
+const primaryColor = '#ff4100'
+const secondaryColor = '#ef6c00'
 
 const Palette = {
   type: 'light',
   primary: {
-    main: primaryColor
+    dark: '#c30000',
+    main: primaryColor,
+    light: '#ff783a'
   },
   secondary: {
-    main: secondaryColor
+    dark: '#b53d00',
+    main: secondaryColor,
+    light: '#ff9d3f'
   },
   success: {
     main: '#5cb860'
@@ -60,7 +64,7 @@ const Theme = {
   typography: Typography
 }
 
-export function useDarkMode () {
+export function useDarkMode() {
   const [theme, setTheme] = useState(Theme)
   const {
     palette: { type }
