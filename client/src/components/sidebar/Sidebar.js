@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import clsx from 'clsx'
-import { useTheme } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
@@ -9,7 +8,6 @@ import { useHistory } from 'react-router-dom'
 import API from '../../api'
 import { useStyles } from './styles'
 import { Box } from '@material-ui/core'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Suspense } from 'react'
 import * as IO5 from 'react-icons/io5'
 import * as GI from 'react-icons/gi'
@@ -17,11 +15,8 @@ import * as GI from 'react-icons/gi'
 export default function Sidebar ({ children }) {
   const classes = useStyles()
   const history = useHistory()
-
-  const theme = useTheme()
   const [areas, setAreas] = useState([])
-  const [value, setValue] = React.useState(0)
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const [value, setValue] = useState(null)
 
   const goTo = path => () => history.push(path)
 
@@ -56,7 +51,7 @@ export default function Sidebar ({ children }) {
                   setValue(newValue)
                   goTo(`/areas/${id}`)()
                 }}
-                showLabels={!isMobile}
+                showLabels={true}
                 className={classes.navigation}
               >
                 {areas.map((area, i) => {

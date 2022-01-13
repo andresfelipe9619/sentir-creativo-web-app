@@ -4,6 +4,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { AlertContext } from './providers/context/Alert'
+import { UserContext } from './providers/context/User'
 
 import './index.css'
 
@@ -11,7 +12,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AlertContext>
-        <App />
+        <UserContext>
+          <App />
+        </UserContext>
       </AlertContext>
     </BrowserRouter>
   </React.StrictMode>,

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link'
@@ -7,29 +7,31 @@ import Typography from '@material-ui/core/Typography'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
 
 const DOMAIN = "sentircreativo"
 const HOST = `https://www.${DOMAIN}.com`
 
 const useStyles = makeStyles(theme => ({
   title: {
-    fontWeight: 900
+    fontWeight: 900,
   },
+  text: { color: "#4f0606" },
   appBar: {
     marginTop: '15%',
     top: 'auto',
     bottom: 0,
     padding: 0,
-    background: theme.palette.secondary.light
+    background: theme.palette.primary.main
   }
 }))
 
-function Copyright () {
+function Copyright() {
   const classes = useStyles()
 
   return (
     <Box
-      bgcolor='secondary.dark'
+      bgcolor='secondary.main'
       className={classes.title}
       width='100%'
       textAlign='center'
@@ -44,7 +46,7 @@ function Copyright () {
   )
 }
 
-function Block ({ title, items }) {
+function Block({ title, items }) {
   const classes = useStyles()
   return (
     <Grid item xs={12} sm={4}>
@@ -53,11 +55,11 @@ function Block ({ title, items }) {
         component='h5'
         marked='left'
         gutterBottom
-        className={classes.title}
+        className={clsx(classes.title, classes.text)}
       >
         {title}
       </Typography>
-      <Box component='ul' sx={{ m: 0, listStyle: 'none', p: 0 }}>
+      <Box className={classes.text} component='ul' sx={{ m: 0, listStyle: 'none', p: 0 }}>
         {items.map(i => {
           if (!i.link) {
             return (
@@ -68,7 +70,7 @@ function Block ({ title, items }) {
           }
           return (
             <Box component='li' sx={{ py: 0.5 }} key={i.title}>
-              <Link href={i.link}>{i.title}</Link>
+              <Link className={classes.text} href={i.link}>{i.title}</Link>
             </Box>
           )
         })}
@@ -77,7 +79,7 @@ function Block ({ title, items }) {
   )
 }
 
-export default function AppFooter () {
+export default function AppFooter() {
   const classes = useStyles()
 
   return (
@@ -88,7 +90,7 @@ export default function AppFooter () {
           display='flex'
           bottom={0}
           width='100%'
-          bgcolor='secondary.light'
+          bgcolor='primary.main'
           px={0}
           pt={8}
           pb={2}

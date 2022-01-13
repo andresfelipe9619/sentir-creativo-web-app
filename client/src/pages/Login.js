@@ -15,6 +15,7 @@ import API from '../api'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 import { useAlertDispatch } from '../providers/context/Alert'
+import { useUserDispatch } from '../providers/context/User'
 
 function Copyright () {
   return (
@@ -76,12 +77,14 @@ export default function SignInSide () {
   const classes = useStyles()
   const history = useHistory()
   const { openAlert } = useAlertDispatch()
+  const { login } = useUserDispatch()
 
   const handleFormSubmit = async values => {
     try {
       const result = await API.Auth.login(values)
       console.log(`result`, result)
       API.setToken(result.jwt)
+      login(result.user)
       history.push('/admin/audiencia')
     } catch (error) {
       console.error(error)

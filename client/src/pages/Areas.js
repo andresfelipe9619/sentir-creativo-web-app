@@ -142,8 +142,10 @@ export default function Areas () {
               title={s.nombre}
               imageUrl={(s?.archivos || [])[0]?.path}
               imageTitle={''}
+              color={color}
               sintesis={s.sintesis}
               slogan={s.slogan}
+              chip={(s?.tecnica_artisticas || [])[0]?.nombre}
               handleClickPrimary={handleOpenModal(s)}
               handleClickSecundary={handleOpenDossier(s)}
             />
