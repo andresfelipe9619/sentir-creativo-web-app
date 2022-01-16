@@ -57,7 +57,6 @@ export default function DashboardSidebar ({ children }) {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
         }}

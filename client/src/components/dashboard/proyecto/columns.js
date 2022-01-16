@@ -1,3 +1,5 @@
+import { customBodyRender } from '../../master-detail/MasterDetail'
+
 const columns = [
   {
     name: 'nombre',
@@ -40,7 +42,8 @@ const columns = [
     label: 'Formato',
     options: {
       filter: true,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 6,
@@ -53,7 +56,8 @@ const columns = [
     label: 'Estado',
     options: {
       filter: true,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 6,
@@ -66,7 +70,8 @@ const columns = [
     label: 'Tipo Proyecto',
     options: {
       filter: true,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 6,
@@ -79,7 +84,8 @@ const columns = [
     label: 'Fecha Inicio',
     options: {
       filter: true,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
@@ -91,7 +97,8 @@ const columns = [
     label: 'Fecha Fin',
     options: {
       filter: true,
-      sort: false
+      sort: false,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
@@ -102,6 +109,7 @@ const columns = [
     name: 'descripcion',
     label: 'Descripcion',
     options: {
+      display: false,
       filter: true,
       sort: false
     },
