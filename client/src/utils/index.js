@@ -25,6 +25,6 @@ const shortFormatOptions = {
 
 export const formatDate = (date, long = true) =>
   new Date(date).toLocaleString(
-    'en-US',
+    'es-CL',
     long ? longFormatOptions : shortFormatOptions
   )
