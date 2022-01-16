@@ -23,8 +23,8 @@ export default function Proyectos () {
       service='Proyecto'
       renderMaster={({ data }) => (
         <Grid item container md={12}>
-          {data.map(p => (
-            <Grid item md={12 / length}>
+          {data.map((p, id) => (
+            <Grid key={id} item md={12 / length}>
               <ProjectCard {...p} />
             </Grid>
           ))}

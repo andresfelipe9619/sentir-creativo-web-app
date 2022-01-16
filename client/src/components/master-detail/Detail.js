@@ -76,7 +76,7 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
     >
       {({ handleSubmit, ...formProps }) => (
         <form onSubmit={handleSubmit}>
-          <Paper elevation={3} component={Box} p={2}>
+          <Paper elevation={3} component={Box} p={5}>
             <Grid container spacing={4}>
               {columns.map((item, i) => (
                 <FormItem

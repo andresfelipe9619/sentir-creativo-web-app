@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function MediaCard ({
+export default function ServiceCard ({
   title,
   chip,
   color,
