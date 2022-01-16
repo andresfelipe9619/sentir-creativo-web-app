@@ -6,12 +6,17 @@ import useAPI from '../../providers/hooks/useAPI'
 import Spinner from '../spinner/Spinner'
 import SpeedDial from '../speed-dial/SpeedDial'
 import CreateEntity from '../modals/CreateEntity'
+import Box from '@material-ui/core/Box'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import MuiSwitch from '@material-ui/core/Switch'
+import { formatDate } from '../../utils'
 
 export default function MasterDetail ({
   masterProps,
   detailProps,
   service,
   create,
+  toggle,
   renderMaster
 }) {
   const match = useRouteMatch()
@@ -30,16 +35,14 @@ export default function MasterDetail ({
 
   const handleCloseModal = () => setOpen(false)
 
-  const defaultRender = props => (
-    <Master
-      {...masterProps}
-      {...props}
-      data={data}
-      loading={loading}
-      onRowClick={handleClickRow}
-    />
-  )
-
+  const masterViewProps = {
+    data,
+    toggle,
+    loading,
+    masterProps,
+    renderMaster,
+    handleClickRow
+  }
   return (
     <>
       {loading && <Spinner />}
@@ -49,11 +52,7 @@ export default function MasterDetail ({
             exact
             strict
             path={masterPath}
-            render={
-              renderMaster
-                ? props => renderMaster({ data, handleClickRow, ...props })
-                : defaultRender
-            }
+            render={props => <MasterView {...props} {...masterViewProps} />}
           />
           <Route
             path={detailPath}
@@ -81,16 +80,65 @@ export default function MasterDetail ({
   )
 }
 
+function MasterView ({
+  data,
+  loading,
+  toggle,
+  masterProps,
+  renderMaster,
+  handleClickRow,
+  ...routerProps
+}) {
+  const [showList, setShowList] = useState(false)
+
+  const handleChange = e => setShowList(e.target.checked)
+
+  const showCustom = toggle && showList && renderMaster
+  return (
+    <>
+      {toggle && (
+        <Box width='100%' display='flex' justifyContent='flex-end' my={2}>
+          <FormControlLabel
+            control={
+              <MuiSwitch
+                checked={showList}
+                onChange={handleChange}
+                name='cardView'
+                color='primary'
+              />
+            }
+            label='Vista Cards'
+          />
+        </Box>
+      )}
+      {showCustom && renderMaster({ data, handleClickRow, ...routerProps })}
+      {!showCustom && (
+        <Master
+          {...masterProps}
+          {...routerProps}
+          data={data}
+          loading={loading}
+          onRowClick={handleClickRow}
+        />
+      )}
+    </>
+  )
+}
+
+const isDate = item =>
+  new Date(item) !== 'Invalid Date' && !isNaN(new Date(item))
+
 const isObject = item => !!item && typeof item === 'object'
 
 export function customBodyRender (type) {
   return value => {
     if (type) return bodyType(type, value)
+    if (isDate(value)) return formatDate(value)
     if (Array.isArray(value)) {
       return value.map(i => i.nombre).join(', ')
     }
     if (isObject(value)) {
-      if(value.codigo) return value.codigo
+      if (value.codigo) return value.codigo
       return value.nombre
     }
   }

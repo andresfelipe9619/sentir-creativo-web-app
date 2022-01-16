@@ -81,6 +81,7 @@ export default function SignInSide () {
 
   const handleFormSubmit = async values => {
     try {
+      API.setToken(null)
       const result = await API.Auth.login(values)
       console.log(`result`, result)
       API.setToken(result.jwt)
