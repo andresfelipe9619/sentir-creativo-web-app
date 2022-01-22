@@ -38,6 +38,18 @@ export default function Sidebar ({ children }) {
     })()
   }, [])
 
+  const areaBg = (area) => {
+    const files = [...area.archivos];
+    const bgFileType = 24; // Background PNG
+    const bgURI = files.find(x => x.tipo_archivo?.id === bgFileType)?.path;
+
+    if (!bgURI) {
+      return area.colorPrimario;
+    }
+
+    return `url(${bgURI})`;
+  };
+
   return (
     <div className={classes.root}>
       <Suspense fallback={'...'}>
@@ -59,7 +71,7 @@ export default function Sidebar ({ children }) {
                     <BottomNavigationAction
                       key={area.nombre}
                       style={{
-                        background: area.colorPrimario,
+                        background: areaBg(area),
                         opacity: i === value ? 1 : 0.8,
                         color: 'white'
                       }}
