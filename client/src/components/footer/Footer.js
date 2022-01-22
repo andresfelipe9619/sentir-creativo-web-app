@@ -11,6 +11,7 @@ import clsx from 'clsx'
 
 const DOMAIN = "sentircreativo"
 const HOST = `https://www.${DOMAIN}.com`
+const FOOTER_BG = 'url(https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/Primary_textureTile_SentirCreativo.png)';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     top: 'auto',
     bottom: 0,
     padding: 0,
-    background: theme.palette.primary.main
+    background: FOOTER_BG
   }
 }))
 
@@ -90,7 +91,6 @@ export default function AppFooter() {
           display='flex'
           bottom={0}
           width='100%'
-          bgcolor='primary.main'
           px={0}
           pt={8}
           pb={2}
