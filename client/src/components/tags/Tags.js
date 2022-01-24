@@ -14,14 +14,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Tags ({ tags, title }) {
+export default function Tags ({ tags, title, color }) {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
       {!!title && <FormLabel component='legend'>{title}</FormLabel>}
       {(tags || []).map(t => (
-        <Chip key={t.nombre} label={t.nombre} />
+        <Chip key={t.nombre} label={t.nombre} color={color || 'default'} />
       ))}
     </div>
   )
