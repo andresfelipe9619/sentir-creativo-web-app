@@ -53,6 +53,7 @@ export default function Coleccion () {
   return (
     <Grid item md={12}>
       <MasterDetail
+        create
         masterProps={master}
         detailProps={detail}
         service='Coleccion'

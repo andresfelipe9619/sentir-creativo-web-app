@@ -26,9 +26,7 @@ const columns = [
       size: 4,
       type: 'input'
     }
-  },
- 
- 
+  }
 ]
 
 export default function Servicios () {
@@ -42,6 +40,7 @@ export default function Servicios () {
   return (
     <Grid item md={12}>
       <MasterDetail
+        create
         masterProps={master}
         detailProps={detail}
         service='Tag'
