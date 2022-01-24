@@ -108,8 +108,8 @@ export default function Areas () {
         >
           {selectedArea.nombre}
         </Typography>
-        <Typography paragraph gutterBottom>
-          {selectedArea.descripcion}
+        <Typography paragraph gutterBottom align='center'>
+          {selectedArea.slogan}
         </Typography>
         <Typography variant='caption' paragraph gutterBottom>
           A continuación presentamos nuestro Catálogo de {selectedArea.nombre}.
