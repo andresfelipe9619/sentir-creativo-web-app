@@ -108,12 +108,7 @@ export default function Home () {
                 key={s.id}
               >
                 <Card
-                  title={s.nombre}
-                  imageUrl={(s?.archivos || [])[0]?.path}
-                  imageTitle={''}
-                  sintesis={s.sintesis}
-                  slogan={s.slogan}
-                  chip={(s?.tecnica_artisticas || [])[0]?.nombre}
+                  service={s}
                   handleClick={handleClick(s)}
                   handleClickPrimary={handleOpenModal(s)}
                   handleClickSecundary={handleOpenDossier(s)}

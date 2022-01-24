@@ -158,15 +158,7 @@ export default function Servicios () {
         <Grid item container md={12}>
           {data.map((s, i) => (
             <Grid key={i} item md={12 / length}>
-              <Card
-                title={s.nombre}
-                imageUrl={(s?.archivos || [])[0]?.path}
-                imageTitle={''}
-                sintesis={s.sintesis}
-                slogan={s.slogan}
-                chip={(s?.tecnica_artisticas || [])[0]?.nombre}
-                handleClickPrimary={handleClick(s.id)}
-              />
+              <Card service={s} handleClickPrimary={handleClick(s.id)} />
             </Grid>
           ))}
         </Grid>
