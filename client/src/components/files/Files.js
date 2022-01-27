@@ -14,6 +14,7 @@ import { useHistory, useParams } from 'react-router'
 import CreateEntity from '../modals/CreateEntity'
 import useAPI from '../../providers/hooks/useAPI'
 import columns from '../dashboard/archivos/columns'
+import { DropzoneDialog } from 'material-ui-dropzone'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Files ({ files, title, parent, initParent }) {
+export default function Files({ files, title, parent, initParent }) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const { loading, create: createEntity, api } = useAPI('Archivo', null, false)
@@ -45,6 +46,11 @@ export default function Files ({ files, title, parent, initParent }) {
     console.log(`result`, result)
     await initParent()
   }
+
+  const onSelectedFile = ([file]) => {
+    handleCloseModal();
+    console.log(file);
+  };
 
   return (
     <div className={classes.root}>
@@ -68,13 +74,21 @@ export default function Files ({ files, title, parent, initParent }) {
           <ImgMediaCard key={f.nombre} {...f} />
         ))}
       </Box>
-      <CreateEntity
+      <DropzoneDialog
         open={open}
-        entity={'Archivo'}
-        handleClose={handleCloseModal}
-        handleCreate={handleCreateFiles}
-        loading={loading}
-        columns={columns}
+        onSave={onSelectedFile}
+        acceptedFiles={['image/*']}
+        cancelButtonText={'CANCELAR'}
+        submitButtonText={'ACEPTAR'}
+        dialogTitle={'Crear Archivo'}
+        showPreviews={true}
+        maxFileSize={5000000}
+        filesLimit={1}
+        dropzoneText={'Arrastar o seleccionar un archivo para agregarlo'}
+        onClose={handleCloseModal}
+        getFileAddedMessage={() => 'Archivo agregado'}
+        getFileLimitExceedMessage={() => 'El archivo excede el tamñano maximo'}
+        getFileRemovedMessage={() => 'Archivo removido'}
       />
     </div>
   )
@@ -82,12 +96,12 @@ export default function Files ({ files, title, parent, initParent }) {
 const isImage = path =>
   ['.png', '.jpg', '.jpeg', '.gif', '.tiff'].some(ext => path.includes(ext))
 
-export function ImgMediaCard ({ id, nombre, path, tipo_archivo }) {
+export function ImgMediaCard({ id, nombre, path, tipo_archivo }) {
   const history = useHistory()
-  function handleView () {
+  function handleView() {
     history.push(`/admin/archivos/${id}`)
   }
-  function handleLink () {
+  function handleLink() {
     window.open(path, '_blank')
   }
   return (
