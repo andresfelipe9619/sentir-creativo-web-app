@@ -14,7 +14,16 @@ import { useHistory, useParams } from 'react-router'
 import CreateEntity from '../modals/CreateEntity'
 import useAPI from '../../providers/hooks/useAPI'
 import columns from '../dashboard/archivos/columns'
-import { DropzoneDialog } from 'material-ui-dropzone'
+
+const dropzoneColumns = [...columns.filter(x => x.name !== 'path'),
+{
+  name: 'archivo',
+  label: 'Arrastra o selecciona un archivo para agregarlo',
+  form: {
+    size: 12,
+    type: 'upload'
+  }
+}];
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,11 +56,6 @@ export default function Files({ files, title, parent, initParent }) {
     await initParent()
   }
 
-  const onSelectedFile = ([file]) => {
-    handleCloseModal();
-    console.log(file);
-  };
-
   return (
     <div className={classes.root}>
       {!!title && (
@@ -74,21 +78,13 @@ export default function Files({ files, title, parent, initParent }) {
           <ImgMediaCard key={f.nombre} {...f} />
         ))}
       </Box>
-      <DropzoneDialog
+      <CreateEntity
         open={open}
-        onSave={onSelectedFile}
-        acceptedFiles={['image/*']}
-        cancelButtonText={'CANCELAR'}
-        submitButtonText={'ACEPTAR'}
-        dialogTitle={'Crear Archivo'}
-        showPreviews={true}
-        maxFileSize={5000000}
-        filesLimit={1}
-        dropzoneText={'Arrastar o seleccionar un archivo para agregarlo'}
-        onClose={handleCloseModal}
-        getFileAddedMessage={() => 'Archivo agregado'}
-        getFileLimitExceedMessage={() => 'El archivo excede el tamñano maximo'}
-        getFileRemovedMessage={() => 'Archivo removido'}
+        entity={'Archivo'}
+        handleClose={handleCloseModal}
+        handleCreate={handleCreateFiles}
+        loading={loading}
+        columns={dropzoneColumns}
       />
     </div>
   )
