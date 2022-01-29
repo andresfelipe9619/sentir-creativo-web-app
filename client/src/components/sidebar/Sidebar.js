@@ -24,10 +24,14 @@ export default function Sidebar ({ children }) {
     ;(async () => {
       let result = await API.Area.getAll()
       result = result.map(area => {
-        let [prefix, name] = area.icono.split('/')
         let icono = null
-        if (prefix === 'gi') icono = GI[name]
-        if (prefix === 'io5') icono = IO5[name]
+
+        if (/\//.test(area.icono)) {
+          let [prefix, name] = area.icono.split('/')
+
+          if (prefix === 'gi') icono = GI[name]
+          if (prefix === 'io5') icono = IO5[name]
+        }
 
         return {
           ...area,
@@ -76,7 +80,7 @@ export default function Sidebar ({ children }) {
                         color: 'white'
                       }}
                       label={area.nombre}
-                      icon={<area.icono size={'2em'} />}
+                      icon={area.icono && <area.icono size={'2em'} />}
                     />
                   )
                 })}

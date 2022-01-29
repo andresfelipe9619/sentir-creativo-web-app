@@ -15,6 +15,16 @@ import CreateEntity from '../modals/CreateEntity'
 import useAPI from '../../providers/hooks/useAPI'
 import columns from '../dashboard/archivos/columns'
 
+const dropzoneColumns = [...columns.filter(x => x.name !== 'path'),
+{
+  name: 'archivo',
+  label: 'Arrastra o selecciona un archivo para agregarlo',
+  form: {
+    size: 12,
+    type: 'upload'
+  }
+}];
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -25,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Files ({ files, title, parent, initParent }) {
+export default function Files({ files, title, parent, initParent }) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const { loading, create: createEntity, api } = useAPI('Archivo', null, false)
@@ -74,7 +84,7 @@ export default function Files ({ files, title, parent, initParent }) {
         handleClose={handleCloseModal}
         handleCreate={handleCreateFiles}
         loading={loading}
-        columns={columns}
+        columns={dropzoneColumns}
       />
     </div>
   )
@@ -82,12 +92,12 @@ export default function Files ({ files, title, parent, initParent }) {
 const isImage = path =>
   ['.png', '.jpg', '.jpeg', '.gif', '.tiff'].some(ext => path.includes(ext))
 
-export function ImgMediaCard ({ id, nombre, path, tipo_archivo }) {
+export function ImgMediaCard({ id, nombre, path, tipo_archivo }) {
   const history = useHistory()
-  function handleView () {
+  function handleView() {
     history.push(`/admin/archivos/${id}`)
   }
-  function handleLink () {
+  function handleLink() {
     window.open(path, '_blank')
   }
   return (

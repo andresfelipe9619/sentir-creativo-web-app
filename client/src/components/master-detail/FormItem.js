@@ -18,7 +18,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import Tags from '../tags/Tags'
 import Files from '../files/Files'
 import MuiPhoneNumber from 'material-ui-phone-number'
-export default function FormItem ({
+import { DropzoneArea } from 'material-ui-dropzone'
+
+export default function FormItem({
   item,
   parent,
   values,
@@ -152,7 +154,23 @@ export default function FormItem ({
     tag: canRender('tag') && <Tags tags={value} title={item.label} />,
     file: canRender('file') && (
       <Files files={value} title={item.label} {...{ parent, initParent }} />
-    )
+    ),
+    upload: canRender('upload') && (
+      <DropzoneArea
+        showPreviews={true}
+        maxFileSize={15000} // 15mb
+        filesLimit={1}
+        showPreviewsInDropzone={false}
+        dropzoneText={item.label}
+        getFileAddedMessage={() => 'Archivo agregado'}
+        getFileLimitExceedMessage={() => 'El archivo excede el tamañano maximo'}
+        getFileRemovedMessage={() => 'Archivo removido'}
+        onChange={value => {
+          const event = { target: { name: key, value } }
+          return handleChange(event)
+        }}
+        {...fieldProps}
+      />)
   }
   return (
     <Grid item xs={12} md={size}>
