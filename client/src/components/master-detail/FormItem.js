@@ -19,6 +19,7 @@ import Tags from '../tags/Tags'
 import Files from '../files/Files'
 import MuiPhoneNumber from 'material-ui-phone-number'
 import { DropzoneArea } from 'material-ui-dropzone'
+import Bitacora from '../bitacora/Bitacora'
 
 export default function FormItem({
   item,
@@ -170,7 +171,9 @@ export default function FormItem({
           return handleChange(event)
         }}
         {...fieldProps}
-      />)
+      />
+    ),
+    bitacora: canRender('bitacora') && <Bitacora data={value} {...fieldProps} />
   }
   return (
     <Grid item xs={12} md={size}>
