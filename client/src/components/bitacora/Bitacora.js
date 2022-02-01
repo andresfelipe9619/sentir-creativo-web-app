@@ -106,7 +106,7 @@ export default function Bitacora(props) {
   //
 
   const classes = useStyles()
-  const { loading, create: createEntity, api } = useAPI('Bitacora', null, false)
+  const { loading } = useAPI('Bitacora', null, false)
 
   const handleCloseModal = () => setOpen(false)
 

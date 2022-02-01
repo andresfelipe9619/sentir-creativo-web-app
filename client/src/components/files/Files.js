@@ -17,7 +17,7 @@ import columns from '../dashboard/archivos/columns'
 
 const dropzoneColumns = [...columns.filter(x => x.name !== 'path'),
 {
-  name: 'archivo',
+  name: 'path',
   label: 'Arrastra o selecciona un archivo para agregarlo',
   form: {
     size: 12,
