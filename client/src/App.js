@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom'
 import { Alert } from './components/snackbar-alert'
 import Footer from './components/footer/Footer'
 import { useUserState } from './providers/context/User'
+import ScrollUp from './components/scrollUp/ScrollUp'
 
 function App () {
   const [theme] = useDarkMode()
@@ -27,6 +28,7 @@ function App () {
       <Alert />
       {content}
       {isAdminArea && !user ? null : <Footer />}
+      <ScrollUp />
     </MuiThemeProvider>
   )
 }
