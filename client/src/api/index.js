@@ -79,7 +79,7 @@ const Archivo = {
 }
 
 const Audiencia = {
-  getAll: () => serverRequests.get(`/audiencias?_limit=-1`),
+  getAll: () => serverRequests.get(`/audiencias?_limit=20`),
   get: id => serverRequests.get(`/audiencias/${id}`),
   dossier: audiencia => serverRequests.post('/audiencias/dossier', audiencia),
   create: audience => serverRequests.post('/audiencias', audience),
