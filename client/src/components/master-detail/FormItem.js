@@ -18,21 +18,24 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import Tags from '../tags/Tags'
 import Files from '../files/Files'
 import MuiPhoneNumber from 'material-ui-phone-number'
-import { DropzoneArea } from 'material-ui-dropzone'
+import Bitacora from '../bitacora/Bitacora'
+import Upload from '../files/Upload'
 
-export default function FormItem({
-  item,
-  parent,
-  values,
-  errors,
-  touched,
-  setFieldValue,
-  initParent,
-  dependencies,
-  isSubmitting,
-  handleChange,
-  handleBlur
-}) {
+export default function FormItem(props) {
+  const {
+    item,
+    parent,
+    values,
+    errors,
+    touched,
+    setFieldValue,
+    initParent,
+    dependencies,
+    isSubmitting,
+    handleChange,
+    handleBlur
+  } = props;
+
   if (!item?.form) return null
   const {
     size,
@@ -156,21 +159,9 @@ export default function FormItem({
       <Files files={value} title={item.label} {...{ parent, initParent }} />
     ),
     upload: canRender('upload') && (
-      <DropzoneArea
-        showPreviews={true}
-        maxFileSize={15000} // 15mb
-        filesLimit={1}
-        showPreviewsInDropzone={false}
-        dropzoneText={item.label}
-        getFileAddedMessage={() => 'Archivo agregado'}
-        getFileLimitExceedMessage={() => 'El archivo excede el tamañano maximo'}
-        getFileRemovedMessage={() => 'Archivo removido'}
-        onChange={value => {
-          const event = { target: { name: key, value } }
-          return handleChange(event)
-        }}
-        {...fieldProps}
-      />)
+      <Upload {...props} item={item} />
+    ),
+    bitacora: canRender('bitacora') && <Bitacora data={value} {...fieldProps} />
   }
   return (
     <Grid item xs={12} md={size}>
