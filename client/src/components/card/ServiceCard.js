@@ -1,6 +1,5 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import IconButton from '@material-ui/core/IconButton'
@@ -12,7 +11,12 @@ import Button from '@material-ui/core/Button'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Collapse from '@material-ui/core/Collapse'
 import Typography from '@material-ui/core/Typography'
-import { useTheme, createTheme, ThemeProvider } from '@material-ui/core/styles'
+import {
+  useTheme,
+  createTheme,
+  ThemeProvider,
+  makeStyles
+} from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Tags from '../tags/Tags'
 import * as IO5 from 'react-icons/io5'

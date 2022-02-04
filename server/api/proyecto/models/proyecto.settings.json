@@ -51,10 +51,6 @@
     "publico_objetivos": {
       "collection": "publico-objetivo"
     },
-    "staf": {
-      "via": "proyectos",
-      "model": "staf"
-    },
     "estado_proyecto": {
       "model": "estado-proyecto"
     },
@@ -63,6 +59,11 @@
     },
     "archivos": {
       "collection": "archivo"
+    },
+    "staf": {
+      "collection": "staf",
+      "via": "proyectos",
+      "dominant": true
     }
   }
 }
