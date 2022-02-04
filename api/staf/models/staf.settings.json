@@ -24,10 +24,6 @@
       "via": "stafs",
       "model": "rol"
     },
-    "proyectos": {
-      "via": "staf",
-      "collection": "proyecto"
-    },
     "servicios": {
       "via": "stafs",
       "collection": "servicio"
@@ -69,6 +65,10 @@
     },
     "cuponDescuento": {
       "model": "cupon-descuento"
+    },
+    "proyectos": {
+      "via": "staf",
+      "collection": "proyecto"
     }
   }
 }
