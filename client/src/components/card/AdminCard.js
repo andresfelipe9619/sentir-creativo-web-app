@@ -149,7 +149,13 @@ export default function AdminCard ({
       </CardContent>
 
       <CardActions>
-        <Box display='flex' justifyContent='space-between' width='100%' mt={1}>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          width='100%'
+          mt={1}
+          p={1}
+        >
           <Button
             size='small'
             color={'primary'}
@@ -192,29 +198,30 @@ function getScoreColor (score) {
   return grey[700]
 }
 
-function FloatingHeader ({ icon: Icon, label, score, classes }) {
+function FloatingHeader ({ icon: Icon, label, score, classes, color }) {
   return (
     <Box display='flex' style={floatingStyle}>
       {Icon && (
         <Box
           display='flex'
           borderRadius='50%'
-          width={30}
-          height={30}
+          width={45}
+          height={45}
           p={2}
+          mb={4}
           mx={2}
           justifyContent='center'
           alignItems='center'
           className={classes.floatingIcon}
         >
-          <Icon style={{ color: indigo[800] }} />
+          <Icon style={{ color }} />
         </Box>
       )}
       {label && (
         <Chip
           label={label}
           style={{
-            backgroundColor: indigo[800],
+            backgroundColor: color,
             color: 'white',
             marginRight: 8
           }}

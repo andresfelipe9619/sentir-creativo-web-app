@@ -7,9 +7,10 @@ import orange from '@material-ui/core/colors/orange'
 import green from '@material-ui/core/colors/green'
 import grey from '@material-ui/core/colors/grey'
 import yellow from '@material-ui/core/colors/yellow'
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 import AdminCard, { Stat, DenseTable, createData } from './AdminCard'
 import { useHistory } from 'react-router-dom'
+import { indigo } from '@material-ui/core/colors'
+import RowingIcon from '@material-ui/icons/Rowing'
 
 export default function Card (props) {
   if (!props.audience) return null
@@ -60,7 +61,8 @@ function AdminAudienceCard ({ audience }) {
       superheader={prefijo?.nombre}
       subheader={`${cargo} - ${departamento}`}
       floatingHeader={{
-        icon: EmojiPeopleIcon,
+        color: indigo[800],
+        icon: RowingIcon,
         label: 'Audiencia',
         score: getRandomArbitrary(1, 7)
       }}

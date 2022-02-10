@@ -9,10 +9,16 @@ import grey from '@material-ui/core/colors/grey'
 import yellow from '@material-ui/core/colors/yellow'
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 import AdminCard, { Stat, DenseTable, createData } from './AdminCard'
+import { useHistory } from 'react-router-dom'
+import { brown } from '@material-ui/core/colors'
 
-export default function AdminAudienceCard ({ audience }) {
-  if (!audience) return null
+export default function Card (props) {
+  if (!props.staff) return null
+  return <AdminStaffCard {...props} />
+}
+function AdminStaffCard ({ staff }) {
   const {
+    id,
     email,
     email2,
     estado,
@@ -28,7 +34,8 @@ export default function AdminAudienceCard ({ audience }) {
     motivacion,
     departamento,
     antiguedad
-  } = audience
+  } = staff
+  const history = useHistory()
   const rows = [
     createData('Antigüedad', antiguedad?.nombre),
     createData('Cercanía', cercania?.nombre),
@@ -36,6 +43,10 @@ export default function AdminAudienceCard ({ audience }) {
     createData('Origen', origen?.nombre),
     createData('Ciudad', ciudad)
   ]
+
+  const handleViewClick = () => {
+    history.push(`/admin/audiencia/${id}`)
+  }
 
   return (
     <AdminCard
@@ -45,12 +56,14 @@ export default function AdminAudienceCard ({ audience }) {
       status={estado?.nombre}
       title={nombre}
       avatar={photo}
+      handleViewClick={handleViewClick}
       subheaderChip={organizacion?.nombre}
       superheader={prefijo?.nombre}
       subheader={`${cargo} - ${departamento}`}
       floatingHeader={{
+        color: brown[600],
         icon: EmojiPeopleIcon,
-        label: 'Audiencia',
+        label: 'STAFF',
         score: getRandomArbitrary(1, 7)
       }}
       renderContent={() => (

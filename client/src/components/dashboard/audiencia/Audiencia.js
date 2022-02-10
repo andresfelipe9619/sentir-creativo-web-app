@@ -4,11 +4,10 @@ import MasterDetail, {
   customBodyRender
 } from '../../master-detail/MasterDetail'
 import Grid from '@material-ui/core/Grid'
-import { useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 // import ReactList from 'react-list'
 // import LazyLoading from 'react-list-lazy-load'
 // import { useState } from 'react'
+import useResponsiveCard from '../../../providers/hooks/useResponsiveCard'
 
 const columns = [
   {
@@ -233,17 +232,6 @@ const columns = [
     }
   }
 ]
-
-// const randBetween = (min, max) => Math.floor(min + Math.random() * (max - min))
-
-function useResponsiveCard () {
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
-  const isMedium = useMediaQuery(theme.breakpoints.down('md'))
-  const length = isSmall ? 1 : isMedium ? 2 : 3
-
-  return length
-}
 
 export default function Audiencia () {
   const master = {
