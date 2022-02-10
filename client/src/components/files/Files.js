@@ -14,6 +14,7 @@ import { useHistory, useParams } from 'react-router'
 import CreateEntity from '../modals/CreateEntity'
 import useAPI from '../../providers/hooks/useAPI'
 import columns from '../dashboard/archivos/columns'
+import DialogButton from '../buttons/DialogButton'
 
 const dropzoneColumns = [...columns.filter(x => x.name !== 'path'),
 {
@@ -56,6 +57,16 @@ export default function Files({ files, title, parent, initParent }) {
     await initParent()
   }
 
+  const handleDeleteFile = async (fileId) => {
+    const result = await api.delete(fileId)
+    
+    if (!result) {
+      return
+    }
+
+    await initParent()
+  }
+
   return (
     <div className={classes.root}>
       {!!title && (
@@ -75,7 +86,7 @@ export default function Files({ files, title, parent, initParent }) {
       </Tooltip>
       <Box width='100%' display='flex' flexWrap={'wrap'}>
         {(files || []).map(f => (
-          <ImgMediaCard key={f.nombre} {...f} />
+          <ImgMediaCard key={f.nombre} remove={handleDeleteFile} {...f} />
         ))}
       </Box>
       <CreateEntity
@@ -92,7 +103,7 @@ export default function Files({ files, title, parent, initParent }) {
 const isImage = path =>
   ['.png', '.jpg', '.jpeg', '.gif', '.tiff'].some(ext => path.includes(ext))
 
-export function ImgMediaCard({ id, nombre, path, tipo_archivo }) {
+export function ImgMediaCard({ id, nombre, path, tipo_archivo, remove }) {
   const history = useHistory()
   function handleView() {
     history.push(`/admin/archivos/${id}`)
@@ -122,6 +133,9 @@ export function ImgMediaCard({ id, nombre, path, tipo_archivo }) {
         <Button size='small' color='primary' onClick={handleLink}>
           Abir Link
         </Button>
+      </CardActions>
+      <CardActions>
+        <DialogButton onClose={async (accepted) => accepted && await remove(id)} />
       </CardActions>
     </Card>
   )
