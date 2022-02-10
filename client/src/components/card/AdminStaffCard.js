@@ -9,15 +9,10 @@ import grey from '@material-ui/core/colors/grey'
 import yellow from '@material-ui/core/colors/yellow'
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 import AdminCard, { Stat, DenseTable, createData } from './AdminCard'
-import { useHistory } from 'react-router-dom'
 
-export default function Card (props) {
-  if (!props.audience) return null
-  return <AdminAudienceCard {...props} />
-}
-function AdminAudienceCard ({ audience }) {
+export default function AdminAudienceCard ({ audience }) {
+  if (!audience) return null
   const {
-    id,
     email,
     email2,
     estado,
@@ -34,7 +29,6 @@ function AdminAudienceCard ({ audience }) {
     departamento,
     antiguedad
   } = audience
-  const history = useHistory()
   const rows = [
     createData('Antigüedad', antiguedad?.nombre),
     createData('Cercanía', cercania?.nombre),
@@ -42,10 +36,6 @@ function AdminAudienceCard ({ audience }) {
     createData('Origen', origen?.nombre),
     createData('Ciudad', ciudad)
   ]
-
-  const handleViewClick = () => {
-    history.push(`/admin/audiencia/${id}`)
-  }
 
   return (
     <AdminCard
@@ -55,7 +45,6 @@ function AdminAudienceCard ({ audience }) {
       status={estado?.nombre}
       title={nombre}
       avatar={photo}
-      handleViewClick={handleViewClick}
       subheaderChip={organizacion?.nombre}
       superheader={prefijo?.nombre}
       subheader={`${cargo} - ${departamento}`}
