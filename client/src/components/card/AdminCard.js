@@ -9,51 +9,21 @@ import Button from '@material-ui/core/Button'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Collapse from '@material-ui/core/Collapse'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
 import { Chip, Tooltip } from '@material-ui/core'
 import { indigo } from '@material-ui/core/colors'
-// import { red } from '@material-ui/core/colors'
-// import { orange } from '@material-ui/core/colors'
-// import { green } from '@material-ui/core/colors'
-// import { grey } from '@material-ui/core/colors'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginBottom: '10%',
-    margin: 1,
-    marginLeft: '5%',
-    overflow: 'visible'
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%' // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
-  },
-  content: {
-    padding: 0,
-    width: '100%'
-  },
-  floatingIcon: {
-    border: [[1, 'solid', indigo[800]]],
-    backgroundColor: 'white'
-  },
-  avatar: {
-    display: 'flex',
-    alignItems: 'center',
-    borderRadius: '50%',
-    color: 'white'
-  }
-}))
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableRow from '@material-ui/core/TableRow'
+import { withStyles } from '@material-ui/core/styles'
+import useStyles from './styles'
+import { red } from '@material-ui/core/colors'
+import { orange } from '@material-ui/core/colors'
+import { green } from '@material-ui/core/colors'
+import { grey } from '@material-ui/core/colors'
 
 export default function AdminCard ({
   chips,
@@ -179,7 +149,13 @@ export default function AdminCard ({
       </CardContent>
 
       <CardActions>
-        <Box display='flex' justifyContent='space-between' width='100%' mt={1}>
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          width='100%'
+          mt={1}
+          p={1}
+        >
           <Button
             size='small'
             color={'primary'}
@@ -206,38 +182,46 @@ export default function AdminCard ({
   )
 }
 
-function FloatingHeader ({ icon: Icon, label, score, classes }) {
+const floatingStyle = {
+  height: 16,
+  top: -10,
+  position: 'relative',
+  left: 10,
+  zIndex: 1000
+}
+
+function getScoreColor (score) {
+  if (!score) return grey[700]
+  if (score >= 1 && score < 3) return red[700]
+  if (score >= 3 && score < 5) return orange[800]
+  if (score >= 5 && score < 8) return green['A700']
+  return grey[700]
+}
+
+function FloatingHeader ({ icon: Icon, label, score, classes, color }) {
   return (
-    <Box
-      display='flex'
-      style={{
-        height: 16,
-        top: -10,
-        position: 'relative',
-        left: 10,
-        zIndex: 1000
-      }}
-    >
+    <Box display='flex' style={floatingStyle}>
       {Icon && (
         <Box
           display='flex'
           borderRadius='50%'
-          width={30}
-          height={30}
+          width={45}
+          height={45}
           p={2}
+          mb={4}
           mx={2}
           justifyContent='center'
           alignItems='center'
           className={classes.floatingIcon}
         >
-          <Icon style={{ color: indigo[800] }} />
+          <Icon style={{ color }} />
         </Box>
       )}
       {label && (
         <Chip
           label={label}
           style={{
-            backgroundColor: indigo[800],
+            backgroundColor: color,
             color: 'white',
             marginRight: 8
           }}
@@ -245,8 +229,71 @@ function FloatingHeader ({ icon: Icon, label, score, classes }) {
       )}
       <Chip
         label={score}
-        // style={{ backgroundColor: indigo[800] }}
+        style={{ backgroundColor: getScoreColor(score), color: 'white' }}
       />
     </Box>
   )
+}
+
+export function Stat ({ label, value, color }) {
+  return (
+    <Grid
+      item
+      xs={4}
+      container
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+    >
+      <Typography align='center' variant='caption'>
+        {label}
+      </Typography>
+      <Box
+        my={1}
+        display='flex'
+        borderRadius='50%'
+        color='white'
+        width={50}
+        height={50}
+        justifyContent='center'
+        alignItems='center'
+        bgcolor={color}
+      >
+        {value}
+      </Box>
+    </Grid>
+  )
+}
+
+export const StyledTableRow = withStyles(() => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: props => props.color
+    }
+  }
+}))(TableRow)
+
+export function DenseTable ({ nombre, rows, color }) {
+  return (
+    <Box p={1} my={2}>
+      <TableContainer>
+        <Table aria-label={`${nombre} highlights`} size='small'>
+          <TableBody>
+            {rows.map(row => (
+              <StyledTableRow key={row.label} color={color[50]}>
+                <TableCell component='th' scope='row'>
+                  {row.label}
+                </TableCell>
+                <TableCell align='right'>{row.value}</TableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+  )
+}
+
+export function createData (label, value) {
+  return { label, value }
 }

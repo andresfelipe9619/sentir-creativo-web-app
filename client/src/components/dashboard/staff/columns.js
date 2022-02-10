@@ -1,7 +1,3 @@
-import { Grid } from '@material-ui/core'
-import React from 'react'
-import MasterDetail from '../../master-detail/MasterDetail'
-
 const columns = [
   {
     name: 'nombre',
@@ -101,18 +97,4 @@ const columns = [
     }
   }
 ]
-
-export default function Staf () {
-  const master = {
-    columns,
-    title: 'Staf'
-  }
-  const detail = {
-    columns
-  }
-  return (
-    <Grid item md={12}>
-      <MasterDetail masterProps={master} detailProps={detail} service='Staf' />
-    </Grid>
-  )
-}
+export default columns
