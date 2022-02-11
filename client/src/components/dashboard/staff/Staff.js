@@ -29,7 +29,7 @@ export default function Staf () {
         )}
         masterProps={master}
         detailProps={detail}
-        service='Audiencia'
+        service='Staf'
       />
     </Grid>
   )
