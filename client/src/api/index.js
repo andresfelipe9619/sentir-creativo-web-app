@@ -18,6 +18,10 @@ const setToken = _token => {
   sessionStorage.setItem('colibri-token', _token)
 }
 
+const getToken = () => {
+  return token
+}
+
 const responseBody = response => response.data
 
 server.interceptors.request.use(tokenInterceptor, Promise.reject)
@@ -249,7 +253,8 @@ const API = {
   PublicoObjetivo,
   EstadoProyecto,
   TipoProyecto,
-  setToken
+  setToken,
+  getToken
 }
 
 export default API
