@@ -20,28 +20,27 @@ function AdminStaffCard ({ staff }) {
   const {
     id,
     email,
-    email2,
+    celular,
     estado,
     nombre,
     photo,
-    cargo,
     origen,
-    cercania,
-    ciudad,
+    rol,
     prefijo,
+    nacionalidad,
     proyectos,
     organizacion,
-    motivacion,
-    departamento,
-    antiguedad
+    fechaNacimiento,
+    cuponDescuento,
+    tecnica_artisticas
   } = staff
   const history = useHistory()
   const rows = [
-    createData('Antigüedad', antiguedad?.nombre),
-    createData('Cercanía', cercania?.nombre),
-    createData('Motivación', motivacion?.nombre),
+    createData('Edad', fechaNacimiento),
+    createData('Nacionalidad', nacionalidad),
+    createData('Rol', rol?.nombre),
     createData('Origen', origen?.nombre),
-    createData('Ciudad', ciudad)
+    createData('Cupón', cuponDescuento)
   ]
 
   const handleViewClick = () => {
@@ -52,14 +51,17 @@ function AdminStaffCard ({ staff }) {
     <AdminCard
       color={yellow}
       statusColor={estado?.color}
-      chips={[email, email2]}
+      chips={[email, celular]}
       status={estado?.nombre}
       title={nombre}
       avatar={photo}
       handleViewClick={handleViewClick}
       subheaderChip={organizacion?.nombre}
       superheader={prefijo?.nombre}
-      subheader={`${cargo} - ${departamento}`}
+      subheader={tecnica_artisticas
+        .slice(0, 3)
+        .map(t => t.nombre)
+        .join(' * ')}
       floatingHeader={{
         color: brown[600],
         icon: EmojiPeopleIcon,
