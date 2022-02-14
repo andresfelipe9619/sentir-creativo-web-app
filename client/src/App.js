@@ -12,7 +12,9 @@ import { useUserState } from './providers/context/User'
 import ScrollUp from './components/scrollUp/ScrollUp'
 import Construction from './pages/Construction'
 
-const underConstruction = process.env.REACT_APP_CONSTRUCTION
+const { REACT_APP_CONSTRUCTION } = process.env
+const underConstruction =
+  REACT_APP_CONSTRUCTION === true || REACT_APP_CONSTRUCTION === 'true'
 console.log('underConstruction', underConstruction)
 
 function App () {
