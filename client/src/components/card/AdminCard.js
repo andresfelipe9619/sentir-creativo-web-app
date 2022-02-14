@@ -25,6 +25,7 @@ import { green } from '@material-ui/core/colors'
 import { grey } from '@material-ui/core/colors'
 
 export default function AdminCard ({
+  // id,
   chips,
   color,
   status,
@@ -40,7 +41,7 @@ export default function AdminCard ({
   renderContent,
   renderHighlights
 }) {
-  const classes = useStyles()
+  const classes = useStyles(floatingHeader)
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandClick = () => {
@@ -59,6 +60,7 @@ export default function AdminCard ({
   )
   return (
     <Card className={classes.root} elevation={5}>
+      {/* <FloatingID id={id} /> */}
       {floatingHeader && (
         <FloatingHeader {...floatingHeader} classes={classes} />
       )}
@@ -181,14 +183,6 @@ export default function AdminCard ({
   )
 }
 
-const floatingStyle = {
-  height: 16,
-  top: -10,
-  position: 'relative',
-  left: 10,
-  zIndex: 1000
-}
-
 function getScoreColor (score) {
   if (!score) return grey[700]
   if (score >= 1 && score < 3) return red[700]
@@ -197,9 +191,42 @@ function getScoreColor (score) {
   return grey[700]
 }
 
+const headerStyle = {
+  height: 16,
+  top: -10,
+  position: 'relative',
+  left: 10,
+  zIndex: 1000
+}
+
+// const idStyle = {
+//   height: 16,
+//   top: -10,
+//   position: 'relative',
+//   right: 0,
+//   zIndex: 1000
+// }
+
+// function FloatingID ({ id }) {
+//   return (
+//     <Box
+//       display='flex'
+//       borderRadius='50%'
+//       width={30}
+//       height={30}
+//       p={2}
+//       justifyContent='center'
+//       alignItems='center'
+//       style={idStyle}
+//     >
+//       {id}
+//     </Box>
+//   )
+// }
+
 function FloatingHeader ({ icon: Icon, label, score, classes, color }) {
   return (
-    <Box display='flex' style={floatingStyle}>
+    <Box display='flex' style={headerStyle} alignItems='center'>
       {Icon && (
         <Box
           display='flex'
@@ -207,7 +234,6 @@ function FloatingHeader ({ icon: Icon, label, score, classes, color }) {
           width={45}
           height={45}
           p={2}
-          mb={4}
           mx={2}
           justifyContent='center'
           alignItems='center'
@@ -244,7 +270,7 @@ export function Stat ({ label, value, color }) {
       alignItems='center'
       justifyContent='center'
     >
-      <Typography align='center' variant='caption'>
+      <Typography align='center' variant='caption' style={{ lineHeight: 1.3 }}>
         {label}
       </Typography>
       <Box
@@ -283,7 +309,7 @@ export function DenseTable ({ nombre, rows, color }) {
                 <TableCell component='th' scope='row'>
                   {row.label}
                 </TableCell>
-                <TableCell align='right'>{row.value}</TableCell>
+                <TableCell align='right'>{row.value || 'N/A'}</TableCell>
               </StyledTableRow>
             ))}
           </TableBody>
