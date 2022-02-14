@@ -16,6 +16,12 @@ export default function Card (props) {
   if (!props.staff) return null
   return <AdminStaffCard {...props} />
 }
+
+const getAge = birthDate => {
+  if (!birthDate) return 'N/A'
+  return Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e10)
+}
+
 function AdminStaffCard ({ staff }) {
   const {
     id,
@@ -36,7 +42,7 @@ function AdminStaffCard ({ staff }) {
   } = staff
   const history = useHistory()
   const rows = [
-    createData('Edad', fechaNacimiento),
+    createData('Edad', getAge(fechaNacimiento)),
     createData('Nacionalidad', nacionalidad),
     createData('Rol', rol?.nombre),
     createData('Origen', origen?.nombre),
@@ -44,11 +50,12 @@ function AdminStaffCard ({ staff }) {
   ]
 
   const handleViewClick = () => {
-    history.push(`/admin/audiencia/${id}`)
+    history.push(`/admin/staff/${id}`)
   }
 
   return (
     <AdminCard
+      id={id}
       color={yellow}
       statusColor={estado?.color}
       chips={[email, celular]}
@@ -61,7 +68,7 @@ function AdminStaffCard ({ staff }) {
       subheader={tecnica_artisticas
         .slice(0, 3)
         .map(t => t.nombre)
-        .join(' * ')}
+        .join(' • ')}
       floatingHeader={{
         color: brown[600],
         icon: EmojiPeopleIcon,

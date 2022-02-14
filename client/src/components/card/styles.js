@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { indigo } from '@material-ui/core/colors'
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: '10%',
@@ -28,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%'
   },
   floatingIcon: {
-    border: [[1, 'solid', indigo[800]]],
+    border: ({ color }) => [[2, 'solid', color]],
     backgroundColor: 'white'
   },
   avatar: {

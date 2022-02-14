@@ -50,6 +50,7 @@ function AdminAudienceCard ({ audience }) {
 
   return (
     <AdminCard
+      id={id}
       color={yellow}
       statusColor={estado?.color}
       chips={[email, email2]}
