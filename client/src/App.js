@@ -10,6 +10,10 @@ import { Alert } from './components/snackbar-alert'
 import Footer from './components/footer/Footer'
 import { useUserState } from './providers/context/User'
 import ScrollUp from './components/scrollUp/ScrollUp'
+import Construction from './pages/Construction'
+
+const underConstruction = process.env.REACT_APP_CONSTRUCTION
+console.log('underConstruction', underConstruction)
 
 function App () {
   const [theme] = useDarkMode()
@@ -21,6 +25,7 @@ function App () {
   let content = <RouterApp />
   if (isAdminArea) content = <DashboardSidebar>{content}</DashboardSidebar>
   else content = <Sidebar>{content}</Sidebar>
+  if (underConstruction) return <Construction />
 
   return (
     <MuiThemeProvider theme={themeConfig}>

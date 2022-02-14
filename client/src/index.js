@@ -5,7 +5,6 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import { AlertContext } from './providers/context/Alert'
 import { UserContext } from './providers/context/User'
-
 import './index.css'
 
 ReactDOM.render(

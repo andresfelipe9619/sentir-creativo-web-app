@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles'
-import { indigo } from '@material-ui/core/colors'
 
 const useStyles = makeStyles(theme => ({
   root: {
