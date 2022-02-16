@@ -19,7 +19,6 @@ import {
 } from '@material-ui/core/styles'
 import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
-import Tags from '../tags/Tags'
 import * as IO5 from 'react-icons/io5'
 import * as GI from 'react-icons/gi'
 
