@@ -17,6 +17,7 @@ import {
   ThemeProvider,
   makeStyles
 } from '@material-ui/core/styles'
+import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
 import Tags from '../tags/Tags'
 import * as IO5 from 'react-icons/io5'
@@ -24,9 +25,8 @@ import * as GI from 'react-icons/gi'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginBottom: '10%',
-    margin: 1,
-    marginLeft: '5%'
+    margin: theme.spacing(2),
+    overflow: 'visible'
   },
   media: {
     height: 0,
@@ -69,7 +69,7 @@ export default function ServiceCard ({
   const {
     area,
     tags,
-    slogan,
+    sintesis,
     archivos,
     ocasions,
     nombre: title,
@@ -99,31 +99,64 @@ export default function ServiceCard ({
   return (
     <ThemeProvider theme={areaTheme}>
       <Card className={classes.root} elevation={5}>
+        <FloatingHeader icon={Icon} color={cardColor} />
+        <CardHeader
+          component={Box}
+          title={text}
+          action={
+            <IconButton aria-label='favoritos'>
+              <StarIcon fontSize='large' style={{ color: '#ffab00' }} />
+            </IconButton>
+          }
+          subheader={
+            <Typography variant='caption' color='textSecondary'>
+              {tags
+                .slice(0, 3)
+                .map(t => t.nombre)
+                .join(' • ')}
+            </Typography>
+          }
+        />
         <CardActionArea onClick={handleClick}>
-          <CardHeader
-            component={Box}
-            title={text}
-            avatar={
-              <Box className={classes.avatar} bgcolor={cardColor} p={1}>
-                <Icon size={'2em'} />
+          <Box
+            display='flex'
+            flexDirection='column'
+            alignItems='flex-end'
+            justifyContent='flex-end'
+            style={{
+              bottom: 5,
+              position: 'absolute',
+              right: 10,
+              zIndex: 100
+            }}
+          >
+            <Box
+              bgcolor='white'
+              py={0.2}
+              px={0.5}
+              m={0.5}
+              style={{ fontWeight: 'bold' }}
+            >
+              <Typography variant='caption' color='textSecondary'>
+                Técnicas artísticas
+              </Typography>
+            </Box>
+            {tecnica_artisticas.map((t, i) => (
+              <Box
+                key={i}
+                bgcolor='primary.main'
+                color='white'
+                py={0.2}
+                px={0.5}
+                m={0.5}
+                width='fit-content'
+              >
+                <Typography variant='caption' style={{ fontWeight: 'bold' }}>
+                  {t?.nombre || ''}
+                </Typography>
               </Box>
-            }
-            action={
-              <Box display='flex' flexDirection='column'>
-                {tecnica_artisticas.map((t, i) => (
-                  <Typography
-                    variant='caption'
-                    color='textSecondary'
-                    align='right'
-                    key={i}
-                  >
-                    {t?.nombre || ''}
-                  </Typography>
-                ))}
-              </Box>
-            }
-            subheader={slogan}
-          />
+            ))}
+          </Box>
           <CardMedia
             className={classes.media}
             image={imageUrl}
@@ -140,7 +173,7 @@ export default function ServiceCard ({
             bgcolor={cardColor}
           >
             <Typography variant='h5' component='h3' align='right'>
-              Highlights
+              Síntesis
             </Typography>
             <IconButton
               color={'inherit'}
@@ -157,18 +190,18 @@ export default function ServiceCard ({
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <Box
               display='flex'
-              bgcolor={cardColor}
               flexDirection='column'
               justifyContent='flex-end'
-              p={4}
+              p={0}
             >
-              <Tags tags={tags} color={cardColor} />
-              <Box mt={2} color='white'>
-                <Typography variant='h3' align='right'>
-                  Ideal para:
-                </Typography>
+              <Box py={2} px={4} color='white' bgcolor='primary.light'>
+                <Typography>{sintesis}</Typography>
+              </Box>
+
+              <Box py={2} px={4} color='white' bgcolor='primary.main'>
+                <Typography variant='h3'>Ideal para:</Typography>
                 {ocasions.map((o, i) => (
-                  <Typography variant='body2' align='right' key={i}>
+                  <Typography variant='body2' key={i}>
                     {o?.nombre || ''}
                   </Typography>
                 ))}
@@ -197,5 +230,33 @@ export default function ServiceCard ({
         </CardActions>
       </Card>
     </ThemeProvider>
+  )
+}
+
+const headerStyle = {
+  height: 20,
+  top: -10,
+  position: 'relative',
+  left: 10,
+  zIndex: 1000
+}
+
+function FloatingHeader ({ icon: Icon, color }) {
+  return (
+    <Box display='flex' style={headerStyle} alignItems='center'>
+      {Icon && (
+        <Box
+          display='flex'
+          borderRadius='50%'
+          p={1.5}
+          mx={2}
+          style={{ background: color }}
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Icon style={{ color: 'white' }} size='1.5em' />
+        </Box>
+      )}
+    </Box>
   )
 }

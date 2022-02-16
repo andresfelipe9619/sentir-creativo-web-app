@@ -191,14 +191,6 @@ function getScoreColor (score) {
   return grey[700]
 }
 
-const headerStyle = {
-  height: 16,
-  top: -10,
-  position: 'relative',
-  left: 10,
-  zIndex: 1000
-}
-
 // const idStyle = {
 //   height: 16,
 //   top: -10,
@@ -223,6 +215,14 @@ const headerStyle = {
 //     </Box>
 //   )
 // }
+
+const headerStyle = {
+  height: 16,
+  top: -10,
+  position: 'relative',
+  left: 10,
+  zIndex: 1000
+}
 
 function FloatingHeader ({ icon: Icon, label, score, classes, color }) {
   return (
