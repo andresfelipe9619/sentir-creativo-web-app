@@ -85,7 +85,7 @@ export default function Home () {
       <Carousel
         autoPlay
         navButtonsAlwaysVisible={isSmall}
-        interval={7000}
+        interval={10e3}
         slide
       >
         {chunks.map((chunk, i) => (
@@ -93,9 +93,8 @@ export default function Home () {
             key={i}
             container
             component={Box}
-            my={0}
             m={0}
-            p={0}
+            p={1}
             alignItems='center'
           >
             {chunk.map(s => (
