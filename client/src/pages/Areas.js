@@ -87,7 +87,7 @@ export default function Areas () {
     .flatMap(f => f)
   ocassions = [...new Set(ocassions)]
   return (
-    <Grid mt={3} container justifyContent='center'>
+    <Grid mt={3} container justifyContent='center' component={Box}>
       <DossierModal
         open={!!showDossier}
         handleClose={handleCloseDossier}

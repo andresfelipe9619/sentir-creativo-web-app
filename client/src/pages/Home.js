@@ -94,7 +94,7 @@ export default function Home () {
             container
             component={Box}
             m={0}
-            p={1}
+            p={0}
             alignItems='center'
           >
             {chunk.map(s => (
