@@ -17,15 +17,21 @@ import {
   ThemeProvider,
   makeStyles
 } from '@material-ui/core/styles'
-import StarIcon from '@material-ui/icons/Star'
+// import StarIcon from '@material-ui/icons/Star'
 import clsx from 'clsx'
 import * as IO5 from 'react-icons/io5'
 import * as GI from 'react-icons/gi'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: theme.spacing(2),
-    overflow: 'visible'
+    margin: theme.spacing(2, 1),
+    overflow: 'visible',
+    [theme.breakpoints.down('xs')]: {
+      margin: theme.spacing(2, 0)
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(2, 1)
+    }
   },
   media: {
     height: 0,
@@ -40,6 +46,10 @@ const useStyles = makeStyles(theme => ({
   },
   expandOpen: {
     transform: 'rotate(180deg)'
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   content: {
     padding: 0,
@@ -102,11 +112,11 @@ export default function ServiceCard ({
         <CardHeader
           component={Box}
           title={text}
-          action={
-            <IconButton aria-label='favoritos'>
-              <StarIcon fontSize='large' style={{ color: '#ffab00' }} />
-            </IconButton>
-          }
+          // action={
+          //   <IconButton aria-label='favoritos'>
+          //     <StarIcon fontSize='large' style={{ color: '#ffab00' }} />
+          //   </IconButton>
+          // }
           subheader={
             <Typography variant='caption' color='textSecondary'>
               {tags
@@ -126,7 +136,7 @@ export default function ServiceCard ({
               bottom: 5,
               position: 'absolute',
               right: 10,
-              zIndex: 100
+              zIndex: 0
             }}
           >
             <Box
@@ -194,11 +204,12 @@ export default function ServiceCard ({
               p={0}
             >
               <Box py={2} px={4} color='white' bgcolor='primary.light'>
-                <Typography>{sintesis}</Typography>
+                <Typography variant='body2'>{sintesis}</Typography>
               </Box>
-
               <Box py={2} px={4} color='white' bgcolor='primary.main'>
-                <Typography variant='h3'>Ideal para:</Typography>
+                <Typography variant='h3' gutterBottom>
+                  Ideal para:
+                </Typography>
                 {ocasions.map((o, i) => (
                   <Typography variant='body2' key={i}>
                     {o?.nombre || ''}
@@ -208,8 +219,7 @@ export default function ServiceCard ({
             </Box>
           </Collapse>
         </CardContent>
-
-        <CardActions>
+        <CardActions classes={{ root: classes.buttons }}>
           <Button
             size='small'
             color={'primary'}
