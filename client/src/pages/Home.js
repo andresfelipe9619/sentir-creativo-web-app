@@ -85,7 +85,7 @@ export default function Home () {
       <Carousel
         autoPlay
         navButtonsAlwaysVisible={isSmall}
-        interval={7000}
+        interval={10e3}
         slide
       >
         {chunks.map((chunk, i) => (
@@ -93,7 +93,6 @@ export default function Home () {
             key={i}
             container
             component={Box}
-            my={0}
             m={0}
             p={0}
             alignItems='center'
@@ -108,12 +107,7 @@ export default function Home () {
                 key={s.id}
               >
                 <Card
-                  title={s.nombre}
-                  imageUrl={(s?.archivos || [])[0]?.path}
-                  imageTitle={''}
-                  sintesis={s.sintesis}
-                  slogan={s.slogan}
-                  chip={(s?.tecnica_artisticas || [])[0]?.nombre}
+                  service={s}
                   handleClick={handleClick(s)}
                   handleClickPrimary={handleOpenModal(s)}
                   handleClickSecundary={handleOpenDossier(s)}

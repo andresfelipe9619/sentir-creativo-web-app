@@ -1,8 +1,13 @@
-import { Grid } from '@material-ui/core'
 import React from 'react'
+import AdminAudienceCard from '../../card/AdminAudienceCard'
 import MasterDetail, {
   customBodyRender
 } from '../../master-detail/MasterDetail'
+import Grid from '@material-ui/core/Grid'
+// import ReactList from 'react-list'
+// import LazyLoading from 'react-list-lazy-load'
+// import { useState } from 'react'
+import useResponsiveCard from '../../../providers/hooks/useResponsiveCard'
 
 const columns = [
   {
@@ -130,7 +135,7 @@ const columns = [
       type: 'input'
     }
   },
-    {
+  {
     name: 'antiguedad',
     label: 'Antiguedad',
     options: {
@@ -141,10 +146,10 @@ const columns = [
     form: {
       size: 6,
       type: 'select',
-      dependency: 'Antiguedad',
+      dependency: 'Antiguedad'
     }
   },
-    {
+  {
     name: 'cuponDescuento',
     label: 'Cupon Descuento',
     options: {
@@ -155,10 +160,10 @@ const columns = [
     form: {
       size: 6,
       type: 'select',
-      dependency: 'CuponDescuento',
+      dependency: 'CuponDescuento'
     }
   },
-    {
+  {
     name: 'cercania',
     label: 'Cercania',
     options: {
@@ -169,10 +174,10 @@ const columns = [
     form: {
       size: 6,
       type: 'select',
-      dependency: 'Cercania',
+      dependency: 'Cercania'
     }
   },
-    {
+  {
     name: 'origen',
     label: 'Origen',
     options: {
@@ -183,10 +188,10 @@ const columns = [
     form: {
       size: 6,
       type: 'select',
-      dependency: 'Origen',
+      dependency: 'Origen'
     }
   },
-    {
+  {
     name: 'motivacion',
     label: 'Motivacion',
     options: {
@@ -197,100 +202,9 @@ const columns = [
     form: {
       size: 6,
       type: 'select',
-      dependency: 'Motivacion',
+      dependency: 'Motivacion'
     }
   },
-  //   {
-  //   name: 'proyectos',
-  //   label: 'Proyectos',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Proyectos'
-  //   }
-  // },
-  //   {
-  //   name: 'bitacoras',
-  //   label: 'Bitacoras',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Bitacora'
-  //   }
-  // },
-  //   {
-  //   name: 'notas',
-  //   label: 'Notas',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Notas'
-  //   }
-  // },
-  //   {
-  //   name: 'comentarios',
-  //   label: 'Comentarios',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Comentarios'
-  //   }
-  // },
-  //   {
-  //   name: 'intereses',
-  //   label: 'Interes',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Interes'
-  //   }
-  // },
-  //   {
-  //   name: 'tags',
-  //   label: 'Tags',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Tag'
-  //   }
-  // },
-  //   {
-  //   name: 'difusiones',
-  //   label: 'Difusiones',
-  //   options: {
-  //     filter: true,
-  //     sort: true,
-  //   },
-  //   form: {
-  //     size: 6,
-  //     type: 'select',
-  //     dependency: 'Difusion'
-  //   }
-  // },
   {
     name: 'archivos',
     label: 'Archivos',
@@ -327,9 +241,21 @@ export default function Audiencia () {
   const detail = {
     columns
   }
+  const length = useResponsiveCard()
+
   return (
     <Grid item md={12}>
       <MasterDetail
+        toggle
+        renderMaster={({ data }) => (
+          <Grid item container md={12}>
+            {data.map(a => (
+              <Grid item key={a.id} md={12 / length}>
+                <AdminAudienceCard audience={a} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
         masterProps={master}
         detailProps={detail}
         service='Audiencia'
@@ -337,3 +263,62 @@ export default function Audiencia () {
     </Grid>
   )
 }
+
+// function LazyCards ({ data, pageSize = 10 }) {
+//   const length = useResponsiveCard()
+//   const [items, setItems] = useState()
+//   // Simulate a network request for `limit` items
+//   const lazyFetch = (page, cb) => {
+//     setTimeout(() => {
+//       // Generate a new page of items
+//       // let data = cb(data.slice())
+//     }, randBetween(250, 1250))
+//   }
+
+//   const handleRequestPage = (page, cb) => {
+//     // Simulate a network request or other async operation
+//     lazyFetch(page, data => {
+//       // Merge the new page into the current `items` collection and rerender
+//       // this.setState({
+//       //   items: mergePage(this.state.items, data, page * pageSize)
+//       // })
+
+//       // Tell LazyList that the page was loaded
+//       cb()
+//     })
+//   }
+
+//   return (
+//     <Grid item container md={12}>
+//       <LazyLoading
+//         pageSize={pageSize}
+//         length={data.length}
+//         items={data.slice(0, 10)}
+//         onRequestPage={handleRequestPage}
+//       >
+//         <ReactList
+//           itemRenderer={(idx, key) =>
+//             // If `items[index] == null`, the page is still being loaded.
+//             data[idx] != null ? (
+//               <Grid key={idx} item md={12 / length}>
+//                 <AdminAudienceCard audience={data[idx]} />
+//               </Grid>
+//             ) : (
+//               <div key={key}>Loading …</div>
+//             )
+//           }
+//           type='uniform'
+//           length={data.length}
+//         />
+//       </LazyLoading>
+//     </Grid>
+//   )
+// }
+
+// function mergePage (items, newItems, offset) {
+//   const merged = items.slice()
+//   newItems.forEach((item, idx) => {
+//     merged[idx + offset] = item
+//   })
+//   return merged
+// }

@@ -87,7 +87,7 @@ export default function Areas () {
     .flatMap(f => f)
   ocassions = [...new Set(ocassions)]
   return (
-    <Grid mt={3} container justifyContent='center'>
+    <Grid mt={3} container justifyContent='center' component={Box}>
       <DossierModal
         open={!!showDossier}
         handleClose={handleCloseDossier}
@@ -139,13 +139,8 @@ export default function Areas () {
         {services.map(s => (
           <Grid xs={12 / length} component={Box} m={0} p={0} item key={s.id}>
             <Card
-              title={s.nombre}
-              imageUrl={(s?.archivos || [])[0]?.path}
-              imageTitle={''}
+              service={s}
               color={color}
-              sintesis={s.sintesis}
-              slogan={s.slogan}
-              chip={(s?.tecnica_artisticas || [])[0]?.nombre}
               handleClickPrimary={handleOpenModal(s)}
               handleClickSecundary={handleOpenDossier(s)}
             />

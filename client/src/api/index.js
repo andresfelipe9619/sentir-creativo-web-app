@@ -18,6 +18,10 @@ const setToken = _token => {
   sessionStorage.setItem('colibri-token', _token)
 }
 
+const getToken = () => {
+  return token
+}
+
 const responseBody = response => response.data
 
 server.interceptors.request.use(tokenInterceptor, Promise.reject)
@@ -79,7 +83,7 @@ const Archivo = {
 }
 
 const Audiencia = {
-  getAll: () => serverRequests.get(`/audiencias?_limit=-1`),
+  getAll: () => serverRequests.get(`/audiencias?_limit=20`),
   get: id => serverRequests.get(`/audiencias/${id}`),
   dossier: audiencia => serverRequests.post('/audiencias/dossier', audiencia),
   create: audience => serverRequests.post('/audiencias', audience),
@@ -249,7 +253,8 @@ const API = {
   PublicoObjetivo,
   EstadoProyecto,
   TipoProyecto,
-  setToken
+  setToken,
+  getToken
 }
 
 export default API

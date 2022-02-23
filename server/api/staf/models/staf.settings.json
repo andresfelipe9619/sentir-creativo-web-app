@@ -13,8 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "acuerdos": {
-      "collection": "acuerdos",
-      "via": "staf"
+      "via": "staf",
+      "collection": "acuerdos"
     },
     "comentarios": {
       "collection": "comentario",
@@ -23,10 +23,6 @@
     "rol": {
       "via": "stafs",
       "model": "rol"
-    },
-    "proyectos": {
-      "via": "staf",
-      "collection": "proyecto"
     },
     "servicios": {
       "via": "stafs",
@@ -69,6 +65,13 @@
     },
     "cuponDescuento": {
       "model": "cupon-descuento"
+    },
+    "proyectos": {
+      "via": "staf",
+      "collection": "proyecto"
+    },
+    "estado": {
+      "model": "estado-staff"
     }
   }
 }

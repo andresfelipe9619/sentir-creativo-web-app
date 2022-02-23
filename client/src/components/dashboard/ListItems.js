@@ -18,7 +18,7 @@ const items = [
   { path: '/admin/proyectos', label: 'Proyectos', icon: LayersIcon },
   { path: '/admin/archivos', label: 'Archivos', icon: ArchiveIcon },
   { path: '/admin/tags', label: 'Tags', icon: LabelIcon },
-  { path: '/admin/staf', label: 'Staf', icon: PeopleIcon },
+  { path: '/admin/staff', label: 'Staff', icon: PeopleIcon },
   { path: '/admin/colecciones', label: 'Colecciones', icon: LabelIcon },
   { path: '/admin/reportes', label: 'Reportes', icon: BarChartIcon },
 ]
