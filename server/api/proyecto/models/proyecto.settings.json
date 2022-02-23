@@ -61,8 +61,8 @@
       "collection": "archivo"
     },
     "staf": {
-      "collection": "staf",
       "via": "proyectos",
+      "collection": "staf",
       "dominant": true
     }
   }

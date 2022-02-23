@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "acuerdos",
+  "collectionName": "estado_staffs",
   "info": {
-    "name": "acuerdos",
-    "description": ""
+    "name": "estadoStaff"
   },
   "options": {
     "increments": true,
@@ -15,12 +14,11 @@
     "nombre": {
       "type": "string"
     },
-    "staf": {
-      "via": "acuerdos",
-      "model": "staf"
+    "color": {
+      "type": "string"
     },
-    "estado": {
-      "model": "estado-staff"
+    "prioridad": {
+      "model": "prioridad"
     }
   }
 }
