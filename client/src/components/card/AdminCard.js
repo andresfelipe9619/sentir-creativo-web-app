@@ -25,7 +25,7 @@ import { green } from '@material-ui/core/colors'
 import { grey } from '@material-ui/core/colors'
 
 export default function AdminCard ({
-  // id,
+  id,
   chips,
   color,
   status,
@@ -60,10 +60,10 @@ export default function AdminCard ({
   )
   return (
     <Card className={classes.root} elevation={5}>
-      {/* <FloatingID id={id} /> */}
       {floatingHeader && (
         <FloatingHeader {...floatingHeader} classes={classes} />
       )}
+      <FloatingID id={id} color={floatingHeader.color} />
       <CardHeader
         component={Box}
         title={text}
@@ -191,30 +191,29 @@ function getScoreColor (score) {
   return grey[700]
 }
 
-// const idStyle = {
-//   height: 16,
-//   top: -10,
-//   position: 'relative',
-//   right: 0,
-//   zIndex: 1000
-// }
+const idStyle = {
+  float: 'right',
+  color: '#fff'
+}
 
-// function FloatingID ({ id }) {
-//   return (
-//     <Box
-//       display='flex'
-//       borderRadius='50%'
-//       width={30}
-//       height={30}
-//       p={2}
-//       justifyContent='center'
-//       alignItems='center'
-//       style={idStyle}
-//     >
-//       {id}
-//     </Box>
-//   )
-// }
+function FloatingID ({ id, color }) {
+  return (
+    <Box
+      display='flex'
+      borderRadius='50%'
+      width={30}
+      height={30}
+      p={2}
+      mr={2}
+      justifyContent='center'
+      alignItems='center'
+      bgcolor={color}
+      style={idStyle}
+    >
+      {id}
+    </Box>
+  )
+}
 
 const headerStyle = {
   height: 16,
