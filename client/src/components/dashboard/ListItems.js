@@ -10,7 +10,6 @@ import LayersIcon from '@material-ui/icons/Layers'
 import AssignmentIcon from '@material-ui/icons/Assignment'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import LabelIcon from '@material-ui/icons/Label'
-import { useHistory } from 'react-router-dom'
 
 const items = [
   { path: '/admin/audiencia', label: 'Audiencia', icon: PeopleIcon },
@@ -20,7 +19,7 @@ const items = [
   { path: '/admin/tags', label: 'Tags', icon: LabelIcon },
   { path: '/admin/staff', label: 'Staff', icon: PeopleIcon },
   { path: '/admin/colecciones', label: 'Colecciones', icon: LabelIcon },
-  { path: '/admin/reportes', label: 'Reportes', icon: BarChartIcon },
+  { path: '/admin/reportes', label: 'Reportes', icon: BarChartIcon }
 ]
 const secondaryItems = [
   { label: 'Current month', icon: AssignmentIcon },
@@ -28,12 +27,11 @@ const secondaryItems = [
   { label: 'Year-end sale', icon: AssignmentIcon }
 ]
 
-export const MainListItems = () => {
-  const history = useHistory()
+export const MainListItems = ({ handleClick }) => {
   return (
     <div>
       {items.map(({ label, icon: Icon, path }, index) => (
-        <ListItem button key={index} onClick={() => history.push(path)}>
+        <ListItem button key={index} onClick={handleClick(path)}>
           <ListItemIcon>
             <Icon />
           </ListItemIcon>
