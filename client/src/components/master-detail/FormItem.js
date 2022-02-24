@@ -6,7 +6,6 @@ import {
   KeyboardDateTimePicker
 } from '@material-ui/pickers'
 import esLocale from 'date-fns/locale/es'
-// import MuiPhoneNumber from 'material-ui-phone-number'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -15,13 +14,36 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import Chip from '@material-ui/core/Chip'
+import Input from '@material-ui/core/Input'
 import Tags from '../tags/Tags'
 import Files from '../files/Files'
 import MuiPhoneNumber from 'material-ui-phone-number'
 import Bitacora from '../bitacora/Bitacora'
 import Upload from '../files/Upload'
+import { useTheme } from '@material-ui/core/styles'
 
-export default function FormItem(props) {
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250
+    }
+  }
+}
+
+function getStyles (name, options, theme) {
+  return {
+    fontWeight:
+      options.findIndex(o => o?.id === name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium
+  }
+}
+
+export default function FormItem (props) {
   const {
     item,
     parent,
@@ -34,8 +56,8 @@ export default function FormItem(props) {
     isSubmitting,
     handleChange,
     handleBlur
-  } = props;
-
+  } = props
+  const theme = useTheme()
   if (!item?.form) return null
   const {
     size,
@@ -143,8 +165,8 @@ export default function FormItem(props) {
           value={value || ''}
           onChange={handleChange}
         >
-          {options.map(d => (
-            <MenuItem key={d.value} value={d.value}>
+          {options.map((d, i) => (
+            <MenuItem key={d.value + i} value={d.value}>
               {d.label}
             </MenuItem>
           ))}
@@ -154,13 +176,53 @@ export default function FormItem(props) {
         </FormHelperText>
       </FormControl>
     ),
+    multiselect: canRender('multiselect') && (
+      <FormControl fullWidth variant='outlined'>
+        <InputLabel id={`${key}-label`}>{item.label}</InputLabel>
+        <Select
+          labelId={`${key}-label`}
+          id={key}
+          name={key}
+          multiple
+          disabled={isSubmitting}
+          value={value || []}
+          onChange={handleChange}
+          input={
+            <Input
+              variant='outlined'
+              id={`select-multiple-${key}`}
+              aria-label={item.label}
+            />
+          }
+          renderValue={selected => {
+            const items = selected.map(id => options.find(o => o.value === id))
+            return (
+              <div>
+                {items.map((p, i) => (
+                  <Chip key={p + i} label={p.label} />
+                ))}
+              </div>
+            )
+          }}
+          MenuProps={MenuProps}
+        >
+          {options.map(o => (
+            <MenuItem
+              key={o.value}
+              value={o.value}
+              style={getStyles(o.value, value, theme)}
+            >
+              {o.label}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    ),
     tag: canRender('tag') && <Tags tags={value} title={item.label} />,
     file: canRender('file') && (
       <Files files={value} title={item.label} {...{ parent, initParent }} />
     ),
-    upload: canRender('upload') && (
-      <Upload {...props} item={item} />
-    ),
+    upload: canRender('upload') && <Upload {...props} item={item} />,
     bitacora: canRender('bitacora') && <Bitacora data={value} {...fieldProps} />
   }
   return (
