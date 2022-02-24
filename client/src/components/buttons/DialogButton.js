@@ -24,7 +24,7 @@ export default function DialogButton(props) {
     const closeDialog = async (accepted) => {
         setOpen(false)
 
-        if (typeof onClose === 'function') {
+        if (accepted && typeof onClose === 'function') {
             setLoading(true)
             await onClose(accepted)
             setLoading(true)
@@ -33,7 +33,7 @@ export default function DialogButton(props) {
 
     return (
         <>
-            <Button size='small' color='primary' onClick={openDialog}
+            <Button size='small' color='primary' onClick={openDialog} disabled={loading}
                 {...buttonProps}>
                 {!loading ? label : <CircularProgress />}
             </Button>
