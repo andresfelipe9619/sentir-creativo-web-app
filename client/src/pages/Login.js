@@ -21,8 +21,8 @@ function Copyright () {
   return (
     <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
-        Your Website
+      <Link color='inherit' href='https://sentircreativo.com/'>
+        Sentir Creativo
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -159,12 +159,12 @@ export default function SignInSide () {
                   color='primary'
                   className={classes.submit}
                 >
-                  Sign In
+                  Ingresar
                 </Button>
                 <Grid container>
                   <Grid item xs>
                     <Link href='#' variant='body2'>
-                      Forgot password?
+                      Olvidaste contraseña?
                     </Link>
                   </Grid>
                   <Grid item>
@@ -174,7 +174,7 @@ export default function SignInSide () {
                       variant='body2'
                       onClick={e => e.stopPropagation()}
                     >
-                      {"Don't have an account? Sign Up"}
+                      {"Registrarse"}
                     </Link>
                   </Grid>
                 </Grid>

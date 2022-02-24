@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import Drawer from '@material-ui/core/Drawer'
+import { useHistory } from 'react-router-dom'
 import clsx from 'clsx'
 import { MainListItems } from '../dashboard/ListItems'
 import { useDashboardStyles } from './styles'
@@ -15,9 +16,10 @@ import AccessDenied from '../../router/AccessDenied'
 import API from '../../api'
 
 export default function DashboardSidebar ({ children }) {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const classes = useDashboardStyles()
   const token = API.getToken()
+  const history = useHistory()
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -25,6 +27,12 @@ export default function DashboardSidebar ({ children }) {
   const handleDrawerClose = () => {
     setOpen(false)
   }
+
+  const handleClick = path => () => {
+    handleDrawerClose()
+    history.push(path)
+  }
+
   if (!token) return <AccessDenied />
   return (
     <div className={classes.root}>
@@ -69,7 +77,7 @@ export default function DashboardSidebar ({ children }) {
         </div>
         <Divider />
         <List>
-          <MainListItems />
+          <MainListItems handleClick={handleClick} />
         </List>
         {/* <Divider />
         <List>

@@ -16,15 +16,17 @@ import useAPI from '../../providers/hooks/useAPI'
 import columns from '../dashboard/archivos/columns'
 import DialogButton from '../buttons/DialogButton'
 
-const dropzoneColumns = [...columns.filter(x => x.name !== 'path'),
-{
-  name: 'path',
-  label: 'Arrastra o selecciona un archivo para agregarlo',
-  form: {
-    size: 12,
-    type: 'upload'
+const dropzoneColumns = [
+  ...columns.filter(x => x.name !== 'path'),
+  {
+    name: 'path',
+    label: 'Arrastra o selecciona un archivo para agregarlo',
+    form: {
+      size: 12,
+      type: 'upload'
+    }
   }
-}];
+]
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Files({ files, title, parent, initParent }) {
+export default function Files ({ files, title, parent, initParent }) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const { loading, create: createEntity, api } = useAPI('Archivo', null, false)
@@ -57,9 +59,9 @@ export default function Files({ files, title, parent, initParent }) {
     await initParent()
   }
 
-  const handleDeleteFile = async (fileId) => {
+  const handleDeleteFile = async fileId => {
     const result = await api.delete(fileId)
-    
+
     if (!result) {
       return
     }
@@ -85,8 +87,8 @@ export default function Files({ files, title, parent, initParent }) {
         </IconButton>
       </Tooltip>
       <Box width='100%' display='flex' flexWrap={'wrap'}>
-        {(files || []).map(f => (
-          <ImgMediaCard key={f.nombre} remove={handleDeleteFile} {...f} />
+        {(files || []).map((f, i) => (
+          <ImgMediaCard key={f.nombre + i} remove={handleDeleteFile} {...f} />
         ))}
       </Box>
       <CreateEntity
@@ -103,12 +105,12 @@ export default function Files({ files, title, parent, initParent }) {
 const isImage = path =>
   ['.png', '.jpg', '.jpeg', '.gif', '.tiff'].some(ext => path.includes(ext))
 
-export function ImgMediaCard({ id, nombre, path, tipo_archivo, remove }) {
+export function ImgMediaCard ({ id, nombre, path, tipo_archivo, remove }) {
   const history = useHistory()
-  function handleView() {
+  function handleView () {
     history.push(`/admin/archivos/${id}`)
   }
-  function handleLink() {
+  function handleLink () {
     window.open(path, '_blank')
   }
   return (
@@ -121,7 +123,7 @@ export function ImgMediaCard({ id, nombre, path, tipo_archivo, remove }) {
           {nombre}
         </Typography>
         {tipo_archivo && (
-          <Typography variant='caption' color='text.secondary' component='div'>
+          <Typography variant='caption' color='textSecondary' component='div'>
             {tipo_archivo.nombre}
           </Typography>
         )}
@@ -135,7 +137,9 @@ export function ImgMediaCard({ id, nombre, path, tipo_archivo, remove }) {
         </Button>
       </CardActions>
       <CardActions>
-        <DialogButton onClose={async (accepted) => accepted && await remove(id)} />
+        <DialogButton
+          onClose={async accepted => accepted && (await remove(id))}
+        />
       </CardActions>
     </Card>
   )
