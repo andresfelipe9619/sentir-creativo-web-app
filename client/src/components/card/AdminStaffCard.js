@@ -29,6 +29,7 @@ function AdminStaffCard ({ staff }) {
     celular,
     estado,
     nombre,
+    apellido,
     photo,
     origen,
     rol,
@@ -60,7 +61,7 @@ function AdminStaffCard ({ staff }) {
       statusColor={estado?.color}
       chips={[email, celular]}
       status={estado?.nombre}
-      title={nombre}
+      title={nombre + ' ' + apellido}
       avatar={photo}
       handleViewClick={handleViewClick}
       subheaderChip={organizacion?.nombre}
