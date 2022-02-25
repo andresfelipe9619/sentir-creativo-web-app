@@ -137,7 +137,7 @@ export default function Areas () {
       </Grid>
       <Grid container component={Box} my={0} m={0} p={0} alignItems='center'>
         {services.map(s => (
-          <Grid xs={12 / length} component={Box} m={0} p={0} item key={s.id}>
+          <Grid xs={12 / length} md={4} xl={3} component={Box} m={0} p={0} item key={s.id}>
             <Card
               service={s}
               color={color}
