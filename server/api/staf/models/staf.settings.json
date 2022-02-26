@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "acuerdos": {
-      "via": "staf",
-      "collection": "acuerdos"
-    },
     "comentarios": {
       "collection": "comentario",
       "via": "staf"
@@ -72,6 +68,10 @@
     },
     "estado": {
       "model": "estado-staff"
+    },
+    "acuerdos": {
+      "via": "staff",
+      "collection": "acuerdos"
     }
   }
 }
