@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "ciudads",
+  "collectionName": "pais",
   "info": {
-    "name": "ciudad"
+    "name": "pais"
   },
   "options": {
     "increments": true,
@@ -14,9 +14,9 @@
     "nombre": {
       "type": "string"
     },
-    "region": {
-      "via": "ciudades",
-      "model": "region"
+    "regiones": {
+      "via": "pais",
+      "collection": "region"
     }
   }
 }
