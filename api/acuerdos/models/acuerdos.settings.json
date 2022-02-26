@@ -15,9 +15,10 @@
     "nombre": {
       "type": "string"
     },
-    "staf": {
+    "staff": {
+      "collection": "staf",
       "via": "acuerdos",
-      "model": "staf"
+      "dominant": true
     },
     "estado": {
       "model": "estado-staff"
