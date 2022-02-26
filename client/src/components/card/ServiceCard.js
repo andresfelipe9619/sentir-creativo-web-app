@@ -27,10 +27,10 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2, 1),
     overflow: 'visible',
     [theme.breakpoints.down('xs')]: {
-      margin: theme.spacing(2, 0)
+      margin: theme.spacing(4, 0)
     },
     [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(2, 1)
+      margin: theme.spacing(4, 1)
     }
   },
   media: {
@@ -60,6 +60,11 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     borderRadius: '50%',
     color: 'white'
+  },
+  tags: {
+    marginTop: theme.spacing(1),
+    marginBottom: 0,
+    lineHeight: '1.5'
   }
 }))
 
@@ -118,7 +123,7 @@ export default function ServiceCard ({
           //   </IconButton>
           // }
           subheader={
-            <Typography variant='caption' color='textSecondary'>
+            <Typography variant='caption' color='textSecondary' paragraph className={classes.tags}>
               {tags
                 .slice(0, 3)
                 .map(t => t.nombre)

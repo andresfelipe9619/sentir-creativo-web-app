@@ -50,12 +50,14 @@ export default function AdminCard ({
 
   const cardColor = color[500]
 
+  const [nombre, apellido] = title.split(' ');
   const text = (
     <Box display='flex' flexDirection='column'>
       <Typography variant='caption' gutterBottom>
         {superheader}
       </Typography>
-      <Typography variant='h3'>{title}</Typography>
+      <Typography variant='h3'>{nombre}</Typography>
+      <Typography variant='h3'>{apellido}</Typography>
     </Box>
   )
   return (
@@ -63,7 +65,7 @@ export default function AdminCard ({
       {floatingHeader && (
         <FloatingHeader {...floatingHeader} classes={classes} />
       )}
-      <FloatingID id={id} color={floatingHeader.color} />
+      <FloatingID id={id} />
       <CardHeader
         component={Box}
         title={text}
@@ -196,7 +198,7 @@ const idStyle = {
   color: '#fff'
 }
 
-function FloatingID ({ id, color }) {
+function FloatingID ({ id }) {
   return (
     <Box
       display='flex'
@@ -207,7 +209,7 @@ function FloatingID ({ id, color }) {
       mr={2}
       justifyContent='center'
       alignItems='center'
-      bgcolor={color}
+      bgcolor={grey[600]}
       style={idStyle}
     >
       {id}
