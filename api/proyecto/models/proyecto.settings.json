@@ -54,8 +54,8 @@
     "estado_proyecto": {
       "model": "estado-proyecto"
     },
-    "formato": {
-      "model": "formato"
+    "formatos": {
+      "collection": "formato"
     },
     "archivos": {
       "collection": "archivo"
