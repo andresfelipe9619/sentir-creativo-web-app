@@ -38,8 +38,8 @@ const columns = [
     }
   },
   {
-    name: 'formato',
-    label: 'Formato',
+    name: 'formatos',
+    label: 'Formatos',
     options: {
       filter: true,
       sort: false,
@@ -47,7 +47,7 @@ const columns = [
     },
     form: {
       size: 6,
-      type: 'select',
+      type: 'multiselect',
       dependency: 'Formato'
     }
   },
