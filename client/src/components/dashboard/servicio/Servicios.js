@@ -157,7 +157,7 @@ export default function Servicios () {
       renderMaster={({ data }) => (
         <Grid item container md={12}>
           {data.map((s, i) => (
-            <Grid key={i} item md={12 / length}>
+            <Grid key={i} item xs={12 / length} md={4} xl={3}>
               <Card service={s} handleClickPrimary={handleClick(s.id)} />
             </Grid>
           ))}
