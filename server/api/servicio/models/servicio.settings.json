@@ -81,6 +81,11 @@
     "coleccion": {
       "via": "servicios",
       "model": "coleccion"
+    },
+    "proyectos": {
+      "via": "servicios",
+      "collection": "proyecto",
+      "dominant": true
     }
   }
 }
