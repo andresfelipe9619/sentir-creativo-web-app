@@ -16,8 +16,8 @@
       "type": "string"
     },
     "staff": {
-      "collection": "staf",
       "via": "acuerdos",
+      "collection": "staf",
       "dominant": true
     },
     "estado": {

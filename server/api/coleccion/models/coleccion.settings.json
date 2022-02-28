@@ -19,8 +19,8 @@
       "type": "text"
     },
     "servicios": {
-      "collection": "servicio",
-      "via": "coleccion"
+      "via": "coleccion",
+      "collection": "servicio"
     },
     "archivos": {
       "collection": "archivo"
