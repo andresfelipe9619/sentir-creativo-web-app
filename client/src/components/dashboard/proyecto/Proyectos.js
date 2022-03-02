@@ -24,7 +24,7 @@ export default function Proyectos () {
       renderMaster={({ data }) => (
         <Grid item container md={12}>
           {data.map((p, id) => (
-            <Grid key={id} item md={12 / length}>
+            <Grid key={id} item xs={12 / length} md={4} xl={3}>
               <ProjectCard {...p} />
             </Grid>
           ))}

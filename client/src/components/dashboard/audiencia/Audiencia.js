@@ -250,7 +250,7 @@ export default function Audiencia () {
         renderMaster={({ data }) => (
           <Grid item container md={12}>
             {data.map(a => (
-              <Grid item key={a.id} md={12 / length}>
+              <Grid item key={a.id} xs={12 / length} md={4} xl={3}>
                 <AdminAudienceCard audience={a} />
               </Grid>
             ))}

@@ -50,14 +50,12 @@ export default function AdminCard ({
 
   const cardColor = color[500]
 
-  const [nombre, apellido] = title.split(' ');
   const text = (
     <Box display='flex' flexDirection='column'>
       <Typography variant='caption' gutterBottom>
         {superheader}
       </Typography>
-      <Typography variant='h3'>{nombre}</Typography>
-      <Typography variant='h3'>{apellido}</Typography>
+      <Typography variant='h3'>{title}</Typography>
     </Box>
   )
   return (

@@ -23,6 +23,7 @@ function AdminAudienceCard ({ audience }) {
     email2,
     estado,
     nombre,
+    apellido,
     photo,
     cargo,
     origen,
@@ -55,7 +56,7 @@ function AdminAudienceCard ({ audience }) {
       statusColor={estado?.color}
       chips={[email, email2]}
       status={estado?.nombre}
-      title={nombre}
+      title={nombre + ' ' + apellido}
       avatar={photo}
       handleViewClick={handleViewClick}
       subheaderChip={organizacion?.nombre}
