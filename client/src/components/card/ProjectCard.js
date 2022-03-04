@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: 280,
     marginBottom: '10%',
-    margin: 1,
+    marginTop: theme.spacing(1),
     marginLeft: '5%'
   },
   content: {
