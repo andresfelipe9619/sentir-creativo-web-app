@@ -12,7 +12,7 @@ const populate = [
   'id',
   'staf',
   'audiencia',
-  'formato',
+  'formatos',
   'propositos',
   'tipo_proyecto',
   'estado_proyecto',
