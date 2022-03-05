@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     borderRadius: '50%',
     color: 'white'
+  },
+  ellipsedHeader: {
+    overflow: 'hidden'
   }
 }))
 

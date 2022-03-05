@@ -68,6 +68,7 @@ export default function AdminCard ({
         component={Box}
         title={text}
         avatar={avatar}
+        classes={{ content: classes.ellipsedHeader }}
         subheader={
           <Box display='flex' flexDirection='column'>
             <Typography variant='caption' gutterBottom>
@@ -98,7 +99,7 @@ export default function AdminCard ({
           alignItems='center'
           display='flex'
           justifyContent='center'
-          px={4}
+          px={2}
           py={1}
         >
           {renderContent && renderContent()}
@@ -184,6 +185,12 @@ export default function AdminCard ({
 }
 
 function getScoreColor (score) {
+  // Safety score (because in some cases is necesary that contains special caracters)
+  if (typeof score === 'string') {
+    // FIXME: Only take the first number
+    score = parseFloat(score.replace(/\D/g, '')[0]);
+  }
+
   if (!score) return grey[700]
   if (score >= 1 && score < 3) return red[700]
   if (score >= 3 && score < 5) return orange[800]
