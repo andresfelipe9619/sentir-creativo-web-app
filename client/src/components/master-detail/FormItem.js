@@ -37,7 +37,7 @@ const MenuProps = {
 function getStyles (name, options, theme) {
   return {
     fontWeight:
-      options.findIndex(o => o?.id === name) === -1
+      (options || []).findIndex(o => o?.id === name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium
   }
@@ -84,6 +84,7 @@ export default function FormItem (props) {
           format='dd/MM/yyyy HH:mm'
           margin='normal'
           id={key}
+          fullWidth
           style={{ margin: 0 }}
           inputVariant='outlined'
           label={item.label}
@@ -190,6 +191,7 @@ export default function FormItem (props) {
           input={
             <Input
               variant='outlined'
+              disabled={isSubmitting}
               id={`select-multiple-${key}`}
               aria-label={item.label}
             />
@@ -199,7 +201,7 @@ export default function FormItem (props) {
             return (
               <div>
                 {items.map((p, i) => (
-                  <Chip key={p + i} label={p.label} />
+                  <Chip key={p + i} label={p.label} disabled={isSubmitting} />
                 ))}
               </div>
             )
