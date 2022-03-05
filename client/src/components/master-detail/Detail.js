@@ -8,6 +8,7 @@ import Spinner from '../spinner/Spinner'
 import { Button } from '@material-ui/core'
 import FormItem from './FormItem'
 import useFormDependencies from '../../providers/hooks/useFormDependencies'
+import { useAlertDispatch } from '../../providers/context/Alert'
 
 export default function Detail ({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null)
@@ -18,6 +19,7 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
     loadDependencies,
     loadingDependencies
   } = useFormDependencies(columns)
+  const { openAlert } = useAlertDispatch()
 
   const handleFormSubmit = useCallback(
     async values => {
@@ -25,13 +27,21 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
         const result = await API[service].update(entityId, values)
         console.log(`result`, result)
         reloadMaster && reloadMaster()
+        openAlert({
+          variant: 'success',
+          message: 'Datos guardados exitosamente!'
+        })
       } catch (error) {
         console.error(error)
+        openAlert({
+          variant: 'error',
+          message: 'Oops! parece que algo salió mal'
+        })
       } finally {
         setLoading(false)
       }
     },
-    [entityId, service, reloadMaster]
+    [entityId, service, reloadMaster, openAlert]
   )
 
   const init = useCallback(async () => {
