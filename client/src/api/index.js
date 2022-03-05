@@ -228,6 +228,62 @@ const Origen = {
   delete: id => serverRequests.del(`/origens/${id}`)
 }
 
+const Organizacion = {
+  getAll: () => serverRequests.get(`/organizacions`),
+  get: id => serverRequests.get(`/organizacions/${id}`),
+  create: org => serverRequests.post('/organizacions', org),
+  update: (id, org) => serverRequests.put(`/organizacions/${id}`, org),
+  delete: id => serverRequests.del(`/organizacions/${id}`)
+}
+
+const Condicion = {
+  getAll: () => serverRequests.get(`/difusions`),
+  get: id => serverRequests.get(`/difusions/${id}`),
+  create: org => serverRequests.post('/difusions', org),
+  update: (id, org) => serverRequests.put(`/difusions/${id}`, org),
+  delete: id => serverRequests.del(`/difusions/${id}`)
+}
+
+const Ocasion = {
+  getAll: () => serverRequests.get(`/ocasions`),
+  get: id => serverRequests.get(`/ocasions/${id}`),
+  create: org => serverRequests.post('/ocasions', org),
+  update: (id, org) => serverRequests.put(`/ocasions/${id}`, org),
+  delete: id => serverRequests.del(`/ocasions/${id}`)
+}
+
+const Prioridad = {
+  getAll: () => serverRequests.get(`/prioridads`),
+  get: id => serverRequests.get(`/prioridads/${id}`),
+  create: org => serverRequests.post('/prioridads', org),
+  update: (id, org) => serverRequests.put(`/prioridads/${id}`, org),
+  delete: id => serverRequests.del(`/prioridads/${id}`)
+}
+
+const Proposito = {
+  getAll: () => serverRequests.get(`/propositos`),
+  get: id => serverRequests.get(`/propositos/${id}`),
+  create: org => serverRequests.post('/propositos', org),
+  update: (id, org) => serverRequests.put(`/propositos/${id}`, org),
+  delete: id => serverRequests.del(`/propositos/${id}`)
+}
+
+const Sugerencia = {
+  getAll: () => serverRequests.get(`/sugerencias`),
+  get: id => serverRequests.get(`/sugerencias/${id}`),
+  create: org => serverRequests.post('/sugerencias', org),
+  update: (id, org) => serverRequests.put(`/sugerencias/${id}`, org),
+  delete: id => serverRequests.del(`/sugerencias/${id}`)
+}
+
+const Difusion = {
+  getAll: () => serverRequests.get(`/difusions`),
+  get: id => serverRequests.get(`/difusions/${id}`),
+  create: org => serverRequests.post('/difusions', org),
+  update: (id, org) => serverRequests.put(`/difusions/${id}`, org),
+  delete: id => serverRequests.del(`/difusions/${id}`)
+}
+
 const Acuerdo = {
   getAll: () => serverRequests.get(`/acuerdos`),
   get: id => serverRequests.get(`/acuerdos/${id}`),
@@ -262,13 +318,19 @@ const API = {
   Audiencia,
   Auth,
   Cercania,
+  Condicion,
   Coleccion,
   CuponDescuento,
+  Difusion,
   EstadoProyecto,
   Formato,
   Motivacion,
+  Ocasion,
   Origen,
+  Organizacion,
   Prefijo,
+  Prioridad,
+  Proposito,
   Proyecto,
   PublicoObjetivo,
   Rubro,
@@ -276,6 +338,7 @@ const API = {
   Servicio,
   Staf,
   StaffState,
+  Sugerencia,
   Tag,
   TecnicaArtistica,
   TipoArchivo,

@@ -38,34 +38,6 @@ const columns = [
     }
   },
   {
-    name: 'formatos',
-    label: 'Formatos',
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender()
-    },
-    form: {
-      size: 6,
-      type: 'multiselect',
-      dependency: 'Formato'
-    }
-  },
-  {
-    name: 'estado_proyecto',
-    label: 'Estado',
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender()
-    },
-    form: {
-      size: 6,
-      type: 'select',
-      dependency: 'EstadoProyecto'
-    }
-  },
-  {
     name: 'tipo_proyecto',
     label: 'Tipo Proyecto',
     options: {
@@ -74,7 +46,7 @@ const columns = [
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'select',
       dependency: 'TipoProyecto'
     }
@@ -114,9 +86,107 @@ const columns = [
       sort: false
     },
     form: {
-      size: 10,
+      size: 8,
       type: 'input',
       multiline: true
+    }
+  },
+  {
+    name: 'cuponDescuento',
+    label: 'Cupon Descuento',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: 'select',
+      dependency: 'CuponDescuento'
+    }
+  },
+  {
+    name: 'formatos',
+    label: 'Formatos',
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Formato'
+    }
+  },
+  {
+    name: 'estado_proyecto',
+    label: 'Estado',
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'EstadoProyecto'
+    }
+  },
+  {
+    name: 'audiencia',
+    label: 'Audiencia',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Audiencia'
+    }
+  },
+  {
+    name: 'staf',
+    label: 'Staff',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Staf'
+    }
+  },
+  {
+    name: 'servicios',
+    label: 'Servicios',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Servicio'
+    }
+  },
+  {
+    name: 'publico_objetivos',
+    label: 'Público Objetivo',
+    options: {
+      filter: false,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'PublicoObjetivo'
     }
   },
   {
