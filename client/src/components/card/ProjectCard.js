@@ -1,98 +1,115 @@
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Tooltip from '@material-ui/core/Tooltip'
-import Box from '@material-ui/core/Box'
 import { useHistory } from 'react-router'
 import { formatDate } from '../../utils'
-import { Chip } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import yellow from '@material-ui/core/colors/yellow'
+import AdminCard, { Stat, DenseTable, createData } from './AdminCard'
+import Grid from '@material-ui/core/Grid'
+import orange from '@material-ui/core/colors/orange'
+import blue from '@material-ui/core/colors/blue'
+import StarIcon from '@material-ui/icons/Star'
+import LooksIcon from '@material-ui/icons/Looks'
+import PostAddIcon from '@material-ui/icons/PostAdd'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import WbSunnyIcon from '@material-ui/icons/WbSunny'
+import WorkIcon from '@material-ui/icons/Work'
+
+const project = {
+  interno: {
+    icon: WbSunnyIcon,
+    color: '#ef6c00'
+  },
+  ticket: {
+    icon: LooksIcon,
+    color: '#ec407a'
+  },
+  proyecto: {
+    icon: WorkIcon,
+    color: '#ad14ed'
+  }
+}
 
 export default function ProjectCard ({
   id,
   nombre,
-  fechaFin,
-  audiencia,
+  avance,
+  impacto,
   fechaInicio,
-  tipo_proyecto,
-  estado_proyecto
+  destacado,
+  formato,
+  servicio,
+  publico_objetivos,
+  audiencia,
+  staf,
+  estado_proyecto,
+  tipo_proyecto
 }) {
-  const classes = useStyles()
   const history = useHistory()
+
+  const rows = [
+    createData('Servicio', servicio?.nombre),
+    createData('Beneficios', publico_objetivos?.map(x => x.nombre).join(', ')),
+    createData('P. owner', `${staf[0]?.nombre} ${staf[0]?.apellido}`),
+    createData('Finanzas', `${staf[1]?.nombre} ${staf[1]?.apellido}`),
+    createData('Cupón', audiencia?.cuponDescuento || 'No cupón')
+  ]
+
   const handleClick = () => {
     history.push(`/admin/proyectos/${id}`)
   }
+
+  const IconStar = destacado ? StarOutlineIcon : StarIcon
+  const selectedProject = project[tipo_proyecto?.nombre?.toLowerCase()];
+
   return (
-    <Card className={classes.root} elevation={5}>
-      <CardContent className={classes.content}>
-        <Typography color='textSecondary' gutterBottom>
-          {audiencia?.nombre || 'No Audiencia'} -{' '}
-          {audiencia?.organizacion?.nombre || 'No Org'}
-        </Typography>
-        <Tooltip title={nombre}>
-          <Typography variant='h6' component='h2' className={classes.title}>
-            {nombre}
-          </Typography>
-        </Tooltip>
-        <Typography className={classes.pos} color='textSecondary'>
-          {fechaInicio ? formatDate(fechaInicio, false) : ''}
-          {fechaInicio && fechaFin && ' - '}
-          {fechaFin ? formatDate(fechaFin, false) : ''}
-        </Typography>
-        <Box
-          display='flex'
-          flexDirection='column'
-          alignItems='flex-start'
-          className={classes.chips}
-        >
-          {tipo_proyecto && <Chip label={tipo_proyecto.nombre} />}
-          {estado_proyecto && (
-            <Tooltip title={estado_proyecto.nombre}>
-              <Chip
-                label={estado_proyecto.nombre}
-                variant='outlined'
-                style={{ background: estado_proyecto.color }}
-              />
-            </Tooltip>
-          )}
-        </Box>
-      </CardContent>
-      <CardActions>
-        <Button
-          size='small'
-          color='primary'
-          variant='contained'
-          onClick={handleClick}
-        >
-          Ver
-        </Button>
-      </CardActions>
-    </Card>
+    <AdminCard
+    id={id}
+    color={yellow}
+    statusColor={estado_proyecto?.color}
+    chips={[audiencia?.email, audiencia?.email2, audiencia?.celular]}
+    status={estado_proyecto?.nombre}
+    title={nombre}
+    avatar={tipo_proyecto?.icono}
+    handleViewClick={handleClick}
+    subheaderChip={`${audiencia?.nombre} ${audiencia?.apellido} • ${audiencia?.organizacion?.nombre}`}
+    superheader={fechaInicio ? formatDate(fechaInicio, true) : ''}
+    subheader={`${formato?.nombre} • ${audiencia?.ciudad}`}
+    floatingHeader={{
+      color: selectedProject?.color,
+      icon: selectedProject?.icon,
+      label: tipo_proyecto?.nombre,
+      score: `${avance || 0}%`
+    }}
+    renderContent={() => (
+      <Grid container item md={12} spacing={3}>
+        <Stat
+          label={'CANTIDAD DE\nPERSONAS'}
+          value={impacto || 0}
+          color={orange[800]}
+        />
+        <Stat
+          label={'TAREAS\nVISUALIZADAS'}
+          value={0}
+          color={blue[600]}
+        />
+        <Stat
+          label={'TAREAS\nAGENDADAS'}
+          value={0}
+          color={blue[800]}
+        />
+      </Grid>
+    )}
+    renderHighlights={() => (
+      <DenseTable rows={rows} nombre={nombre} color={yellow} />
+    )}
+    buttonActions={[
+      {
+        icon: <IconStar fontSize='large' style={{ color: '#ffab00' }} />,
+        label: 'Destacar'
+      },
+      {
+        icon: <PostAddIcon fontSize='large' style={{ color: blue[600] }} />,
+        label: 'Agregar'
+      }
+    ]}
+  />
   )
 }
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    height: 280,
-    marginBottom: '10%',
-    margin: 1,
-    marginLeft: '5%'
-  },
-  content: {
-    height: '80%'
-  },
-  chips: {
-    '& > *': {
-      maxWidth: '100%',
-      margin: theme.spacing(0.5)
-    }
-  },
-  title: {
-    width: 260,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
-  }
-}))
