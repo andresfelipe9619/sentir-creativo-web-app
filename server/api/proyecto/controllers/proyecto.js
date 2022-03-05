@@ -14,6 +14,7 @@ const populate = [
   'audiencia',
   'formatos',
   'propositos',
+  'servicios',
   'tipo_proyecto',
   'estado_proyecto',
   'publico_objetivos',

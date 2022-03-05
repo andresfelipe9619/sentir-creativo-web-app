@@ -167,7 +167,7 @@ const columns = [
       dependency: 'TecnicaArtistica'
     }
   },
-    {
+  {
     name: 'servicios',
     label: 'Servicios',
     options: {
@@ -181,7 +181,7 @@ const columns = [
       dependency: 'Servicio'
     }
   },
-    {
+  {
     name: 'acuerdos',
     label: 'Acuerdos',
     options: {
