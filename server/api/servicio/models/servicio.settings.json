@@ -87,6 +87,12 @@
       "via": "servicios",
       "collection": "proyecto",
       "dominant": true
+    },
+    "minimoParticipantes": {
+      "type": "integer"
+    },
+    "maximoParticipantes": {
+      "type": "integer"
     }
   }
 }
