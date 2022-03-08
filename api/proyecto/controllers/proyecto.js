@@ -18,6 +18,7 @@ const populate = [
   'tipo_proyecto',
   'estado_proyecto',
   'publico_objetivos',
+  'cupon_descuentos',
   'archivos',
   'comentarios',
   'presupuestos',
