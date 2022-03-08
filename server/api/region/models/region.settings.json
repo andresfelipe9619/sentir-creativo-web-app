@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "regions",
   "info": {
-    "name": "region"
+    "name": "region",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -15,12 +16,15 @@
       "type": "string"
     },
     "ciudades": {
-      "collection": "ciudad",
-      "via": "region"
+      "via": "region",
+      "collection": "ciudad"
     },
     "pais": {
-      "model": "pais",
-      "via": "regiones"
+      "via": "regiones",
+      "model": "pais"
+    },
+    "codigo": {
+      "type": "string"
     }
   }
 }

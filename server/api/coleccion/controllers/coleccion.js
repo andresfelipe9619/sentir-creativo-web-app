@@ -3,7 +3,7 @@ const populate = [
   'id',
   'archivos',
   'servicios',
-  'cuponDescuento',
+  'cupon_descuentos',
   'archivos.tipo_archivo'
 ]
 

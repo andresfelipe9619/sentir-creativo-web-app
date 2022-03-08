@@ -14,6 +14,32 @@ const columns = [
     }
   },
   {
+    name: 'minimoParticipantes',
+    label: 'Mínimo Participantes',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input',
+      inputType: 'number'
+    }
+  },
+  {
+    name: 'maximoParticipantes',
+    label: 'Máximo Participantes',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input',
+      inputType: 'number'
+    }
+  },
+  {
     name: 'slogan',
     label: 'Slogan',
     options: {
@@ -21,10 +47,11 @@ const columns = [
       sort: true
     },
     form: {
-      size: 8,
+      size: 6,
       type: 'input'
     }
   },
+
   {
     name: 'sintesis',
     label: 'Sintesis',
@@ -34,7 +61,7 @@ const columns = [
       sort: false
     },
     form: {
-      size: 12,
+      size: 6,
       type: 'input',
       multiline: true
     }
