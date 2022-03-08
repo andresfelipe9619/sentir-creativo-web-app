@@ -92,8 +92,8 @@ const columns = [
     }
   },
   {
-    name: 'cuponDescuento',
-    label: 'Cupon Descuento',
+    name: 'cupon_descuentos',
+    label: 'Cupones Descuentos',
     options: {
       filter: true,
       sort: true,
@@ -101,7 +101,7 @@ const columns = [
     },
     form: {
       size: 4,
-      type: 'select',
+      type: 'multiselect',
       dependency: 'CuponDescuento'
     }
   },

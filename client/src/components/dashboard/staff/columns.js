@@ -126,16 +126,16 @@ const columns = [
     }
   },
   {
-    name: 'cuponDescuento',
-    label: 'Cupon Descuento',
+    name: 'cupon_descuentos',
+    label: 'Cupones Descuentos',
     options: {
       filter: true,
       sort: true,
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 6,
-      type: 'select',
+      size: 4,
+      type: 'multiselect',
       dependency: 'CuponDescuento'
     }
   },
