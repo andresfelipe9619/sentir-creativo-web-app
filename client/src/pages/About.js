@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -16,9 +16,6 @@ import FaceIcon from '@material-ui/icons/Face'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardActions from '@material-ui/core/CardActions'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar'
 import List from '@material-ui/core/List'
@@ -30,15 +27,6 @@ import clsx from 'clsx'
 import API from '../api'
 import * as IO5 from 'react-icons/io5'
 import * as GI from 'react-icons/gi'
-import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import Collapse from '@material-ui/core/Collapse'
-import MailOutlineIcon from '@material-ui/icons/MailOutline'
-import PhoneIcon from '@material-ui/icons/Phone'
-import WhatsAppIcon from '@material-ui/icons/WhatsApp'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { green, blue } from '@material-ui/core/colors'
 
 const items = {
   rubros: [
@@ -72,6 +60,7 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, -1),
     width: `calc(100% + ${theme.spacing(1) * 2}px)`,
     backgroundColor: COLORS.bg,
+    overflow: 'hidden',
     [theme.breakpoints.up('lg')]: {
       maxWidth: 'none',
       paddingRight: theme.spacing(5),
@@ -177,16 +166,7 @@ export const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff'
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
-  },
+  }
 }));
 
 export default function About() {
@@ -241,7 +221,6 @@ export default function About() {
   };
 
   return (
-    <>
     <Container className={classes.container}>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
@@ -522,119 +501,9 @@ export default function About() {
               </CardContent>
             </Card>
           </Grid>
-
-          <Grid container item xs={12} justifyContent='flex-end'>
-              <Grid item md={6} style={{ textAlign: 'right' }}>
-                <Typography variant='h6' gutterBottom>
-                  12 Experiencias encontradas
-                </Typography>
-
-                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.orange }}>
-                  Ver los resultado
-                </Button>
-              </Grid>
-            </Grid>
         </Grid>
       </Grid>
     </Container>
-
-    <Container className={classes.container} style={{ backgroundColor: '#4a4a4a' }}>
-      <Grid container spacing={6}>
-          {/* Seccion 4 */}
-          <Grid item md={6}>
-            <Typography variant='h1' style={{ color: '#fff', marginTop: 24 }}>
-              Cuenta con nosotros
-            </Typography>
-            <Typography className={classes.principiosText}>
-              <Typography display='inline' className={classes.principiosText} style={{ fontWeight: 'bold', color: COLORS.bg }}>
-                ¡Contáctanos!
-              </Typography>
-            </Typography>
-          </Grid>
-
-          <Grid container item xs={12} spacing={4}>
-            {[1, 2, 3].map(x => (
-              <Grid item xs={12} md={4}>
-                <CardDetail />
-              </Grid>
-            ))}
-
-            <Grid item xs={12} md={9}>
-              <Card component={Grid} container spacing={2} style={{ borderRadius: 16, height: '100%' }}>
-                <Grid xs={12} md={4}>
-                <CardContent style={{ padding: '4rem 2rem' }}>
-                    <Typography color='textSecondary' variant="h2" gutterBottom>
-                      Sede Central
-                    </Typography>
-                    <Typography variant="h5">
-                    Avenida Juan Pablo II #446 Antofagasta • Chile
-                    </Typography>
-                  </CardContent>
-                </Grid>
-
-                <Grid xs={12} md={8}>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.734610252658!2d-70.39007668255617!3d-23.57797319999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96ae2aff16e6748f%3A0x2d2acde847536271!2sSentir%20Creativo%20%C2%A1An%C3%ADmate*21!5e0!3m2!1ses-419!2sdo!4v1646705902423!5m2!1ses-419!2sdo"
-                    width="100%" height="100%" loading="lazy" style={{ border: 0 }}>
-                  </iframe>
-                </Grid>
-              </Card>
-            </Grid>
-
-            <Grid item xs={9} md={3} style={{ margin: '0 auto' }}>
-              <Box display='flex' justifyContent='space-around' mb={3}>
-                <Avatar alt="Icono" src={'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg'}
-                  style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-
-                <Avatar alt="Icono" src={'https://cdn-icons-png.flaticon.com/512/1409/1409946.png'}
-                  style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-
-                <Avatar alt="Icono" src={'https://play-lh.googleusercontent.com/J8k5q78xv4R8Smi4vOE6iUphLvOz0efC-0lzoyGfd0KRUlAv4ekuCtlss6KBN-tMvEw'}
-                  style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
-              </Box>
-
-              <Card style={{ borderRadius: 16 }}>
-                <CardContent component={Grid} container spacing={2}>
-                  <Grid item xs={3}>
-                    <CardMedia image={'https://pbs.twimg.com/profile_images/666413114489831424/aJZNErvd_400x400.png'}
-                      component='img' />
-                  </Grid>
-
-                  <Grid item xs={8}>
-                    <Typography color='textSecondary' variant="h2">
-                      Bitácoras <br />
-                      Fotográficas
-                    </Typography>
-                    <Typography variant="subtitle" color='textSecondary'>
-                      Más de 3000 fotográfias
-                    </Typography>
-                  </Grid>
-
-                  <Grid item xs style={{ textAlign: 'right' }}>
-                    <Button style={{ color: COLORS.orange }}>
-                      VER BITÁCORAS
-                    </Button>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid container item xs={12} justifyContent='space-around'>
-              <Grid item xs={12} md={4} style={{ textAlign: 'center' }}>
-                <Button variant="contained" size='large' className={classes.buttonColorful} style={{ backgroundColor: COLORS.purple, fontSize: '2rem' }}>
-                  Únete a la red
-                </Button>
-              </Grid>
-
-              <Grid item xs={12} md={4} style={{ textAlign: 'center' }}>
-                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue, fontSize: '2rem' }}>
-                  Explora el catálogo
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-      </Grid>
-    </Container>
-    </>
   );
 }
 
@@ -733,128 +602,4 @@ function ActionCard({ chips = [1, 2, 3], color = COLORS.blue, title, detail, ico
       </CardContent>
   </Card>
   )
-}
-
-function CardDetail() {
-  const classes = useStyles();
-  const [expanded, setExpanded] = useState(false)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
-  return (
-    <Card style={{ borderRadius: 24 }}>
-    <CardHeader
-        component={Box}
-        avatar={<Avatar src='https://www.weact.org/wp-content/uploads/2016/10/Blank-profile.png' style={{ width: '5rem', height: '5rem' }} />}
-        subheader={
-          <Box display='flex' flexDirection='column'>
-            <Typography variant='h1' color='textSecondary'>
-              Ignacio Colobrí
-            </Typography>
-            <Typography variant='h6'>
-             Director
-            </Typography>
-          </Box>
-        }
-      />
-
-    <CardContent style={{ padding: 0 }}>
-    <Box
-          alignItems='center'
-          bgcolor={COLORS.bg}
-          color='black'
-          display='flex'
-          justifyContent='center'
-          px={4}
-        >
-          <Typography variant='h5' component='h3' style={{ marginLeft: 'auto' }}>
-            Highlights
-          </Typography>
-          <IconButton
-            color={'inherit'}
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </Box>
-        <Collapse in={expanded} timeout='auto' unmountOnExit>
-          <Box
-              px={4}
-              mt={3}
-              style={{ overflow: 'auto', whiteSpace: 'nowrap' }}
-            >
-              <Chip
-                label='email1@gmail.com'
-                style={{ backgroundColor: COLORS.bg, marginRight: 8 }}
-              />
-
-              <Chip
-                label='email1@gmail.com'
-                style={{ backgroundColor: COLORS.bg, marginRight: 8 }}
-              />
-            </Box>
-        </Collapse>
-
-    </CardContent>
-
-    <CardActions>
-      <Box
-        display='flex'
-        justifyContent='flex-end'
-        width='100%'
-        mt={1}
-        p={1}
-      >
-        <Tooltip title='Contacto'>
-          <IconButton
-          size='medium'
-          variant='contained'
-          style={{ marginRight: 8, color: blue[500] }}
-          >
-          <AccountCircleIcon />
-          </IconButton>
-        </Tooltip>
-
-        <Tooltip title='Whatsapp'>
-            <IconButton
-              size='medium'
-              variant='contained'
-              style={{ marginRight: 8, color: green[500] }}
-            >
-              <WhatsAppIcon />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip title='Teléfono'>
-            <IconButton
-              size='medium'
-              color='#000'
-              variant='contained'
-              style={{ marginRight: 8 }}
-            >
-              <PhoneIcon />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip title='Correo'>
-            <IconButton
-              size='medium'
-              color='#000'
-              variant='contained'
-              style={{ marginRight: 8 }}
-            >
-              <MailOutlineIcon />
-            </IconButton>
-          </Tooltip>
-      </Box>
-    </CardActions>
-   </Card>
-  );
 }
