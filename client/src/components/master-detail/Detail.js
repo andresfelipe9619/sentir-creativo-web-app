@@ -59,8 +59,13 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
     let value = data[key]
     if (col?.form?.type === 'select') {
       value = value?.id
-      console.log(`value`, value)
+      console.log(`select`, value)
     }
+    if (col?.form?.type === 'multiselect') {
+      value = (value || []).map(i => i.id)
+      console.log(`multiselect`, value)
+    }
+
     acc[key] = value
     return acc
   }, {})

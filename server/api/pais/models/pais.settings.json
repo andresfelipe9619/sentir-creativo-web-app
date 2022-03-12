@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "acuerdos",
+  "collectionName": "pais",
   "info": {
-    "name": "acuerdos",
-    "description": ""
+    "name": "pais"
   },
   "options": {
     "increments": true,
@@ -15,13 +14,9 @@
     "nombre": {
       "type": "string"
     },
-    "staff": {
-      "collection": "staf",
-      "via": "acuerdos",
-      "dominant": true
-    },
-    "estado": {
-      "model": "estado-staff"
+    "regiones": {
+      "via": "pais",
+      "collection": "region"
     }
   }
 }

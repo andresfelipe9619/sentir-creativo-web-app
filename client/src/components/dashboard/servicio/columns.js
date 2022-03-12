@@ -14,27 +14,43 @@ const columns = [
     }
   },
   {
-    name: 'impacto',
-    label: 'Impacto',
+    name: 'slogan',
+    label: 'Slogan',
     options: {
       filter: true,
-      sort: false
+      sort: true
     },
     form: {
-      size: 4,
+      size: 8,
       type: 'input'
     }
   },
   {
-    name: 'avance',
-    label: 'Avance',
+    name: 'sintesis',
+    label: 'Sintesis',
     options: {
-      filter: true,
+      display: false,
+      filter: false,
       sort: false
     },
     form: {
-      size: 4,
-      type: 'input'
+      size: 12,
+      type: 'input',
+      multiline: true
+    }
+  },
+  {
+    name: 'estado',
+    label: 'Estado',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'ServiceState'
     }
   },
   {
@@ -42,7 +58,7 @@ const columns = [
     label: 'Formatos',
     options: {
       filter: true,
-      sort: false,
+      sort: true,
       customBodyRender: customBodyRender()
     },
     form: {
@@ -52,71 +68,56 @@ const columns = [
     }
   },
   {
-    name: 'estado_proyecto',
-    label: 'Estado',
+    name: 'tags',
+    label: 'Tags',
     options: {
-      filter: true,
+      filter: false,
       sort: false,
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 6,
-      type: 'select',
-      dependency: 'EstadoProyecto'
+      size: 12,
+      type: 'tag'
     }
   },
+
   {
-    name: 'tipo_proyecto',
-    label: 'Tipo Proyecto',
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender()
-    },
-    form: {
-      size: 6,
-      type: 'select',
-      dependency: 'TipoProyecto'
-    }
-  },
-  {
-    name: 'fechaInicio',
-    label: 'Fecha Inicio',
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender()
-    },
-    form: {
-      size: 4,
-      type: 'date'
-    }
-  },
-  {
-    name: 'fechaFin',
-    label: 'Fecha Fin',
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender()
-    },
-    form: {
-      size: 4,
-      type: 'date'
-    }
-  },
-  {
-    name: 'descripcion',
-    label: 'Descripcion',
+    name: 'tecnica_artisticas',
+    label: 'Técnicas Artísticas',
     options: {
       display: false,
-      filter: true,
+      filter: false,
       sort: false
     },
     form: {
-      size: 10,
-      type: 'input',
-      multiline: true
+      size: 12,
+      type: 'tag'
+    }
+  },
+  {
+    name: 'ocasions',
+    label: 'Ocasiones',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'tag'
+    }
+  },
+  {
+    name: 'publico_objetivos',
+    label: 'Público Objetivo',
+    options: {
+      filter: false,
+      sort: false,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 12,
+      type: 'tag'
     }
   },
   {
@@ -133,4 +134,5 @@ const columns = [
     }
   }
 ]
+
 export default columns
