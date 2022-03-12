@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useHistory } from 'react-router'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Link from '@material-ui/core/Link'
@@ -22,6 +23,7 @@ import { green } from '@material-ui/core/colors'
 import Chip from '@material-ui/core/Chip'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
+import CopyClipboard from '../clipboard'
 
 const DOMAIN = "sentircreativo"
 const HOST = `https://www.${DOMAIN}.com`
@@ -76,12 +78,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function AppFooter() {
   const classes = useStyles()
+  const history = useHistory()
   const marginTop = window.location.href.includes('about') ? '-.5rem' : '15%'
 
   return (
     <Container className={classes.root} maxWidth='xl' style={{ marginTop }}>
-      <Grid container spacing={6}>
-          <Grid item md={6}>
+      <Grid container spacing={6} justifyContent='center'>
+          <Grid item xs={12}>
             <Typography variant='h1' className={classes.title}>
               Cuenta con nosotros
             </Typography>
@@ -120,23 +123,29 @@ export default function AppFooter() {
               </Card>
             </Grid>
 
-            <Grid item xs={9} md={3} style={{ margin: '0 auto' }}>
+            <Grid item xs={12} md={3} style={{ margin: '0 auto' }}>
               <Box display='flex' justifyContent='space-around' mb={3}>
-                <Avatar alt="Icono" src={'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg'}
-                  style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                <Link href='https://www.facebook.com/Sentircreativo/' target="_blank">
+                  <Avatar alt="Icono" src={'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg'}
+                    style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                </Link>
 
-                <Avatar alt="Icono" src={'https://cdn-icons-png.flaticon.com/512/1409/1409946.png'}
-                  style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                <Link href='https://www.instagram.com/sentircreativo/' target="_blank">
+                  <Avatar alt="Icono" src={'https://cdn-icons-png.flaticon.com/512/1409/1409946.png'}
+                    style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                </Link>
 
-                <Avatar alt="Icono" src={'https://play-lh.googleusercontent.com/J8k5q78xv4R8Smi4vOE6iUphLvOz0efC-0lzoyGfd0KRUlAv4ekuCtlss6KBN-tMvEw'}
-                  style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                <Link href='https://twitter.com/sentir_creativo' target="_blank">
+                  <Avatar alt="Icono" src={'https://play-lh.googleusercontent.com/J8k5q78xv4R8Smi4vOE6iUphLvOz0efC-0lzoyGfd0KRUlAv4ekuCtlss6KBN-tMvEw'}
+                    style={{ width: '4rem', height: '4rem', borderRadius: '50%' }} />
+                </Link>
               </Box>
 
               <Card style={{ borderRadius: 16 }}>
                 <CardContent component={Grid} container spacing={2}>
                   <Grid item xs={3}>
                     <CardMedia image={'https://pbs.twimg.com/profile_images/666413114489831424/aJZNErvd_400x400.png'}
-                      component='img' />
+                      component='img' width='65' height='65' />
                   </Grid>
 
                   <Grid item xs={8}>
@@ -150,7 +159,8 @@ export default function AppFooter() {
                   </Grid>
 
                   <Grid item xs style={{ textAlign: 'right' }}>
-                    <Button style={{ color: COLORS.orange }}>
+                    <Button style={{ color: COLORS.orange }} href='https://www.flickr.com/photos/sentircreativo/albums'
+                      target='_blank'>
                       VER BITÁCORAS
                     </Button>
                   </Grid>
@@ -166,7 +176,8 @@ export default function AppFooter() {
               </Grid>
 
               <Grid item xs={12} md={4} style={{ textAlign: 'center' }}>
-                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue, fontSize: '2rem' }}>
+                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue, fontSize: '2rem' }}
+                  onClick={() => history.push('/')}>
                   Explora el catálogo
                 </Button>
               </Grid>
@@ -249,21 +260,17 @@ function CardDetail() {
           </IconButton>
         </Box>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
-          <Box
-              px={4}
-              mt={3}
-              style={{ overflow: 'auto', whiteSpace: 'nowrap' }}
-            >
-              <Chip
-                label='email1@gmail.com'
-                style={{ backgroundColor: COLORS.bg, marginRight: 8 }}
-              />
-
-              <Chip
-                label='email1@gmail.com'
-                style={{ backgroundColor: COLORS.bg, marginRight: 8 }}
-              />
-            </Box>
+          <Box px={4} mt={3} style={{ overflow: 'auto', whiteSpace: 'nowrap' }}>
+            {[1, 2].map(x => (<CopyClipboard>
+              {({ copy }) => (
+                <Chip
+                  label='email1@gmail.com'
+                  style={{ backgroundColor: COLORS.bg, marginRight: 8 }}
+                  onClick={() => copy('email1@gmail.com')}
+                />
+              )}
+            </CopyClipboard>))}
+          </Box>
         </Collapse>
 
     </CardContent>
