@@ -18,15 +18,15 @@
     "descripcion": {
       "type": "text"
     },
-    "servicios": {
-      "collection": "servicio",
-      "via": "coleccion"
-    },
     "archivos": {
       "collection": "archivo"
     },
     "cuponDescuento": {
       "model": "cupon-descuento"
+    },
+    "servicios": {
+      "via": "colecciones",
+      "collection": "servicio"
     }
   }
 }

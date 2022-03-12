@@ -1,4 +1,20 @@
+import { customBodyRender } from '../../master-detail/MasterDetail'
+
 const columns = [
+  {
+    name: 'prefijo',
+    label: 'Prefijo',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 2,
+      type: 'select',
+      dependency: 'Prefijo'
+    }
+  },
   {
     name: 'nombre',
     label: 'Nombre',
@@ -7,7 +23,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 5,
       type: 'input'
     }
   },
@@ -19,7 +35,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 5,
       type: 'input'
     }
   },
@@ -31,7 +47,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'input'
     }
   },
@@ -43,7 +59,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'input'
     }
   },
@@ -55,7 +71,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'input'
     }
   },
@@ -67,7 +83,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'input'
     }
   },
@@ -79,8 +95,104 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'input'
+    }
+  },
+  {
+    name: 'fechaNacimiento',
+    label: 'Fecha Nacimiento',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'date'
+    }
+  },
+  {
+    name: 'estado',
+    label: 'Estado',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'StaffState'
+    }
+  },
+  {
+    name: 'cupon_descuentos',
+    label: 'Cupones Descuentos',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: 'multiselect',
+      dependency: 'CuponDescuento'
+    }
+  },
+  {
+    name: 'origen',
+    label: 'Origen',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Origen'
+    }
+  },
+  {
+    name: 'tecnica_artisticas',
+    label: 'Técnicas Artísticas',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'TecnicaArtistica'
+    }
+  },
+  {
+    name: 'servicios',
+    label: 'Servicios',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Servicio'
+    }
+  },
+  {
+    name: 'acuerdos',
+    label: 'Acuerdos',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Acuerdo'
     }
   },
   {

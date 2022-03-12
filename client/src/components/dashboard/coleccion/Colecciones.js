@@ -1,6 +1,8 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
-import MasterDetail from '../../master-detail/MasterDetail'
+import MasterDetail, {
+  customBodyRender
+} from '../../master-detail/MasterDetail'
 
 const columns = [
   {
@@ -16,6 +18,20 @@ const columns = [
     }
   },
   {
+    name: 'cupon_descuentos',
+    label: 'Cupones Descuentos',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: 'multiselect',
+      dependency: 'CuponDescuento'
+    }
+  },
+  {
     name: 'descripcion',
     label: 'Descripcion',
     options: {
@@ -24,7 +40,22 @@ const columns = [
     },
     form: {
       size: 6,
-      type: 'input'
+      type: 'input',
+      multiline: true
+    }
+  },
+  {
+    name: 'servicios',
+    label: 'Servicios',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Servicio'
     }
   },
   {

@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "pais",
   "info": {
-    "name": "pais"
+    "name": "pais",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -17,6 +18,9 @@
     "regiones": {
       "via": "pais",
       "collection": "region"
+    },
+    "codigo": {
+      "type": "string"
     }
   }
 }

@@ -21,7 +21,7 @@ import Files from '../files/Files'
 import MuiPhoneNumber from 'material-ui-phone-number'
 import Bitacora from '../bitacora/Bitacora'
 import Upload from '../files/Upload'
-import { useTheme } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -37,7 +37,7 @@ const MenuProps = {
 function getStyles (name, options, theme) {
   return {
     fontWeight:
-      options.findIndex(o => o?.id === name) === -1
+      (options || []).findIndex(o => o?.id === name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium
   }
@@ -58,6 +58,7 @@ export default function FormItem (props) {
     handleBlur
   } = props
   const theme = useTheme()
+  const classes = useStyles()
   if (!item?.form) return null
   const {
     size,
@@ -84,6 +85,7 @@ export default function FormItem (props) {
           format='dd/MM/yyyy HH:mm'
           margin='normal'
           id={key}
+          fullWidth
           style={{ margin: 0 }}
           inputVariant='outlined'
           label={item.label}
@@ -161,6 +163,7 @@ export default function FormItem (props) {
           labelId={`${key}-label`}
           id={key}
           name={key}
+          label={item.label}
           disabled={isSubmitting}
           value={value || ''}
           onChange={handleChange}
@@ -180,6 +183,7 @@ export default function FormItem (props) {
       <FormControl fullWidth variant='outlined'>
         <InputLabel id={`${key}-label`}>{item.label}</InputLabel>
         <Select
+          label={item.label}
           labelId={`${key}-label`}
           id={key}
           name={key}
@@ -190,6 +194,7 @@ export default function FormItem (props) {
           input={
             <Input
               variant='outlined'
+              disabled={isSubmitting}
               id={`select-multiple-${key}`}
               aria-label={item.label}
             />
@@ -197,9 +202,14 @@ export default function FormItem (props) {
           renderValue={selected => {
             const items = selected.map(id => options.find(o => o.value === id))
             return (
-              <div>
+              <div className={classes.chips}>
                 {items.map((p, i) => (
-                  <Chip key={p + i} label={p.label} />
+                  <Chip
+                    key={p + i}
+                    label={p.label}
+                    disabled={isSubmitting}
+                    className={classes.chip}
+                  />
                 ))}
               </div>
             )
@@ -231,3 +241,16 @@ export default function FormItem (props) {
     </Grid>
   )
 }
+
+const useStyles = makeStyles(theme => ({
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  chip: {
+    margin: 2
+  },
+  noLabel: {
+    marginTop: theme.spacing(3)
+  }
+}))

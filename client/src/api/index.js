@@ -115,6 +115,14 @@ const AudienceState = {
   delete: id => serverRequests.del(`/estado-audiencias/${id}`)
 }
 
+const StaffState = {
+  getAll: () => serverRequests.get(`/estado-staffs`),
+  get: id => serverRequests.get(`/estado-staffs/${id}`),
+  create: state => serverRequests.post('/estado-staffs', state),
+  update: (id, state) => serverRequests.put(`/estado-staffs/${id}`, state),
+  delete: id => serverRequests.del(`/estado-staffs/${id}`)
+}
+
 const PublicoObjetivo = {
   getAll: () => serverRequests.get(`/publico-objetivos`),
   get: id => serverRequests.get(`/publico-objetivos/${id}`),
@@ -199,25 +207,89 @@ const Antiguedad = {
 const CuponDescuento = {
   getAll: () => serverRequests.get(`/cupon-descuentos`),
   get: id => serverRequests.get(`/cupon-descuentos/${id}`),
-  create: format => serverRequests.post('/cupon-descuentos', format),
-  update: (id, format) => serverRequests.put(`/cupon-descuentos/${id}`, format),
+  create: cupon => serverRequests.post('/cupon-descuentos', cupon),
+  update: (id, cupon) => serverRequests.put(`/cupon-descuentos/${id}`, cupon),
   delete: id => serverRequests.del(`/cupon-descuentos/${id}`)
 }
 
 const Cercania = {
   getAll: () => serverRequests.get(`/cercanias`),
   get: id => serverRequests.get(`/cercanias/${id}`),
-  create: format => serverRequests.post('/cercanias', format),
-  update: (id, format) => serverRequests.put(`/cercanias/${id}`, format),
+  create: cercania => serverRequests.post('/cercanias', cercania),
+  update: (id, cercania) => serverRequests.put(`/cercanias/${id}`, cercania),
   delete: id => serverRequests.del(`/cercanias/${id}`)
 }
 
 const Origen = {
   getAll: () => serverRequests.get(`/origens`),
   get: id => serverRequests.get(`/origens/${id}`),
-  create: format => serverRequests.post('/origens', format),
-  update: (id, format) => serverRequests.put(`/origens/${id}`, format),
+  create: origen => serverRequests.post('/origens', origen),
+  update: (id, origen) => serverRequests.put(`/origens/${id}`, origen),
   delete: id => serverRequests.del(`/origens/${id}`)
+}
+
+const Organizacion = {
+  getAll: () => serverRequests.get(`/organizacions`),
+  get: id => serverRequests.get(`/organizacions/${id}`),
+  create: org => serverRequests.post('/organizacions', org),
+  update: (id, org) => serverRequests.put(`/organizacions/${id}`, org),
+  delete: id => serverRequests.del(`/organizacions/${id}`)
+}
+
+const Condicion = {
+  getAll: () => serverRequests.get(`/difusions`),
+  get: id => serverRequests.get(`/difusions/${id}`),
+  create: org => serverRequests.post('/difusions', org),
+  update: (id, org) => serverRequests.put(`/difusions/${id}`, org),
+  delete: id => serverRequests.del(`/difusions/${id}`)
+}
+
+const Ocasion = {
+  getAll: () => serverRequests.get(`/ocasions`),
+  get: id => serverRequests.get(`/ocasions/${id}`),
+  create: org => serverRequests.post('/ocasions', org),
+  update: (id, org) => serverRequests.put(`/ocasions/${id}`, org),
+  delete: id => serverRequests.del(`/ocasions/${id}`)
+}
+
+const Prioridad = {
+  getAll: () => serverRequests.get(`/prioridads`),
+  get: id => serverRequests.get(`/prioridads/${id}`),
+  create: org => serverRequests.post('/prioridads', org),
+  update: (id, org) => serverRequests.put(`/prioridads/${id}`, org),
+  delete: id => serverRequests.del(`/prioridads/${id}`)
+}
+
+const Proposito = {
+  getAll: () => serverRequests.get(`/propositos`),
+  get: id => serverRequests.get(`/propositos/${id}`),
+  create: org => serverRequests.post('/propositos', org),
+  update: (id, org) => serverRequests.put(`/propositos/${id}`, org),
+  delete: id => serverRequests.del(`/propositos/${id}`)
+}
+
+const Sugerencia = {
+  getAll: () => serverRequests.get(`/sugerencias`),
+  get: id => serverRequests.get(`/sugerencias/${id}`),
+  create: org => serverRequests.post('/sugerencias', org),
+  update: (id, org) => serverRequests.put(`/sugerencias/${id}`, org),
+  delete: id => serverRequests.del(`/sugerencias/${id}`)
+}
+
+const Difusion = {
+  getAll: () => serverRequests.get(`/difusions`),
+  get: id => serverRequests.get(`/difusions/${id}`),
+  create: org => serverRequests.post('/difusions', org),
+  update: (id, org) => serverRequests.put(`/difusions/${id}`, org),
+  delete: id => serverRequests.del(`/difusions/${id}`)
+}
+
+const Acuerdo = {
+  getAll: () => serverRequests.get(`/acuerdos`),
+  get: id => serverRequests.get(`/acuerdos/${id}`),
+  create: acuerdo => serverRequests.post('/acuerdos', acuerdo),
+  update: (id, acuerdo) => serverRequests.put(`/acuerdos/${id}`, acuerdo),
+  delete: id => serverRequests.del(`/acuerdos/${id}`)
 }
 
 const TipoArchivo = {
@@ -228,33 +300,52 @@ const TipoArchivo = {
   delete: id => serverRequests.del(`/tipo-archivos/${id}`)
 }
 
+const TecnicaArtistica = {
+  getAll: () => serverRequests.get(`/tecnica-artisticas`),
+  get: id => serverRequests.get(`/tecnica-artisticas/${id}`),
+  create: tecnica => serverRequests.post('/tecnica-artisticas', tecnica),
+  update: (id, tecnica) =>
+    serverRequests.put(`/tecnica-artisticas/${id}`, tecnica),
+  delete: id => serverRequests.del(`/tecnica-artisticas/${id}`)
+}
+
 const API = {
-  Auth,
-  User,
-  Area,
-  Tag,
-  Rubro,
-  Archivo,
-  Proyecto,
-  Audiencia,
-  Servicio,
-  Formato,
-  Prefijo,
-  Staf,
-  TipoArchivo,
-  Motivacion,
+  Acuerdo,
   Antiguedad,
-  CuponDescuento,
-  Cercania,
-  Origen,
-  Coleccion,
+  Archivo,
+  Area,
   AudienceState,
-  ServiceState,
-  PublicoObjetivo,
+  Audiencia,
+  Auth,
+  Cercania,
+  Condicion,
+  Coleccion,
+  CuponDescuento,
+  Difusion,
   EstadoProyecto,
+  Formato,
+  Motivacion,
+  Ocasion,
+  Origen,
+  Organizacion,
+  Prefijo,
+  Prioridad,
+  Proposito,
+  Proyecto,
+  PublicoObjetivo,
+  Rubro,
+  ServiceState,
+  Servicio,
+  Staf,
+  StaffState,
+  Sugerencia,
+  Tag,
+  TecnicaArtistica,
+  TipoArchivo,
   TipoProyecto,
-  setToken,
-  getToken
+  User,
+  getToken,
+  setToken
 }
 
 export default API
