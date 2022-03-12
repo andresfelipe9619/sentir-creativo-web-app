@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import Chip from '@material-ui/core/Chip'
-import { makeStyles } from '@material-ui/core/styles'
+import { alpha, makeStyles } from '@material-ui/core/styles'
 import API from '../api'
 import Card from '../components/card/ServiceCard'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
@@ -12,6 +11,8 @@ import DossierModal from '../components/modals/DossierModal'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Spinner from '../components/spinner/Spinner'
+import { getAreaBackground } from '../utils'
+import Filters from '../components/filters/Filters'
 
 function useQuery () {
   return new URLSearchParams(useLocation().search)
@@ -82,12 +83,18 @@ export default function Areas () {
   if (loading) return <Spinner />
   if (!selectedArea) return null
   const color = selectedArea.colorPrimario
-  let ocassions = services
-    .map(s => (s?.ocasions || []).map(o => o.nombre))
-    .flatMap(f => f)
-  ocassions = [...new Set(ocassions)]
   return (
-    <Grid mt={3} container justifyContent='center' component={Box}>
+    <Grid
+      pt={3}
+      px={0}
+      container
+      justifyContent='center'
+      component={Box}
+      style={{
+        background: getAreaBackground(selectedArea),
+        color: 'white'
+      }}
+    >
       <DossierModal
         open={!!showDossier}
         handleClose={handleCloseDossier}
@@ -104,58 +111,91 @@ export default function Areas () {
           align='center'
           paragraph
           gutterBottom
-          style={{ color }}
+          style={{ color: 'white', backgroundColor: color }}
         >
           {selectedArea.nombre}
         </Typography>
-        <Typography paragraph gutterBottom align='center'>
+        <Typography
+          paragraph
+          gutterBottom
+          align='center'
+          className={classes.title}
+        >
           {selectedArea.slogan}
         </Typography>
-        <Typography variant='caption' paragraph gutterBottom>
-          A continuación presentamos nuestro Catálogo de {selectedArea.nombre}.
-          Revisa las experiencias que disponemos de nuestra Red de Artístas,
-          solicita un Ticket y obtendrás un presupuesto detallado, sin
-          compromiso.
-        </Typography>
-        <Box mb={3} className={classes.root}>
-          <Typography variant='h3' paragraph gutterBottom style={{ color }}>
-            Catálogo de experiencias
-          </Typography>
-          <Typography variant='caption' paragraph gutterBottom>
-            Filtra Según la ocasión
-          </Typography>
-          {(ocassions || []).map(t => (
-            <Chip key={t} label={t} />
+      </Grid>
+      <Filters>
+        <Grid container component={Box} my={0} m={0} p={0} alignItems='center'>
+          {services.map(s => (
+            <Grid
+              xs={12 / length}
+              md={4}
+              xl={3}
+              component={Box}
+              m={0}
+              p={0}
+              item
+              key={s.id}
+            >
+              <Card
+                service={s}
+                color={color}
+                handleClickPrimary={handleOpenModal(s)}
+                handleClickSecundary={handleOpenDossier(s)}
+              />
+            </Grid>
           ))}
-        </Box>
-      </Grid>
-      <Grid item md={10}></Grid>
-      <Grid item md={10}>
-        <Typography variant='h3' paragraph gutterBottom color='textSecondary'>
-          {services.length} Experiencias conciden con la búsqueda.
-        </Typography>
-      </Grid>
-      <Grid container component={Box} my={0} m={0} p={0} alignItems='center'>
-        {services.map(s => (
-          <Grid xs={12 / length} md={4} xl={3} component={Box} m={0} p={0} item key={s.id}>
-            <Card
-              service={s}
-              color={color}
-              handleClickPrimary={handleOpenModal(s)}
-              handleClickSecundary={handleOpenDossier(s)}
-            />
-          </Grid>
-        ))}
-      </Grid>
+        </Grid>
+      </Filters>
     </Grid>
   )
 }
 
 export const useStyles = makeStyles(theme => ({
-  title: { fontWeight: 'bold' },
+  title: { fontWeight: 'bold', fontSize: '24rm' },
+  slogan: { fontSize: '24em' },
   root: {
     '& > *': {
       margin: theme.spacing(0.5)
+    }
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25)
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto'
+    }
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  inputRoot: {
+    color: 'inherit'
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch'
+      }
     }
   }
 }))
