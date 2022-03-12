@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
   },
   text: { color: "#4f0606" },
   appBar: {
-    marginTop: '15%',
     top: 'auto',
     bottom: 0,
     padding: 0,
@@ -82,9 +81,10 @@ function Block({ title, items }) {
 
 export default function AppFooter() {
   const classes = useStyles()
+  const marginTop = window.location.href.includes('about') ? '-.5rem' : '15%'
 
   return (
-    <AppBar position='static' className={classes.appBar}>
+    <AppBar position='static' className={classes.appBar} style={{ marginTop }}>
       <Toolbar>
         <Box
           component='footer'
