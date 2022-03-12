@@ -678,7 +678,6 @@ function Principles({ title, details, avatar }) {
   const theme = useTheme()
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
   const size = isMedium ? '5rem' : '13rem';
-
   return (
     <Card style={{ overflow: 'visible', borderRadius: '.75rem' }}>
       <CardContent component={Box} display='flex' alignItems="center" style={{ padding: 0 }}>

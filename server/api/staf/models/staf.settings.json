@@ -16,9 +16,10 @@
       "collection": "comentario",
       "via": "staf"
     },
-    "rol": {
-      "via": "stafs",
-      "model": "rol"
+    "roles": {
+      "collection": "rol",
+      "via": "staff",
+      "dominant": true
     },
     "servicios": {
       "via": "stafs",
@@ -72,6 +73,9 @@
     "acuerdos": {
       "via": "staff",
       "collection": "acuerdos"
+    },
+    "prefijo": {
+      "model": "prefijo"
     }
   }
 }

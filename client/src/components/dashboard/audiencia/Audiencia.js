@@ -19,7 +19,7 @@ const columns = [
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 6,
+      size: 2,
       type: 'select',
       dependency: 'Prefijo'
     }
@@ -32,7 +32,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 5,
       type: 'input'
     }
   },
@@ -44,7 +44,7 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 5,
       type: 'input'
     }
   },
@@ -56,7 +56,19 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
+      type: 'input'
+    }
+  },
+  {
+    name: 'email2',
+    label: 'Email 2',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
       type: 'input'
     }
   },
@@ -68,7 +80,19 @@ const columns = [
       sort: true
     },
     form: {
-      size: 6,
+      size: 4,
+      type: 'input'
+    }
+  },
+  {
+    name: 'profesion',
+    label: 'Profesion',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
       type: 'input'
     }
   },
@@ -81,8 +105,58 @@ const columns = [
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 6,
+      size: 4,
       type: 'input'
+    }
+  },
+  {
+    name: 'cargo',
+    label: 'Cargo',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input'
+    }
+  },
+  {
+    name: 'departamento',
+    label: 'Departamento',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input'
+    }
+  },
+  {
+    name: 'ciudad',
+    label: 'Ciudad',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input'
+    }
+  },
+  {
+    name: 'organizacion',
+    label: 'Organización',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Organizacion'
     }
   },
   {
@@ -100,42 +174,6 @@ const columns = [
     }
   },
   {
-    name: 'cargo',
-    label: 'Cargo',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 6,
-      type: 'input'
-    }
-  },
-  {
-    name: 'departamento',
-    label: 'Departamento',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 6,
-      type: 'input'
-    }
-  },
-  {
-    name: 'ciudad',
-    label: 'Ciudad',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 6,
-      type: 'input'
-    }
-  },
-  {
     name: 'antiguedad',
     label: 'Antiguedad',
     options: {
@@ -150,8 +188,8 @@ const columns = [
     }
   },
   {
-    name: 'cuponDescuento',
-    label: 'Cupon Descuento',
+    name: 'difusiones',
+    label: 'Difusiones',
     options: {
       filter: true,
       sort: true,
@@ -159,7 +197,21 @@ const columns = [
     },
     form: {
       size: 6,
-      type: 'select',
+      type: 'multiselect',
+      dependency: 'Difusion'
+    }
+  },
+  {
+    name: 'cupon_descuentos',
+    label: 'Cupones Descuentos',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: 'multiselect',
       dependency: 'CuponDescuento'
     }
   },
@@ -203,6 +255,19 @@ const columns = [
       size: 6,
       type: 'select',
       dependency: 'Motivacion'
+    }
+  },
+  {
+    name: 'tags',
+    label: 'Tags',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 12,
+      type: 'tag'
     }
   },
   {

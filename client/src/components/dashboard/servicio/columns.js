@@ -14,6 +14,32 @@ const columns = [
     }
   },
   {
+    name: 'minimoParticipantes',
+    label: 'Mínimo Participantes',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input',
+      inputType: 'number'
+    }
+  },
+  {
+    name: 'maximoParticipantes',
+    label: 'Máximo Participantes',
+    options: {
+      filter: true,
+      sort: true
+    },
+    form: {
+      size: 4,
+      type: 'input',
+      inputType: 'number'
+    }
+  },
+  {
     name: 'slogan',
     label: 'Slogan',
     options: {
@@ -21,10 +47,11 @@ const columns = [
       sort: true
     },
     form: {
-      size: 8,
+      size: 6,
       type: 'input'
     }
   },
+
   {
     name: 'sintesis',
     label: 'Sintesis',
@@ -34,7 +61,7 @@ const columns = [
       sort: false
     },
     form: {
-      size: 12,
+      size: 6,
       type: 'input',
       multiline: true
     }
@@ -51,6 +78,34 @@ const columns = [
       size: 6,
       type: 'select',
       dependency: 'ServiceState'
+    }
+  },
+  {
+    name: 'area',
+    label: 'Area',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Area'
+    }
+  },
+  {
+    name: 'prioridad',
+    label: 'Prioridad',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'select',
+      dependency: 'Prioridad'
     }
   },
   {
@@ -76,8 +131,9 @@ const columns = [
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 12,
-      type: 'tag'
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Tag'
     }
   },
 
@@ -90,8 +146,9 @@ const columns = [
       sort: false
     },
     form: {
-      size: 12,
-      type: 'tag'
+      size: 6,
+      type: 'multiselect',
+      dependency: 'TecnicaArtistica'
     }
   },
   {
@@ -103,8 +160,93 @@ const columns = [
       sort: false
     },
     form: {
-      size: 12,
-      type: 'tag'
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Ocasion'
+    }
+  },
+  {
+    name: 'condiciones',
+    label: 'Condiciones',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Condicion'
+    }
+  },
+  {
+    name: 'sugerencias',
+    label: 'Sugerencias',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Sugerencia'
+    }
+  },
+  {
+    name: 'propositos',
+    label: 'Propositos',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Proposito'
+    }
+  },
+  {
+    name: 'stafs',
+    label: 'Staff',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Staf'
+    }
+  },
+  {
+    name: 'proyectos',
+    label: 'Proyectos',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Proyecto'
+    }
+  },
+  {
+    name: 'colecciones',
+    label: 'Colecciones',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Coleccion'
     }
   },
   {
@@ -116,8 +258,9 @@ const columns = [
       customBodyRender: customBodyRender()
     },
     form: {
-      size: 12,
-      type: 'tag'
+      size: 6,
+      type: 'multiselect',
+      dependency: 'PublicoObjetivo'
     }
   },
   {
@@ -129,7 +272,7 @@ const columns = [
       sort: false
     },
     form: {
-      size: 12,
+      size: 6,
       type: 'file'
     }
   }

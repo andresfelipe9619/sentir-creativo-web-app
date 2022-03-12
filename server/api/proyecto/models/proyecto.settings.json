@@ -64,6 +64,13 @@
       "via": "proyectos",
       "collection": "staf",
       "dominant": true
+    },
+    "servicios": {
+      "via": "proyectos",
+      "collection": "servicio"
+    },
+    "cupon_descuentos": {
+      "collection": "cupon-descuento"
     }
   }
 }

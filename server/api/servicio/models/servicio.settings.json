@@ -78,9 +78,21 @@
       "collection": "staf",
       "dominant": true
     },
-    "coleccion": {
+    "colecciones": {
+      "collection": "coleccion",
       "via": "servicios",
-      "model": "coleccion"
+      "dominant": true
+    },
+    "proyectos": {
+      "via": "servicios",
+      "collection": "proyecto",
+      "dominant": true
+    },
+    "minimoParticipantes": {
+      "type": "integer"
+    },
+    "maximoParticipantes": {
+      "type": "integer"
     }
   }
 }
