@@ -45,10 +45,10 @@ export default function ProjectCard ({
   const history = useHistory()
 
   const rows = [
-    createData('Servicio', servicio?.nombre),
+    createData('Servicio', servicio?.nombre || 'Sin asignar'),
     createData('Beneficios', publico_objetivos?.map(x => x.nombre).join(', ')),
-    createData('P. owner', `${staf[0]?.nombre} ${staf[0]?.apellido}`),
-    createData('Finanzas', `${staf[1]?.nombre} ${staf[1]?.apellido}`),
+    createData('P. owner', staf[0]?.nombre ? `${staf[0]?.nombre} ${staf[0]?.apellido}` : 'Sin asignar'),
+    createData('Finanzas', staf[0]?.nombre ? `${staf[1]?.nombre} ${staf[1]?.apellido}` : 'Sin asignar'),
     createData('Cupón', audiencia?.cuponDescuento || 'No cupón')
   ]
 

@@ -131,10 +131,8 @@ export default function AdminCard ({
           {renderHighlights && renderHighlights()}
           {Array.isArray(chips) && (
             <Box
-              alignItems='center'
-              display='flex'
-              justifyContent='center'
               px={4}
+              style={{ overflow: 'auto', whiteSpace: 'nowrap' }}
             >
               {(chips || [])
                 .filter(n => !!n)
@@ -142,7 +140,7 @@ export default function AdminCard ({
                   <Chip
                     key={c}
                     label={c}
-                    style={{ backgroundColor: color[300] }}
+                    style={{ backgroundColor: color[300], marginRight: 8 }}
                   />
                 ))}
             </Box>

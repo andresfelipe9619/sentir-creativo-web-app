@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -6,7 +8,6 @@ import Typography from '@material-ui/core/Typography'
 import CachedIcon from '@material-ui/icons/Cached';
 import SearchIcon from '@material-ui/icons/Search'
 import ReceiptIcon from '@material-ui/icons/Receipt'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ShowChartIcon from '@material-ui/icons/ShowChart'
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
 import WeekendIcon from '@material-ui/icons/Weekend'
@@ -15,8 +16,37 @@ import FaceIcon from '@material-ui/icons/Face'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import Chip from '@material-ui/core/Chip'
-import Avatar from '@material-ui/core/Avatar'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
+import API from '../api'
+import * as IO5 from 'react-icons/io5'
+import * as GI from 'react-icons/gi'
+import FlipCard from '../components/about/FlipCard'
+import PrinciplesCard from '../components/about/PrinciplesCard'
+import Connections from '../components/about/Connections'
+
+const items = {
+  rubros: {
+    'Educación': [
+      'Educación inicial',
+      'Educación básica',
+    ],
+    'Instituciones Públicas': [
+      'Municipalidades'
+    ]
+  },
+  ocasiones: [
+    'Efemérides',
+    'Inauguración año escolar',
+    'Festivales',
+    'Jornadas de autocuidados',
+    'Talleres Sociales'
+  ]
+}
 
 const COLORS = {
   purple: '#b522b4',
@@ -26,6 +56,60 @@ const COLORS = {
   orange: '#ff6c00'
 }
 
+const artistasConnections = [
+  {
+    color: COLORS.purple,
+    icon: CachedIcon,
+    details: 'Conectamos tus talentos \n con \noportunidades\n \nlaborales.',
+    match: 'oportunidades'
+  },
+  {
+    color: COLORS.purple,
+    icon: ReceiptIcon,
+    details: 'Tus servicios artísticos en\n un \nCatálogo\n diseñado por \nartistas.',
+    match: 'Catálogo'
+  },
+  {
+    color: COLORS.purple,
+    icon: ShowChartIcon,
+    details: 'Aumenta tus\n \nIngresos\n haciendo lo \nque amas.',
+    match: 'Ingresos'
+  },
+  {
+    color: COLORS.purple,
+    icon: AttachMoneyIcon,
+    details: 'Valora tus talentos\n artísticos de forma \n\nprofesional.',
+    match: 'profesional.'
+  }
+]
+
+const proyectosConnections = [
+  {
+    color: COLORS.blue,
+    icon: SearchIcon,
+    details: 'Encuentra más de 50\n Experiencias Artísticas\n \ndisponibles.',
+    match: 'disponibles.'
+  },
+  {
+    color: COLORS.blue,
+    icon: FaceIcon,
+    details: 'Para pequeñas y grandes\n \nocasiones\n, contextos y \npresupuestos.',
+    match: 'ocasiones'
+  },
+  {
+    color: COLORS.blue,
+    icon: WidgetsIcon,
+    details: 'Cotiza y recibe hasta \n\ntres propuestas\n \neconómicas detalladas.',
+    match: 'tres propuestas'
+  },
+  {
+    color: COLORS.blue,
+    icon: WeekendIcon,
+    details: 'Siente respaldo en asesoría\n artística, logística, en \nreportes y \nrendición.',
+    match: 'rendición.'
+  }
+]
+
 export const useStyles = makeStyles(theme => ({
   container: {
     paddingTop: theme.spacing(4),
@@ -33,6 +117,7 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, -1),
     width: `calc(100% + ${theme.spacing(1) * 2}px)`,
     backgroundColor: COLORS.bg,
+    overflow: 'hidden',
     [theme.breakpoints.up('lg')]: {
       maxWidth: 'none',
       paddingRight: theme.spacing(5),
@@ -43,13 +128,19 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: '44px',
     color: COLORS.text,
-    lineHeight: 1.25
+    lineHeight: 1.25,
+    [theme.breakpoints.down('md')]: {
+      fontSize: '36px'
+    }
   },
   headerColor2: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: '44px',
     color: COLORS.text,
-    lineHeight: 1
+    lineHeight: 1,
+    [theme.breakpoints.down('md')]: {
+      fontSize: '36px'
+    }
   },
   headerFontSm: {
     fontSize: '36px',
@@ -59,11 +150,17 @@ export const useStyles = makeStyles(theme => ({
   },
   headerFontmd: {
     fontSize: '40px',
-    lineHeight: 1.25
+    lineHeight: 1.25,
+    [theme.breakpoints.down('md')]: {
+      fontSize: '36px'
+    }
   },
   headerFontxl: {
     fontSize: '72px',
-    lineHeight: 1
+    lineHeight: 1,
+    [theme.breakpoints.down('md')]: {
+      fontSize: '64px'
+    }
   },
   buttonColorful: {
     position: 'relative',
@@ -88,17 +185,70 @@ export const useStyles = makeStyles(theme => ({
   principiosText: {
     color: COLORS.orange,
     textShadow: '2px 2px 4px #fff',
-    fontSize: '44px'
+    fontSize: '44px',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '36px'
+    }
   }
 }));
 
 export default function About() {
+  const theme = useTheme()
+  const history = useHistory()
   const classes = useStyles();
+  const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
+  const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
+  const [areas, setAreas] = useState([])
+  const [expanded, setExpanded] = useState(false)
+
+  useEffect(() => {
+    ;(async () => {
+      let result = await API.Area.getAll()
+      result = result.map(area => {
+        let icono = null
+
+        if (/\//.test(area.icono)) {
+          let [prefix, name] = area.icono.split('/')
+
+          if (prefix === 'gi') icono = GI[name]
+          if (prefix === 'io5') icono = IO5[name]
+        }
+
+        return {
+          ...area,
+          icono
+        }
+      })
+      setAreas(result)
+    })()
+  }, [])
+
+  const actionCardPosition = (index) => {
+    if (isLarge) {
+      if ([0, 2].includes(index)) {
+        return '8rem'
+      }
+    }
+
+    return 0;
+  }
+
+  const areaBg = (area) => {
+    const files = [...area.archivos];
+    const bgFileType = 24; // Background PNG
+    const bgURI = files.find(x => x.tipo_archivo?.id === bgFileType)?.path;
+
+    if (!bgURI) {
+      return area.colorPrimario;
+    }
+
+    return `url(${bgURI})`;
+  };
 
   return (
     <Container className={classes.container}>
-      <Grid container spacing={6}>
-        <Grid item md={6}>
+      <Grid container spacing={6} justifyContent="center">
+        <Grid item xs={12}>
           <Typography color='textSecondary' className={classes.headerFontSm}>
             Somos una
           </Typography>
@@ -116,47 +266,9 @@ export default function About() {
 
         {/* Seccion 1 */}
         <Grid container item xs={12} spacing={0} justifyContent='center' alignItems="center" style={{ zIndex: 1 }}>
-          <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', borderRadius: '0 0 2rem 2rem' }}>
-            <Box bgcolor={COLORS.purple} color='white' p={3}>
-              <Typography variant='h1' align='center' className={classes.headerFontxl}>Artistas</Typography>
-            </Box>
-
-            <Box bgcolor='white' p={2} mt={4} mb={8} style={{ borderTopRightRadius: '50px', borderBottomRightRadius: '50px', width: '90%' }}
-              display='flex' justifyContent='space-around' alignItems='center'>
-              <Typography variant='h1' align='center' style={{ color: COLORS.purple }}>
-                Si eres un artista
-              </Typography>
-
-              <KeyboardArrowDownIcon style={{ width: '2.5rem', height: '2.5rem', fill: COLORS.purple }}/>
-            </Box>
-
-            <ConectionsItems
-              color={COLORS.purple}
-              icon={CachedIcon}
-              details={'Conectamos tus talentos \n con \noportunidades\n \nlaborales.'}
-              match='oportunidades'
-            />
-
-            <ConectionsItems
-              color={COLORS.purple}
-              icon={ReceiptIcon}
-              details={'Tus servicios artísticos en\n un \nCatálogo\n diseñado por \nartistas.'}
-              match='Catálogo'
-            />
-
-            <ConectionsItems
-              color={COLORS.purple}
-              icon={ShowChartIcon}
-              details={'Aumenta tus\n \nIngresos\n haciendo lo \nque amas.'}
-              match='Ingresos'
-            />
-
-            <ConectionsItems
-              color={COLORS.purple}
-              icon={AttachMoneyIcon}
-              details={'Valora tus talentos\n artísticos de forma \n\nprofesional.'}
-              match='profesional.'
-            />
+          <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', borderRadius: '0 0 1rem 1rem' }}>
+           <Connections title='Artistas' subtitle='Si eres un artista' color={COLORS.purple}
+            connections={artistasConnections} expanded={expanded} onExpand={setExpanded} />
 
             <Grid container justifyContent='center'>
               <Grid item md={6}>
@@ -173,51 +285,14 @@ export default function About() {
               </Typography>
           </Box>
 
-          <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', zIndex: -1, borderRadius: '0 0 2rem 2rem' }}>
-            <Box bgcolor={COLORS.blue} color='white' p={3}>
-              <Typography variant='h1' align='center' className={classes.headerFontxl}>Proyectos</Typography>
-            </Box>
-
-            <Box bgcolor='white' p={2} mt={4} mb={8} style={{ borderTopLeftRadius: '50px', borderBottomLeftRadius: '50px', width: '90%', marginLeft: 'auto' }}
-              display='flex' justifyContent='space-around' alignItems='center'>
-              <Typography variant='h1' align='center' style={{ color: COLORS.blue }}>
-                Si tienes un proyecto
-              </Typography>
-
-              <KeyboardArrowDownIcon style={{ width: '2.5rem', height: '2.5rem', fill: COLORS.blue }}/>
-            </Box>
-
-            <ConectionsItems
-              color={COLORS.blue}
-              icon={SearchIcon}
-              details={'Encuentra más de 50\n Experiencias Artísticas\n \ndisponibles.'}
-              match='disponibles.'
-            />
-
-            <ConectionsItems
-              color={COLORS.blue}
-              icon={FaceIcon}
-              details={'Para pequeñas y grandes\n \nocasiones\n, contextos y \npresupuestos.'}
-              match='ocasiones'
-            />
-
-            <ConectionsItems
-              color={COLORS.blue}
-              icon={WidgetsIcon}
-              details={'Cotiza y recibe hasta \n\ntres propuestas\n \neconómicas detalladas.'}
-              match='tres propuestas'
-            />
-
-            <ConectionsItems
-              color={COLORS.blue}
-              icon={WeekendIcon}
-              details={'Siente respaldo en asesoría\n artística, logística, en \nreportes y \nrendición.'}
-              match='rendición.'
-            />
+          <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', zIndex: -1, borderRadius: '0 0 1rem 1rem' }}>
+            <Connections title='Proyectos' subtitle='Si tienes un proyecto' color={COLORS.blue}
+              connections={proyectosConnections} expanded={expanded} onExpand={setExpanded} />
 
             <Grid container justifyContent='center'>
               <Grid item md={6}>
-                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue }}>
+                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue }}
+                  onClick={() => history.push('/')}>
                   Explora el catálogo
                 </Button>
               </Grid>
@@ -226,7 +301,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 2 */}
-        <Grid item md={6}>
+        <Grid item xs={12}>
           <Typography variant='h1'>
             Trabajamos con
           </Typography>
@@ -238,9 +313,9 @@ export default function About() {
           </Typography>
         </Grid>
 
-        <Grid container item xs={12} spacing={6} justifyContent='space-around' alignItems="center">
-          <Grid item xs={9} md={5}>
-           <Principles
+        <Grid container item xs={12} spacing={isSmall ? 2 : 6} justifyContent='space-around' alignItems="center">
+          <Grid item xs={12} md={5}>
+           <PrinciplesCard
             title='Pasión'
             details={`Creamos historias, guiones,
             bocetos, partituras o coreografías,
@@ -249,8 +324,8 @@ export default function About() {
             avatar='https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/payasa_450x450px.png' />
           </Grid>
 
-          <Grid item xs={9} md={5}>
-           <Principles
+          <Grid item xs={12} md={5}>
+           <PrinciplesCard
             title='Coherencia'
             details={`Todas las experiencias artísticas
             disponibles buscan promocionar el
@@ -259,8 +334,8 @@ export default function About() {
             avatar='https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/escritora_450x450px.png' />
           </Grid>
 
-          <Grid item xs={9} md={5}>
-           <Principles
+          <Grid item xs={12} md={5}>
+           <PrinciplesCard
             title='Agilidad'
             details={`Resolvemos con metodologías
             ágiles, buena disposición a los
@@ -269,8 +344,8 @@ export default function About() {
             avatar='https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/bailarina_450x450px.png' />
           </Grid>
 
-          <Grid item xs={9} md={5}>
-           <Principles
+          <Grid item xs={12} md={5}>
+           <PrinciplesCard
             title='Estética'
             details={`Cuidamos cada detalle para que la
             puesta en escena, vestuarios,
@@ -279,8 +354,8 @@ export default function About() {
             avatar='https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/pintor_450x450px.png' />
           </Grid>
 
-          <Grid item xs={9} md={5}>
-           <Principles
+          <Grid item xs={12} md={5}>
+           <PrinciplesCard
             title='Equilibrio'
             details={`Todos nuestros proyectos generan
             trabajo remunerado, equilibrado y
@@ -289,8 +364,8 @@ export default function About() {
             avatar='https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/director_450x450px.png' />
           </Grid>
 
-          <Grid item xs={9} md={5}>
-           <Principles
+          <Grid item xs={12} md={5}>
+           <PrinciplesCard
             title='Conciencia'
             details={`Promocionamos el cuidado a la
             Tierra, los recursos naturales, a los
@@ -299,65 +374,99 @@ export default function About() {
             avatar='https://sentircreativo.s3.us-east-2.amazonaws.com/images/corporative/malabarista_450x450px.png' />
           </Grid>
         </Grid>
+
+        {/* Seccion 3 */}
+        <Grid item xs={12}>
+          <Typography variant='h1'>
+            En distintas
+          </Typography>
+          <Typography className={classes.principiosText}>
+            Aréas de&nbsp;
+            <Typography display='inline' className={classes.principiosText} style={{ fontWeight: 'bold' }}>
+            Acción
+            </Typography>
+          </Typography>
+        </Grid>
+
+        <Grid container item xs={12} spacing={6} justifyContent='space-around' alignItems="center">
+          {areas.map((x, i) => (
+            <Grid item xs={12} md={6} key={x}>
+              <FlipCard
+                title={x.nombre}
+                detail={x.slogan}
+                icon={x.icono}
+                background={areaBg(x)}
+                color={x.colorPrimario}
+                style={{ marginTop: actionCardPosition(i) }}
+                />
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Seccion 3 */}
+        <Grid item xs={12}>
+          <Typography variant='h1'>
+            Para diversos
+          </Typography>
+          <Typography className={classes.principiosText}>
+            Rubros y&nbsp;
+            <Typography display='inline' className={classes.principiosText} style={{ fontWeight: 'bold' }}>
+              Ocasiones
+            </Typography>
+          </Typography>
+        </Grid>
+
+        <Grid container item xs={12} spacing={6} justifyContent='space-around' alignItems="center">
+          <Grid item xs={12} md={6}>
+            <Typography variant='h1' color='textSecondary' gutterBottom>
+                Rubros
+            </Typography>
+
+            <Card style={{ borderRadius: 8 }}>
+              <CardContent>
+                <List style={{ overflow: 'auto', maxHeight: '15rem' }} subheader={<li />}>
+                  {Object.keys(items.rubros).map((section) => (
+                    <li key={`section-${section}`}>
+                      <ul style={{ padding: 0 }}>
+                        <ListSubheader style={{ backgroundColor: '#ffeb12', fontSize: 18 }}>
+                          {section}
+                        </ListSubheader>
+                        {items.rubros[section].map((item) => (
+                          <ListItem key={`item-${section}-${item}`} style={{
+                            backgroundColor: '#ffeb124a',
+                            margin: '8px 0 8px 16px',
+                            width: 'calc(100% - 16px)'
+                          }}>
+                            <ListItemText primary={item} />
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </li>
+                  ))}
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Typography variant='h1' color='textSecondary' gutterBottom>
+                Ocasiones
+            </Typography>
+
+            <Card style={{ borderRadius: 8 }}>
+              <CardContent>
+                <List style={{ overflow: 'auto', maxHeight: '15rem' }}>
+                  {items.ocasiones.map(x => (
+                    <ListItem key={`item-${x}`} style={{ backgroundColor: '#ffeb124a', marginTop: 8 }}>
+                      <ListItemText primary={x} />
+                    </ListItem>
+                  ))}
+                </List>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
       </Grid>
     </Container>
   );
-}
-
-function ConectionsItems({ color, icon: Icon, details, match }) {
-
-  details = details.split(/\n/)
-    .map((text, index, array) => {
-      const props = {
-        component: 'span',
-        display: (array[index + 1] === match || array[index - 1] === match) ? 'inline' : 'block',
-      };
-
-      if (text === match) {
-        props.display = 'inline'
-        props.style = { fontWeight: 'bold' }
-        props.component = 'strong'
-      }
-
-      return <Typography key={text} {...props}>{text}</Typography>;
-    })
-
-  return (
-    <Grid container spacing={2}>
-      <Grid xs={1}></Grid>
-      <Grid container xs={2} justifyContent='center'>
-        <Icon style={{ width: '5rem', height: '5rem', fill: color }}/>
-      </Grid>
-
-      <Grid xs={9}>
-        <Box mb={6} ml={2}>
-          <Typography variant='h6' color='textSecondary' paragraph gutterBottom>
-            {details}
-          </Typography>
-        </Box>
-      </Grid>
-    </Grid>
-  )
-}
-
-function Principles({ title, details, avatar }) {
-  return (
-    <Card style={{ overflow: 'visible', borderRadius: '.75rem' }}>
-      <CardContent component={Box} display='flex' alignItems="center" style={{ padding: 0 }}>
-        <Avatar alt="Icono" src={avatar}
-          style={{ width: '13rem', height: '13rem', margin: '-1rem 0 -1rem -6rem' }} />
-
-        <Box px={3}>
-          <Typography variant='h1' style={{ fontSize: '36px', marginTop: 16 }}>
-            {title}&nbsp;
-            <Chip label='PRO' size='small' style={{ borderRadius: 0,  fontSize: '11px', backgroundColor: '#000', color: '#fff' }} />
-          </Typography>
-
-          <Typography paragraph>
-            {details}
-          </Typography>
-        </Box>
-      </CardContent>
-  </Card>
-  )
 }
