@@ -397,6 +397,7 @@ export default function About() {
                 icon={x.icono}
                 background={areaBg(x)}
                 color={x.colorPrimario}
+                chips={x?.servicio?.tecnica_artisticas?.slice(0, 5)?.map(y => y.nombre)}
                 style={{ marginTop: actionCardPosition(i) }}
                 />
             </Grid>

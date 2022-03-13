@@ -95,7 +95,7 @@ export default function AppFooter() {
           </Grid>
 
           <Grid container item xs={12} spacing={4}>
-            {[1, 2, 3].map(x => (
+            {[1].map(_ => (
               <Grid item xs={12} md={4}>
                 <CardDetail />
               </Grid>
@@ -222,14 +222,14 @@ function CardDetail() {
     <Card style={{ borderRadius: 24 }}>
     <CardHeader
         component={Box}
-        avatar={<Avatar src='https://www.weact.org/wp-content/uploads/2016/10/Blank-profile.png' style={{ width: '5rem', height: '5rem' }} />}
+        avatar={<Avatar src='https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefaultStafs+-.png' style={{ width: '5rem', height: '5rem' }} />}
         subheader={
           <Box display='flex' flexDirection='column'>
             <Typography variant='h1' color='textSecondary'>
-              Ignacio Colobrí
+              Ignacio Cortés
             </Typography>
             <Typography variant='h6'>
-             Director
+              Director
             </Typography>
           </Box>
         }
@@ -261,12 +261,12 @@ function CardDetail() {
         </Box>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <Box px={4} mt={3} style={{ overflow: 'auto', whiteSpace: 'nowrap' }}>
-            {[1, 2].map(x => (<CopyClipboard>
+            {['holabuendia@sentircreativo.com'].map(x => (<CopyClipboard>
               {({ copy }) => (
                 <Chip
-                  label='email1@gmail.com'
+                  label={x}
                   style={{ backgroundColor: COLORS.bg, marginRight: 8 }}
-                  onClick={() => copy('email1@gmail.com')}
+                  onClick={() => copy(x)}
                 />
               )}
             </CopyClipboard>))}
@@ -287,6 +287,8 @@ function CardDetail() {
             <IconButton
               size='medium'
               variant='contained'
+              href={'https://wa.me/968498645?text='+window.encodeURIComponent('Hola buen dia')}
+              target='_blank'
               style={{ marginRight: 8, color: green[500] }}
             >
               <WhatsAppIcon />
@@ -298,6 +300,8 @@ function CardDetail() {
               size='medium'
               color='#000'
               variant='contained'
+              href={'tel:968498645'}
+              target='_blank'
               style={{ marginRight: 8 }}
             >
               <PhoneIcon />
@@ -309,6 +313,8 @@ function CardDetail() {
               size='medium'
               color='#000'
               variant='contained'
+              href={'mailto:holabuendia@sentircreativo.com'}
+              target='_blank'
               style={{ marginRight: 8 }}
             >
               <MailOutlineIcon />

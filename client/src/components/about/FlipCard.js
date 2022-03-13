@@ -58,7 +58,8 @@ export const useStyles = makeStyles(theme => ({
     transform: 'rotateY(180deg)',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    padding: '1rem 2rem'
   },
   backIcon: {
     width: '2rem',
@@ -85,7 +86,7 @@ export const useStyles = makeStyles(theme => ({
 }));
 
 export default function FlipCard({
-  chips = [1, 2, 3],
+  chips = ['Técnicas artísticas'],
   color = COLORS.blue,
   title,
   detail,
