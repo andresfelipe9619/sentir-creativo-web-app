@@ -60,7 +60,7 @@ export default function ProjectCard ({
 
   const rows = [
     createData('Servicio', sliceItems(servicios?.map(x => x?.nombre))),
-    createData('Beneficios', sliceItems(publico_objetivos?.map(x => x.nombre))),
+    createData('Beneficiarios', sliceItems(publico_objetivos?.map(x => x.nombre))),
     createData('P. owner', staf[0]?.nombre ? `${staf[0]?.nombre} ${staf[0]?.apellido}` : 'Sin asignar'),
     createData('Finanzas', staf[0]?.nombre ? `${staf[1]?.nombre} ${staf[1]?.apellido}` : 'Sin asignar'),
     createData('Cupón', sliceItems(cupon_descuentos?.map(x => x?.codigo)))
