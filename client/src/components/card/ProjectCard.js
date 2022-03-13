@@ -27,6 +27,19 @@ const project = {
   }
 }
 
+function sliceItems(collection = []) {
+  if (!collection) {
+    return collection
+  }
+
+  if (collection?.length > 2) {
+    const others = collection.slice(2).length
+    return collection?.slice(0, 2).join(', ') + `, +${others}`
+  }
+
+  return collection.join(', ')
+}
+
 export default function ProjectCard ({
   id,
   nombre,
@@ -35,21 +48,22 @@ export default function ProjectCard ({
   fechaInicio,
   destacado,
   formato,
-  servicio,
+  servicios,
   publico_objetivos,
   audiencia,
   staf,
   estado_proyecto,
-  tipo_proyecto
+  tipo_proyecto,
+  cupon_descuentos
 }) {
   const history = useHistory()
 
   const rows = [
-    createData('Servicio', servicio?.nombre || 'Sin asignar'),
-    createData('Beneficios', publico_objetivos?.map(x => x.nombre).join(', ')),
+    createData('Servicio', sliceItems(servicios?.map(x => x?.nombre))),
+    createData('Beneficios', sliceItems(publico_objetivos?.map(x => x.nombre))),
     createData('P. owner', staf[0]?.nombre ? `${staf[0]?.nombre} ${staf[0]?.apellido}` : 'Sin asignar'),
     createData('Finanzas', staf[0]?.nombre ? `${staf[1]?.nombre} ${staf[1]?.apellido}` : 'Sin asignar'),
-    createData('Cupón', audiencia?.cuponDescuento || 'No cupón')
+    createData('Cupón', sliceItems(cupon_descuentos?.map(x => x?.codigo)))
   ]
 
   const handleClick = () => {
