@@ -2,10 +2,12 @@ html, body {
   scroll-behavior: smooth;
 }
 
-body, #root  { 
+body, #root  {
   min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: overlay;
 }
-main { 
+main {
   min-height: 60vh;
 }
 body {
