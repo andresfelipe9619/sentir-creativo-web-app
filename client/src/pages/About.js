@@ -29,23 +29,113 @@ import FlipCard from '../components/about/FlipCard'
 import PrinciplesCard from '../components/about/PrinciplesCard'
 import Connections from '../components/about/Connections'
 
-const items = {
-  rubros: {
-    'Educación': [
-      'Educación inicial',
-      'Educación básica',
-    ],
-    'Instituciones Públicas': [
-      'Municipalidades'
-    ]
-  },
-  ocasiones: [
-    'Efemérides',
-    'Inauguración año escolar',
-    'Festivales',
-    'Jornadas de autocuidados',
-    'Talleres Sociales'
-  ]
+// TODO: Move collection to own files
+const rubros = {
+  'Esencial': [
+    'Individual',
+    'Padres',
+    'Parejas',
+    'Familias',
+    'Tribus y pueblos originarios',
+    'Influencers',
+    'Oficios',
+    'Profesionales'
+  ],
+  'Enseñanza': [
+    'Centros de estimulación Temprana',
+    'Educación inicial',
+    'Educación básica',
+    'Educación media',
+    'Preuniversitarios',
+    'Educación Universitaria',
+    'Centro de alumnos',
+    'Centro de Apoderados',
+    'Federaciones Estudiantiles',
+    'Academias'
+  ],
+
+  'Instituciones Públicas': [
+    'Municipalidades',
+    'Ministerios de Gobierno',
+    'Organizaciones internacionales'
+  ],
+
+  'Instituciones sin fines de lucro': [
+    'Fundaciones',
+    'Agrupaciones culturales',
+    'Agrupaciones ambientales',
+    'Organizaciones territoriales',
+    'Organizaciones indígenas',
+    'Santuarios naturales',
+    'Sindicatos'
+  ],
+
+  'Deporte': [
+    'Centros de entrenamiento',
+    'Gimnasio',
+    'Clubes deportivos'
+  ],
+
+  'Instituciones de Salud': [
+    'Centros de salud familiar',
+    'Hospitales públicos',
+    'Clínicas',
+    'Laboratorios',
+    'Centros de rehabilitación',
+    'Centros de reparación',
+    'Salud mental',
+    'Centros de Terapias alternativas',
+    'Veganismo',
+    'Centros de cuidado para adulto mayor',
+    'Especialistas independientes'
+  ],
+
+  'Empresas y negocios': [
+    'Emprendimientos',
+    'Pyme',
+    'Comercios y ferias',
+    'Medianas y grandes empresas',
+    'Equipos de trabajo',
+    'Recursos humanos',
+    'Alta dirección',
+    'Consultoras',
+    'Productoras'
+  ],
+
+
+  'Centros de reclusión': [
+    'Centros de cumplimiento de condena',
+    'Centros de Reparación Especializada de Administración Directa ',
+    'Cárceles - Penitenciarias',
+    'Centros de oficios para internos',
+    'Gendarmería'
+  ],
+
+  'Turismo': [
+    'Hostales y hoteles',
+    'Cruceros',
+    'Agencia de viajes',
+    'Guías de turismo'
+  ],
+
+  'Transporte': [
+    'Transporte público y privado',
+    'Trenes y metros'
+  ],
+
+  'Cultura': [
+    'Asesoría a Artistas',
+    'Postulaciones a fondos culturales',
+    'Compañías de teatro',
+    'Circos e itinerancias',
+    'Músicos y bandas',
+    'Festivales, encuentros y convenciones.'
+  ],
+
+  'Otros rubros': [
+  '¡El arte está en todos los lugares!'
+  ],
+
 }
 
 const COLORS = {
@@ -199,12 +289,13 @@ export default function About() {
   const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
   const [areas, setAreas] = useState([])
-  const [expanded, setExpanded] = useState(false)
+  const [ocasiones, setOcasiones] = useState([])
 
   useEffect(() => {
     ;(async () => {
-      let result = await API.Area.getAll()
-      result = result.map(area => {
+      let [areaResult, ocasionResult] = await Promise.all([API.Area.getAll(), API.Ocasion.getAll()])
+
+      areaResult = areaResult.map(area => {
         let icono = null
 
         if (/\//.test(area.icono)) {
@@ -219,7 +310,8 @@ export default function About() {
           icono
         }
       })
-      setAreas(result)
+      setAreas(areaResult)
+      setOcasiones(ocasionResult?.map(x => x?.nombre))
     })()
   }, [])
 
@@ -265,13 +357,13 @@ export default function About() {
         </Grid>
 
         {/* Seccion 1 */}
-        <Grid container item xs={12} spacing={0} justifyContent='center' alignItems="center" style={{ zIndex: 1 }}>
+        <Grid container item xs={12} spacing={0} justifyContent='center' style={{ zIndex: 1 }}>
           <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', borderRadius: '0 0 1rem 1rem' }}>
            <Connections title='Artistas' subtitle='Si eres un artista' color={COLORS.purple}
-            connections={artistasConnections} expanded={expanded} onExpand={setExpanded} />
+            connections={artistasConnections} />
 
             <Grid container justifyContent='center'>
-              <Grid item md={6}>
+              <Grid item>
                 <Button variant="contained" size='large' className={classes.buttonColorful} style={{ backgroundColor: COLORS.purple}}>
                   Únete a la red
                 </Button>
@@ -287,10 +379,10 @@ export default function About() {
 
           <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', zIndex: -1, borderRadius: '0 0 1rem 1rem' }}>
             <Connections title='Proyectos' subtitle='Si tienes un proyecto' color={COLORS.blue}
-              connections={proyectosConnections} expanded={expanded} onExpand={setExpanded} />
+              connections={proyectosConnections} />
 
             <Grid container justifyContent='center'>
-              <Grid item md={6}>
+              <Grid item>
                 <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue }}
                   onClick={() => history.push('/')}>
                   Explora el catálogo
@@ -426,13 +518,13 @@ export default function About() {
             <Card style={{ borderRadius: 8 }}>
               <CardContent>
                 <List style={{ overflow: 'auto', maxHeight: '15rem' }} subheader={<li />}>
-                  {Object.keys(items.rubros).map((section) => (
+                  {Object.keys(rubros).map((section) => (
                     <li key={`section-${section}`}>
                       <ul style={{ padding: 0 }}>
                         <ListSubheader style={{ backgroundColor: '#ffeb12', fontSize: 18 }}>
                           {section}
                         </ListSubheader>
-                        {items.rubros[section].map((item) => (
+                        {rubros[section].map((item) => (
                           <ListItem key={`item-${section}-${item}`} style={{
                             backgroundColor: '#ffeb124a',
                             margin: '8px 0 8px 16px',
@@ -457,8 +549,8 @@ export default function About() {
             <Card style={{ borderRadius: 8 }}>
               <CardContent>
                 <List style={{ overflow: 'auto', maxHeight: '15rem' }}>
-                  {items.ocasiones.map(x => (
-                    <ListItem key={`item-${x}`} style={{ backgroundColor: '#ffeb124a', marginTop: 8 }}>
+                  {ocasiones.map((x, i) => (
+                    <ListItem key={`item-${x}`} style={{ backgroundColor: '#ffeb124a', marginTop: i > 0 ? 8 : 0 }}>
                       <ListItemText primary={x} />
                     </ListItem>
                   ))}

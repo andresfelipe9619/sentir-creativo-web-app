@@ -226,7 +226,7 @@ function CardDetail() {
         subheader={
           <Box display='flex' flexDirection='column'>
             <Typography variant='h1' color='textSecondary'>
-              Ignacio Cortés
+              Ignacio Colibrí
             </Typography>
             <Typography variant='h6'>
               Director
@@ -287,7 +287,7 @@ function CardDetail() {
             <IconButton
               size='medium'
               variant='contained'
-              href={'https://wa.me/968498645?text='+window.encodeURIComponent('Hola buen dia')}
+              href={'https://wa.me/+56968498645?text='+window.encodeURIComponent('Hola buen dia')}
               target='_blank'
               style={{ marginRight: 8, color: green[500] }}
             >
@@ -300,7 +300,7 @@ function CardDetail() {
               size='medium'
               color='#000'
               variant='contained'
-              href={'tel:968498645'}
+              href={'tel:+56968498645'}
               target='_blank'
               style={{ marginRight: 8 }}
             >

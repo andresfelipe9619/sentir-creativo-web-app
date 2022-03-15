@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
@@ -25,8 +26,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Connections({ connections, title, subtitle, color, expanded, onExpand }) {
+export default function Connections({ connections, title, subtitle, color }) {
   const classes = useStyles()
+  const [expanded, setExpanded] = useState(false)
 
   return (
     <>
@@ -41,7 +43,7 @@ export default function Connections({ connections, title, subtitle, color, expan
         </Typography>
 
         <KeyboardArrowDownIcon className={clsx(classes.arrowDownIcon, expanded && classes.rotate)} style={{ fill: color }}
-          onClick={() => onExpand(!expanded)}/>
+          onClick={() => setExpanded(!expanded)}/>
       </Box>
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>
