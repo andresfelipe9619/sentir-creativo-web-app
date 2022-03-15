@@ -23,6 +23,7 @@ import { red } from '@material-ui/core/colors'
 import { orange } from '@material-ui/core/colors'
 import { green } from '@material-ui/core/colors'
 import { grey } from '@material-ui/core/colors'
+import CopyClipboard from '../clipboard'
 
 export default function AdminCard ({
   id,
@@ -137,11 +138,17 @@ export default function AdminCard ({
               {(chips || [])
                 .filter(n => !!n)
                 .map(c => (
-                  <Chip
-                    key={c}
-                    label={c}
-                    style={{ backgroundColor: color[300], marginRight: 8 }}
-                  />
+
+                  <CopyClipboard>
+                    {({ copy }) => (
+                      <Chip
+                        key={c}
+                        label={c}
+                        style={{ backgroundColor: color[300], marginRight: 8 }}
+                        onClick={() => copy(c)}
+                      />
+                    )}
+                  </CopyClipboard>
                 ))}
             </Box>
           )}
@@ -151,7 +158,6 @@ export default function AdminCard ({
       <CardActions>
         <Box
           display='flex'
-          justifyContent='space-between'
           width='100%'
           mt={1}
           p={1}
@@ -161,16 +167,18 @@ export default function AdminCard ({
             color={'primary'}
             variant='outlined'
             onClick={handleViewClick}
+            style={{ marginRight: 'auto' }}
           >
             VER & EDITAR
           </Button>
-          {(buttonActions || []).map(b => (
+          {(buttonActions || []).map((b, i) => (
             <Tooltip title={b.label} key={b.label}>
               <IconButton
                 size='small'
                 color={'primary'}
                 variant='contained'
                 onClick={b.handleClick}
+                style={{ marginRight: i === (buttonActions.length - 1) ? 0 : 16 }}
               >
                 {b.icon}
               </IconButton>

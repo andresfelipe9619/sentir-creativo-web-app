@@ -21,9 +21,12 @@ module.exports = {
       entities = await strapi.services.areas.find(ctx.query, populate)
     }
 
-    return entities.map(entity =>
-      sanitizeEntity(entity, { model: strapi.models.areas })
-    )
+    return await Promise.all(entities.map(async entity => ({
+      ...sanitizeEntity(entity, { model: strapi.models.areas }),
+      servicio: await strapi.services.servicio.findOne({
+        area: entity.id
+      }, ['tecnica_artisticas'])
+    })))
   },
   async findOne (ctx) {
     const { id } = ctx.params

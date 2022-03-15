@@ -47,7 +47,7 @@ function AdminStaffCard ({ staff }) {
     createData('Nacionalidad', nacionalidad),
     createData('Rol', rol?.nombre),
     createData('Origen', origen?.nombre),
-    createData('Cupón', cuponDescuento)
+    createData('Cupón', cuponDescuento?.codigo)
   ]
 
   const handleViewClick = () => {
