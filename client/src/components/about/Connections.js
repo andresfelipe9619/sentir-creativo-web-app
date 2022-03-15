@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import Collapse from '@material-ui/core/Collapse'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -12,11 +14,21 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '64px'
     }
+  },
+  arrowDownIcon: {
+    width: '2.5rem',
+    height: '2.5rem',
+    transform: 'rotate(180deg)',
+    transition: '.3s ease-out'
+  },
+  rotate: {
+    transform: 'rotate(0)'
   }
 }))
 
-export default function Connections({ connections, title, subtitle, color, expanded, onExpand }) {
+export default function Connections({ connections, title, subtitle, color }) {
   const classes = useStyles()
+  const [expanded, setExpanded] = useState(false)
 
   return (
     <>
@@ -30,8 +42,8 @@ export default function Connections({ connections, title, subtitle, color, expan
           {subtitle}
         </Typography>
 
-        <KeyboardArrowDownIcon style={{ width: '2.5rem', height: '2.5rem', fill: color }}
-          onClick={() => onExpand(!expanded)}/>
+        <KeyboardArrowDownIcon className={clsx(classes.arrowDownIcon, expanded && classes.rotate)} style={{ fill: color }}
+          onClick={() => setExpanded(!expanded)}/>
       </Box>
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>

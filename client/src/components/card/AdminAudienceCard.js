@@ -34,7 +34,8 @@ function AdminAudienceCard ({ audience }) {
     organizacion,
     motivacion,
     departamento,
-    antiguedad
+    antiguedad,
+    celular
   } = audience
   const history = useHistory()
   const rows = [
@@ -54,7 +55,7 @@ function AdminAudienceCard ({ audience }) {
       id={id}
       color={yellow}
       statusColor={estado?.color}
-      chips={[email, email2]}
+      chips={[email, email2, celular]}
       status={estado?.nombre}
       title={nombre + ' ' + apellido}
       avatar={photo}

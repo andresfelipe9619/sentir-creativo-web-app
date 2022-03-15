@@ -21,8 +21,8 @@
     "archivos": {
       "collection": "archivo"
     },
-    "cuponDescuento": {
-      "model": "cupon-descuento"
+    "cupon_descuentos": {
+      "collection": "cupon-descuento"
     },
     "servicios": {
       "via": "colecciones",
