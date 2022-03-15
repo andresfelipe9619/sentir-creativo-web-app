@@ -79,7 +79,7 @@ const useStyles = makeStyles(theme => ({
 export default function AppFooter() {
   const classes = useStyles()
   const history = useHistory()
-  const marginTop = window.location.href.includes('about') ? '-.5rem' : '15%'
+  const marginTop = window.location.href.includes('about') ? '-.5rem' : '0px'
 
   return (
     <Container className={classes.root} maxWidth='xl' style={{ marginTop }}>

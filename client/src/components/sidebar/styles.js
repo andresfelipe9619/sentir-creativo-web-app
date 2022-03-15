@@ -47,7 +47,7 @@ export const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(1),
+    padding: theme.spacing(0),
     overflowX: 'hidden'
   },
   contentShift: {

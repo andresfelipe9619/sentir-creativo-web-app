@@ -10,9 +10,15 @@ import LayersIcon from '@material-ui/icons/Layers'
 import AssignmentIcon from '@material-ui/icons/Assignment'
 import ArchiveIcon from '@material-ui/icons/Archive'
 import LabelIcon from '@material-ui/icons/Label'
+import BusinessIcon from '@material-ui/icons/Business'
 
 const items = [
   { path: '/admin/audiencia', label: 'Audiencia', icon: PeopleIcon },
+  {
+    path: '/admin/organizaciones',
+    label: 'Organizaciones',
+    icon: BusinessIcon
+  },
   { path: '/admin/servicios', label: 'Servicios', icon: ShoppingCartIcon },
   { path: '/admin/proyectos', label: 'Proyectos', icon: LayersIcon },
   { path: '/admin/archivos', label: 'Archivos', icon: ArchiveIcon },

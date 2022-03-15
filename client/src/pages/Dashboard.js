@@ -11,6 +11,7 @@ import Colecciones from '../components/dashboard/coleccion/Colecciones'
 import Reports from '../components/dashboard/reports/Reports'
 import Archivos from '../components/dashboard/archivos/Archivos'
 import Tags from '../components/dashboard/tag/Tags'
+import Organizaciones from '../components/dashboard/organizacion/Organizaciones'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,6 +26,10 @@ export default function Dashboard (props) {
     {
       path: '/audiencia',
       render: routerProps => <Audiencia {...routerProps} />
+    },
+    {
+      path: '/organizaciones',
+      render: routerProps => <Organizaciones {...routerProps} />
     },
     {
       path: '/servicios',
