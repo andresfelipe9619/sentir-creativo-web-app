@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Button from '@material-ui/core/Button'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import API from '../../api'
 import { useStyles } from './styles'
 import { Box } from '@material-ui/core'
@@ -21,9 +21,11 @@ const getYellow = index => (index % 2 === 0 ? '#fed901' : '#fff158')
 export default function Sidebar ({ children }) {
   const classes = useStyles()
   const history = useHistory()
+  const { pathname } = useLocation()
   const [areas, setAreas] = useState([])
   const [value, setValue] = useState(null)
   const [laoding, setLaoding] = useState(true)
+
   const goTo = path => () => history.push(path)
 
   useEffect(() => {
@@ -53,6 +55,16 @@ export default function Sidebar ({ children }) {
       }
     })()
   }, [])
+
+  useEffect(() => {
+    if (!pathname.includes('areas')) return
+    let [id] = pathname.split('/').reverse()
+    console.log('id', id)
+    if (id && +id !== +value) {
+      setValue(+id)
+    }
+  }, [value, pathname])
+
   if (laoding) return null
   return (
     <div className={classes.root}>
@@ -62,17 +74,13 @@ export default function Sidebar ({ children }) {
             <Box width='100%' display='flex' justifyContent='center'>
               <ButtonGroup
                 variant='text'
-                color='secondary  '
-                // value={value}
+                color='secondary'
                 className={classes.navigation}
               >
                 <Button
                   fullWidth
                   key={'sentir creativo'}
-                  onClick={() => {
-                    // setValue(area.id)
-                    // goTo(`/areas/${area.id}`)()
-                  }}
+                  onClick={() => goTo(`/`)()}
                   style={{ background: '#ffec11' }}
                   startIcon={
                     <WbSunnyIcon
@@ -112,10 +120,7 @@ export default function Sidebar ({ children }) {
                     background: '#ff6c00',
                     color: 'white'
                   }}
-                  onClick={() => {
-                    // setValue(area.id)
-                    // goTo(`/areas/${area.id}`)()
-                  }}
+                  onClick={() => goTo(`/about`)()}
                   endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
                 >
                   ¿Quienes somos?

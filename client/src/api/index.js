@@ -164,6 +164,14 @@ const Rubro = {
   delete: id => serverRequests.del(`/rubros/${id}`)
 }
 
+const Tamano = {
+  getAll: () => serverRequests.get(`/tamanos`),
+  get: id => serverRequests.get(`/tamanos/${id}`),
+  create: format => serverRequests.post('/tamanos', format),
+  update: (id, format) => serverRequests.put(`/tamanos/${id}`, format),
+  delete: id => serverRequests.del(`/tamanos/${id}`)
+}
+
 const Prefijo = {
   getAll: () => serverRequests.get(`/prefijos`),
   get: id => serverRequests.get(`/prefijos/${id}`),
@@ -340,6 +348,7 @@ const API = {
   StaffState,
   Sugerencia,
   Tag,
+  Tamano,
   TecnicaArtistica,
   TipoArchivo,
   TipoProyecto,

@@ -85,7 +85,7 @@ export default function Areas () {
   const color = selectedArea.colorPrimario
   return (
     <Grid
-      pt={3}
+      pt={4}
       px={0}
       container
       justifyContent='center'
@@ -105,7 +105,7 @@ export default function Areas () {
         handleClose={handleCloseModal}
         service={selectedService}
       />
-      <Grid item sm={12} md={6}>
+      <Grid item sm={12} md={6} component={Box} py={4}>
         <Typography
           variant='h1'
           align='center'
@@ -124,7 +124,7 @@ export default function Areas () {
           {selectedArea.slogan}
         </Typography>
       </Grid>
-      <Filters>
+      <Filters color={color}>
         <Grid container component={Box} my={0} m={0} p={0} alignItems='center'>
           {services.map(s => (
             <Grid
