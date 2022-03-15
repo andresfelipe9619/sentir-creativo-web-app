@@ -222,7 +222,7 @@ function CardDetail() {
     <Card style={{ borderRadius: 24 }}>
     <CardHeader
         component={Box}
-        avatar={<Avatar src='https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefaultStafs+-.png' style={{ width: '5rem', height: '5rem' }} />}
+        avatar={<Avatar src='https://sentircreativo.s3.us-east-2.amazonaws.com/images/staff/Perfil-Colibri-marzo22.png' style={{ width: '5rem', height: '5rem' }} />}
         subheader={
           <Box display='flex' flexDirection='column'>
             <Typography variant='h1' color='textSecondary'>
@@ -261,7 +261,7 @@ function CardDetail() {
         </Box>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <Box px={4} mt={3} style={{ overflow: 'auto', whiteSpace: 'nowrap' }}>
-            {['holabuendia@sentircreativo.com'].map(x => (<CopyClipboard>
+            {['holabuendia@sentircreativo.com', '+569 68498645'].map(x => (<CopyClipboard>
               {({ copy }) => (
                 <Chip
                   label={x}
