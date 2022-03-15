@@ -93,6 +93,9 @@
     },
     "maximoParticipantes": {
       "type": "integer"
+    },
+    "acuerdos": {
+      "collection": "acuerdos"
     }
   }
 }
