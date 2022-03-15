@@ -79,8 +79,8 @@
       "dominant": true
     },
     "colecciones": {
-      "collection": "coleccion",
       "via": "servicios",
+      "collection": "coleccion",
       "dominant": true
     },
     "proyectos": {
