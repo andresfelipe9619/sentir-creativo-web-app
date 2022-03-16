@@ -122,7 +122,8 @@ const columns = [
     label: 'Rubro',
     options: {
       filter: true,
-      sort: true
+      sort: true,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 6,
