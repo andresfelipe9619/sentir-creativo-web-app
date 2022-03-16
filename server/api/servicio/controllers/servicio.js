@@ -6,6 +6,7 @@ const populate = [
   'estado',
   'propositos',
   'notas',
+  'acuerdos',
   'colecciones',
   'prioridad',
   'publico_objetivos',
