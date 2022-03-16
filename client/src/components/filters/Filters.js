@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import API from '../../api'
-import RadioGroup from '../radio'
+import { CheckboxGroup } from '../radio'
 import { Formik } from 'formik'
 import { useTheme } from '@material-ui/styles'
 
@@ -100,7 +100,7 @@ function FilterOption ({ label, name, service, values, errors, handleChange }) {
   }, [service])
   return (
     <AccordionOption title={label}>
-      <RadioGroup
+      <CheckboxGroup
         name={name}
         options={data}
         values={values}
