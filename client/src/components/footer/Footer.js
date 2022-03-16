@@ -38,7 +38,8 @@ const COLORS = {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: '#4a4a4a'
+    backgroundColor: '#4a4a4a',
+    padding: '24px 0'
   },
   title: {
     color: theme.palette.common.white,
@@ -84,7 +85,7 @@ export default function AppFooter() {
   return (
     <Container className={classes.root} maxWidth='xl' style={{ marginTop }}>
       <Grid container spacing={6} justifyContent='center'>
-          <Grid item xs={12}>
+          <Grid item xs={11}>
             <Typography variant='h1' className={classes.title}>
               Cuenta con nosotros
             </Typography>
@@ -94,7 +95,7 @@ export default function AppFooter() {
             </Typography>
           </Grid>
 
-          <Grid container item xs={12} spacing={4}>
+          <Grid container item xs={11} spacing={4}>
             {[1].map(_ => (
               <Grid item xs={12} md={4}>
                 <CardDetail />
@@ -170,13 +171,13 @@ export default function AppFooter() {
 
             <Grid container item xs={12} justifyContent='space-around'>
               <Grid item xs={12} md={4} style={{ textAlign: 'center' }}>
-                <Button variant="contained" size='large' className={classes.buttonColorful} style={{ backgroundColor: COLORS.purple, fontSize: '2rem' }}>
+                <Button variant="contained" size='large' className={classes.buttonColorful} style={{ backgroundColor: COLORS.purple, fontSize: '1.5rem' }}>
                   Únete a la red
                 </Button>
               </Grid>
 
               <Grid item xs={12} md={4} style={{ textAlign: 'center' }}>
-                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue, fontSize: '2rem' }}
+                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue, fontSize: '1.5rem' }}
                   onClick={() => history.push('/')}>
                   Explora el catálogo
                 </Button>

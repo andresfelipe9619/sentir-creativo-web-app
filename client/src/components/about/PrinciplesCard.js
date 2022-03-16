@@ -30,7 +30,7 @@ export default function PrinciplesCard({ title, details, avatar }) {
   const classes = useStyles()
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
   const size = isMedium ? '5rem' : '13rem';
-  const imgPosition = isMedium ? '1rem 0 auto 1rem' : '-1rem 0 -1rem -6rem'
+  const imgPosition = isMedium ? 'auto 0 auto 1rem' : '-1rem 0 -1rem -6rem'
 
   return (
     <Card className={classes.root}>
