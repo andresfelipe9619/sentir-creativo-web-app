@@ -61,7 +61,7 @@
       "type": "date"
     },
     "cuponDescuento": {
-      "model": "cupon-descuento"
+      "collection": "cupon-descuento"
     },
     "proyectos": {
       "via": "staf",
