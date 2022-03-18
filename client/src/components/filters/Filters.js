@@ -68,7 +68,7 @@ export default function Filters ({ children, color }) {
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Grid item md={4}>
+        <Grid item md={3}>
           <Formik
             onSubmit={handleFormSubmit}
             initialValues={{}}
@@ -81,7 +81,7 @@ export default function Filters ({ children, color }) {
             }}
           </Formik>
         </Grid>
-        <Grid item md={8} component={Box} bgcolor={'#212121'}>
+        <Grid item md={9} component={Box} bgcolor={'#212121'}>
           {children}
         </Grid>
       </Grid>
