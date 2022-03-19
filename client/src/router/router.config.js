@@ -87,6 +87,10 @@ const routerConfig = [
         name: 'Audiencia'
       },
       {
+        path: '/admin/organizaciones',
+        name: 'Organizaciones'
+      },
+      {
         path: '/admin/servicios',
         name: 'Servicios'
       },

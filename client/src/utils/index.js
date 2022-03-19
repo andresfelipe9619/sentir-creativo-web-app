@@ -8,6 +8,18 @@ export function splitArrayIntoChunksOfLen (arr, len) {
   return chunks
 }
 
+export const getAreaBackground = (area) => {
+  const files = [...area.archivos];
+  const bgFileType = 24; // Background PNG
+  const bgURI = files.find(x => x.tipo_archivo?.id === bgFileType)?.path;
+
+  if (!bgURI) {
+    return area.colorPrimario;
+  }
+
+  return `url(${bgURI})`;
+};
+
 
 const longFormatOptions = {
   weekday: 'short',

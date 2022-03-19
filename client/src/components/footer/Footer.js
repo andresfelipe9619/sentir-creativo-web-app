@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
 export default function AppFooter() {
   const classes = useStyles()
   const history = useHistory()
-  const marginTop = window.location.href.includes('about') ? '-.5rem' : '15%'
+  const marginTop = window.location.href.includes('about') ? '-.5rem' : '0px'
 
   return (
     <Container className={classes.root} maxWidth='xl' style={{ marginTop }}>
@@ -96,15 +96,15 @@ export default function AppFooter() {
           </Grid>
 
           <Grid container item xs={11} spacing={4}>
-            {[1].map(_ => (
-              <Grid item xs={12} md={4}>
+            {[1].map((_) => (
+              <Grid item xs={12} md={4} key={_}>
                 <CardDetail />
               </Grid>
             ))}
 
             <Grid item xs={12} md={9}>
               <Card component={Grid} container spacing={2} style={{ borderRadius: 16, height: '100%' }}>
-                <Grid xs={12} md={4}>
+                <Grid item xs={12} md={4}>
                 <CardContent style={{ padding: '4rem 2rem' }}>
                     <Typography color='textSecondary' variant="h2" gutterBottom>
                       Sede Central
@@ -116,7 +116,7 @@ export default function AppFooter() {
                   </CardContent>
                 </Grid>
 
-                <Grid xs={12} md={8}>
+                <Grid item xs={12} md={8}>
                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.734610252658!2d-70.39007668255617!3d-23.57797319999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x96ae2aff16e6748f%3A0x2d2acde847536271!2sSentir%20Creativo%20%C2%A1An%C3%ADmate*21!5e0!3m2!1ses-419!2sdo!4v1646705902423!5m2!1ses-419!2sdo"
                     width="100%" height="100%" loading="lazy" style={{ border: 0 }} title="Sentir Creativo">
                   </iframe>
@@ -154,7 +154,7 @@ export default function AppFooter() {
                       Bitácoras <br />
                       Fotográficas
                     </Typography>
-                    <Typography variant="subtitle" color='textSecondary'>
+                    <Typography variant="subtitle1" color='textSecondary'>
                       Más de 3000 fotográfias
                     </Typography>
                   </Grid>
@@ -262,7 +262,8 @@ function CardDetail() {
         </Box>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <Box px={4} mt={3} style={{ overflow: 'auto', whiteSpace: 'nowrap' }}>
-            {['holabuendia@sentircreativo.com', '+569 68498645'].map(x => (<CopyClipboard>
+            {['holabuendia@sentircreativo.com', '+569 68498645'].map(x => (
+            <CopyClipboard key={x}>
               {({ copy }) => (
                 <Chip
                   label={x}
@@ -270,7 +271,8 @@ function CardDetail() {
                   onClick={() => copy(x)}
                 />
               )}
-            </CopyClipboard>))}
+            </CopyClipboard>
+            ))}
           </Box>
         </Collapse>
 
@@ -299,11 +301,10 @@ function CardDetail() {
           <Tooltip title='Teléfono'>
             <IconButton
               size='medium'
-              color='#000'
               variant='contained'
               href={'tel:+56968498645'}
               target='_blank'
-              style={{ marginRight: 8 }}
+              style={{ marginRight: 8, color: '#000' }}
             >
               <PhoneIcon />
             </IconButton>
@@ -312,11 +313,10 @@ function CardDetail() {
           <Tooltip title='Correo'>
             <IconButton
               size='medium'
-              color='#000'
               variant='contained'
               href={'mailto:holabuendia@sentircreativo.com'}
               target='_blank'
-              style={{ marginRight: 8 }}
+              style={{ marginRight: 8, color: '#000' }}
             >
               <MailOutlineIcon />
             </IconButton>

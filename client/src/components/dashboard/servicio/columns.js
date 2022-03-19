@@ -123,6 +123,20 @@ const columns = [
     }
   },
   {
+    name: 'acuerdos',
+    label: 'Acuerdos',
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 6,
+      type: 'multiselect',
+      dependency: 'Acuerdo'
+    }
+  },
+  {
     name: 'tags',
     label: 'Tags',
     options: {

@@ -1,5 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles'
+
 const drawerWidth = 240
+const barHeight = 70
+
+const barProps = theme => ({
+  background: theme.palette.background.paper,
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen
+  })
+})
 
 export const useStyles = makeStyles(theme => ({
   root: {
@@ -7,23 +17,13 @@ export const useStyles = makeStyles(theme => ({
   },
   navigation: {
     display: 'flex',
-    height: 70
+    height: barHeight
   },
-  appBar: {
-    background: theme.palette.background.paper,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+  navigationMobile: {
+    display: 'flex',
+    height: barHeight - 30
   },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
+  appBar: barProps(theme),
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -47,15 +47,11 @@ export const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(1),
-    overflowX: 'hidden'
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    }),
-    marginLeft: 0
+    padding: theme.spacing(0),
+    overflowX: 'hidden',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      marginTop: barHeight
+    }
   }
 }))
 
