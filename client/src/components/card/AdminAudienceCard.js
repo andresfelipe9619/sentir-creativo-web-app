@@ -1,5 +1,6 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import WhatsAppIcon from '@material-ui/icons/WhatsApp'
 import StarIcon from '@material-ui/icons/Star'
@@ -11,6 +12,7 @@ import AdminCard, { Stat, DenseTable, createData } from './AdminCard'
 import { useHistory } from 'react-router-dom'
 import { indigo } from '@material-ui/core/colors'
 import RowingIcon from '@material-ui/icons/Rowing'
+import useStyles from './styles'
 
 export default function Card (props) {
   if (!props.audience) return null
@@ -37,6 +39,8 @@ function AdminAudienceCard ({ audience }) {
     antiguedad,
     celular
   } = audience
+
+  const classes = useStyles()
   const history = useHistory()
   const rows = [
     createData('Antigüedad', antiguedad?.nombre),
@@ -60,7 +64,12 @@ function AdminAudienceCard ({ audience }) {
       title={nombre + ' ' + apellido}
       avatar={photo}
       handleViewClick={handleViewClick}
-      subheaderChip={organizacion?.nombre}
+      subheaderChip={(
+        <Typography display='inline' variant='caption' className={classes.accentText}
+          onClick={() => history.push('/admin/organizaciones/' + organizacion?.id)}>
+          {organizacion?.nombre}
+        </Typography>
+      )}
       superheader={prefijo?.nombre}
       subheader={`${cargo} - ${departamento}`}
       floatingHeader={{
