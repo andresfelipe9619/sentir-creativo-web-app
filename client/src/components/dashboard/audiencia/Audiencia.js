@@ -205,7 +205,7 @@ const columns = [
     }
   },
   {
-    name: 'cupon_descuentos',
+    name: 'cuponDescuento',
     label: 'Cupones Descuentos',
     options: {
       filter: true,

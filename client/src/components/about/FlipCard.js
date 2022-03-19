@@ -18,8 +18,8 @@ const COLORS = {
 export const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: 'transparent',
-    width: '16rem',
-    height: '20rem',
+    width: '20rem',
+    height: '25rem',
     margin: 'auto',
     boxShadow: 'none',
     borderRadius: '12px'
@@ -75,12 +75,13 @@ export const useStyles = makeStyles(theme => ({
   chips: {
     color: 'white',
     marginTop: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
+    fontSize: 12
   },
   contentIcon: {
     color: 'white',
-    width: '5rem',
-    height: '5rem',
+    width: '7rem',
+    height: '7rem',
     marginBottom: theme.spacing(3)
   }
 }));
@@ -101,14 +102,15 @@ export default function FlipCard({
   return (
     <Card className={classes.root} style={style} onClick={() => setRotate(!rotate)}>
       <CardContent className={clsx(classes.content, rotate && classes.rotate)}>
-        <Box className={clsx(classes.sides)} display='flex' flexDirection='column' alignItems='center' style={{ background }}>
+        <Box className={clsx(classes.sides)} display='flex' flexDirection='column' alignItems='center'
+          justifyContent='center' style={{ background }}>
           <Icon className={classes.contentIcon} />
 
-          <Typography align='center' gutterBottom style={{ fontSize: 32, lineHeight: 1 }}>
+          <Typography align='center' gutterBottom style={{ fontSize: 36, lineHeight: 1 }}>
             {title}
           </Typography>
 
-          <Typography align='center' style={{ fontSize: 14 }}>
+          <Typography align='center' style={{ fontSize: 18 }}>
             {detail}
           </Typography>
         </Box>
@@ -118,7 +120,7 @@ export default function FlipCard({
 
           <Box display='flex' flexWrap='wrap' justifyContent='center'>
             {chips.map(x => (
-              <Chip label={x} style={{ background: color }} className={classes.chips} />
+              <Chip label={x} style={{ background: color }} size='small' className={classes.chips} />
             ))}
           </Box>
 

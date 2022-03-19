@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Connections({ connections, title, subtitle, color }) {
+export default function Connections({ connections, title, subtitle, color, children }) {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
 
@@ -48,6 +48,7 @@ export default function Connections({ connections, title, subtitle, color }) {
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         {connections.map(x => <ConnectionItem {...x} />)}
+        {children}
       </Collapse>
     </>
   )
