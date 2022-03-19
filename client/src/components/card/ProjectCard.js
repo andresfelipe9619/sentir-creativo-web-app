@@ -3,6 +3,7 @@ import { formatDate } from '../../utils'
 import yellow from '@material-ui/core/colors/yellow'
 import AdminCard, { Stat, DenseTable, createData } from './AdminCard'
 import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import orange from '@material-ui/core/colors/orange'
 import blue from '@material-ui/core/colors/blue'
 import StarIcon from '@material-ui/icons/Star'
@@ -11,6 +12,7 @@ import PostAddIcon from '@material-ui/icons/PostAdd'
 import StarOutlineIcon from '@material-ui/icons/StarOutline'
 import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import WorkIcon from '@material-ui/icons/Work'
+import useStyles from './styles'
 
 const project = {
   interno: {
@@ -56,6 +58,7 @@ export default function ProjectCard ({
   tipo_proyecto,
   cupon_descuentos
 }) {
+  const classes = useStyles()
   const history = useHistory()
 
   const rows = [
@@ -83,7 +86,15 @@ export default function ProjectCard ({
     title={nombre}
     avatar={tipo_proyecto?.icono}
     handleViewClick={handleClick}
-    subheaderChip={`${audiencia?.nombre} ${audiencia?.apellido} • ${audiencia?.organizacion?.nombre}`}
+    subheaderChip={<>
+      <Typography display='inline' variant='caption' className={classes.accentText}
+        onClick={() => history.push('/admin/audiencia/' + audiencia?.id)}>
+        {audiencia?.nombre} {audiencia?.apellido}
+      </Typography>
+      <Typography display='inline' variant='caption'>
+       &nbsp;• {audiencia?.organizacion?.nombre}
+      </Typography>
+    </>}
     superheader={fechaInicio ? formatDate(fechaInicio, true) : ''}
     subheader={`${formato?.nombre} • ${audiencia?.ciudad}`}
     floatingHeader={{
