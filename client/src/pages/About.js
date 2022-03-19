@@ -203,7 +203,7 @@ const proyectosConnections = [
 export const useStyles = makeStyles(theme => ({
   container: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingBottom: '10rem',
     margin: theme.spacing(0, -1),
     width: `calc(100% + ${theme.spacing(1) * 2}px)`,
     backgroundColor: COLORS.bg,
@@ -339,7 +339,7 @@ export default function About() {
 
   return (
     <Container className={classes.container}>
-      <Grid container spacing={6} justifyContent="center">
+      <Grid container spacing={10} justifyContent="center">
         <Grid item xs={12}>
           <Typography color='textSecondary' className={classes.headerFontSm}>
             Somos una
@@ -357,11 +357,10 @@ export default function About() {
         </Grid>
 
         {/* Seccion 1 */}
-        <Grid container item xs={12} spacing={0} justifyContent='center' style={{ zIndex: 1 }}>
+        <Grid container item xs={12} spacing={0} justifyContent='center' alignItems='flex-start' style={{ zIndex: 1 }}>
           <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', borderRadius: '0 0 1rem 1rem' }}>
            <Connections title='Artistas' subtitle='Si eres un artista' color={COLORS.purple}
-            connections={artistasConnections} />
-
+            connections={artistasConnections}>
             <Grid container justifyContent='center'>
               <Grid item>
                 <Button variant="contained" size='large' className={classes.buttonColorful} style={{ backgroundColor: COLORS.purple}}>
@@ -369,6 +368,7 @@ export default function About() {
                 </Button>
               </Grid>
             </Grid>
+            </Connections>
           </Grid>
 
           <Box bgcolor='white' py={1} px={4} my={2} mx={-4} style={{ borderRadius: '50px', alignSelf: 'flex-start' }}>
@@ -379,16 +379,16 @@ export default function About() {
 
           <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', zIndex: -1, borderRadius: '0 0 1rem 1rem' }}>
             <Connections title='Proyectos' subtitle='Si tienes un proyecto' color={COLORS.blue}
-              connections={proyectosConnections} />
-
-            <Grid container justifyContent='center'>
-              <Grid item>
-                <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue }}
-                  onClick={() => history.push('/')}>
-                  Explora el catálogo
-                </Button>
+              connections={proyectosConnections}>
+              <Grid container justifyContent='center'>
+                <Grid item>
+                  <Button variant="contained" className={classes.buttonColorful} style={{ backgroundColor: COLORS.blue }}
+                    onClick={() => history.push('/')}>
+                    Explora el catálogo
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
+            </Connections>
           </Grid>
         </Grid>
 
