@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import InputBase from '@material-ui/core/InputBase'
 import Accordion from '@material-ui/core/Accordion'
+import Chip from '@material-ui/core/Chip'
 import Box from '@material-ui/core/Box'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -16,30 +17,33 @@ import {
   createTheme
 } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
-import API from '../../api'
 import { CheckboxGroup } from '../radio'
-import { Formik } from 'formik'
 import { useTheme } from '@material-ui/styles'
 
-const filters = [
-  {
-    label: 'Formato',
-    name: 'formato',
-    service: 'Formato'
-  },
-  {
-    label: 'Técnicas Artísticas',
-    name: 'tecnica_artisticas',
-    service: 'TecnicaArtistica'
-  }
-]
-
-export default function Filters ({ children, color }) {
+export default function Filters ({
+  children,
+  color,
+  filterOptions,
+  onFilterChange
+}) {
   const classes = useStyles()
   const theme = useTheme()
+  const [values, setValues] = useState({})
+  const [filters, setFilters] = useState({})
   const cardColor = color || theme.palette.primary.main
 
-  const handleFormSubmit = () => {}
+  const handleChangeFilter = e => {
+    const { name, value, checked } = e.target
+
+    const newValues = {
+      ...values,
+      [name]: { ...values[name], [value]: checked }
+    }
+    setValues(newValues)
+    const selectedFilters = getSelectedFilters(newValues)
+    setFilters(selectedFilters)
+    onFilterChange(selectedFilters)
+  }
 
   const areaTheme = createTheme({
     ...theme,
@@ -47,10 +51,27 @@ export default function Filters ({ children, color }) {
       primary: { main: cardColor }
     }
   })
-
+  console.log('filters', filters)
+  const chips = filterOptions
+    .map(fo => {
+      console.log('fo', fo)
+      if (fo.name === 'formato') {
+        return (fo.options || []).filter(o =>
+          (filters.formats || []).includes(+o.value)
+        )
+      }
+      if (fo.name === 'tecnica_artisticas') {
+        return (fo.options || []).filter(o =>
+          (filters.tecnics || []).includes(+o.value)
+        )
+      }
+      return []
+    })
+    .flatMap(f => f)
+  console.log('chips', chips)
   return (
     <ThemeProvider theme={areaTheme}>
-      <AppBar position='relative' className={classes.toolbar}>
+      <AppBar position='relative' classes={{ root: classes.toolbar }}>
         <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -65,23 +86,25 @@ export default function Filters ({ children, color }) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <Box className={classes.chips}>
+            {chips.map(option => {
+              return <Chip key={option.label} label={option.label} />
+            })}
+          </Box>
         </Toolbar>
       </AppBar>
       <Grid container>
         <Grid item md={3}>
-          <Formik
-            onSubmit={handleFormSubmit}
-            initialValues={{}}
-            validationSchema={{}}
-          >
-            {({ handleSubmit, ...formikProps }) => {
-              return filters.map((f, i) => (
-                <FilterOption key={i} {...f} {...formikProps} />
-              ))
-            }}
-          </Formik>
+          {filterOptions.map((fo, i) => (
+            <FilterOption
+              key={i}
+              {...fo}
+              handleChange={handleChangeFilter}
+              values={values[fo.name] || {}}
+            />
+          ))}
         </Grid>
-        <Grid item md={9} component={Box} bgcolor={'#212121'}>
+        <Grid item md={9} component={Box} bgcolor={'#212121'} pt={2}>
           {children}
         </Grid>
       </Grid>
@@ -89,22 +112,13 @@ export default function Filters ({ children, color }) {
   )
 }
 
-function FilterOption ({ label, name, service, values, errors, handleChange }) {
-  const [data, setData] = useState([])
-  useEffect(() => {
-    ;(async () => {
-      let result = await API[service].getAll()
-      result = result.map(i => ({ value: i.id, label: i.nombre }))
-      setData(result)
-    })()
-  }, [service])
+function FilterOption ({ label, name, options, values, handleChange }) {
   return (
     <AccordionOption title={label}>
       <CheckboxGroup
         name={name}
-        options={data}
+        options={options}
         values={values}
-        errors={errors}
         handleChange={handleChange}
       />
     </AccordionOption>
@@ -128,10 +142,21 @@ function AccordionOption ({ title, children }) {
   )
 }
 
+function getSelectedFilters (filters) {
+  let formats = Object.entries(filters.formato || {})
+    .filter(([, value]) => !!value)
+    .map(([key]) => +key)
+  let tecnics = Object.entries(filters.tecnica_artisticas || {})
+    .filter(([, value]) => !!value)
+    .map(([key]) => +key)
+
+  return { formats, tecnics }
+}
+
 export const useStyles = makeStyles(theme => ({
   title: { fontWeight: 'bold', fontSize: '24rm' },
   slogan: { fontSize: '24em' },
-  toolbar: { background: theme.palette.background.paper },
+  toolbar: { background: theme.palette.background.paper, zIndex: 1 },
   accordion: { color: 'white', background: theme.palette.primary.main },
   root: {
     '& > *': {
@@ -175,6 +200,14 @@ export const useStyles = makeStyles(theme => ({
       '&:focus': {
         width: '20ch'
       }
+    }
+  },
+  chips: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(0.5)
     }
   }
 }))

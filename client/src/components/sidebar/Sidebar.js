@@ -20,9 +20,6 @@ export default function Sidebar ({ children }) {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'))
 
-  console.log('isMobile', isMobile)
-  console.log('isDesktop', isDesktop)
-
   const goTo = path => () => history.push(path)
 
   const setAreaIcon = area => {

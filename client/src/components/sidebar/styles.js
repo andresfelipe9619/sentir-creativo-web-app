@@ -47,10 +47,12 @@ export const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    marginTop: barHeight,
     padding: theme.spacing(0),
-    overflowX: 'hidden'
-  },
+    overflowX: 'hidden',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      marginTop: barHeight
+    }
+  }
 }))
 
 export const useDashboardStyles = makeStyles(theme => ({

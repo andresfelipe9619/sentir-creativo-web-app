@@ -51,13 +51,8 @@ export default function RadioButtonsGroup ({
   )
 }
 
-export function CheckboxGroup ({
-  name,
-  legend,
-  options,
-  values,
-  handleChange
-}) {
+export function CheckboxGroup (props) {
+  const { name, legend, options, values, handleChange } = props
   const classes = useStyles()
 
   return (
@@ -70,7 +65,14 @@ export function CheckboxGroup ({
               <FormControlLabel
                 key={o.value}
                 value={+o.value}
-                control={<Checkbox name={name} />}
+                onChange={handleChange}
+                control={
+                  <Checkbox
+                    name={name}
+                    onChange={handleChange}
+                    checked={!!values[o.value]}
+                  />
+                }
                 label={o.label}
               />
             )

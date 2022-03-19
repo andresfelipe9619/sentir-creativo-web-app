@@ -18,8 +18,13 @@ function useQuery () {
   return new URLSearchParams(useLocation().search)
 }
 
+const map2select = ([value, label]) => ({ label, value })
+
 export default function Areas () {
   const [services, setServices] = useState([])
+  const [formats, setFormats] = useState([])
+  const [tecnics, setTecnics] = useState([])
+  const [filters, setFilters] = useState({})
   const [selectedService, setSelectedService] = useState(null)
   const [selectedArea, setSelectedArea] = useState(null)
   const [showDossier, setShowDossier] = useState(false)
@@ -42,6 +47,29 @@ export default function Areas () {
         })
         const areaResult = await API.Area.get(areaId)
         setSelectedArea(areaResult)
+        // Find unique tecnics and formats for the filter's options
+        const { formats: formatos, tecnics: tecnicas } = serviceResult.reduce(
+          (acc, s) => {
+            const mTecnics = s.tecnica_artisticas
+              .filter(t => !acc.tecnics[t.id])
+              .reduce((accT, t) => ({ ...accT, [t.id]: t.nombre }), acc.tecnics)
+
+            const mFormats = s.formatos
+              .filter(f => !acc.formats[f.id])
+              .reduce((accF, f) => ({ ...accF, [f.id]: f.nombre }), acc.formats)
+
+            return {
+              formats: mFormats,
+              tecnics: mTecnics
+            }
+          },
+          {
+            formats: {},
+            tecnics: {}
+          }
+        )
+        setFormats(formatos)
+        setTecnics(tecnicas)
         setServices(serviceResult)
       } catch (error) {
         console.error(error)
@@ -82,7 +110,14 @@ export default function Areas () {
   const length = isSmall ? 1 : isMedium ? 2 : 3
   if (loading) return <Spinner />
   if (!selectedArea) return null
+
   const color = selectedArea.colorPrimario
+  const mustFilter = filters?.tecnics?.length || filters?.formats?.length
+
+  const servicesToShow = mustFilter
+    ? filterServices(services, filters)
+    : services
+
   return (
     <Grid
       pt={4}
@@ -124,9 +159,24 @@ export default function Areas () {
           {selectedArea.slogan}
         </Typography>
       </Grid>
-      <Filters color={color}>
+      <Filters
+        color={color}
+        onFilterChange={setFilters}
+        filterOptions={[
+          {
+            label: 'Formato',
+            name: 'formato',
+            options: Object.entries(formats).map(map2select)
+          },
+          {
+            label: 'Técnicas Artísticas',
+            name: 'tecnica_artisticas',
+            options: Object.entries(tecnics).map(map2select)
+          }
+        ]}
+      >
         <Grid container component={Box} my={0} m={0} p={0} alignItems='center'>
-          {services.map(s => (
+          {servicesToShow.map(s => (
             <Grid
               xs={12 / length}
               md={4}
@@ -150,6 +200,17 @@ export default function Areas () {
     </Grid>
   )
 }
+
+function filterServices (services = [], filters = {}) {
+  return services.filter(s => {
+    let pass = s.tecnica_artisticas.some(t =>
+      (filters?.tecnics || []).includes(t.id)
+    )
+    if (pass) return pass
+    return s.formatos.some(t => (filters?.formats || []).includes(t.id))
+  })
+}
+
 
 export const useStyles = makeStyles(theme => ({
   title: { fontWeight: 'bold', fontSize: '24rm' },
