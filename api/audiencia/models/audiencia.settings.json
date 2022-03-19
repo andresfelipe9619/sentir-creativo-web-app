@@ -90,7 +90,7 @@
       "model": "prefijo"
     },
     "cuponDescuento": {
-      "model": "cupon-descuento"
+      "collection": "cupon-descuento"
     },
     "email2": {
       "type": "email",
