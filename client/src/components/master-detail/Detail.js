@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { Prompt } from "react-router-dom";
 import { Formik } from 'formik'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
@@ -10,9 +11,10 @@ import FormItem from './FormItem'
 import useFormDependencies from '../../providers/hooks/useFormDependencies'
 import { useAlertDispatch } from '../../providers/context/Alert'
 
-export default function Detail ({ columns, service, match, reloadMaster }) {
+export default function Detail({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
+  let [isChanged, setIsChanged] = useState(false);
   const entityId = match?.params?.id
   const {
     dependencies,
@@ -87,10 +89,14 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
       enableReinitialize
       onSubmit={handleFormSubmit}
       initialValues={initialValues}
-      // validationSchema={contactSchema}
+    // validationSchema={contactSchema}
     >
       {({ handleSubmit, ...formProps }) => (
         <form onSubmit={handleSubmit}>
+          <Prompt
+            when={isChanged}
+            message={`Tiene cambios sin guardar, ¿Está seguro que desea salir?`}
+          />
           <Paper elevation={3} component={Box} p={5}>
             <Grid container spacing={4}>
               {columns.map((item, i) => (
@@ -101,6 +107,12 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
                   initParent={init}
                   {...formProps}
                   dependencies={dependencies}
+                  handleChange={(e) => {
+                    console.log(e)
+                    setIsChanged(true);
+                    formProps.handleChange(e);
+                    }
+                  }
                 />
               ))}
               <Grid item md={12} container justifyContent='flex-end'>
@@ -108,7 +120,7 @@ export default function Detail ({ columns, service, match, reloadMaster }) {
                   type='submit'
                   color='primary'
                   variant='outlined'
-                  disabled={formProps.isSubmitting}
+                  disabled={formProps.isSubmitting || !isChanged}
                 >
                   {formProps.isSubmitting ? 'Guardando ...' : 'Guardar'}
                 </Button>
