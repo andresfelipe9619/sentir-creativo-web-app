@@ -22,7 +22,7 @@ export const useStyles = makeStyles(theme => ({
     height: '25rem',
     margin: 'auto',
     boxShadow: 'none',
-    borderRadius: '12px'
+    overflow: 'visible'
   },
   content: {
     position: 'relative',
@@ -31,7 +31,6 @@ export const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     transition: 'transform 1s',
     transformStyle: 'preserve-3d',
-    boxShadow: '0 8px 8px 0 rgb(0 0 0 / 50%)',
     '&::before': {
       content: '""',
       position: 'absolute',
@@ -52,7 +51,9 @@ export const useStyles = makeStyles(theme => ({
     top: 0,
     left: 0,
     padding: '2rem',
-    color: 'white'
+    color: 'white',
+    boxShadow: '0 8px 8px 0 rgb(0 0 0 / 25%)',
+    borderRadius: '12px'
   },
   back: {
     transform: 'rotateY(180deg)',
@@ -120,7 +121,7 @@ export default function FlipCard({
 
           <Box display='flex' flexWrap='wrap' justifyContent='center'>
             {chips.map(x => (
-              <Chip label={x} style={{ background: color }} size='small' className={classes.chips} />
+              <Chip key={'key_'+x} label={x} style={{ background: color }} size='small' className={classes.chips} />
             ))}
           </Box>
 

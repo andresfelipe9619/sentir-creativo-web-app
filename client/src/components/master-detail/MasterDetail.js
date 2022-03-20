@@ -24,11 +24,17 @@ export default function MasterDetail ({
   const masterPath = match.path
   const detailPath = `${masterPath}/:id`
   const [open, setOpen] = useState(false)
-  const { data, loading, init, create: createEntity } = useAPI(service)
+  const { data, loading, init, create: createEntity, api } = useAPI(service)
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id
     history.push(`${masterPath}/${entityId}`)
+  }
+
+  const handleRowsDelete = async (indexes) => {
+    console.clear()
+    const ids = indexes.map(i => data[i].id)
+    await Promise.all(ids.map(async id => await api.delete(id)))
   }
 
   const handleOpenModal = () => setOpen(true)
@@ -41,7 +47,8 @@ export default function MasterDetail ({
     loading,
     masterProps,
     renderMaster,
-    handleClickRow
+    handleClickRow,
+    handleRowsDelete
   }
   return (
     <>
@@ -87,6 +94,7 @@ function MasterView ({
   masterProps,
   renderMaster,
   handleClickRow,
+  handleRowsDelete,
   ...routerProps
 }) {
   const [showList, setShowList] = useState(false)
@@ -111,7 +119,7 @@ function MasterView ({
           />
         </Box>
       )}
-      {showCustom && renderMaster({ data, handleClickRow, ...routerProps })}
+      {showCustom && renderMaster({ data, handleClickRow, handleRowsDelete, ...routerProps })}
       {!showCustom && (
         <Master
           {...masterProps}
@@ -119,6 +127,7 @@ function MasterView ({
           data={data}
           loading={loading}
           onRowClick={handleClickRow}
+          onRowsDelete={({ lookup }) => handleRowsDelete(Object.keys(lookup))}
         />
       )}
     </>

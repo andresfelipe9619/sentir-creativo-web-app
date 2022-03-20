@@ -201,6 +201,16 @@ const columns = [
       size: 12,
       type: 'file'
     }
+  },
+  {
+    name: 'delete',
+    label: 'Delete',
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: { }
   }
 ]
 export default columns
