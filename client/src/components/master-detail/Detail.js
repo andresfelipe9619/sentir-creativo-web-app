@@ -14,7 +14,8 @@ import { useAlertDispatch } from '../../providers/context/Alert'
 export default function Detail({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-  let [isChanged, setIsChanged] = useState(false);
+  const [inputsChanged, setInputsChanged] = useState([]);
+
   const entityId = match?.params?.id
   const {
     dependencies,
@@ -94,7 +95,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
       {({ handleSubmit, ...formProps }) => (
         <form onSubmit={handleSubmit}>
           <Prompt
-            when={isChanged}
+            when={inputsChanged.length > 0}
             message={`Tiene cambios sin guardar, ¿Está seguro que desea salir?`}
           />
           <Paper elevation={3} component={Box} p={5}>
@@ -108,8 +109,11 @@ export default function Detail({ columns, service, match, reloadMaster }) {
                   {...formProps}
                   dependencies={dependencies}
                   handleChange={(e) => {
-                    console.log(e)
-                    setIsChanged(true);
+                    if(e.target.value !== initialValues[item.name]){
+                      setInputsChanged([...inputsChanged, item.name]);
+                    }else{
+                      setInputsChanged([...inputsChanged.filter(i => i !== item.name)]);
+                    }
                     formProps.handleChange(e);
                     }
                   }
@@ -120,7 +124,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
                   type='submit'
                   color='primary'
                   variant='outlined'
-                  disabled={formProps.isSubmitting || !isChanged}
+                  disabled={formProps.isSubmitting || inputsChanged.length === 0}
                 >
                   {formProps.isSubmitting ? 'Guardando ...' : 'Guardar'}
                 </Button>
