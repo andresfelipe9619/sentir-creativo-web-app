@@ -23,7 +23,8 @@ const populate = [
   'comentarios',
   'presupuestos',
   'audiencia.organizacion',
-  'archivos.tipo_archivo'
+  'archivos.tipo_archivo',
+  'destacado'
 ]
 
 module.exports = {
