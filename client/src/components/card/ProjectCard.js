@@ -63,7 +63,6 @@ export default function ProjectCard (props) {
   } = props
 
   const [destacado, setDestacado] = useState(props.destacado);
-
   const classes = useStyles()
   const history = useHistory()
   const { openAlert } = useAlertDispatch()
