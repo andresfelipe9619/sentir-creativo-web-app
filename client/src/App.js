@@ -35,7 +35,7 @@ function App () {
       <Alert />
       {content}
       {isAdminArea && !user ? null : <Footer />}
-      {/* <ScrollUp /> */}
+      <ScrollUp />
     </MuiThemeProvider>
   )
 }
