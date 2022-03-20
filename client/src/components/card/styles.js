@@ -37,6 +37,11 @@ const useStyles = makeStyles(theme => ({
   },
   ellipsedHeader: {
     overflow: 'hidden'
+  },
+  accentText: {
+    '&:hover': {
+      fontWeight: theme.typography.fontWeightBold
+    }
   }
 }))
 
