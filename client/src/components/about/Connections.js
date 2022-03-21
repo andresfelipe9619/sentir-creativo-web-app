@@ -47,7 +47,7 @@ export default function Connections({ connections, title, subtitle, color, child
       </Box>
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>
-        {connections.map(x => <ConnectionItem {...x} />)}
+        {connections.map(x => <ConnectionItem key={x.match} {...x} />)}
         {children}
       </Collapse>
     </>

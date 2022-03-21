@@ -71,6 +71,9 @@
     },
     "cupon_descuentos": {
       "collection": "cupon-descuento"
+    },
+    "destacado": {
+      "type": "boolean"
     }
   }
 }

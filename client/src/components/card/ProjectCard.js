@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useHistory } from 'react-router'
 import { formatDate } from '../../utils'
 import yellow from '@material-ui/core/colors/yellow'
@@ -13,6 +14,8 @@ import StarOutlineIcon from '@material-ui/icons/StarOutline'
 import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import WorkIcon from '@material-ui/icons/Work'
 import useStyles from './styles'
+import API from '../../api'
+import { useAlertDispatch } from '../../providers/context/Alert'
 
 const project = {
   interno: {
@@ -42,24 +45,27 @@ function sliceItems(collection = []) {
   return collection.join(', ')
 }
 
-export default function ProjectCard ({
-  id,
-  nombre,
-  avance,
-  impacto,
-  fechaInicio,
-  destacado,
-  formato,
-  servicios,
-  publico_objetivos,
-  audiencia,
-  staf,
-  estado_proyecto,
-  tipo_proyecto,
-  cupon_descuentos
-}) {
+export default function ProjectCard (props) {
+  const {
+    id,
+    nombre,
+    avance,
+    impacto,
+    fechaInicio,
+    formato,
+    servicios,
+    publico_objetivos,
+    audiencia,
+    staf,
+    estado_proyecto,
+    tipo_proyecto,
+    cupon_descuentos
+  } = props
+
+  const [destacado, setDestacado] = useState(props.destacado);
   const classes = useStyles()
   const history = useHistory()
+  const { openAlert } = useAlertDispatch()
 
   const rows = [
     createData('Servicio', sliceItems(servicios?.map(x => x?.nombre))),
@@ -73,7 +79,27 @@ export default function ProjectCard ({
     history.push(`/admin/proyectos/${id}`)
   }
 
-  const IconStar = destacado ? StarOutlineIcon : StarIcon
+  const handleStared = async () => {
+    try {
+      setDestacado(!destacado)
+
+      const project = {
+        ...props,
+        destacado: !destacado
+      }
+
+      await API.Proyecto.update(id, project)
+    } catch {
+      setDestacado(!destacado)
+
+      openAlert({
+        variant: 'error',
+        message: 'Ha ocurrido un error inesperado, intentalo de nuevo!'
+      })
+    }
+  }
+
+  const IconStar = destacado ? StarIcon : StarOutlineIcon
   const selectedProject = project[tipo_proyecto?.nombre?.toLowerCase()];
 
   return (
@@ -127,7 +153,7 @@ export default function ProjectCard ({
     )}
     buttonActions={[
       {
-        icon: <IconStar fontSize='large' style={{ color: '#ffab00' }} />,
+        icon: <IconStar fontSize='large' style={{ color: '#ffab00' }} onClick={() => handleStared()} />,
         label: 'Destacar'
       },
       {
