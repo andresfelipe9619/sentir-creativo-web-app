@@ -23,6 +23,7 @@ import { useTheme } from '@material-ui/styles'
 export default function Filters ({
   children,
   color,
+  data = [],
   filterOptions,
   onFilterChange
 }) {
@@ -87,10 +88,21 @@ export default function Filters ({
             />
           </div>
           <Box className={classes.chips}>
-            {chips.map(option => {
+            {(chips || []).map(option => {
               return <Chip key={option.label} label={option.label} />
             })}
           </Box>
+        </Toolbar>
+        <Toolbar>
+          <Grid item md={3}></Grid>
+          <Grid
+            item
+            md={4}
+            style={{ backgroundColor: areaTheme.palette.primary.main }}
+          >
+            {(data || []).length} experiencias encontradas:
+          </Grid>
+          <Grid item md={5}></Grid>
         </Toolbar>
       </AppBar>
       <Grid container>

@@ -161,6 +161,7 @@ export default function Areas () {
       </Grid>
       <Filters
         color={color}
+        data={servicesToShow}
         onFilterChange={setFilters}
         filterOptions={[
           {
@@ -210,7 +211,6 @@ function filterServices (services = [], filters = {}) {
     return s.formatos.some(t => (filters?.formats || []).includes(t.id))
   })
 }
-
 
 export const useStyles = makeStyles(theme => ({
   title: { fontWeight: 'bold', fontSize: '24rm' },
