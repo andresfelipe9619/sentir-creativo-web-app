@@ -154,13 +154,14 @@ export default function Areas () {
           paragraph
           gutterBottom
           align='center'
-          className={classes.title}
+          className={classes.titleAccent}
         >
           {selectedArea.slogan}
         </Typography>
       </Grid>
       <Filters
         color={color}
+        data={servicesToShow}
         onFilterChange={setFilters}
         filterOptions={[
           {
@@ -211,9 +212,16 @@ function filterServices (services = [], filters = {}) {
   })
 }
 
-
 export const useStyles = makeStyles(theme => ({
-  title: { fontWeight: 'bold', fontSize: '24rm' },
+  titleAccent: {
+    fontWeight: theme.typography.fontWeightBold,
+    textAlign: 'center',
+    textShadow: '4px 4px 2px ' + theme.palette.grey[600],
+    fontSize: '48px',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '38px'
+    }
+  },
   slogan: { fontSize: '24em' },
   root: {
     '& > *': {
