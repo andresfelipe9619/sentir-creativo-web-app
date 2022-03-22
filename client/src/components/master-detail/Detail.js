@@ -34,6 +34,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
           variant: 'success',
           message: 'Datos guardados exitosamente!'
         })
+        setInputsChanged([]);
       } catch (error) {
         console.error(error)
         openAlert({
