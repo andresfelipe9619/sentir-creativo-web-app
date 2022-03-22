@@ -10,11 +10,19 @@ import { Box } from '@material-ui/core'
 import WbSunnyIcon from '@material-ui/icons/WbSunny'
 import clsx from 'clsx'
 import { getAreaBackground } from '../../utils'
+import Logo from '../../assets/iso-fullc-large.png'
+import LogoYellow from '../../assets/iso_amarillo.svg'
 
 const ICON_SIZE = '1.6em'
 
 const getYellow = index => (index % 2 === 0 ? '#fed901' : '#fff158')
 
+const buttonsStyle = {
+  borderRadius: 0,
+  height: 70,
+  lineHeight: 1.2,
+  padding: 16
+}
 export function MobileAreasButtons ({ areas, goTo, classes }) {
   const { pathname } = useLocation()
   const [value, setValue] = useState(null)
@@ -29,7 +37,13 @@ export function MobileAreasButtons ({ areas, goTo, classes }) {
   }, [value, pathname])
 
   return (
-    <Box width='100%' display='flex' justifyContent='center'>
+    <Box
+      width='100%'
+      display='flex'
+      justifyContent='center'
+      height='100%'
+      alignItems='center'
+    >
       <BottomNavigation
         value={value}
         onChange={(_, newValue) => {
@@ -43,6 +57,7 @@ export function MobileAreasButtons ({ areas, goTo, classes }) {
         {areas.map((area, i) => {
           const selected = area.id === value
           const style = {
+            ...buttonsStyle,
             background: selected ? getAreaBackground(area) : getYellow(i),
             color: selected ? 'white' : '#4D4C4C'
           }
@@ -52,6 +67,7 @@ export function MobileAreasButtons ({ areas, goTo, classes }) {
               key={area.nombre}
               style={style}
               label={area.nombre}
+              className={classes.buttons}
               icon={area.icono && <area.icono size={'2em'} />}
             />
           )
@@ -76,10 +92,13 @@ export function MobileHeader ({ areas, classes, goTo }) {
               size='large'
               key={'sentircreativo'}
               style={{
-                borderRadius: 0,
                 background: '#4E4E4E',
-                color: 'white'
+                color: 'white',
+                ...buttonsStyle
               }}
+              startIcon={
+                <img src={LogoYellow} width={55} alt='logo sentir creativo' />
+              }
               onClick={() => goTo(`/about`)()}
             >
               SentirCreativo.com
@@ -89,11 +108,12 @@ export function MobileHeader ({ areas, classes, goTo }) {
             <Button
               fullWidth
               key={'quienes somos'}
+              classes={{ startIcon: classes.buttons }}
               style={{
                 fontSize: 12,
-                borderRadius: 0,
                 background: '#363636',
-                color: 'white'
+                color: 'white',
+                ...buttonsStyle
               }}
               onClick={() => goTo(`/about`)()}
             >
@@ -109,7 +129,7 @@ export function MobileHeader ({ areas, classes, goTo }) {
   )
 }
 
-function AreasButtons ({ areas, goTo }) {
+function AreasButtons ({ areas, goTo, classes }) {
   const { pathname } = useLocation()
   const [value, setValue] = useState(null)
 
@@ -125,7 +145,7 @@ function AreasButtons ({ areas, goTo }) {
   return areas.map((area, i) => {
     const selected = area.id === value
     const style = {
-      borderRadius: 0,
+      ...buttonsStyle,
       background: selected ? getAreaBackground(area) : getYellow(i),
       color: selected ? 'white' : '#4D4C4C'
     }
@@ -157,29 +177,29 @@ export function DesktopHeader ({ areas, classes, goTo }) {
           >
             <Button
               fullWidth
+              classes={{ root: classes.buttons, startIcon: classes.buttons }}
               key={'sentir creativo'}
               onClick={() => goTo(`/`)()}
-              style={{ background: '#ffec11', borderRadius: 0 }}
+              style={{ background: '#ffec11', ...buttonsStyle }}
               startIcon={
-                <WbSunnyIcon
-                  style={{ fontSize: parseFloat(ICON_SIZE) * 2 + 'em' }}
-                />
+                <img src={Logo} width={60} alt='logo sentir creativo' />
               }
             >
               Sentir CREATIVO .com
             </Button>
 
-            <AreasButtons {...{ areas, goTo }} />
+            <AreasButtons {...{ areas, goTo, classes }} />
 
             <Button
               fullWidth
               size='large'
               key={'quienes somos'}
               style={{
-                borderRadius: 0,
                 background: '#ff6c00',
-                color: 'white'
+                color: 'white',
+                ...buttonsStyle
               }}
+              classes={{ startIcon: classes.buttons }}
               onClick={() => goTo(`/about`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
