@@ -60,7 +60,7 @@ export default function Files ({ files, title, parent, initParent }) {
   }
 
   const handleDeleteFile = async fileId => {
-    const result = await api.delete(fileId)
+    const result = await api.delete(`${fileId}.${parent}`)
 
     if (!result) {
       return
