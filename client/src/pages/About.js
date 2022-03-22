@@ -28,6 +28,7 @@ import * as GI from 'react-icons/gi'
 import FlipCard from '../components/about/FlipCard'
 import PrinciplesCard from '../components/about/PrinciplesCard'
 import Connections from '../components/about/Connections'
+import Spinner from '../components/spinner/Spinner'
 
 // TODO: Move collection to own files
 const rubros = {
@@ -290,28 +291,44 @@ export default function About() {
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
   const [areas, setAreas] = useState([])
   const [ocasiones, setOcasiones] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     ;(async () => {
-      let [areaResult, ocasionResult] = await Promise.all([API.Area.getAll(), API.Ocasion.getAll()])
+      try {
+        setLoading(true)
+        let [areaResult, ocasionResult] = await Promise.all([API.Area.getAll(), API.Ocasion.getAll()])
 
-      areaResult = areaResult.map(area => {
-        let icono = null
+        areaResult = await Promise.all(areaResult.map(async area => {
+          let icono = null
 
-        if (/\//.test(area.icono)) {
-          let [prefix, name] = area.icono.split('/')
+          if (/\//.test(area.icono)) {
+            let [prefix, name] = area.icono.split('/')
 
-          if (prefix === 'gi') icono = GI[name]
-          if (prefix === 'io5') icono = IO5[name]
-        }
+            if (prefix === 'gi') icono = GI[name]
+            if (prefix === 'io5') icono = IO5[name]
+          }
 
-        return {
-          ...area,
-          icono
-        }
-      })
-      setAreas(areaResult)
-      setOcasiones(ocasionResult?.map(x => x?.nombre))
+          const serviceResult = await API.Servicio.getAll({
+            params: { area: area.id, 'estado.id': 12 }
+          })
+
+          const tecnicas = new Set(serviceResult?.reduce((acc, curr) => (
+            [...acc, ...curr.tecnica_artisticas]
+          ), [])?.map(x => x.nombre))
+
+          return {
+            ...area,
+            tecnicas,
+            icono
+          }
+        }))
+
+        setAreas(areaResult)
+        setOcasiones(ocasionResult?.map(x => x?.nombre))
+      } finally {
+        setLoading(false)
+      }
     })()
   }, [])
 
@@ -337,6 +354,8 @@ export default function About() {
     return `url(${bgURI})`;
   };
 
+  if (loading) return <Spinner />
+
   return (
     <Container className={classes.container}>
       <Grid container spacing={10} justifyContent="center">
@@ -349,7 +368,7 @@ export default function About() {
           </Typography>
           <Typography color='textSecondary' className={classes.headerFontmd}>
             que&nbsp;
-            <Typography display='inline' color='textSecondary' className={classes.headerColor2}>
+            <Typography color='textSecondary' className={classes.headerColor2} component='span'>
               conecta
             </Typography>
             &nbsp;a
@@ -399,7 +418,7 @@ export default function About() {
           </Typography>
           <Typography className={classes.principiosText}>
             Principios&nbsp;
-            <Typography display='inline' className={classes.principiosText} style={{ fontWeight: 'bold' }}>
+            <Typography className={classes.principiosText} style={{ fontWeight: 'bold' }} component='span'>
               Esenciales
             </Typography>
           </Typography>
@@ -474,7 +493,7 @@ export default function About() {
           </Typography>
           <Typography className={classes.principiosText}>
             Aréas de&nbsp;
-            <Typography display='inline' className={classes.principiosText} style={{ fontWeight: 'bold' }}>
+            <Typography className={classes.principiosText} style={{ fontWeight: 'bold' }} component='span'>
             Acción
             </Typography>
           </Typography>
@@ -482,14 +501,14 @@ export default function About() {
 
         <Grid container item xs={12} spacing={6} justifyContent='space-around' alignItems="center">
           {areas.map((x, i) => (
-            <Grid item xs={12} md={6} key={x}>
+            <Grid item xs={12} md={6} key={x.id}>
               <FlipCard
                 title={x.nombre}
                 detail={x.slogan}
                 icon={x.icono}
                 background={areaBg(x)}
                 color={x.colorPrimario}
-                chips={x?.servicio?.tecnica_artisticas?.slice(0, 5)?.map(y => y.nombre)}
+                chips={[...x?.tecnicas]?.slice(0, 9)}
                 style={{ marginTop: actionCardPosition(i) }}
                 />
             </Grid>
@@ -503,7 +522,7 @@ export default function About() {
           </Typography>
           <Typography className={classes.principiosText}>
             Rubros y&nbsp;
-            <Typography display='inline' className={classes.principiosText} style={{ fontWeight: 'bold' }}>
+            <Typography className={classes.principiosText} style={{ fontWeight: 'bold' }} component='span'>
               Ocasiones
             </Typography>
           </Typography>
