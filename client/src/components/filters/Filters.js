@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import InputBase from '@material-ui/core/InputBase'
 import Accordion from '@material-ui/core/Accordion'
 import Chip from '@material-ui/core/Chip'
 import Box from '@material-ui/core/Box'
@@ -19,19 +18,28 @@ import {
 import SearchIcon from '@material-ui/icons/Search'
 import { CheckboxGroup } from '../radio'
 import { useTheme } from '@material-ui/styles'
+import TextField from '@material-ui/core/TextField'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 
-export default function Filters ({
+function Filters ({
   children,
   color,
   data = [],
   filterOptions,
+  // onSearchChange,
   onFilterChange
 }) {
   const classes = useStyles()
   const theme = useTheme()
   const [values, setValues] = useState({})
   const [filters, setFilters] = useState({})
+  const [value, setValue] = useState(null)
+
   const cardColor = color || theme.palette.primary.main
+
+  const handleDeleteFilter = () => () => {
+    // handleChangeFilter({target:{name, value, checked:false}})
+  }
 
   const handleChangeFilter = e => {
     const { name, value, checked } = e.target
@@ -52,10 +60,11 @@ export default function Filters ({
       primary: { main: cardColor }
     }
   })
+  console.log('data', data)
+  console.log('value', value)
   console.log('filters', filters)
   const chips = filterOptions
     .map(fo => {
-      console.log('fo', fo)
       if (fo.name === 'formato') {
         return (fo.options || []).filter(o =>
           (filters.formats || []).includes(+o.value)
@@ -69,38 +78,83 @@ export default function Filters ({
       return []
     })
     .flatMap(f => f)
-  console.log('chips', chips)
+
+  const options = value ? data.filter(o => o.id === value.id) : data
   return (
     <ThemeProvider theme={areaTheme}>
-      <AppBar position='relative' classes={{ root: classes.toolbar }}>
+      <AppBar
+        position='relative'
+        classes={{ root: classes.toolbar }}
+        elevation={0}
+      >
         <Toolbar>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Buscar...'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          <Autocomplete
+            size='small'
+            id='combo-box-demo'
+            options={options}
+            value={value}
+            onChange={(_, newValue) => {
+              setValue(newValue)
+            }}
+            getOptionLabel={option => option.nombre}
+            style={{ width: 300 }}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label='Buscar'
+                variant='outlined'
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <SearchIcon
+                      style={{
+                        color: cardColor
+                      }}
+                    />
+                  )
+                }}
+              />
+            )}
+          />
+
           <Box className={classes.chips}>
             {(chips || []).map(option => {
-              return <Chip key={option.label} label={option.label} />
+              console.log('option', option)
+              return (
+                <Chip
+                  key={option.label}
+                  label={option.label}
+                  onDelete={handleDeleteFilter()}
+                  style={{
+                    backgroundColor: cardColor,
+                    color: 'white'
+                  }}
+                />
+              )
             })}
           </Box>
         </Toolbar>
-        <Toolbar>
+        <Toolbar
+          style={{
+            minHeight: 36,
+            padding: 0,
+            backgroundColor: cardColor
+          }}
+        >
           <Grid item md={3}></Grid>
           <Grid
             item
             md={4}
-            style={{ backgroundColor: areaTheme.palette.primary.main }}
+            style={{
+              fontSize: '1.2em',
+              fontWeight: 'bold',
+              backgroundColor: areaTheme.palette.primary.dark,
+              width: '100%',
+              padding: 4,
+              height: '100%'
+            }}
           >
-            {(data || []).length} experiencias encontradas:
+            {(options || []).length} experiencias encontradas:
           </Grid>
           <Grid item md={5}></Grid>
         </Toolbar>
@@ -116,7 +170,7 @@ export default function Filters ({
             />
           ))}
         </Grid>
-        <Grid item md={9} component={Box} bgcolor={'#212121'} pt={2}>
+        <Grid item md={9} component={Box} px={1} bgcolor={'#212121'} pt={2}>
           {children}
         </Grid>
       </Grid>
@@ -124,7 +178,13 @@ export default function Filters ({
   )
 }
 
-function FilterOption ({ label, name, options, values, handleChange }) {
+const FilterOption = memo(function FilterOption ({
+  label,
+  name,
+  options,
+  values,
+  handleChange
+}) {
   return (
     <AccordionOption title={label}>
       <CheckboxGroup
@@ -135,15 +195,15 @@ function FilterOption ({ label, name, options, values, handleChange }) {
       />
     </AccordionOption>
   )
-}
+})
 
-function AccordionOption ({ title, children }) {
+const AccordionOption = memo(function AccordionOption ({ title, children }) {
   const classes = useStyles()
   return (
-    <Accordion defaultExpanded>
+    <Accordion>
       <AccordionSummary
         className={classes.accordion}
-        expandIcon={<ExpandMoreIcon color='inherit' />}
+        expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
         aria-controls='panel1a-content'
         id='panel1a-header'
       >
@@ -152,7 +212,7 @@ function AccordionOption ({ title, children }) {
       <AccordionDetails>{children}</AccordionDetails>
     </Accordion>
   )
-}
+})
 
 function getSelectedFilters (filters) {
   let formats = Object.entries(filters.formato || {})
@@ -168,8 +228,13 @@ function getSelectedFilters (filters) {
 export const useStyles = makeStyles(theme => ({
   title: { fontWeight: 'bold', fontSize: '24rm' },
   slogan: { fontSize: '24em' },
-  toolbar: { background: theme.palette.background.paper, zIndex: 1 },
-  accordion: { color: 'white', background: theme.palette.primary.main },
+  toolbar: { background: '#F5F5F5', zIndex: 1 },
+  accordion: {
+    color: 'white',
+    background: theme.palette.primary.main,
+    borderTop: [[1, 'solid', 'white']],
+    borderBottom: [[1, 'solid', 'white']]
+  },
   root: {
     '& > *': {
       margin: theme.spacing(0.5)
@@ -178,9 +243,9 @@ export const useStyles = makeStyles(theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.primary.main, 0.8),
+    backgroundColor: alpha(theme.palette.background.paper, 0.8),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.primary.main, 1)
+      backgroundColor: alpha(theme.palette.background.paper, 1)
     },
     marginLeft: 0,
     width: '100%',
@@ -223,3 +288,5 @@ export const useStyles = makeStyles(theme => ({
     }
   }
 }))
+
+export default memo(Filters)
