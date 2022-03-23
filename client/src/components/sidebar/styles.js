@@ -17,6 +17,7 @@ export const useStyles = makeStyles(theme => ({
   },
   navigation: {
     display: 'flex',
+    width: '100%',
     height: barHeight
   },
   navigationMobile: {
@@ -36,6 +37,11 @@ export const useStyles = makeStyles(theme => ({
   },
   drawerPaper: {
     width: drawerWidth
+  },
+  buttons: {
+    borderRadius: 0,
+    lineHeight: 1.2,
+    padding: theme.spacing(2)
   },
   drawerHeader: {
     display: 'flex',

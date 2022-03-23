@@ -104,7 +104,7 @@ export default function ServiceCard ({
   })
 
   const text = <Typography variant='h3'>{title}</Typography>
-  const [prefix, name] = area.icono.split('/')
+  const [prefix, name] = (area?.icono || '').split('/')
   let Icon = null
 
   if (prefix === 'gi') Icon = GI[name]
@@ -123,7 +123,12 @@ export default function ServiceCard ({
           //   </IconButton>
           // }
           subheader={
-            <Typography variant='caption' color='textSecondary' paragraph className={classes.tags}>
+            <Typography
+              variant='caption'
+              color='textSecondary'
+              paragraph
+              className={classes.tags}
+            >
               {tags
                 .slice(0, 3)
                 .map(t => t.nombre)

@@ -17,8 +17,8 @@ export default function Sidebar ({ children }) {
   const [laoding, setLaoding] = useState(true)
 
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'))
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
   const goTo = path => () => history.push(path)
 
