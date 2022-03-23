@@ -134,9 +134,13 @@ function AreasButtons ({ areas, goTo, classes }) {
   const [value, setValue] = useState(null)
 
   useEffect(() => {
-    if (!pathname.includes('areas')) return
+    if (!pathname.includes('areas')) {
+      setValue(null)
+      return
+    }
+
     let [id] = pathname.split('/').reverse()
-    console.log('id', id)
+
     if (id && +id !== +value) {
       setValue(+id)
     }
