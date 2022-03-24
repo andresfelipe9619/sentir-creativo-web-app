@@ -14,11 +14,15 @@ import Spinner from '../components/spinner/Spinner'
 import { getAreaBackground } from '../utils'
 import Filters from '../components/filters/Filters'
 
+const ServiceOK = 12;
+
 function useQuery () {
   return new URLSearchParams(useLocation().search)
 }
 
 const map2select = ([value, label]) => ({ label, value })
+
+
 
 export default function Areas () {
   const [services, setServices] = useState([])
@@ -38,13 +42,18 @@ export default function Areas () {
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
   const classes = useStyles()
 
+async function loadServices(filters){
+        const serviceResult = await API.Servicio.getAll({
+          params: { area: areaId, 'estado.id': ServiceOK }
+        })
+        return serviceResult
+}
+
   useEffect(() => {
     ;(async () => {
       try {
         setLoading(true)
-        const serviceResult = await API.Servicio.getAll({
-          params: { area: areaId, 'estado.id': 12 }
-        })
+        const serviceResult = loadServices()
         const areaResult = await API.Area.get(areaId)
         setSelectedArea(areaResult)
         // Find unique tecnics and formats for the filter's options

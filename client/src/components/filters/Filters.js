@@ -9,17 +9,13 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {
-  alpha,
-  ThemeProvider,
-  makeStyles,
-  createTheme
-} from '@material-ui/core/styles'
+import { ThemeProvider, createTheme } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import { CheckboxGroup } from '../radio'
 import { useTheme } from '@material-ui/styles'
 import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete'
+import useStyles from './styles'
 
 function Filters ({
   children,
@@ -224,69 +220,5 @@ function getSelectedFilters (filters) {
 
   return { formats, tecnics }
 }
-
-export const useStyles = makeStyles(theme => ({
-  title: { fontWeight: 'bold', fontSize: '24rm' },
-  slogan: { fontSize: '24em' },
-  toolbar: { background: '#F5F5F5', zIndex: 1 },
-  accordion: {
-    color: 'white',
-    background: theme.palette.primary.main,
-    borderTop: [[1, 'solid', 'white']],
-    borderBottom: [[1, 'solid', 'white']]
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(0.5)
-    }
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.background.paper, 0.8),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.background.paper, 1)
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto'
-    }
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  inputRoot: {
-    color: 'inherit'
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch'
-      }
-    }
-  },
-  chips: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5)
-    }
-  }
-}))
 
 export default memo(Filters)
