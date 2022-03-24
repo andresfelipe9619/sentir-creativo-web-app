@@ -40,9 +40,9 @@ export default function Areas() {
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
 
-  async function loadServices(filters) {
+  async function loadServices(filters = {}) {
     const serviceResult = await API.Servicio.getAll({
-      params: { area: areaId, "estado.id": ServiceOK },
+      params: { area: areaId, "estado.id": ServiceOK, ...filters },
     });
     return serviceResult;
   }
@@ -90,6 +90,7 @@ export default function Areas() {
         setLoading(false);
       }
     })();
+    //eslint-disable-next-line
   }, [areaId]);
 
   useEffect(() => {

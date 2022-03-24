@@ -1,18 +1,18 @@
-import React from 'react'
-import CheckboxesGroup from '../checkbox'
-import Spinner from '../spinner/Spinner'
-import useAPI from '../../providers/hooks/useAPI'
+import React from "react";
+import CheckboxesGroup from "../checkbox";
+import Spinner from "../spinner/Spinner";
+import useAPI from "../../providers/hooks/useAPI";
 
-export default function PublicoObjetivo ({ values, handleChange }) {
-  const { data, loading } = useAPI('PublicoObjetivo', true)
-  if (loading) return <Spinner />
+export default function PublicoObjetivo({ values, handleChange }) {
+  const { data, loading } = useAPI("PublicoObjetivo", true);
+  if (loading) return <Spinner />;
   return (
     <CheckboxesGroup
-      legend=''
-      name='publicoObjetivo'
+      legend=""
+      name="publicoObjetivo"
       options={data}
       values={values}
       handleChange={handleChange}
     />
-  )
+  );
 }

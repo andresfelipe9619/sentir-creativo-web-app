@@ -1,12 +1,16 @@
-import { useState } from 'react'
-import Tooltip from '@material-ui/core/Tooltip'
+import { useState } from "react";
+import Tooltip from "@material-ui/core/Tooltip";
 
-export default function CopyClipboard({ title = '¡Copiado!', tooltipProps, children }) {
-  const [showTooltip, setShowTooltip] = useState(false)
+export default function CopyClipboard({
+  title = "¡Copiado!",
+  tooltipProps,
+  children,
+}) {
+  const [showTooltip, setShowTooltip] = useState(false);
 
-  const onCopy = content => {
-    window.navigator.clipboard.writeText(content)
-    setShowTooltip(true)
+  const onCopy = (content) => {
+    window.navigator.clipboard.writeText(content);
+    setShowTooltip(true);
   };
 
   const handleOnTooltipClose = () => {
@@ -15,13 +19,13 @@ export default function CopyClipboard({ title = '¡Copiado!', tooltipProps, chil
 
   return (
     <Tooltip
-    open={showTooltip}
-    title={title}
-    leaveDelay={1500}
-    onClose={handleOnTooltipClose}
-    {...tooltipProps}
+      open={showTooltip}
+      title={title}
+      leaveDelay={1500}
+      onClose={handleOnTooltipClose}
+      {...tooltipProps}
     >
       {children({ copy: onCopy })}
     </Tooltip>
-  )
+  );
 }

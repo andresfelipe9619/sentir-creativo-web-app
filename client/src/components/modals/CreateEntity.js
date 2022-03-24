@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
-import GenericModal from './GenericModal'
-import Grid from '@material-ui/core/Grid'
-import { Formik } from 'formik'
-import { useAlertDispatch } from '../../providers/context/Alert'
-import FormItem from '../master-detail/FormItem'
-import useFormDependencies from '../../providers/hooks/useFormDependencies'
+import React, { useEffect } from "react";
+import GenericModal from "./GenericModal";
+import Grid from "@material-ui/core/Grid";
+import { Formik } from "formik";
+import { useAlertDispatch } from "../../providers/context/Alert";
+import FormItem from "../master-detail/FormItem";
+import useFormDependencies from "../../providers/hooks/useFormDependencies";
 
-export default function CreateEntity ({
+export default function CreateEntity({
   open,
   entity,
   columns,
@@ -14,43 +14,40 @@ export default function CreateEntity ({
   handleCreate,
   ...props
 }) {
-  const { openAlert } = useAlertDispatch()
-  const {
-    dependencies,
-    loadDependencies,
-    loadingDependencies
-  } = useFormDependencies(columns)
+  const { openAlert } = useAlertDispatch();
+  const { dependencies, loadDependencies, loadingDependencies } =
+    useFormDependencies(columns);
 
   useEffect(() => {
-    loadDependencies()
+    loadDependencies();
     //eslint-disable-next-line
-  }, [])
+  }, []);
 
-  const handleFormSubmit = async values => {
+  const handleFormSubmit = async (values) => {
     try {
-      console.log(`values`, values)
+      console.log(`values`, values);
       const result = await handleCreate({
-        ...values
-      })
-      console.log(`result`, result)
-      openAlert({ variant: 'success', message: `${entity} creado con éxito!` })
-      handleClose()
+        ...values,
+      });
+      console.log(`result`, result);
+      openAlert({ variant: "success", message: `${entity} creado con éxito!` });
+      handleClose();
     } catch (error) {
-      console.error(error)
+      console.error(error);
       openAlert({
-        variant: 'error',
-        message: 'Algo salió mal. Vuelve a intentarlo más tarde'
-      })
+        variant: "error",
+        message: "Algo salió mal. Vuelve a intentarlo más tarde",
+      });
     }
-  }
+  };
   const initialValues = columns.reduce((acc, col) => {
-    let key = col.name
-    acc[key] = ''
-    if (col.form.type === 'date') {
-      acc[key] = new Date()
+    let key = col.name;
+    acc[key] = "";
+    if (col.form.type === "date") {
+      acc[key] = new Date();
     }
-    return acc
-  }, {})
+    return acc;
+  }, {});
 
   return (
     <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
@@ -79,8 +76,8 @@ export default function CreateEntity ({
               </Grid>
             </form>
           </GenericModal>
-        )
+        );
       }}
     </Formik>
-  )
+  );
 }

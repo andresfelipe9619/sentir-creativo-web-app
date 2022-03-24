@@ -1,100 +1,100 @@
-import React from 'react'
-import Avatar from '@material-ui/core/Avatar'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import Link from '@material-ui/core/Link'
-import Paper from '@material-ui/core/Paper'
-import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
-import API from '../api'
-import { Formik } from 'formik'
-import * as yup from 'yup'
-import { useAlertDispatch } from '../providers/context/Alert'
-import { useUserDispatch } from '../providers/context/User'
+import React from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link as RouterLink, useHistory } from "react-router-dom";
+import API from "../api";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { useAlertDispatch } from "../providers/context/Alert";
+import { useUserDispatch } from "../providers/context/User";
 
-function Copyright () {
+function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link color='inherit' href='https://sentircreativo.com/'>
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://sentircreativo.com/">
         Sentir Creativo
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
-  )
+  );
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh'
+    height: "100vh",
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
     backgroundColor:
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.grey[50]
         : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}))
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const schema = yup.object().shape({
   identifier: yup.string().email(),
-  password: yup.string().required()
-})
+  password: yup.string().required(),
+});
 
 const initialValues = {
-  identifier: '',
-  password: ''
-}
+  identifier: "",
+  password: "",
+};
 
-export default function SignInSide () {
-  const classes = useStyles()
-  const history = useHistory()
-  const { openAlert } = useAlertDispatch()
-  const { login } = useUserDispatch()
+export default function SignInSide() {
+  const classes = useStyles();
+  const history = useHistory();
+  const { openAlert } = useAlertDispatch();
+  const { login } = useUserDispatch();
 
-  const handleFormSubmit = async values => {
+  const handleFormSubmit = async (values) => {
     try {
-      API.setToken(null)
-      const result = await API.Auth.login(values)
-      console.log(`result`, result)
-      API.setToken(result.jwt)
-      login(result.user)
-      history.push('/admin/audiencia')
+      API.setToken(null);
+      const result = await API.Auth.login(values);
+      console.log(`result`, result);
+      API.setToken(result.jwt);
+      login(result.user);
+      history.push("/admin/audiencia");
     } catch (error) {
-      console.error(error)
-      openAlert({ variant: 'error', message: error.toString() })
+      console.error(error);
+      openAlert({ variant: "error", message: error.toString() });
     }
-  }
+  };
 
   return (
-    <Grid container component='main' className={classes.root}>
+    <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -102,7 +102,7 @@ export default function SignInSide () {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component='h1' variant='h5'>
+          <Typography component="h1" variant="h5">
             Sign in
           </Typography>
           <Formik
@@ -117,18 +117,18 @@ export default function SignInSide () {
               handleChange,
               handleBlur,
               handleSubmit,
-              isSubmitting
+              isSubmitting,
             }) => (
               <form onSubmit={handleSubmit} className={classes.form} noValidate>
                 <TextField
-                  variant='outlined'
-                  margin='normal'
+                  variant="outlined"
+                  margin="normal"
                   required
                   fullWidth
-                  id='identifier'
-                  label='Email Address'
-                  name='identifier'
-                  autoComplete='email'
+                  id="identifier"
+                  label="Email Address"
+                  name="identifier"
+                  autoComplete="email"
                   autoFocus
                   disabled={isSubmitting}
                   onBlur={handleBlur}
@@ -137,15 +137,15 @@ export default function SignInSide () {
                   error={!!touched.identifier && !!errors.identifier}
                 />
                 <TextField
-                  variant='outlined'
-                  margin='normal'
+                  variant="outlined"
+                  margin="normal"
                   required
                   fullWidth
-                  name='password'
-                  label='Password'
-                  type='password'
-                  id='password'
-                  autoComplete='current-password'
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
                   disabled={isSubmitting}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -153,26 +153,26 @@ export default function SignInSide () {
                   error={!!touched.password && !!errors.password}
                 />
                 <Button
-                  type='submit'
+                  type="submit"
                   fullWidth
-                  variant='contained'
-                  color='primary'
+                  variant="contained"
+                  color="primary"
                   className={classes.submit}
                 >
                   Ingresar
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href='#' variant='body2'>
+                    <Link href="#" variant="body2">
                       Olvidaste contraseña?
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link
-                      to='/register'
+                      to="/register"
                       component={RouterLink}
-                      variant='body2'
-                      onClick={e => e.stopPropagation()}
+                      variant="body2"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       {"Registrarse"}
                     </Link>
@@ -187,5 +187,5 @@ export default function SignInSide () {
         </div>
       </Grid>
     </Grid>
-  )
+  );
 }

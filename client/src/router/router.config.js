@@ -1,113 +1,113 @@
-import { lazy } from 'react'
-const Home = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home'))
+import { lazy } from "react";
+const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
 const Areas = lazy(() =>
-  import(/* webpackChunkName: "areas" */ '../pages/Areas')
-)
+  import(/* webpackChunkName: "areas" */ "../pages/Areas")
+);
 const Servicios = lazy(() =>
-  import(/* webpackChunkName: "servicios" */ '../pages/Servicios')
-)
+  import(/* webpackChunkName: "servicios" */ "../pages/Servicios")
+);
 const About = lazy(() =>
-  import(/* webpackChunkName: "about" */ '../pages/About')
-)
+  import(/* webpackChunkName: "about" */ "../pages/About")
+);
 const Contact = lazy(() =>
-  import(/* webpackChunkName: "contact" */ '../pages/Contact')
-)
-const Blog = lazy(() => import(/* webpackChunkName: "blog" */ '../pages/Blog'))
+  import(/* webpackChunkName: "contact" */ "../pages/Contact")
+);
+const Blog = lazy(() => import(/* webpackChunkName: "blog" */ "../pages/Blog"));
 const Dashboard = lazy(() =>
-  import(/* webpackChunkName: "dashboard" */ '../pages/Dashboard')
-)
+  import(/* webpackChunkName: "dashboard" */ "../pages/Dashboard")
+);
 const Login = lazy(() =>
-  import(/* webpackChunkName: "login" */ '../pages/Login')
-)
+  import(/* webpackChunkName: "login" */ "../pages/Login")
+);
 const Register = lazy(() =>
-  import(/* webpackChunkName: "register" */ '../pages/Register')
-)
+  import(/* webpackChunkName: "register" */ "../pages/Register")
+);
 
 const routerConfig = [
   {
-    path: '/',
+    path: "/",
     component: Home,
-    name: 'Home',
+    name: "Home",
     exact: true,
-    strict: true
+    strict: true,
   },
   {
-    path: '/areas/:id',
+    path: "/areas/:id",
     component: Areas,
-    name: 'Areas',
+    name: "Areas",
     exact: true,
-    strict: true
+    strict: true,
   },
   {
-    path: '/servicios/:id',
+    path: "/servicios/:id",
     component: Servicios,
-    name: 'Servicios',
+    name: "Servicios",
     exact: true,
-    strict: true
+    strict: true,
   },
   {
-    path: '/about',
+    path: "/about",
     component: About,
-    name: 'About',
+    name: "About",
     exact: true,
-    strict: true
+    strict: true,
   },
   {
-    path: '/contact',
+    path: "/contact",
     component: Contact,
-    name: 'Contact',
+    name: "Contact",
     exact: true,
-    strict: true
+    strict: true,
   },
   {
-    path: '/blog',
+    path: "/blog",
     component: Blog,
-    name: 'Blog',
+    name: "Blog",
     exact: true,
-    strict: true
+    strict: true,
   },
   {
-    path: '/login',
-    name: 'Inicio',
-    component: Login
+    path: "/login",
+    name: "Inicio",
+    component: Login,
   },
   {
-    path: '/register',
-    name: 'Registro',
-    component: Register
+    path: "/register",
+    name: "Registro",
+    component: Register,
   },
   {
-    path: '/admin',
-    name: 'Admin',
+    path: "/admin",
+    name: "Admin",
     private: true,
     component: Dashboard,
     routes: [
       {
-        path: '/admin/audiencia',
-        name: 'Audiencia'
+        path: "/admin/audiencia",
+        name: "Audiencia",
       },
       {
-        path: '/admin/organizaciones',
-        name: 'Organizaciones'
+        path: "/admin/organizaciones",
+        name: "Organizaciones",
       },
       {
-        path: '/admin/servicios',
-        name: 'Servicios'
+        path: "/admin/servicios",
+        name: "Servicios",
       },
       {
-        path: '/admin/proyectos',
-        name: 'Proyectos'
+        path: "/admin/proyectos",
+        name: "Proyectos",
       },
       {
-        path: '/admin/tags',
-        name: 'Tags'
+        path: "/admin/tags",
+        name: "Tags",
       },
       {
-        path: '/admin/archivos',
-        name: 'Archivos'
-      }
-    ]
-  }
-]
+        path: "/admin/archivos",
+        name: "Archivos",
+      },
+    ],
+  },
+];
 
-export default routerConfig
+export default routerConfig;
