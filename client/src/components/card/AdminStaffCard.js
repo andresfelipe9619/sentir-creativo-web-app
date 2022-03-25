@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import WhatsAppIcon from '@material-ui/icons/WhatsApp'
 import StarIcon from '@material-ui/icons/Star'
+import PhoneIcon from '@mui/icons-material/Phone';
 import orange from '@material-ui/core/colors/orange'
 import green from '@material-ui/core/colors/green'
 import grey from '@material-ui/core/colors/grey'
@@ -59,6 +60,11 @@ function AdminStaffCard ({ staff }) {
   } = staff
 
   const [destacado, setDestacado] = useState(staff.destacado);
+  const archivoGoogleContact = staff.archivos.filter(a => a.tipo_archivo === 25);
+  const archivoGoogleContactUrl = archivoGoogleContact.length > 0 ? archivoGoogleContact[0].path : null;
+  const disableGoogleContact = archivoGoogleContactUrl === null;
+  const colorGoogleContact = disableGoogleContact ? "#1a72e580" : ' #1a72e5';
+
 
   const history = useHistory()
   const { openAlert } = useAlertDispatch()
@@ -138,18 +144,31 @@ function AdminStaffCard ({ staff }) {
       buttonActions={[
         {
           icon: (
-            <AccountCircleIcon fontSize='large' style={{ color: '#1a72e5' }} />
+            <AccountCircleIcon fontSize='large' style={{ color: colorGoogleContact }} />
           ),
-          label: 'Google Contacts'
+          label: 'Google Contacts',
+          disabled: disableGoogleContact,
+          handleClick: () => {
+            if (disableGoogleContact) return
+            window.open('https://contacts.google.com/person/'+archivoGoogleContactUrl, '_blank')
+          }
         },
         {
           icon: <WhatsAppIcon fontSize='large' style={{ color: '#25d366' }} />,
-          label: 'Whatsapp'
+          label: 'Whatsapp',
+          handleClick: () => {
+            window.open("https://wa.me/" + celular, '_blank');
+          }
         },
         {
           icon: <IconStar fontSize='large' style={{ color: '#ffab00' }} onClick={() => handleStared()} />,
           label: 'Destacar'
         },
+        {
+          icon: <PhoneIcon fontSize='large' style={{ color: 'black' }} />,
+          label: 'Llamar',
+          url: 'tel:' + celular
+        }
       ]}
     />
   )
