@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
@@ -13,6 +13,9 @@ import { useHistory } from 'react-router-dom'
 import { indigo } from '@material-ui/core/colors'
 import RowingIcon from '@material-ui/icons/Rowing'
 import useStyles from './styles'
+import { useAlertDispatch } from '../../providers/context/Alert'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import API from '../../api'
 
 export default function Card (props) {
   if (!props.audience) return null
@@ -55,8 +58,11 @@ function AdminAudienceCard ({ audience }) {
     cuponDescuento
   } = audience
 
+  const [destacado, setDestacado] = useState(audience.destacado);
+
   const classes = useStyles()
   const history = useHistory()
+  const { openAlert } = useAlertDispatch()
   const rows = [
     createData('Antigüedad', antiguedad?.nombre),
     createData('Cercanía', cercania?.nombre),
@@ -69,6 +75,23 @@ function AdminAudienceCard ({ audience }) {
   const handleViewClick = () => {
     history.push(`/admin/audiencia/${id}`)
   }
+
+  const handleStared = async () => {
+    try {
+      setDestacado(!destacado)
+      await API.Audiencia.update(id, { ...audience, destacado: !destacado })
+
+    } catch {
+      setDestacado(!destacado)
+
+      openAlert({
+        variant: 'error',
+        message: 'Ha ocurrido un error inesperado, intentalo de nuevo!'
+      })
+    }
+  }
+
+  const IconStar = destacado ? StarIcon : StarOutlineIcon
 
   return (
     <AdminCard
@@ -128,9 +151,9 @@ function AdminAudienceCard ({ audience }) {
           label: 'Whatsapp'
         },
         {
-          icon: <StarIcon fontSize='large' style={{ color: '#ffab00' }} />,
+          icon: <IconStar fontSize='large' style={{ color: '#ffab00' }} onClick={() => handleStared()} />,
           label: 'Destacar'
-        }
+        },
       ]}
     />
   )
