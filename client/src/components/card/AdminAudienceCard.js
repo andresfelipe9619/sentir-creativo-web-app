@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import WhatsAppIcon from '@material-ui/icons/WhatsApp'
 import StarIcon from '@material-ui/icons/Star'
+import PhoneIcon from '@mui/icons-material/Phone';
 import orange from '@material-ui/core/colors/orange'
 import green from '@material-ui/core/colors/green'
 import grey from '@material-ui/core/colors/grey'
@@ -14,7 +15,7 @@ import { indigo } from '@material-ui/core/colors'
 import RowingIcon from '@material-ui/icons/Rowing'
 import useStyles from './styles'
 
-export default function Card (props) {
+export default function Card(props) {
   if (!props.audience) return null
   return <AdminAudienceCard {...props} />
 }
@@ -54,6 +55,11 @@ function AdminAudienceCard ({ audience }) {
     celular,
     cuponDescuento
   } = audience
+
+  const archivoGoogleContact = audience.archivos.filter(a => a.tipo_archivo === 25);
+  const archivoGoogleContactUrl = archivoGoogleContact.length > 0 ? archivoGoogleContact[0].path : null;
+  const disableGoogleContact = archivoGoogleContactUrl === null;
+  const colorGoogleContact = disableGoogleContact ? "#1a72e580" : ' #1a72e5';
 
   const classes = useStyles()
   const history = useHistory()
@@ -119,28 +125,41 @@ function AdminAudienceCard ({ audience }) {
       buttonActions={[
         {
           icon: (
-            <AccountCircleIcon fontSize='large' style={{ color: '#1a72e5' }} />
+            <AccountCircleIcon fontSize='large' style={{ color: colorGoogleContact }} />
           ),
-          label: 'Google Contacts'
+          label: 'Google Contacts',
+          disabled: disableGoogleContact,
+          handleClick: () => {
+            if (disableGoogleContact) return
+            window.open('https://contacts.google.com/person/'+archivoGoogleContactUrl, '_blank')
+          }
         },
         {
           icon: <WhatsAppIcon fontSize='large' style={{ color: '#25d366' }} />,
-          label: 'Whatsapp'
+          label: 'Whatsapp',
+          handleClick: () => {
+            window.open("https://wa.me/" + celular, '_blank');
+          }
         },
         {
           icon: <StarIcon fontSize='large' style={{ color: '#ffab00' }} />,
           label: 'Destacar'
+        },
+        {
+          icon: <PhoneIcon fontSize='large' style={{ color: 'black' }} />,
+          label: 'Llamar',
+          url: 'tel:' + celular
         }
       ]}
     />
   )
 }
 
-function getRandomArbitrary (min, max) {
+function getRandomArbitrary(min, max) {
   let number = Math.random() * (max - min) + min
   return +number.toFixed(1)
 }
 
-function countState (items, id) {
+function countState(items, id) {
   return items.filter(p => p?.estado_proyecto === id).length
 }
