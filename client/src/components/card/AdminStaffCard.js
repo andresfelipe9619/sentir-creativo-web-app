@@ -109,7 +109,7 @@ function AdminStaffCard ({ staff }) {
       buttonActions={[
         {
           icon: (
-            <AccountCircleIcon fontSize='large' style={{ color: colorGoogleContact }} />
+            <AccountCircleIcon fontSize='large' style={{ width:'0.88em', color: colorGoogleContact }} />
           ),
           label: 'Google Contacts',
           disabled: disableGoogleContact,
@@ -119,18 +119,18 @@ function AdminStaffCard ({ staff }) {
           }
         },
         {
-          icon: <WhatsAppIcon fontSize='large' style={{ color: '#25d366' }} />,
+          icon: <WhatsAppIcon fontSize='large' style={{ width:'0.88em', color: '#25d366' }} />,
           label: 'Whatsapp',
           handleClick: () => {
             window.open("https://wa.me/" + celular, '_blank');
           }
         },
         {
-          icon: <StarIcon fontSize='large' style={{ color: '#ffab00' }} />,
+          icon: <StarIcon fontSize='large' style={{ width:'0.88em', color: '#ffab00' }} />,
           label: 'Destacar'
         },
         {
-          icon: <PhoneIcon fontSize='large' style={{ color: 'black' }} />,
+          icon: <PhoneIcon fontSize='large' style={{ width:'0.88em', color: 'black' }} />,
           label: 'Llamar',
           url: 'tel:' + celular
         }
