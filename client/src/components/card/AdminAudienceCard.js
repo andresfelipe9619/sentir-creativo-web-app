@@ -84,8 +84,8 @@ function AdminAudienceCard ({ audience }) {
   const handleStared = async () => {
     try {
       setDestacado(!destacado)
-      await API.Audiencia.update(id, { ...audience, destacado: !destacado })
 
+      await API.Audiencia.update(id, { destacado: !destacado })
     } catch {
       setDestacado(!destacado)
 

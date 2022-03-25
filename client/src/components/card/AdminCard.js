@@ -175,7 +175,7 @@ export default function AdminCard ({
             <Tooltip title={b.label} key={b.label}>
               <IconButton
                 size='small'
-                href= {b.url ? b.url : '#'}
+                href= {b.url ? b.url : null}
                 disabled={b.disabled ? b.disabled : false}
                 color={'primary'}
                 variant='contained'
