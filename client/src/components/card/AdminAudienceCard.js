@@ -44,7 +44,6 @@ function AdminAudienceCard ({ audience }) {
     estado,
     nombre,
     apellido,
-    photo,
     cargo,
     origen,
     cercania,
@@ -60,6 +59,10 @@ function AdminAudienceCard ({ audience }) {
   } = audience
 
   const [destacado, setDestacado] = useState(audience.destacado);
+
+  const archivoAvatar = audience.archivos.filter(a => a.tipo_archivo === 26);
+  const avatar = archivoAvatar.length > 0 ? archivoAvatar[0].path : 'https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefault.png';
+
   const archivoGoogleContact = audience.archivos.filter(a => a.tipo_archivo === 25);
   const archivoGoogleContactUrl = archivoGoogleContact.length > 0 ? archivoGoogleContact[0].path : null;
   const disableGoogleContact = archivoGoogleContactUrl === null;
@@ -106,7 +109,7 @@ function AdminAudienceCard ({ audience }) {
       chips={[email, email2, celular]}
       status={estado?.nombre}
       title={nombre + ' ' + apellido}
-      avatar={photo}
+      avatar={avatar}
       handleViewClick={handleViewClick}
       subheaderChip={(
         <Typography display='inline' variant='caption' className={classes.accentText}

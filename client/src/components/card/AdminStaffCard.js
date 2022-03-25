@@ -47,7 +47,6 @@ function AdminStaffCard ({ staff }) {
     estado,
     nombre,
     apellido,
-    photo,
     origen,
     rol,
     prefijo,
@@ -60,6 +59,10 @@ function AdminStaffCard ({ staff }) {
   } = staff
 
   const [destacado, setDestacado] = useState(staff.destacado);
+
+  const archivoAvatar = staff.archivos.filter(a => a.tipo_archivo === 26);
+  const avatar = archivoAvatar.length > 0 ? archivoAvatar[0].path : 'https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefault.png';
+
   const archivoGoogleContact = staff.archivos.filter(a => a.tipo_archivo === 25);
   const archivoGoogleContactUrl = archivoGoogleContact.length > 0 ? archivoGoogleContact[0].path : null;
   const disableGoogleContact = archivoGoogleContactUrl === null;
@@ -105,7 +108,7 @@ function AdminStaffCard ({ staff }) {
       chips={[email, celular]}
       status={estado?.nombre}
       title={nombre + ' ' + apellido}
-      avatar={photo}
+      avatar={avatar}
       handleViewClick={handleViewClick}
       subheaderChip={organizacion?.nombre}
       superheader={prefijo?.nombre}
