@@ -83,7 +83,7 @@ function AdminStaffCard ({ staff }) {
   const handleStared = async () => {
     try {
       setDestacado(!destacado)
-      await API.Staf.update(id, { ...staff, destacado: !destacado })
+      await API.Staf.update(id, { destacado: !destacado })
 
     } catch {
       setDestacado(!destacado)
