@@ -95,6 +95,9 @@
     "email2": {
       "type": "email",
       "unique": true
+    },
+    "destacado": {
+      "type": "boolean"
     }
   }
 }

@@ -60,11 +60,12 @@ function ConnectionItem({ color, icon: Icon, details, match }) {
     const props = {
       component: 'span',
       display: (array[index + 1] === match || array[index - 1] === match) ? 'inline' : 'block',
+      style: { lineHeight: 1 }
     };
 
     if (text === match) {
       props.display = 'inline'
-      props.style = { fontWeight: 'bold' }
+      props.style = { fontWeight: 'bold', lineHeight: 1 }
       props.component = 'strong'
     }
 

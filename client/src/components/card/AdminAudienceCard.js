@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
@@ -14,13 +14,29 @@ import { useHistory } from 'react-router-dom'
 import { indigo } from '@material-ui/core/colors'
 import RowingIcon from '@material-ui/icons/Rowing'
 import useStyles from './styles'
+import { useAlertDispatch } from '../../providers/context/Alert'
+import StarOutlineIcon from '@material-ui/icons/StarOutline'
+import API from '../../api'
 
 export default function Card(props) {
   if (!props.audience) return null
   return <AdminAudienceCard {...props} />
 }
-function AdminAudienceCard({ audience }) {
 
+function sliceItems(collection = []) {
+  if (!collection) {
+    return collection
+  }
+
+  if (collection?.length > 2) {
+    const others = collection.slice(2).length
+    return collection?.slice(0, 2).join(', ') + `, +${others}`
+  }
+
+  return collection.join(', ')
+}
+
+function AdminAudienceCard ({ audience }) {
   const {
     id,
     email,
@@ -39,9 +55,11 @@ function AdminAudienceCard({ audience }) {
     motivacion,
     departamento,
     antiguedad,
-    celular
+    celular,
+    cuponDescuento
   } = audience
 
+  const [destacado, setDestacado] = useState(audience.destacado);
   const archivoGoogleContact = audience.archivos.filter(a => a.tipo_archivo === 25);
   const archivoGoogleContactUrl = archivoGoogleContact.length > 0 ? archivoGoogleContact[0].path : null;
   const disableGoogleContact = archivoGoogleContactUrl === null;
@@ -49,17 +67,36 @@ function AdminAudienceCard({ audience }) {
 
   const classes = useStyles()
   const history = useHistory()
+  const { openAlert } = useAlertDispatch()
   const rows = [
     createData('Antigüedad', antiguedad?.nombre),
     createData('Cercanía', cercania?.nombre),
     createData('Motivación', motivacion?.nombre),
     createData('Origen', origen?.nombre),
-    createData('Ciudad', ciudad)
+    createData('Ciudad', ciudad),
+    createData('Cupón', sliceItems(cuponDescuento?.map(x => x?.codigo)))
   ]
 
   const handleViewClick = () => {
     history.push(`/admin/audiencia/${id}`)
   }
+
+  const handleStared = async () => {
+    try {
+      setDestacado(!destacado)
+
+      await API.Audiencia.update(id, { destacado: !destacado })
+    } catch {
+      setDestacado(!destacado)
+
+      openAlert({
+        variant: 'error',
+        message: 'Ha ocurrido un error inesperado, intentalo de nuevo!'
+      })
+    }
+  }
+
+  const IconStar = destacado ? StarIcon : StarOutlineIcon
 
   return (
     <AdminCard
@@ -127,7 +164,7 @@ function AdminAudienceCard({ audience }) {
           }
         },
         {
-          icon: <StarIcon fontSize='large' style={{ width:'0.88em', color: '#ffab00' }} />,
+          icon: <IconStar fontSize='large' style={{  width:'0.88em', color: '#ffab00' }} onClick={() => handleStared()} />,
           label: 'Destacar'
         },
         {
