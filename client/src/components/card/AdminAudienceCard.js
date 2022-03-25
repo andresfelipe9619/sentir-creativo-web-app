@@ -18,6 +18,20 @@ export default function Card (props) {
   if (!props.audience) return null
   return <AdminAudienceCard {...props} />
 }
+
+function sliceItems(collection = []) {
+  if (!collection) {
+    return collection
+  }
+
+  if (collection?.length > 2) {
+    const others = collection.slice(2).length
+    return collection?.slice(0, 2).join(', ') + `, +${others}`
+  }
+
+  return collection.join(', ')
+}
+
 function AdminAudienceCard ({ audience }) {
   const {
     id,
@@ -37,7 +51,8 @@ function AdminAudienceCard ({ audience }) {
     motivacion,
     departamento,
     antiguedad,
-    celular
+    celular,
+    cuponDescuento
   } = audience
 
   const classes = useStyles()
@@ -47,7 +62,8 @@ function AdminAudienceCard ({ audience }) {
     createData('Cercanía', cercania?.nombre),
     createData('Motivación', motivacion?.nombre),
     createData('Origen', origen?.nombre),
-    createData('Ciudad', ciudad)
+    createData('Ciudad', ciudad),
+    createData('Cupón', sliceItems(cuponDescuento?.map(x => x?.codigo)))
   ]
 
   const handleViewClick = () => {

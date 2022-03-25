@@ -22,6 +22,19 @@ const getAge = birthDate => {
   return Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e10)
 }
 
+function sliceItems(collection = []) {
+  if (!collection) {
+    return collection
+  }
+
+  if (collection?.length > 2) {
+    const others = collection.slice(2).length
+    return collection?.slice(0, 2).join(', ') + `, +${others}`
+  }
+
+  return collection.join(', ')
+}
+
 function AdminStaffCard ({ staff }) {
   const {
     id,
@@ -47,7 +60,7 @@ function AdminStaffCard ({ staff }) {
     createData('Nacionalidad', nacionalidad),
     createData('Rol', rol?.nombre),
     createData('Origen', origen?.nombre),
-    createData('Cupón', cuponDescuento?.codigo)
+    createData('Cupón', sliceItems(cuponDescuento?.map(x => x?.codigo)))
   ]
 
   const handleViewClick = () => {
