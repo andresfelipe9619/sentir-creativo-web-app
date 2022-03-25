@@ -76,6 +76,9 @@
     },
     "prefijo": {
       "model": "prefijo"
+    },
+    "destacado": {
+      "type": "boolean"
     }
   }
 }

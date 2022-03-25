@@ -210,16 +210,14 @@ export const useStyles = makeStyles(theme => ({
     backgroundColor: COLORS.bg,
     overflow: 'hidden',
     [theme.breakpoints.up('lg')]: {
-      maxWidth: 'none',
-      paddingRight: theme.spacing(5),
-      paddingLeft: theme.spacing(5)
+      maxWidth: 'none'
     }
   },
   headerColor: {
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: '44px',
     color: COLORS.text,
-    lineHeight: 1.25,
+    lineHeight: 1.15,
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
@@ -237,11 +235,11 @@ export const useStyles = makeStyles(theme => ({
     fontSize: '36px',
     marginTop: theme.spacing(10),
     color: COLORS.text,
-    lineHeight: 1.25
+    lineHeight: 1.15
   },
   headerFontmd: {
     fontSize: '40px',
-    lineHeight: 1.25,
+    lineHeight: 1.15,
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
@@ -359,7 +357,7 @@ export default function About() {
   return (
     <Container className={classes.container}>
       <Grid container spacing={10} justifyContent="center">
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography color='textSecondary' className={classes.headerFontSm}>
             Somos una
           </Typography>
@@ -376,7 +374,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 1 */}
-        <Grid container item xs={12} spacing={0} justifyContent='center' alignItems='flex-start' style={{ zIndex: 1 }}>
+        <Grid container item xs={11} spacing={0} justifyContent='center' alignItems='flex-start' style={{ zIndex: 1 }}>
           <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', borderRadius: '0 0 1rem 1rem' }}>
            <Connections title='Artistas' subtitle='Si eres un artista' color={COLORS.purple}
             connections={artistasConnections}>
@@ -396,7 +394,7 @@ export default function About() {
               </Typography>
           </Box>
 
-          <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', zIndex: -1, borderRadius: '0 0 1rem 1rem' }}>
+          <Grid item xs={12} md={5} style={{ padding: 0, backgroundColor: 'rgba(0 0 0 / 10%)', zIndex: -1, borderRadius: '0 0 1rem 1rem', marginBottom: 24 }}>
             <Connections title='Proyectos' subtitle='Si tienes un proyecto' color={COLORS.blue}
               connections={proyectosConnections}>
               <Grid container justifyContent='center'>
@@ -412,7 +410,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 2 */}
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography variant='h1'>
             Trabajamos con
           </Typography>
@@ -424,7 +422,7 @@ export default function About() {
           </Typography>
         </Grid>
 
-        <Grid container item xs={12} spacing={isSmall ? 2 : 6} justifyContent='space-around' alignItems="center">
+        <Grid container item xs={11} spacing={isSmall ? 2 : 6} justifyContent='space-around' alignItems="center">
           <Grid item xs={12} md={5}>
            <PrinciplesCard
             title='Pasión'
@@ -487,7 +485,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 3 */}
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography variant='h1'>
             En distintas
           </Typography>
@@ -499,7 +497,7 @@ export default function About() {
           </Typography>
         </Grid>
 
-        <Grid container item xs={12} spacing={6} justifyContent='space-around' alignItems="center">
+        <Grid container item xs={11} spacing={6} justifyContent='space-around' alignItems="center">
           {areas.map((x, i) => (
             <Grid item xs={12} md={6} key={x.id}>
               <FlipCard
@@ -516,7 +514,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 3 */}
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography variant='h1'>
             Para diversos
           </Typography>
@@ -528,7 +526,7 @@ export default function About() {
           </Typography>
         </Grid>
 
-        <Grid container item xs={12} spacing={6} justifyContent='space-around' alignItems="center">
+        <Grid container item xs={11} spacing={6} justifyContent='space-around' alignItems="center">
           <Grid item xs={12} md={6}>
             <Typography variant='h1' color='textSecondary' gutterBottom>
                 Rubros
