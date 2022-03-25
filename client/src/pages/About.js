@@ -217,7 +217,7 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: '44px',
     color: COLORS.text,
-    lineHeight: 1.25,
+    lineHeight: 1.15,
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
@@ -235,11 +235,11 @@ export const useStyles = makeStyles(theme => ({
     fontSize: '36px',
     marginTop: theme.spacing(10),
     color: COLORS.text,
-    lineHeight: 1.25
+    lineHeight: 1.15
   },
   headerFontmd: {
     fontSize: '40px',
-    lineHeight: 1.25,
+    lineHeight: 1.15,
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
