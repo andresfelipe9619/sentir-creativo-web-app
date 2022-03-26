@@ -13,7 +13,8 @@ export default function DialogButton(props) {
         title = 'Eliminar elemento',
         description = '¿Estas seguro que quieres eliminar este elemento?',
         onClose,
-        buttonProps
+        buttonProps,
+        color = 'primary'
     } = props
 
     const [open, setOpen] = useState(false);
@@ -27,13 +28,13 @@ export default function DialogButton(props) {
         if (accepted && typeof onClose === 'function') {
             setLoading(true)
             await onClose(accepted)
-            setLoading(true)
+            setLoading(false)
         }
     };
 
     return (
         <>
-            <Button size='small' color='primary' onClick={openDialog} disabled={loading}
+            <Button type='button' size='small' color={color} onClick={openDialog} disabled={loading}
                 {...buttonProps}>
                 {!loading ? label : <CircularProgress />}
             </Button>
