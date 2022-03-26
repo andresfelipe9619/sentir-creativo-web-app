@@ -50,6 +50,7 @@ const Proyecto = {
 
 const Servicio = {
   getAll: (config) => serverRequests.get(`/servicios`, config),
+  count: (config) => serverRequests.get(`/servicios/count`, config),
   get: (id) => serverRequests.get(`/servicios/${id}`),
   create: (service) => serverRequests.post("/servicios", service),
   update: (id, service) => serverRequests.put(`/servicios/${id}`, service),

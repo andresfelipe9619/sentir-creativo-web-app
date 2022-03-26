@@ -14,10 +14,20 @@ import Spinner from "../components/spinner/Spinner";
 import { getAreaBackground } from "../utils";
 import Filters from "../components/filters/Filters";
 
-const ServiceOK = 12;
+const SERVICE_OK = 12;
+const PAGE_SIZE = 6;
+const default_pagination = { pagination: { page: 1, pageSize: PAGE_SIZE } };
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
+}
+
+function getPaginationData(pagination) {
+  console.log("pagination", pagination);
+  const { pageSize = 6, page = 1 } = pagination;
+  const _limit = pageSize;
+  const _start = (page - 1) * pageSize;
+  return { _limit, _start };
 }
 
 function getQueryFilters(filters) {
@@ -25,6 +35,9 @@ function getQueryFilters(filters) {
   console.log("entries", entries);
   if (!entries.length) return null;
   return entries.reduce((acc, [key, value]) => {
+    if (key === "pagination") {
+      return { ...acc, ...getPaginationData(value) };
+    }
     if (Array.isArray(value) && value.length) {
       return { ...acc, [`${key}.id`]: value.join() };
     }
@@ -38,36 +51,52 @@ export default function Areas() {
   const [services, setServices] = useState([]);
   const [formats, setFormats] = useState({});
   const [tecnics, setTecnics] = useState({});
-  const [filters, setFilters] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
   const [showDossier, setShowDossier] = useState(false);
+  const [serviceCount, setServiceCount] = useState(0);
+  const [loadingServices, setLoadingServices] = useState(false);
+  const [loadingArea, setLoadingArea] = useState(false);
+
   const history = useHistory();
   const query = useQuery();
-  const [loading, setLoading] = useState(false);
-  const { id: areaId } = useParams();
-  const selectedId = query.get("service");
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
+  const { id: areaId } = useParams();
 
-  function getServices(filters) {
-    return API.Servicio.getAll({
+  const selectedId = query.get("service");
+
+  function getServicesCount(filters) {
+    return API.Servicio.count({
       params: {
         area: areaId,
-        "estado.id": ServiceOK,
+        "estado.id": SERVICE_OK,
         ...getQueryFilters(filters),
       },
     });
   }
 
-  async function loadServices(filters = {}) {
+  function getServices(filters) {
+    return API.Servicio.getAll({
+      params: {
+        area: areaId,
+        "estado.id": SERVICE_OK,
+        ...getQueryFilters(filters),
+      },
+    });
+  }
+
+  async function loadServices(filters = {}, refreshFilters = false) {
     try {
-      setLoading(true);
+      setLoadingServices(true);
+      console.log("ah filters", filters);
       const serviceResult = await getServices(filters);
       setServices(serviceResult);
-      if (Object.keys(formats).length || Object.keys(tecnics).length) return;
+      if (!refreshFilters) return;
+      Reflect.deleteProperty(filters.pagination);
+      await loadCount(filters);
       // Find unique tecnica_artisticas and formatos for the filter's options
       const { formatos, tecnica_artisticas } = serviceResult.reduce(
         (acc, s) => {
@@ -97,37 +126,30 @@ export default function Areas() {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setLoadingServices(false);
     }
   }
 
   async function loadArea() {
-    const areaResult = await API.Area.get(areaId);
-    setFormats([]);
-    setTecnics([]);
-    setSelectedArea(areaResult);
-    setFilters({});
+    try {
+      setLoadingArea(true);
+      setServiceCount(0);
+      setFormats([]);
+      setTecnics([]);
+      const areaResult = await API.Area.get(areaId);
+      setSelectedArea(areaResult);
+      setLoadingArea(false);
+      loadServices(default_pagination, true);
+    } catch (error) {
+      console.error(error);
+      setLoadingArea(false);
+    }
   }
 
-  useEffect(() => {
-    loadArea();
-    //eslint-disable-next-line
-  }, [areaId]);
-
-  useEffect(() => {
-    if (!filters) return;
-    loadServices(filters);
-    //eslint-disable-next-line
-  }, [filters]);
-
-  useEffect(() => {
-    if (!services) return;
-
-    if (!selectedService && selectedId) {
-      let found = services.find((s) => +s.id === +selectedId);
-      found && setSelectedService(found);
-    }
-  }, [services, selectedService, selectedId]);
+  async function loadCount(filters) {
+    const count = await getServicesCount(filters);
+    setServiceCount(count);
+  }
 
   const handleOpenModal = (service) => () => {
     history.push({ search: `?service=${service.id}` });
@@ -148,8 +170,27 @@ export default function Areas() {
     setSelectedService(null);
   };
 
+  useEffect(() => {
+    loadServices(default_pagination, true);
+    //eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    loadArea();
+    //eslint-disable-next-line
+  }, [areaId]);
+
+  useEffect(() => {
+    if (!services) return;
+
+    if (!selectedService && selectedId) {
+      let found = services.find((s) => +s.id === +selectedId);
+      found && setSelectedService(found);
+    }
+  }, [services, selectedService, selectedId]);
+
   const length = isSmall ? 1 : isMedium ? 2 : 3;
-  if (loading && !services.length) return <Spinner />;
+  if (loadingArea) return <Spinner />;
   if (!selectedArea) return null;
 
   const color = selectedArea.colorPrimario;
@@ -202,7 +243,9 @@ export default function Areas() {
       <Filters
         color={color}
         data={services}
-        onFilterChange={setFilters}
+        loading={loadingServices}
+        maxCount={serviceCount}
+        onFilterChange={loadServices}
         filterOptions={[
           {
             label: "Formatos",
@@ -216,30 +259,35 @@ export default function Areas() {
           },
         ]}
       >
-        <Grid container component={Box} my={0} m={0} p={0} alignItems="center">
-          {loading ? (
-            <Spinner />
-          ) : (
-            services.map((s) => (
-              <Grid
-                xs={12 / length}
-                md={4}
-                xl={3}
-                component={Box}
-                m={0}
-                p={0}
-                item
-                key={s.id}
-              >
-                <Card
-                  service={s}
-                  color={color}
-                  handleClickPrimary={handleOpenModal(s)}
-                  handleClickSecundary={handleOpenDossier(s)}
-                />
-              </Grid>
-            ))
-          )}
+        <Grid
+          container
+          component={Box}
+          my={0}
+          m={0}
+          p={0}
+          alignContent="center"
+          alignItems="center"
+          minHeight={400}
+        >
+          {services.map((s) => (
+            <Grid
+              xs={12 / length}
+              md={4}
+              xl={3}
+              component={Box}
+              m={0}
+              p={0}
+              item
+              key={s.id}
+            >
+              <Card
+                service={s}
+                color={color}
+                handleClickPrimary={handleOpenModal(s)}
+                handleClickSecundary={handleOpenDossier(s)}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Filters>
     </Grid>

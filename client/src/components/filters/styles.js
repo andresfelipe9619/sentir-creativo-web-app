@@ -62,6 +62,11 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0.5),
     },
   },
+  pagination: {
+    padding: 4,
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
 export default useStyles;

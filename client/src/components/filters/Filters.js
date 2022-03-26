@@ -15,12 +15,18 @@ import { CheckboxGroup } from "../radio";
 import { useTheme } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import Pagination from "@material-ui/lab/Pagination";
 import useStyles from "./styles";
+import Spinner from "../spinner/Spinner";
+
+const PAGE_SIZE = 6;
 
 function Filters({
   children,
   color,
+  loading,
   data = [],
+  maxCount = 6,
   filterOptions,
   // onSearchChange,
   onFilterChange,
@@ -29,6 +35,7 @@ function Filters({
   const theme = useTheme();
   const [values, setValues] = useState({});
   const [filters, setFilters] = useState({});
+  const [page, setPage] = useState(1);
   const [autocompleteValue, setAutocompleteValue] = useState(null);
 
   const cardColor = color || theme.palette.primary.main;
@@ -50,6 +57,16 @@ function Filters({
     const selectedFilters = getSelectedFilters(newValues);
     setFilters(selectedFilters);
     onFilterChange(selectedFilters);
+  };
+
+  const handleChangePage = (_, value) => {
+    const newFilters = {
+      ...filters,
+      pagination: { page: value, size: PAGE_SIZE },
+    };
+    setPage(value);
+    setFilters(newFilters);
+    onFilterChange(newFilters);
   };
 
   const areaTheme = createTheme({
@@ -147,24 +164,44 @@ function Filters({
               height: "100%",
             }}
           >
-            {(options || []).length} experiencias encontradas:
+            {maxCount} experiencias encontradas:
           </Grid>
-          <Grid item md={5}></Grid>
+          <Grid item md={5}>
+            <Pagination
+              count={Math.ceil(maxCount / PAGE_SIZE)}
+              color="standard"
+              page={page}
+              classes={{ ul: classes.pagination }}
+              onChange={handleChangePage}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Grid>
         </Toolbar>
       </AppBar>
       <Grid container>
         <Grid item md={3}>
-          {filterOptions.map((fo, i) => (
-            <FilterOption
-              key={i}
-              {...fo}
-              handleChange={handleChangeFilter}
-              values={values[fo.name] || {}}
-            />
-          ))}
+          {loading && <Spinner mt={0} />}
+          {!loading &&
+            filterOptions.map((fo, i) => (
+              <FilterOption
+                key={i}
+                {...fo}
+                handleChange={handleChangeFilter}
+                values={values[fo.name] || {}}
+              />
+            ))}
         </Grid>
-        <Grid item md={9} component={Box} px={1} bgcolor={"#212121"} pt={2}>
-          {children}
+        <Grid
+          item
+          md={9}
+          component={Box}
+          px={1}
+          bgcolor={"#212121"}
+          pt={2}
+          minHeight={400}
+        >
+          {loading ? <Spinner mt={"10vh"} /> : children}
         </Grid>
       </Grid>
     </ThemeProvider>
