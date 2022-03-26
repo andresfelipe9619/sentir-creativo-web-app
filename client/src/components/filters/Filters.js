@@ -29,12 +29,14 @@ function Filters({
   const theme = useTheme();
   const [values, setValues] = useState({});
   const [filters, setFilters] = useState({});
-  const [value, setValue] = useState(null);
+  const [autocompleteValue, setAutocompleteValue] = useState(null);
 
   const cardColor = color || theme.palette.primary.main;
 
-  const handleDeleteFilter = () => () => {
-    // handleChangeFilter({target:{name, value, checked:false}})
+  const handleDeleteFilter = (option) => () => {
+    const { name, value } = option;
+    const target = { name, value, checked: false };
+    handleChangeFilter({ target });
   };
 
   const handleChangeFilter = (e) => {
@@ -56,26 +58,21 @@ function Filters({
       primary: { main: cardColor },
     },
   });
-  console.log("data", data);
-  console.log("value", value);
-  console.log("filters", filters);
+
   const chips = filterOptions
     .map((fo) => {
-      if (fo.name === "formato") {
-        return (fo.options || []).filter((o) =>
-          (filters.formats || []).includes(+o.value)
-        );
-      }
-      if (fo.name === "tecnica_artisticas") {
-        return (fo.options || []).filter((o) =>
-          (filters.tecnics || []).includes(+o.value)
-        );
-      }
-      return [];
+      const filterOptions = (name) =>
+        (fo.options || [])
+          .filter((o) => (filters[name] || []).includes(+o.value))
+          .map((fo) => ({ ...fo, name }));
+      return filterOptions(fo.name);
     })
     .flatMap((f) => f);
 
-  const options = value ? data.filter((o) => o.id === value.id) : data;
+  const options = autocompleteValue
+    ? data.filter((o) => o.id === autocompleteValue.id)
+    : data;
+
   return (
     <ThemeProvider theme={areaTheme}>
       <AppBar
@@ -88,9 +85,9 @@ function Filters({
             size="small"
             id="combo-box-demo"
             options={options}
-            value={value}
+            value={autocompleteValue}
             onChange={(_, newValue) => {
-              setValue(newValue);
+              setAutocompleteValue(newValue);
             }}
             getOptionLabel={(option) => option.nombre}
             style={{ width: 300 }}
@@ -120,7 +117,7 @@ function Filters({
                 <Chip
                   key={option.label}
                   label={option.label}
-                  onDelete={handleDeleteFilter()}
+                  onDelete={handleDeleteFilter(option)}
                   style={{
                     backgroundColor: cardColor,
                     color: "white",
@@ -211,14 +208,14 @@ const AccordionOption = memo(function AccordionOption({ title, children }) {
 });
 
 function getSelectedFilters(filters) {
-  let formats = Object.entries(filters.formato || {})
+  let formatos = Object.entries(filters.formatos || {})
     .filter(([, value]) => !!value)
     .map(([key]) => +key);
-  let tecnics = Object.entries(filters.tecnica_artisticas || {})
+  let tecnica_artisticas = Object.entries(filters.tecnica_artisticas || {})
     .filter(([, value]) => !!value)
     .map(([key]) => +key);
 
-  return { formats, tecnics };
+  return { formatos, tecnica_artisticas };
 }
 
 export default memo(Filters);

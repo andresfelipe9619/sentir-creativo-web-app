@@ -68,6 +68,7 @@ export function CheckboxGroup(props) {
                 onChange={handleChange}
                 control={
                   <Checkbox
+                    color="primary"
                     name={name}
                     onChange={handleChange}
                     checked={!!values[o.value]}

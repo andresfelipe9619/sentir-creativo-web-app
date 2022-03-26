@@ -20,13 +20,25 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
+function getQueryFilters(filters) {
+  const entries = Object.entries(filters);
+  console.log("entries", entries);
+  if (!entries.length) return null;
+  return entries.reduce((acc, [key, value]) => {
+    if (Array.isArray(value) && value.length) {
+      return { ...acc, [`${key}.id`]: value.join() };
+    }
+    return { ...acc, [key]: value };
+  }, {});
+}
+
 const map2select = ([value, label]) => ({ label, value });
 
 export default function Areas() {
   const [services, setServices] = useState([]);
-  const [formats, setFormats] = useState([]);
-  const [tecnics, setTecnics] = useState([]);
-  const [filters, setFilters] = useState({});
+  const [formats, setFormats] = useState({});
+  const [tecnics, setTecnics] = useState({});
+  const [filters, setFilters] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
   const [showDossier, setShowDossier] = useState(false);
@@ -40,58 +52,73 @@ export default function Areas() {
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
 
-  async function loadServices(filters = {}) {
-    const serviceResult = await API.Servicio.getAll({
-      params: { area: areaId, "estado.id": ServiceOK, ...filters },
+  function getServices(filters) {
+    return API.Servicio.getAll({
+      params: {
+        area: areaId,
+        "estado.id": ServiceOK,
+        ...getQueryFilters(filters),
+      },
     });
-    return serviceResult;
+  }
+
+  async function loadServices(filters = {}) {
+    try {
+      setLoading(true);
+      const serviceResult = await getServices(filters);
+      setServices(serviceResult);
+      if (Object.keys(formats).length || Object.keys(tecnics).length) return;
+      // Find unique tecnica_artisticas and formatos for the filter's options
+      const { formatos, tecnica_artisticas } = serviceResult.reduce(
+        (acc, s) => {
+          const mTecnics = s.tecnica_artisticas
+            .filter((t) => !acc.tecnica_artisticas[t.id])
+            .reduce(
+              (accT, t) => ({ ...accT, [t.id]: t.nombre }),
+              acc.tecnica_artisticas
+            );
+
+          const mFormats = s.formatos
+            .filter((f) => !acc.formatos[f.id])
+            .reduce((accF, f) => ({ ...accF, [f.id]: f.nombre }), acc.formatos);
+
+          return {
+            formatos: mFormats,
+            tecnica_artisticas: mTecnics,
+          };
+        },
+        {
+          formatos: {},
+          tecnica_artisticas: {},
+        }
+      );
+      setFormats(formatos);
+      setTecnics(tecnica_artisticas);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function loadArea() {
+    const areaResult = await API.Area.get(areaId);
+    setFormats([]);
+    setTecnics([]);
+    setSelectedArea(areaResult);
+    setFilters({});
   }
 
   useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-        const serviceResult = loadServices();
-        const areaResult = await API.Area.get(areaId);
-        setSelectedArea(areaResult);
-        // Find unique tecnics and formats for the filter's options
-        const { formats: formatos, tecnics: tecnicas } = serviceResult.reduce(
-          (acc, s) => {
-            const mTecnics = s.tecnica_artisticas
-              .filter((t) => !acc.tecnics[t.id])
-              .reduce(
-                (accT, t) => ({ ...accT, [t.id]: t.nombre }),
-                acc.tecnics
-              );
-
-            const mFormats = s.formatos
-              .filter((f) => !acc.formats[f.id])
-              .reduce(
-                (accF, f) => ({ ...accF, [f.id]: f.nombre }),
-                acc.formats
-              );
-
-            return {
-              formats: mFormats,
-              tecnics: mTecnics,
-            };
-          },
-          {
-            formats: {},
-            tecnics: {},
-          }
-        );
-        setFormats(formatos);
-        setTecnics(tecnicas);
-        setServices(serviceResult);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
+    loadArea();
     //eslint-disable-next-line
   }, [areaId]);
+
+  useEffect(() => {
+    if (!filters) return;
+    loadServices(filters);
+    //eslint-disable-next-line
+  }, [filters]);
 
   useEffect(() => {
     if (!services) return;
@@ -122,15 +149,10 @@ export default function Areas() {
   };
 
   const length = isSmall ? 1 : isMedium ? 2 : 3;
-  if (loading) return <Spinner />;
+  if (loading && !services.length) return <Spinner />;
   if (!selectedArea) return null;
 
   const color = selectedArea.colorPrimario;
-  const mustFilter = filters?.tecnics?.length || filters?.formats?.length;
-
-  const servicesToShow = mustFilter
-    ? filterServices(services, filters)
-    : services;
 
   return (
     <Grid
@@ -144,16 +166,20 @@ export default function Areas() {
         color: "white",
       }}
     >
-      <DossierModal
-        open={!!showDossier}
-        handleClose={handleCloseDossier}
-        service={selectedService}
-      />
-      <ServicioModal
-        open={!!selectedId}
-        handleClose={handleCloseModal}
-        service={selectedService}
-      />
+      {!!showDossier && (
+        <DossierModal
+          open
+          handleClose={handleCloseDossier}
+          service={selectedService}
+        />
+      )}
+      {!!selectedId && (
+        <ServicioModal
+          open
+          handleClose={handleCloseModal}
+          service={selectedService}
+        />
+      )}
       <Grid item sm={12} md={6} component={Box} py={4}>
         <Typography
           variant="h1"
@@ -162,7 +188,7 @@ export default function Areas() {
           gutterBottom
           style={{ color: "white", backgroundColor: color }}
         >
-          {selectedArea.nombre}
+          {selectedArea?.nombre}
         </Typography>
         <Typography
           paragraph
@@ -170,17 +196,17 @@ export default function Areas() {
           align="center"
           className={classes.titleAccent}
         >
-          {selectedArea.slogan}
+          {selectedArea?.slogan}
         </Typography>
       </Grid>
       <Filters
         color={color}
-        data={servicesToShow}
+        data={services}
         onFilterChange={setFilters}
         filterOptions={[
           {
-            label: "Formato",
-            name: "formato",
+            label: "Formatos",
+            name: "formatos",
             options: Object.entries(formats).map(map2select),
           },
           {
@@ -191,39 +217,33 @@ export default function Areas() {
         ]}
       >
         <Grid container component={Box} my={0} m={0} p={0} alignItems="center">
-          {servicesToShow.map((s) => (
-            <Grid
-              xs={12 / length}
-              md={4}
-              xl={3}
-              component={Box}
-              m={0}
-              p={0}
-              item
-              key={s.id}
-            >
-              <Card
-                service={s}
-                color={color}
-                handleClickPrimary={handleOpenModal(s)}
-                handleClickSecundary={handleOpenDossier(s)}
-              />
-            </Grid>
-          ))}
+          {loading ? (
+            <Spinner />
+          ) : (
+            services.map((s) => (
+              <Grid
+                xs={12 / length}
+                md={4}
+                xl={3}
+                component={Box}
+                m={0}
+                p={0}
+                item
+                key={s.id}
+              >
+                <Card
+                  service={s}
+                  color={color}
+                  handleClickPrimary={handleOpenModal(s)}
+                  handleClickSecundary={handleOpenDossier(s)}
+                />
+              </Grid>
+            ))
+          )}
         </Grid>
       </Filters>
     </Grid>
   );
-}
-
-function filterServices(services = [], filters = {}) {
-  return services.filter((s) => {
-    let pass = s.tecnica_artisticas.some((t) =>
-      (filters?.tecnics || []).includes(t.id)
-    );
-    if (pass) return pass;
-    return s.formatos.some((t) => (filters?.formats || []).includes(t.id));
-  });
 }
 
 export const useStyles = makeStyles((theme) => ({

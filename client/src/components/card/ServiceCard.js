@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ServiceCard({
+ function ServiceCard({
   color,
   service,
   imageTitle,
@@ -279,3 +279,5 @@ function FloatingHeader({ icon: Icon, color }) {
     </Box>
   );
 }
+
+export default memo(ServiceCard)
