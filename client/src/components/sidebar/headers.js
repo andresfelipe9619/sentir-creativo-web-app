@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import { getAreaBackground } from '../../utils'
 import Logo from '../../assets/iso-fullc-large.png'
 import LogoYellow from '../../assets/iso_amarillo.svg'
+import Typography from '@material-ui/core/Typography'
 
 const ICON_SIZE = '1.6em'
 
@@ -21,7 +22,12 @@ const buttonsStyle = {
   borderRadius: 0,
   height: 70,
   lineHeight: 1.2,
-  padding: 16
+  padding: '16px 24px',
+  fontWeight: 700,
+  textAlign: 'left',
+  textTransform: 'none',
+  flex: '1 1 auto',
+  justifyContent: 'flex-start',
 }
 export function MobileAreasButtons ({ areas, goTo, classes }) {
   const { pathname } = useLocation()
@@ -153,6 +159,9 @@ function AreasButtons ({ areas, goTo, classes }) {
       background: selected ? getAreaBackground(area) : getYellow(i),
       color: selected ? 'white' : '#4D4C4C'
     }
+
+    const [line1, line2] = area.nombre.split(' ');
+
     return (
       <Button
         key={area.nombre}
@@ -163,7 +172,7 @@ function AreasButtons ({ areas, goTo, classes }) {
         }}
         startIcon={area.icono && <area.icono size={ICON_SIZE} />}
       >
-        {area.nombre}
+        {line1} <br/> {line2}
       </Button>
     )
   })
@@ -207,7 +216,7 @@ export function DesktopHeader ({ areas, classes, goTo }) {
               onClick={() => goTo(`/about`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
-              ¿Quienes somos?
+              ¿Quienes <br /> somos?
             </Button>
           </ButtonGroup>
         </Box>

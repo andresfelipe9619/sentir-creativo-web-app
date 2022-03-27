@@ -223,7 +223,7 @@ export const useStyles = makeStyles(theme => ({
     }
   },
   headerColor2: {
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: 900,
     fontSize: '44px',
     color: COLORS.text,
     lineHeight: 1,
@@ -235,7 +235,8 @@ export const useStyles = makeStyles(theme => ({
     fontSize: '36px',
     marginTop: theme.spacing(10),
     color: COLORS.text,
-    lineHeight: 1.15
+    lineHeight: 1.15,
+    fontWeight: 400
   },
   headerFontmd: {
     fontSize: '40px',
@@ -275,6 +276,8 @@ export const useStyles = makeStyles(theme => ({
     color: COLORS.orange,
     textShadow: '2px 2px 4px #fff',
     fontSize: '44px',
+    fontWeight: 500,
+    fontStyle: 'italic',
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
@@ -416,7 +419,7 @@ export default function About() {
           </Typography>
           <Typography className={classes.principiosText}>
             Principios&nbsp;
-            <Typography className={classes.principiosText} style={{ fontWeight: 'bold' }} component='span'>
+            <Typography className={classes.principiosText} style={{ fontWeight: 900 }} component='span'>
               Esenciales
             </Typography>
           </Typography>
@@ -491,7 +494,7 @@ export default function About() {
           </Typography>
           <Typography className={classes.principiosText}>
             Aréas de&nbsp;
-            <Typography className={classes.principiosText} style={{ fontWeight: 'bold' }} component='span'>
+            <Typography className={classes.principiosText} style={{ fontWeight: 900 }} component='span'>
             Acción
             </Typography>
           </Typography>
@@ -520,7 +523,7 @@ export default function About() {
           </Typography>
           <Typography className={classes.principiosText}>
             Rubros y&nbsp;
-            <Typography className={classes.principiosText} style={{ fontWeight: 'bold' }} component='span'>
+            <Typography className={classes.principiosText} style={{ fontWeight: 900 }} component='span'>
               Ocasiones
             </Typography>
           </Typography>

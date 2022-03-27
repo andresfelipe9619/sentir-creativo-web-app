@@ -11,6 +11,8 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontSize: '72px',
     lineHeight: 1,
+    fontWeight: 900,
+    fontStyle: 'italic',
     [theme.breakpoints.down('md')]: {
       fontSize: '64px'
     }
@@ -36,7 +38,7 @@ export default function Connections({ connections, title, subtitle, color, child
         <Typography variant='h1' align='center' className={classes.title}>{title}</Typography>
       </Box>
 
-      <Box bgcolor='white' p={2} mt={4} mb={8} style={{ borderTopRightRadius: '50px', borderBottomRightRadius: '50px', width: '90%' }}
+      <Box bgcolor='white' p={2} my={6} style={{ borderTopRightRadius: '50px', borderBottomRightRadius: '50px', width: '90%' }}
         display='flex' justifyContent='space-around' alignItems='center'>
         <Typography variant='h1' align='center' style={{ color }}>
           {subtitle}
@@ -47,25 +49,25 @@ export default function Connections({ connections, title, subtitle, color, child
       </Box>
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>
-        {connections.map(x => <ConnectionItem key={x.match} {...x} />)}
+        {connections.map(x => <ConnectionItem key={x.match} hidden={!expanded} {...x} />)}
         {children}
       </Collapse>
     </>
   )
 }
 
-function ConnectionItem({ color, icon: Icon, details, match }) {
+function ConnectionItem({ color, icon: Icon, details, match, hidden }) {
   details = details.split(/\n/)
   .map((text, index, array) => {
     const props = {
       component: 'span',
       display: (array[index + 1] === match || array[index - 1] === match) ? 'inline' : 'block',
-      style: { lineHeight: 1 }
+      style: { lineHeight: 1, fontWeight: 400 }
     };
 
     if (text === match) {
       props.display = 'inline'
-      props.style = { fontWeight: 'bold', lineHeight: 1 }
+      props.style = { fontWeight: 500, lineHeight: 1 }
       props.component = 'strong'
     }
 
@@ -81,7 +83,7 @@ function ConnectionItem({ color, icon: Icon, details, match }) {
 
     <Grid xs={9}>
       <Box mb={6} ml={2}>
-        <Typography variant='h6' color='textSecondary' paragraph gutterBottom>
+        <Typography variant='h6' paragraph gutterBottom style={{ opacity: hidden ? 0 : 1, transition: 'opacity 1s ease-out' }}>
           {details}
         </Typography>
       </Box>

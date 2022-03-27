@@ -21,7 +21,8 @@ export const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: '36px',
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
+    fontWeight: theme.typography.fontWeightBold
   }
 }))
 
@@ -44,7 +45,7 @@ export default function PrinciplesCard({ title, details, avatar }) {
             <Chip label='PRO' size='small' className={classes.chips} />
           </Typography>
 
-          <Typography paragraph>
+          <Typography paragraph color='textSecondary' style={{ fontWeight: 500, fontStyle: 'italic' }}>
             {details}
           </Typography>
         </Box>
