@@ -12,7 +12,6 @@ import clsx from 'clsx'
 import { getAreaBackground } from '../../utils'
 import Logo from '../../assets/iso-fullc-large.png'
 import LogoYellow from '../../assets/iso_amarillo.svg'
-import Typography from '@material-ui/core/Typography'
 
 const ICON_SIZE = "1.6em";
 
