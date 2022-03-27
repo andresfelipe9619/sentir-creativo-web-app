@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import { useState } from "react";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function DialogButton(props) {
     const {
@@ -17,13 +17,13 @@ export default function DialogButton(props) {
         color = 'primary'
     } = props
 
-    const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const openDialog = () => setOpen(true)
+  const openDialog = () => setOpen(true);
 
-    const closeDialog = async (accepted) => {
-        setOpen(false)
+  const closeDialog = async (accepted) => {
+    setOpen(false);
 
         if (accepted && typeof onClose === 'function') {
             setLoading(true)
@@ -39,21 +39,25 @@ export default function DialogButton(props) {
                 {!loading ? label : <CircularProgress />}
             </Button>
 
-            <Dialog open={open} onClose={() => closeDialog(false)} aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description">
-                <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={() => closeDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
 
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {description}
-                    </DialogContentText>
-                </DialogContent>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {description}
+          </DialogContentText>
+        </DialogContent>
 
-                {!loading && (
-                    <DialogActions>
-                        <Button onClick={() => closeDialog(false)} color="primary">
-                            No
-                        </Button>
+        {!loading && (
+          <DialogActions>
+            <Button onClick={() => closeDialog(false)} color="primary">
+              No
+            </Button>
 
                         <Button onClick={() => closeDialog(true)} color="primary" autoFocus>
                             Si

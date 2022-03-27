@@ -1,51 +1,51 @@
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import Box from '@material-ui/core/Box'
-import React from 'react'
-import image from '../../assets/iso-fullc-large.png'
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import React from "react";
+import image from "../../assets/iso-fullc-large.png";
 
-export default function FinishForm ({ title, text, handleClick }) {
+export default function FinishForm({ title, text, handleClick }) {
   return (
     <Grid container>
       <Grid item md={6}>
-        <Typography variant='h2' color='primary' paragraph>
+        <Typography variant="h2" color="primary" paragraph>
           {title}
         </Typography>
-        <Typography variant='body2' paragraph>
+        <Typography variant="body2" paragraph>
           En breves segundos recibirás {text}.
         </Typography>
-        <Typography variant='body2' paragraph>
+        <Typography variant="body2" paragraph>
           Revisa en tu bandeja de entrada y también en el spam, por si... las
           virtualidades no nos entienden, jaja.
         </Typography>
-        <Typography variant='body2' paragraph>
+        <Typography variant="body2" paragraph>
           Si le complace, puedes continuar explorando nuestro catálogo digital,
           de nuestra <strong> Red de Artistas.</strong>
         </Typography>
-        <Typography variant='body2' paragraph>
+        <Typography variant="body2" paragraph>
           <strong>#vamosAnímate</strong>
         </Typography>
       </Grid>
       <Grid item md={6}>
         <img
-          width='100%'
+          width="100%"
           src={
-            'https://live.staticflickr.com/7132/26854237651_480cff5e7b_k.jpg'
+            "https://live.staticflickr.com/7132/26854237651_480cff5e7b_k.jpg"
           }
-          alt='side'
+          alt="side"
         />
-        <Box width='100%' padding={1} justifyContent='flex-end' display='flex'>
+        <Box width="100%" padding={1} justifyContent="flex-end" display="flex">
           <img
             src={image}
-            alt='sentir creativo logo'
+            alt="sentir creativo logo"
             width={60}
             style={{ margin: 4 }}
-            height='auto'
+            height="auto"
           />
           <Button
-            color='primary'
-            variant='contained'
+            color="primary"
+            variant="contained"
             style={{ margin: 14 }}
             onClick={handleClick}
           >
@@ -54,5 +54,5 @@ export default function FinishForm ({ title, text, handleClick }) {
         </Box>
       </Grid>
     </Grid>
-  )
+  );
 }

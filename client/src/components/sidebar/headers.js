@@ -14,13 +14,13 @@ import Logo from '../../assets/iso-fullc-large.png'
 import LogoYellow from '../../assets/iso_amarillo.svg'
 import Typography from '@material-ui/core/Typography'
 
-const ICON_SIZE = '1.6em'
+const ICON_SIZE = "1.6em";
 
-const getYellow = index => (index % 2 === 0 ? '#fed901' : '#fff158')
+const getYellow = (index) => (index % 2 === 0 ? "#fed901" : "#fff158");
 
 const buttonsStyle = {
   borderRadius: 0,
-  height: 70,
+  height: 64,
   lineHeight: 1.2,
   padding: '16px 24px',
   fontWeight: 700,
@@ -34,92 +34,97 @@ export function MobileAreasButtons ({ areas, goTo, classes }) {
   const [value, setValue] = useState(null)
 
   useEffect(() => {
-    if (!pathname.includes('areas')) return
-    let [id] = pathname.split('/').reverse()
-    console.log('id', id)
+    if (!pathname.includes("areas")) return;
+    let [id] = pathname.split("/").reverse();
+    console.log("id", id);
     if (id && +id !== +value) {
-      setValue(+id)
+      setValue(+id);
     }
-  }, [value, pathname])
+  }, [value, pathname]);
 
   return (
     <Box
-      width='100%'
-      display='flex'
-      justifyContent='center'
-      height='100%'
-      alignItems='center'
+      width="100%"
+      display="flex"
+      justifyContent="center"
+      height="100%"
+      alignItems="center"
     >
       <BottomNavigation
         value={value}
-        onChange={(_, newValue) => {
-          let id = areas[newValue].id
-          setValue(newValue)
-          goTo(`/areas/${id}`)()
+        onChange={(_, id) => {
+          setValue(id);
+          goTo(`/areas/${id}`)();
         }}
-        showLabels={true}
-        className={classes.navigation}
+        showLabels
+        classes={{ root: classes.navigation }}
       >
         {areas.map((area, i) => {
-          const selected = area.id === value
+          const selected = area.id === value;
           const style = {
             ...buttonsStyle,
             background: selected ? getAreaBackground(area) : getYellow(i),
-            color: selected ? 'white' : '#4D4C4C'
-          }
+            color: selected ? "white" : "#4D4C4C",
+          };
 
           return (
             <BottomNavigationAction
-              key={area.nombre}
+              key={area.id}
+              value={area.id}
               style={style}
               label={area.nombre}
-              className={classes.buttons}
-              icon={area.icono && <area.icono size={'2em'} />}
+              classes={{
+                root: classes.buttons,
+                selected: classes.navigationButton,
+                label: classes.navigationButton,
+              }}
+              icon={area.icono && <area.icono size={"2em"} />}
             />
-          )
+          );
         })}
       </BottomNavigation>
     </Box>
-  )
+  );
 }
 
-export function MobileHeader ({ areas, classes, goTo }) {
+export function MobileHeader({ areas, classes, goTo }) {
   return (
     <>
       <AppBar
-        position='fixed'
-        className={clsx(classes.appBar, classes.navigationMobile)}
+        position="fixed"
+        className={clsx(classes.appBar, classes.navigation)}
         elevation={0}
       >
-        <Toolbar disableGutters classes={{ root: classes.navigationMobile }}>
-          <Box width='70%' display='flex' height='100%'>
+        <Toolbar disableGutters style={{ minHeight: 64 }}>
+          <Box width="70%" display="flex" height="100%">
             <Button
               fullWidth
-              size='large'
-              key={'sentircreativo'}
+              size="large"
+              key={"sentircreativo"}
               style={{
-                background: '#4E4E4E',
-                color: 'white',
-                ...buttonsStyle
+                ...buttonsStyle,
+                background: "#4E4E4E",
+                color: "white",
+                padding: 0,
               }}
               startIcon={
-                <img src={LogoYellow} width={55} alt='logo sentir creativo' />
+                <img src={LogoYellow} width={50} alt="logo sentir creativo" />
               }
               onClick={() => goTo(`/about`)()}
             >
               SentirCreativo.com
             </Button>
           </Box>
-          <Box width='30%' display='flex' height='100%'>
+          <Box width="30%" display="flex" height="100%">
             <Button
               fullWidth
-              key={'quienes somos'}
+              key={"quienes somos"}
               classes={{ startIcon: classes.buttons }}
               style={{
                 fontSize: 12,
-                background: '#363636',
-                color: 'white',
-                ...buttonsStyle
+                background: "#363636",
+                color: "white",
+                ...buttonsStyle,
               }}
               onClick={() => goTo(`/about`)()}
             >
@@ -127,33 +132,39 @@ export function MobileHeader ({ areas, classes, goTo }) {
             </Button>
           </Box>
         </Toolbar>
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          classes={{
+            root: classes.secondToolbar,
+            regular: classes.secondToolbar,
+          }}
+        >
           <MobileAreasButtons {...{ areas, goTo, classes }} />
         </Toolbar>
       </AppBar>
     </>
-  )
+  );
 }
 
-function AreasButtons ({ areas, goTo, classes }) {
-  const { pathname } = useLocation()
-  const [value, setValue] = useState(null)
+function AreasButtons({ areas, goTo, classes }) {
+  const { pathname } = useLocation();
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
-    if (!pathname.includes('areas')) {
-      setValue(null)
-      return
+    if (!pathname.includes("areas")) {
+      setValue(null);
+      return;
     }
 
-    let [id] = pathname.split('/').reverse()
+    let [id] = pathname.split("/").reverse();
 
     if (id && +id !== +value) {
-      setValue(+id)
+      setValue(+id);
     }
-  }, [value, pathname])
+  }, [value, pathname]);
 
   return areas.map((area, i) => {
-    const selected = area.id === value
+    const selected = area.id === value;
     const style = {
       ...buttonsStyle,
       background: selected ? getAreaBackground(area) : getYellow(i),
@@ -167,50 +178,47 @@ function AreasButtons ({ areas, goTo, classes }) {
         key={area.nombre}
         style={style}
         onClick={() => {
-          setValue(area.id)
-          goTo(`/areas/${area.id}`)()
+          setValue(area.id);
+          goTo(`/areas/${area.id}`)();
         }}
         startIcon={area.icono && <area.icono size={ICON_SIZE} />}
       >
         {line1} <br/> {line2}
       </Button>
-    )
-  })
+    );
+  });
 }
 
-export function DesktopHeader ({ areas, classes, goTo }) {
+export function DesktopHeader({ areas, classes, goTo }) {
   return (
-    <AppBar position='fixed' className={clsx(classes.appBar)} elevation={0}>
+    <AppBar position="fixed" className={clsx(classes.appBar)} elevation={0}>
       <Toolbar disableGutters>
-        <Box width='100%' display='flex' justifyContent='center'>
+        <Box width="100%" display="flex" justifyContent="center">
           <ButtonGroup
-            variant='text'
-            color='secondary'
+            variant="text"
+            color="secondary"
             className={classes.navigation}
           >
             <Button
               fullWidth
-              classes={{ root: classes.buttons, startIcon: classes.buttons }}
-              key={'sentir creativo'}
               onClick={() => goTo(`/`)()}
-              style={{ background: '#ffec11', ...buttonsStyle }}
-              startIcon={
-                <img src={Logo} width={60} alt='logo sentir creativo' />
-              }
+              classes={{ root: classes.buttons, startIcon: classes.buttons }}
+              key={"sentir creativo"}
+              style={{ background: "#ffec11", ...buttonsStyle }}
             >
-              Sentir CREATIVO .com
+              <img src={Logo} width={180} alt="logo sentir creativo" />
             </Button>
 
             <AreasButtons {...{ areas, goTo, classes }} />
 
             <Button
               fullWidth
-              size='large'
-              key={'quienes somos'}
+              size="large"
+              key={"quienes somos"}
               style={{
-                background: '#ff6c00',
-                color: 'white',
-                ...buttonsStyle
+                background: "#ff6c00",
+                color: "white",
+                ...buttonsStyle,
               }}
               classes={{ startIcon: classes.buttons }}
               onClick={() => goTo(`/about`)()}
@@ -222,5 +230,5 @@ export function DesktopHeader ({ areas, classes, goTo }) {
         </Box>
       </Toolbar>
     </AppBar>
-  )
+  );
 }

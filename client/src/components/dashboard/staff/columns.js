@@ -1,212 +1,212 @@
-import { customBodyRender } from '../../master-detail/MasterDetail'
+import { customBodyRender } from "../../master-detail/MasterDetail";
 
 const columns = [
   {
-    name: 'prefijo',
-    label: 'Prefijo',
+    name: "prefijo",
+    label: "Prefijo",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 2,
-      type: 'select',
-      dependency: 'Prefijo'
-    }
+      type: "select",
+      dependency: "Prefijo",
+    },
   },
   {
-    name: 'nombre',
-    label: 'Nombre',
+    name: "nombre",
+    label: "Nombre",
     options: {
       filter: true,
-      sort: true
+      sort: true,
     },
     form: {
       size: 5,
-      type: 'input'
-    }
+      type: "input",
+    },
   },
   {
-    name: 'apellido',
-    label: 'Apellido',
+    name: "apellido",
+    label: "Apellido",
     options: {
       filter: true,
-      sort: true
+      sort: true,
     },
     form: {
       size: 5,
-      type: 'input'
-    }
-  },
-  {
-    name: 'nombreArtistico',
-    label: 'Nombre Artistico',
-    options: {
-      filter: true,
-      sort: true
+      type: "input",
     },
-    form: {
-      size: 4,
-      type: 'input'
-    }
   },
   {
-    name: 'email',
-    label: 'Email',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'celular',
-    label: 'Celular',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'nacionalidad',
-    label: 'Nacionalidad',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'oficio',
-    label: 'Oficio',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'fechaNacimiento',
-    label: 'Fecha Nacimiento',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'date'
-    }
-  },
-  {
-    name: 'estado',
-    label: 'Estado',
+    name: "nombreArtistico",
+    label: "Nombre Artistico",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: "input",
+    },
+  },
+  {
+    name: "email",
+    label: "Email",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "input",
+    },
+  },
+  {
+    name: "celular",
+    label: "Celular",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "input",
+    },
+  },
+  {
+    name: "nacionalidad",
+    label: "Nacionalidad",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "input",
+    },
+  },
+  {
+    name: "oficio",
+    label: "Oficio",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "input",
+    },
+  },
+  {
+    name: "fechaNacimiento",
+    label: "Fecha Nacimiento",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "date",
+    },
+  },
+  {
+    name: "estado",
+    label: "Estado",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'select',
-      dependency: 'StaffState'
-    }
+      type: "select",
+      dependency: "StaffState",
+    },
   },
   {
-    name: 'cuponDescuento',
-    label: 'Cupones Descuentos',
+    name: "cuponDescuento",
+    label: "Cupones Descuentos",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 4,
-      type: 'multiselect',
-      dependency: 'CuponDescuento'
-    }
+      type: "multiselect",
+      dependency: "CuponDescuento",
+    },
   },
   {
-    name: 'origen',
-    label: 'Origen',
+    name: "origen",
+    label: "Origen",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'select',
-      dependency: 'Origen'
-    }
+      type: "select",
+      dependency: "Origen",
+    },
   },
   {
-    name: 'tecnica_artisticas',
-    label: 'Técnicas Artísticas',
+    name: "tecnica_artisticas",
+    label: "Técnicas Artísticas",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'TecnicaArtistica'
-    }
+      type: "multiselect",
+      dependency: "TecnicaArtistica",
+    },
   },
   {
-    name: 'servicios',
-    label: 'Servicios',
+    name: "servicios",
+    label: "Servicios",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'Servicio'
-    }
+      type: "multiselect",
+      dependency: "Servicio",
+    },
   },
   {
-    name: 'acuerdos',
-    label: 'Acuerdos',
+    name: "acuerdos",
+    label: "Acuerdos",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'Acuerdo'
-    }
+      type: "multiselect",
+      dependency: "Acuerdo",
+    },
   },
   {
-    name: 'archivos',
-    label: 'Archivos',
+    name: "archivos",
+    label: "Archivos",
     options: {
       display: false,
       filter: false,
-      sort: false
+      sort: false,
     },
     form: {
       size: 12,
-      type: 'file'
-    }
-  }
-]
-export default columns
+      type: "file",
+    },
+  },
+];
+export default columns;

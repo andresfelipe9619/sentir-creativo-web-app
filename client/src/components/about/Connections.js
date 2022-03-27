@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import Collapse from '@material-ui/core/Collapse'
-import clsx from 'clsx'
+import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import Collapse from "@material-ui/core/Collapse";
+import clsx from "clsx";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   title: {
-    fontSize: '72px',
+    fontSize: "72px",
     lineHeight: 1,
     fontWeight: 900,
     fontStyle: 'italic',
@@ -18,24 +18,32 @@ const useStyles = makeStyles(theme => ({
     }
   },
   arrowDownIcon: {
-    width: '2.5rem',
-    height: '2.5rem',
-    transform: 'rotate(180deg)',
-    transition: '.3s ease-out'
+    width: "2.5rem",
+    height: "2.5rem",
+    transform: "rotate(180deg)",
+    transition: ".3s ease-out",
   },
   rotate: {
-    transform: 'rotate(0)'
-  }
-}))
+    transform: "rotate(0)",
+  },
+}));
 
-export default function Connections({ connections, title, subtitle, color, children }) {
-  const classes = useStyles()
-  const [expanded, setExpanded] = useState(false)
+export default function Connections({
+  connections,
+  title,
+  subtitle,
+  color,
+  children,
+}) {
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <>
-      <Box bgcolor={color} color='white' p={3}>
-        <Typography variant='h1' align='center' className={classes.title}>{title}</Typography>
+      <Box bgcolor={color} color="white" p={3}>
+        <Typography variant="h1" align="center" className={classes.title}>
+          {title}
+        </Typography>
       </Box>
 
       <Box bgcolor='white' p={2} my={6} style={{ borderTopRightRadius: '50px', borderBottomRightRadius: '50px', width: '90%' }}
@@ -44,8 +52,11 @@ export default function Connections({ connections, title, subtitle, color, child
           {subtitle}
         </Typography>
 
-        <KeyboardArrowDownIcon className={clsx(classes.arrowDownIcon, expanded && classes.rotate)} style={{ fill: color }}
-          onClick={() => setExpanded(!expanded)}/>
+        <KeyboardArrowDownIcon
+          className={clsx(classes.arrowDownIcon, expanded && classes.rotate)}
+          style={{ fill: color }}
+          onClick={() => setExpanded(!expanded)}
+        />
       </Box>
 
       <Collapse in={expanded} timeout='auto' unmountOnExit>
@@ -53,7 +64,7 @@ export default function Connections({ connections, title, subtitle, color, child
         {children}
       </Collapse>
     </>
-  )
+  );
 }
 
 function ConnectionItem({ color, icon: Icon, details, match, hidden }) {
@@ -71,15 +82,19 @@ function ConnectionItem({ color, icon: Icon, details, match, hidden }) {
       props.component = 'strong'
     }
 
-    return <Typography key={text} {...props}>{text}</Typography>;
-  })
+    return (
+      <Typography key={text} {...props}>
+        {text}
+      </Typography>
+    );
+  });
 
   return (
     <Grid container spacing={2}>
-    <Grid xs={1}></Grid>
-    <Grid container xs={2} justifyContent='center'>
-      <Icon style={{ width: '5rem', height: '5rem', fill: color }}/>
-    </Grid>
+      <Grid xs={1}></Grid>
+      <Grid container xs={2} justifyContent="center">
+        <Icon style={{ width: "5rem", height: "5rem", fill: color }} />
+      </Grid>
 
     <Grid xs={9}>
       <Box mb={6} ml={2}>
@@ -88,6 +103,6 @@ function ConnectionItem({ color, icon: Icon, details, match, hidden }) {
         </Typography>
       </Box>
     </Grid>
-  </Grid>
-  )
+    </Grid>
+  );
 }

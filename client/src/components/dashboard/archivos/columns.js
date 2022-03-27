@@ -1,70 +1,70 @@
-import { customBodyRender } from "../../master-detail/MasterDetail"
+import { customBodyRender } from "../../master-detail/MasterDetail";
 
 const columns = [
   {
-    name: 'nombre',
-    label: 'Nombre',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'path',
-    label: 'Path',
-    options: {
-      filter: true,
-      sort: true
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'tipo_archivo',
-    label: 'Tipo Archivo',
+    name: "nombre",
+    label: "Nombre",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
-      type: 'select',
-      dependency: 'TipoArchivo',
-    }
+      type: "input",
+    },
   },
   {
-    name: 'updated_at',
-    label: 'Última Actualización',
+    name: "path",
+    label: "Path",
     options: {
       filter: true,
-      sort: false
+      sort: true,
     },
     form: {
       size: 4,
-      type: 'date'
-    }
+      type: "input",
+    },
   },
-
   {
-    name: 'created_at',
-    label: 'Creado el',
+    name: "tipo_archivo",
+    label: "Tipo Archivo",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 4,
+      type: "select",
+      dependency: "TipoArchivo",
+    },
+  },
+  {
+    name: "updated_at",
+    label: "Última Actualización",
     options: {
       filter: true,
       sort: false,
-      type: 'array'
     },
     form: {
       size: 4,
-      type: 'date'
-    }
-  }
-]
+      type: "date",
+    },
+  },
 
-export default columns
+  {
+    name: "created_at",
+    label: "Creado el",
+    options: {
+      filter: true,
+      sort: false,
+      type: "array",
+    },
+    form: {
+      size: 4,
+      type: "date",
+    },
+  },
+];
+
+export default columns;

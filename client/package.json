@@ -22,9 +22,12 @@
     "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
     "formik": "^2.2.8",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "material-ui-dropzone": "^3.5.0",
     "material-ui-phone-number": "2.2.6",
     "mui-datatables": "^3.7.8",
+    "prettier": "^2.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
@@ -41,13 +44,26 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint './src/**/*.{js,jsx}'",
+    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "browserslist": [
     ">0.2%",

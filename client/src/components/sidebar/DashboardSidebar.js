@@ -1,50 +1,50 @@
-import React, { useState } from 'react'
-import MenuIcon from '@material-ui/icons/Menu'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import Drawer from '@material-ui/core/Drawer'
-import { useHistory } from 'react-router-dom'
-import clsx from 'clsx'
-import { MainListItems } from '../dashboard/ListItems'
-import { useDashboardStyles } from './styles'
-import AccessDenied from '../../router/AccessDenied'
-import API from '../../api'
+import React, { useState } from "react";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import Drawer from "@material-ui/core/Drawer";
+import { useHistory } from "react-router-dom";
+import clsx from "clsx";
+import { MainListItems } from "../dashboard/ListItems";
+import { useDashboardStyles } from "./styles";
+import AccessDenied from "../../router/AccessDenied";
+import API from "../../api";
 
-export default function DashboardSidebar ({ children }) {
-  const [open, setOpen] = useState(false)
-  const classes = useDashboardStyles()
-  const token = API.getToken()
-  const history = useHistory()
+export default function DashboardSidebar({ children }) {
+  const [open, setOpen] = useState(false);
+  const classes = useDashboardStyles();
+  const token = API.getToken();
+  const history = useHistory();
 
   const handleDrawerOpen = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
   const handleDrawerClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
-  const handleClick = path => () => {
-    handleDrawerClose()
-    history.push(path)
-  }
+  const handleClick = (path) => () => {
+    handleDrawerClose();
+    history.push(path);
+  };
 
-  if (!token) return <AccessDenied />
+  if (!token) return <AccessDenied />;
   return (
     <div className={classes.root}>
       <AppBar
-        position='absolute'
+        position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
           <IconButton
-            edge='start'
-            color='inherit'
-            aria-label='open drawer'
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
             onClick={handleDrawerOpen}
             className={clsx(
               classes.menuButton,
@@ -54,9 +54,9 @@ export default function DashboardSidebar ({ children }) {
             <MenuIcon />
           </IconButton>
           <Typography
-            component='h1'
-            variant='h6'
-            color='inherit'
+            component="h1"
+            variant="h6"
+            color="inherit"
             noWrap
             className={classes.title}
           >
@@ -66,7 +66,7 @@ export default function DashboardSidebar ({ children }) {
       </AppBar>
       <Drawer
         classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose)
+          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
         open={open}
       >
@@ -89,5 +89,5 @@ export default function DashboardSidebar ({ children }) {
         {children}
       </main>
     </div>
-  )
+  );
 }

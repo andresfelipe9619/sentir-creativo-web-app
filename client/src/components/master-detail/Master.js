@@ -1,7 +1,13 @@
-import React from 'react'
-import MUIDataTable from 'mui-datatables'
+import React from "react";
+import MUIDataTable from "mui-datatables";
 
-export default function Master ({ title, data, columns, onRowClick, onRowsDelete }) {
+export default function Master({
+  title,
+  data,
+  columns,
+  onRowClick,
+  onRowsDelete,
+}) {
   return (
     <MUIDataTable
       data={data}
@@ -9,5 +15,5 @@ export default function Master ({ title, data, columns, onRowClick, onRowsDelete
       options={{ onRowClick, onRowsDelete }}
       columns={columns}
     />
-  )
+  );
 }

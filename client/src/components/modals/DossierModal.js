@@ -1,51 +1,51 @@
-import React, { useEffect } from 'react'
-import GenericModal from './GenericModal'
-import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
-import { Formik } from 'formik'
-import API from '../../api'
-import { useAlertDispatch } from '../../providers/context/Alert'
-import FormItem from '../master-detail/FormItem'
-import useFormDependencies from '../../providers/hooks/useFormDependencies'
-import Spinner from '../spinner/Spinner'
-import { columns, dossiersSchema, dossierValues } from './schema'
-import { useState } from 'react'
-import FinishForm from '../finish-form'
+import React, { useEffect } from "react";
+import GenericModal from "./GenericModal";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import { Formik } from "formik";
+import API from "../../api";
+import { useAlertDispatch } from "../../providers/context/Alert";
+import FormItem from "../master-detail/FormItem";
+import useFormDependencies from "../../providers/hooks/useFormDependencies";
+import Spinner from "../spinner/Spinner";
+import { columns, dossiersSchema, dossierValues } from "./schema";
+import { useState } from "react";
+import FinishForm from "../finish-form";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%'
+    width: "100%",
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
-  }
-}))
+    marginBottom: theme.spacing(1),
+  },
+}));
 
-export default function DossierModal ({ open, service, ...props }) {
-  const classes = useStyles()
-  const { openAlert } = useAlertDispatch()
-  const [finish, setFinish] = useState(false)
+export default function DossierModal({ open, service, ...props }) {
+  const classes = useStyles();
+  const { openAlert } = useAlertDispatch();
+  const [finish, setFinish] = useState(false);
 
-  console.log(`service`, service)
-  const handleFormSubmit = async values => {
+  console.log(`service`, service);
+  const handleFormSubmit = async (values) => {
     try {
-      console.log(`values`, values)
+      console.log(`values`, values);
       const result = await API.Audiencia.dossier({
         ...values,
-        servicio: service
-      })
-      console.log(`result`, result)
-      openAlert({ variant: 'success', message: 'Datos enviados con éxito!' })
-      setFinish(true)
+        servicio: service,
+      });
+      console.log(`result`, result);
+      openAlert({ variant: "success", message: "Datos enviados con éxito!" });
+      setFinish(true);
     } catch (error) {
-      console.error(error)
+      console.error(error);
       openAlert({
-        variant: 'error',
-        message: 'Algo salió mal. Vuelve a intentarlo más tarde'
-      })
+        variant: "error",
+        message: "Algo salió mal. Vuelve a intentarlo más tarde",
+      });
     }
-  }
+  };
 
   return (
     <Formik
@@ -61,7 +61,7 @@ export default function DossierModal ({ open, service, ...props }) {
             handleConfirm={handleSubmit}
             hideCloseButton={finish}
             hideConfirmButton={finish}
-            title={service?.nombre || ''}
+            title={service?.nombre || ""}
             isSubmitting={formikProps.isSubmitting}
           >
             {!finish && (
@@ -73,36 +73,33 @@ export default function DossierModal ({ open, service, ...props }) {
             )}
             {!!finish && (
               <FinishForm
-                title='¡Cosmicósmico!'
-                text='el dossier solicitado'
+                title="¡Cosmicósmico!"
+                text="el dossier solicitado"
                 handleClick={() => {
-                  setFinish(false)
-                  formikProps.resetForm()
-                  props.handleClose()
+                  setFinish(false);
+                  formikProps.resetForm();
+                  props.handleClose();
                 }}
               />
             )}
           </GenericModal>
-        )
+        );
       }}
     </Formik>
-  )
+  );
 }
 
-function Contact (formProps) {
-  const contactColumns = columns()
-  const {
-    dependencies,
-    loadDependencies,
-    loadingDependencies
-  } = useFormDependencies(contactColumns)
+function Contact(formProps) {
+  const contactColumns = columns();
+  const { dependencies, loadDependencies, loadingDependencies } =
+    useFormDependencies(contactColumns);
 
   useEffect(() => {
-    loadDependencies()
+    loadDependencies();
     //eslint-disable-next-line
-  }, [])
+  }, []);
 
-  if (loadingDependencies) return <Spinner />
+  if (loadingDependencies) return <Spinner />;
   return (
     <Grid container spacing={2}>
       {contactColumns.map((item, i) => (
@@ -114,5 +111,5 @@ function Contact (formProps) {
         />
       ))}
     </Grid>
-  )
+  );
 }

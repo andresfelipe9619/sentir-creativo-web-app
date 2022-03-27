@@ -1,136 +1,146 @@
-import React, { memo, useState } from 'react'
-import Grid from '@material-ui/core/Grid'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Accordion from '@material-ui/core/Accordion'
-import Chip from '@material-ui/core/Chip'
-import Box from '@material-ui/core/Box'
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
-import Typography from '@material-ui/core/Typography'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {
-  alpha,
-  ThemeProvider,
-  makeStyles,
-  createTheme
-} from '@material-ui/core/styles'
-import SearchIcon from '@material-ui/icons/Search'
-import { CheckboxGroup } from '../radio'
-import { useTheme } from '@material-ui/styles'
-import TextField from '@material-ui/core/TextField'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import React, { memo, useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Accordion from "@material-ui/core/Accordion";
+import Chip from "@material-ui/core/Chip";
+import Box from "@material-ui/core/Box";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import SearchIcon from "@material-ui/icons/Search";
+import { CheckboxGroup } from "../radio";
+import { useTheme } from "@material-ui/styles";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Pagination from "@material-ui/lab/Pagination";
+import useStyles from "./styles";
+import Spinner from "../spinner/Spinner";
 
-function Filters ({
+const PAGE_SIZE = 6;
+
+function Filters({
   children,
   color,
+  loading,
   data = [],
+  maxCount = 6,
   filterOptions,
   // onSearchChange,
-  onFilterChange
+  onFilterChange,
 }) {
-  const classes = useStyles()
-  const theme = useTheme()
-  const [values, setValues] = useState({})
-  const [filters, setFilters] = useState({})
-  const [value, setValue] = useState(null)
+  const classes = useStyles();
+  const theme = useTheme();
+  const [values, setValues] = useState({});
+  const [filters, setFilters] = useState({});
+  const [page, setPage] = useState(1);
+  const [autocompleteValue, setAutocompleteValue] = useState(null);
 
-  const cardColor = color || theme.palette.primary.main
+  const cardColor = color || theme.palette.primary.main;
 
-  const handleDeleteFilter = () => () => {
-    // handleChangeFilter({target:{name, value, checked:false}})
-  }
+  const handleDeleteFilter = (option) => () => {
+    const { name, value } = option;
+    const target = { name, value, checked: false };
+    handleChangeFilter({ target });
+  };
 
-  const handleChangeFilter = e => {
-    const { name, value, checked } = e.target
+  const handleChangeFilter = (e) => {
+    const { name, value, checked } = e.target;
 
     const newValues = {
       ...values,
-      [name]: { ...values[name], [value]: checked }
-    }
-    setValues(newValues)
-    const selectedFilters = getSelectedFilters(newValues)
-    setFilters(selectedFilters)
-    onFilterChange(selectedFilters)
-  }
+      [name]: { ...values[name], [value]: checked },
+    };
+    setValues(newValues);
+    const selectedFilters = getSelectedFilters(newValues);
+    setFilters(selectedFilters);
+    onFilterChange(selectedFilters);
+  };
+
+  const handleChangePage = (_, value) => {
+    if (value === page) return;
+    const newFilters = {
+      ...filters,
+      pagination: { page: value, size: PAGE_SIZE },
+    };
+    setPage(value);
+    setFilters(newFilters);
+    onFilterChange(newFilters);
+  };
 
   const areaTheme = createTheme({
     ...theme,
     palette: {
-      primary: { main: cardColor }
-    }
-  })
-  console.log('data', data)
-  console.log('value', value)
-  console.log('filters', filters)
-  const chips = filterOptions
-    .map(fo => {
-      if (fo.name === 'formato') {
-        return (fo.options || []).filter(o =>
-          (filters.formats || []).includes(+o.value)
-        )
-      }
-      if (fo.name === 'tecnica_artisticas') {
-        return (fo.options || []).filter(o =>
-          (filters.tecnics || []).includes(+o.value)
-        )
-      }
-      return []
-    })
-    .flatMap(f => f)
+      primary: { main: cardColor },
+    },
+  });
 
-  const options = value ? data.filter(o => o.id === value.id) : data
+  const chips = filterOptions
+    .map((fo) => {
+      const filterOptions = (name) =>
+        (fo.options || [])
+          .filter((o) => (filters[name] || []).includes(+o.value))
+          .map((fo) => ({ ...fo, name }));
+      return filterOptions(fo.name);
+    })
+    .flatMap((f) => f);
+
+  const options = autocompleteValue
+    ? data.filter((o) => o.id === autocompleteValue.id)
+    : data;
+
   return (
     <ThemeProvider theme={areaTheme}>
       <AppBar
-        position='relative'
+        position="relative"
         classes={{ root: classes.toolbar }}
         elevation={0}
       >
         <Toolbar>
           <Autocomplete
-            size='small'
-            id='combo-box-demo'
+            size="small"
+            id="combo-box-demo"
             options={options}
-            value={value}
+            value={autocompleteValue}
             onChange={(_, newValue) => {
-              setValue(newValue)
+              setAutocompleteValue(newValue);
             }}
-            getOptionLabel={option => option.nombre}
+            getOptionLabel={(option) => option.nombre}
             style={{ width: 300 }}
-            renderInput={params => (
+            renderInput={(params) => (
               <TextField
                 {...params}
-                label='Buscar'
-                variant='outlined'
+                label="Buscar"
+                variant="outlined"
                 InputProps={{
                   ...params.InputProps,
                   startAdornment: (
                     <SearchIcon
                       style={{
-                        color: cardColor
+                        color: cardColor,
                       }}
                     />
-                  )
+                  ),
                 }}
               />
             )}
           />
 
           <Box className={classes.chips}>
-            {(chips || []).map(option => {
-              console.log('option', option)
+            {(chips || []).map((option) => {
               return (
                 <Chip
                   key={option.label}
                   label={option.label}
-                  onDelete={handleDeleteFilter()}
+                  onDelete={handleDeleteFilter(option)}
                   style={{
                     backgroundColor: cardColor,
-                    color: 'white'
+                    color: "white",
                   }}
                 />
-              )
+              );
             })}
           </Box>
         </Toolbar>
@@ -138,7 +148,7 @@ function Filters ({
           style={{
             minHeight: 36,
             padding: 0,
-            backgroundColor: cardColor
+            backgroundColor: cardColor,
           }}
         >
           <Grid item md={3}></Grid>
@@ -146,17 +156,28 @@ function Filters ({
             item
             md={4}
             style={{
-              fontSize: '1.2em',
-              fontWeight: 'bold',
+              fontSize: "1.2em",
+              fontWeight: "bold",
               backgroundColor: areaTheme.palette.primary.dark,
-              width: '100%',
+              width: "100%",
               padding: 4,
-              height: '100%'
+              height: "100%",
             }}
           >
-            {(options || []).length} experiencias encontradas:
+            {maxCount} experiencia{maxCount === 1 ? "" : "s"} encontrada
+            {maxCount === 1 ? "" : "s"}:
           </Grid>
-          <Grid item md={5}></Grid>
+          <Grid item md={5}>
+            <Pagination
+              count={Math.ceil(maxCount / PAGE_SIZE)}
+              color="standard"
+              page={page}
+              classes={{ ul: classes.pagination }}
+              onChange={handleChangePage}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Grid>
         </Toolbar>
       </AppBar>
       <Grid container>
@@ -165,128 +186,78 @@ function Filters ({
             <FilterOption
               key={i}
               {...fo}
+              loading={loading}
               handleChange={handleChangeFilter}
               values={values[fo.name] || {}}
             />
           ))}
         </Grid>
-        <Grid item md={9} component={Box} px={1} bgcolor={'#212121'} pt={2}>
-          {children}
+        <Grid
+          item
+          md={9}
+          component={Box}
+          px={1}
+          bgcolor={"#212121"}
+          pt={2}
+          minHeight={400}
+        >
+          {loading ? <Spinner mt={"10vh"} /> : children}
         </Grid>
       </Grid>
     </ThemeProvider>
-  )
+  );
 }
 
-const FilterOption = memo(function FilterOption ({
+const FilterOption = memo(function FilterOption({
   label,
   name,
   options,
+  loading,
   values,
-  handleChange
+  handleChange,
 }) {
+  const hasOptions = (options || []).length;
   return (
     <AccordionOption title={label}>
-      <CheckboxGroup
-        name={name}
-        options={options}
-        values={values}
-        handleChange={handleChange}
-      />
+      {loading && !hasOptions && <Spinner mt={0} />}
+      {hasOptions && (
+        <CheckboxGroup
+          name={name}
+          options={options}
+          values={values}
+          handleChange={handleChange}
+        />
+      )}
     </AccordionOption>
-  )
-})
+  );
+});
 
-const AccordionOption = memo(function AccordionOption ({ title, children }) {
-  const classes = useStyles()
+const AccordionOption = memo(function AccordionOption({ title, children }) {
+  const classes = useStyles();
   return (
     <Accordion>
       <AccordionSummary
         className={classes.accordion}
-        expandIcon={<ExpandMoreIcon style={{ color: 'white' }} />}
-        aria-controls='panel1a-content'
-        id='panel1a-header'
+        expandIcon={<ExpandMoreIcon style={{ color: "white" }} />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
       >
         <Typography>{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>{children}</AccordionDetails>
     </Accordion>
-  )
-})
+  );
+});
 
-function getSelectedFilters (filters) {
-  let formats = Object.entries(filters.formato || {})
+function getSelectedFilters(filters) {
+  let formatos = Object.entries(filters.formatos || {})
     .filter(([, value]) => !!value)
-    .map(([key]) => +key)
-  let tecnics = Object.entries(filters.tecnica_artisticas || {})
+    .map(([key]) => +key);
+  let tecnica_artisticas = Object.entries(filters.tecnica_artisticas || {})
     .filter(([, value]) => !!value)
-    .map(([key]) => +key)
+    .map(([key]) => +key);
 
-  return { formats, tecnics }
+  return { formatos, tecnica_artisticas };
 }
 
-export const useStyles = makeStyles(theme => ({
-  title: { fontWeight: 'bold', fontSize: '24rm' },
-  slogan: { fontSize: '24em' },
-  toolbar: { background: '#F5F5F5', zIndex: 1 },
-  accordion: {
-    color: 'white',
-    background: theme.palette.primary.main,
-    borderTop: [[1, 'solid', 'white']],
-    borderBottom: [[1, 'solid', 'white']]
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(0.5)
-    }
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.background.paper, 0.8),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.background.paper, 1)
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto'
-    }
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  inputRoot: {
-    color: 'inherit'
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch'
-      }
-    }
-  },
-  chips: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5)
-    }
-  }
-}))
-
-export default memo(Filters)
+export default memo(Filters);

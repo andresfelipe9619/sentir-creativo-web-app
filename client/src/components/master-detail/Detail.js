@@ -14,42 +14,39 @@ import { useAlertDispatch } from '../../providers/context/Alert'
 import DialogButton from '../buttons/DialogButton'
 
 export default function Detail({ columns, service, match, reloadMaster }) {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [inputsChanged, setInputsChanged] = useState([]);
   const history = useHistory();
 
-  const entityId = match?.params?.id
-  const {
-    dependencies,
-    loadDependencies,
-    loadingDependencies
-  } = useFormDependencies(columns)
-  const { openAlert } = useAlertDispatch()
+  const entityId = match?.params?.id;
+  const { dependencies, loadDependencies, loadingDependencies } =
+    useFormDependencies(columns);
+  const { openAlert } = useAlertDispatch();
 
   const handleFormSubmit = useCallback(
-    async values => {
+    async (values) => {
       try {
-        const result = await API[service].update(entityId, values)
-        console.log(`result`, result)
-        reloadMaster && reloadMaster()
+        const result = await API[service].update(entityId, values);
+        console.log(`result`, result);
+        reloadMaster && reloadMaster();
         openAlert({
-          variant: 'success',
-          message: 'Datos guardados exitosamente!'
-        })
+          variant: "success",
+          message: "Datos guardados exitosamente!",
+        });
         setInputsChanged([]);
       } catch (error) {
-        console.error(error)
+        console.error(error);
         openAlert({
-          variant: 'error',
-          message: 'Oops! parece que algo salió mal'
-        })
+          variant: "error",
+          message: "Oops! parece que algo salió mal",
+        });
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     },
     [entityId, service, reloadMaster, openAlert]
-  )
+  );
 
   const handleDelete = async () => {
     try {
@@ -76,48 +73,48 @@ export default function Detail({ columns, service, match, reloadMaster }) {
 
   const init = useCallback(async () => {
     try {
-      const result = await API[service].get(entityId)
-      console.log(`result`, result)
-      setData(result)
-      await loadDependencies()
+      const result = await API[service].get(entityId);
+      console.log(`result`, result);
+      setData(result);
+      await loadDependencies();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
     //eslint-disable-next-line
-  }, [entityId, service])
+  }, [entityId, service]);
 
   useEffect(() => {
-    init()
+    init();
     //eslint-disable-next-line
-  }, [])
+  }, []);
 
   const initialValues = columns.reduce((acc, col) => {
-    let key = col.name
-    if (!data) return acc
-    let value = data[key]
-    if (col?.form?.type === 'select') {
-      value = value?.id
-      console.log(`select`, value)
+    let key = col.name;
+    if (!data) return acc;
+    let value = data[key];
+    if (col?.form?.type === "select") {
+      value = value?.id;
+      console.log(`select`, value);
     }
-    if (col?.form?.type === 'multiselect') {
-      value = (value || []).map(i => i.id)
-      console.log(`multiselect`, value)
+    if (col?.form?.type === "multiselect") {
+      value = (value || []).map((i) => i.id);
+      console.log(`multiselect`, value);
     }
 
-    acc[key] = value
-    return acc
-  }, {})
+    acc[key] = value;
+    return acc;
+  }, {});
 
-  console.log(`initialValues`, initialValues)
-  if (loading || loadingDependencies) return <Spinner />
+  console.log(`initialValues`, initialValues);
+  if (loading || loadingDependencies) return <Spinner />;
   return (
     <Formik
       enableReinitialize
       onSubmit={handleFormSubmit}
       initialValues={initialValues}
-    // validationSchema={contactSchema}
+      // validationSchema={contactSchema}
     >
       {({ handleSubmit, ...formProps }) => (
         <form onSubmit={handleSubmit}>
@@ -136,14 +133,15 @@ export default function Detail({ columns, service, match, reloadMaster }) {
                   {...formProps}
                   dependencies={dependencies}
                   handleChange={(e) => {
-                    if(e.target.value !== initialValues[item.name]){
+                    if (e.target.value !== initialValues[item.name]) {
                       setInputsChanged([...inputsChanged, item.name]);
-                    }else{
-                      setInputsChanged([...inputsChanged.filter(i => i !== item.name)]);
+                    } else {
+                      setInputsChanged([
+                        ...inputsChanged.filter((i) => i !== item.name),
+                      ]);
                     }
                     formProps.handleChange(e);
-                    }
-                  }
+                  }}
                 />
               ))}
 
@@ -153,12 +151,14 @@ export default function Detail({ columns, service, match, reloadMaster }) {
                 />
 
                 <Button
-                  type='submit'
-                  color='primary'
-                  variant='outlined'
-                  disabled={formProps.isSubmitting || inputsChanged.length === 0}
+                  type="submit"
+                  color="primary"
+                  variant="outlined"
+                  disabled={
+                    formProps.isSubmitting || inputsChanged.length === 0
+                  }
                 >
-                  {formProps.isSubmitting ? 'Guardando ...' : 'Guardar'}
+                  {formProps.isSubmitting ? "Guardando ..." : "Guardar"}
                 </Button>
               </Grid>
             </Grid>
@@ -166,5 +166,5 @@ export default function Detail({ columns, service, match, reloadMaster }) {
         </form>
       )}
     </Formik>
-  )
+  );
 }
