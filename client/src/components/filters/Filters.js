@@ -165,7 +165,8 @@ function Filters({
               height: "100%",
             }}
           >
-            {maxCount} experiencias encontradas:
+            {maxCount} experiencia{maxCount > 1 ? "s" : ""} encontrada
+            {maxCount > 1 ? "s" : ""}:
           </Grid>
           <Grid item md={5}>
             <Pagination
@@ -216,10 +217,11 @@ const FilterOption = memo(function FilterOption({
   values,
   handleChange,
 }) {
+  const hasOptions = (options || []).length;
   return (
     <AccordionOption title={label}>
-      {loading && <Spinner mt={0} />}
-      {!loading && (
+      {loading && !hasOptions && <Spinner mt={0} />}
+      {hasOptions && (
         <CheckboxGroup
           name={name}
           options={options}
