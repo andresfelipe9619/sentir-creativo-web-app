@@ -1,29 +1,29 @@
-import { Grid } from '@material-ui/core'
-import React from 'react'
-import MasterDetail from '../../master-detail/MasterDetail'
-import Card from '../../card/ServiceCard'
-import { useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useHistory } from 'react-router-dom'
-import columns from './columns'
+import { Grid } from "@material-ui/core";
+import React from "react";
+import MasterDetail from "../../master-detail/MasterDetail";
+import Card from "../../card/ServiceCard";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useHistory } from "react-router-dom";
+import columns from "./columns";
 
-export default function Servicios () {
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
-  const isMedium = useMediaQuery(theme.breakpoints.down('md'))
-  const length = isSmall ? 1 : isMedium ? 2 : 3
-  const history = useHistory()
+export default function Servicios() {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const length = isSmall ? 1 : isMedium ? 2 : 3;
+  const history = useHistory();
   const master = {
     columns,
-    title: 'Servicios'
-  }
+    title: "Servicios",
+  };
   const detail = {
-    columns
-  }
+    columns,
+  };
 
-  const handleClick = id => () => {
-    history.push(`/admin/servicios/${id}`)
-  }
+  const handleClick = (id) => () => {
+    history.push(`/admin/servicios/${id}`);
+  };
 
   return (
     <MasterDetail
@@ -31,7 +31,7 @@ export default function Servicios () {
       toggle
       masterProps={master}
       detailProps={detail}
-      service='Servicio'
+      service="Servicio"
       renderMaster={({ data }) => (
         <Grid item container md={12}>
           {data.map((s, i) => (
@@ -42,5 +42,5 @@ export default function Servicios () {
         </Grid>
       )}
     />
-  )
+  );
 }

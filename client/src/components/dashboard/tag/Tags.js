@@ -1,50 +1,50 @@
-import { Grid } from '@material-ui/core'
-import React from 'react'
-import MasterDetail from '../../master-detail/MasterDetail'
+import { Grid } from "@material-ui/core";
+import React from "react";
+import MasterDetail from "../../master-detail/MasterDetail";
 
 const columns = [
   {
-    name: 'nombre',
-    label: 'Nombre',
+    name: "nombre",
+    label: "Nombre",
     options: {
       filter: true,
-      sort: true
+      sort: true,
     },
     form: {
       size: 4,
-      type: 'input'
-    }
+      type: "input",
+    },
   },
   {
-    name: 'color',
-    label: 'Color',
+    name: "color",
+    label: "Color",
     options: {
       filter: true,
-      sort: false
+      sort: false,
     },
     form: {
       size: 4,
-      type: 'input'
-    }
-  }
-]
+      type: "input",
+    },
+  },
+];
 
-export default function Servicios () {
+export default function Servicios() {
   const master = {
     columns,
-    title: 'Tags'
-  }
+    title: "Tags",
+  };
   const detail = {
-    columns
-  }
+    columns,
+  };
   return (
     <Grid item md={12}>
       <MasterDetail
         create
         masterProps={master}
         detailProps={detail}
-        service='Tag'
+        service="Tag"
       />
     </Grid>
-  )
+  );
 }

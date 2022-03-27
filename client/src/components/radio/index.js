@@ -1,41 +1,41 @@
-import React from 'react'
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormLabel from '@material-ui/core/FormLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormLabel from "@material-ui/core/FormLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: "flex",
   },
   formControl: {
-    margin: theme.spacing(3)
-  }
-}))
+    margin: theme.spacing(3),
+  },
+}));
 
-export default function RadioButtonsGroup ({
+export default function RadioButtonsGroup({
   name,
   legend,
   options,
   values,
-  handleChange
+  handleChange,
 }) {
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <div className={classes.root}>
-      <FormControl component='fieldset' className={classes.formControl}>
-        <FormLabel component='legend'>{legend}</FormLabel>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">{legend}</FormLabel>
         <RadioGroup
           row
           name={name}
           value={+values[name]}
           onChange={handleChange}
         >
-          {options.map(o => {
+          {options.map((o) => {
             return (
               <FormControlLabel
                 key={o.value}
@@ -43,24 +43,24 @@ export default function RadioButtonsGroup ({
                 control={<Radio />}
                 label={o.label}
               />
-            )
+            );
           })}
         </RadioGroup>
       </FormControl>
     </div>
-  )
+  );
 }
 
-export function CheckboxGroup (props) {
-  const { name, legend, options, values, handleChange } = props
-  const classes = useStyles()
+export function CheckboxGroup(props) {
+  const { name, legend, options, values, handleChange } = props;
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <FormControl component='fieldset' className={classes.formControl}>
-        <FormLabel component='legend'>{legend}</FormLabel>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <FormLabel component="legend">{legend}</FormLabel>
         <FormGroup>
-          {options.map(o => {
+          {options.map((o) => {
             return (
               <FormControlLabel
                 key={o.value}
@@ -68,6 +68,7 @@ export function CheckboxGroup (props) {
                 onChange={handleChange}
                 control={
                   <Checkbox
+                    color="primary"
                     name={name}
                     onChange={handleChange}
                     checked={!!values[o.value]}
@@ -75,10 +76,10 @@ export function CheckboxGroup (props) {
                 }
                 label={o.label}
               />
-            )
+            );
           })}
         </FormGroup>
       </FormControl>
     </div>
-  )
+  );
 }

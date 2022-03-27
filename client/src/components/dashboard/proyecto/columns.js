@@ -1,216 +1,216 @@
-import { customBodyRender } from '../../master-detail/MasterDetail'
+import { customBodyRender } from "../../master-detail/MasterDetail";
 
 const columns = [
   {
-    name: 'nombre',
-    label: 'Nombre',
+    name: "nombre",
+    label: "Nombre",
     options: {
       filter: true,
-      sort: true
+      sort: true,
     },
     form: {
       size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'impacto',
-    label: 'Impacto',
-    options: {
-      filter: true,
-      sort: false
+      type: "input",
     },
-    form: {
-      size: 4,
-      type: 'input'
-    }
   },
   {
-    name: 'avance',
-    label: 'Avance',
-    options: {
-      filter: true,
-      sort: false
-    },
-    form: {
-      size: 4,
-      type: 'input'
-    }
-  },
-  {
-    name: 'tipo_proyecto',
-    label: 'Tipo Proyecto',
+    name: "impacto",
+    label: "Impacto",
     options: {
       filter: true,
       sort: false,
-      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
-      type: 'select',
-      dependency: 'TipoProyecto'
-    }
+      type: "input",
+    },
   },
   {
-    name: 'fechaInicio',
-    label: 'Fecha Inicio',
+    name: "avance",
+    label: "Avance",
     options: {
       filter: true,
       sort: false,
-      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
-      type: 'date'
-    }
+      type: "input",
+    },
   },
   {
-    name: 'fechaFin',
-    label: 'Fecha Fin',
+    name: "tipo_proyecto",
+    label: "Tipo Proyecto",
     options: {
       filter: true,
       sort: false,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 4,
-      type: 'date'
-    }
+      type: "select",
+      dependency: "TipoProyecto",
+    },
   },
   {
-    name: 'descripcion',
-    label: 'Descripcion',
+    name: "fechaInicio",
+    label: "Fecha Inicio",
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 4,
+      type: "date",
+    },
+  },
+  {
+    name: "fechaFin",
+    label: "Fecha Fin",
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 4,
+      type: "date",
+    },
+  },
+  {
+    name: "descripcion",
+    label: "Descripcion",
     options: {
       display: false,
       filter: true,
-      sort: false
+      sort: false,
     },
     form: {
       size: 8,
-      type: 'input',
-      multiline: true
-    }
+      type: "input",
+      multiline: true,
+    },
   },
   {
-    name: 'cupon_descuentos',
-    label: 'Cupones Descuentos',
+    name: "cupon_descuentos",
+    label: "Cupones Descuentos",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 4,
-      type: 'multiselect',
-      dependency: 'CuponDescuento'
-    }
+      type: "multiselect",
+      dependency: "CuponDescuento",
+    },
   },
   {
-    name: 'formatos',
-    label: 'Formatos',
+    name: "formatos",
+    label: "Formatos",
     options: {
       filter: true,
       sort: false,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'Formato'
-    }
+      type: "multiselect",
+      dependency: "Formato",
+    },
   },
   {
-    name: 'estado_proyecto',
-    label: 'Estado',
+    name: "estado_proyecto",
+    label: "Estado",
     options: {
       filter: true,
       sort: false,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'select',
-      dependency: 'EstadoProyecto'
-    }
+      type: "select",
+      dependency: "EstadoProyecto",
+    },
   },
   {
-    name: 'audiencia',
-    label: 'Audiencia',
+    name: "audiencia",
+    label: "Audiencia",
     options: {
       display: false,
       filter: false,
-      sort: false
+      sort: false,
     },
     form: {
       size: 6,
-      type: 'select',
-      dependency: 'Audiencia'
-    }
+      type: "select",
+      dependency: "Audiencia",
+    },
   },
   {
-    name: 'staf',
-    label: 'Staff',
+    name: "staf",
+    label: "Staff",
     options: {
       display: false,
       filter: false,
-      sort: false
+      sort: false,
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'Staf'
-    }
+      type: "multiselect",
+      dependency: "Staf",
+    },
   },
   {
-    name: 'servicios',
-    label: 'Servicios',
+    name: "servicios",
+    label: "Servicios",
     options: {
       filter: true,
       sort: true,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'Servicio'
-    }
+      type: "multiselect",
+      dependency: "Servicio",
+    },
   },
   {
-    name: 'publico_objetivos',
-    label: 'Público Objetivo',
+    name: "publico_objetivos",
+    label: "Público Objetivo",
     options: {
       filter: false,
       sort: false,
-      customBodyRender: customBodyRender()
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,
-      type: 'multiselect',
-      dependency: 'PublicoObjetivo'
-    }
+      type: "multiselect",
+      dependency: "PublicoObjetivo",
+    },
   },
   {
-    name: 'archivos',
-    label: 'Archivos',
+    name: "archivos",
+    label: "Archivos",
     options: {
       display: false,
       filter: false,
-      sort: false
+      sort: false,
     },
     form: {
       size: 12,
-      type: 'file'
-    }
+      type: "file",
+    },
   },
   {
-    name: 'delete',
-    label: 'Delete',
+    name: "delete",
+    label: "Delete",
     options: {
       display: false,
       filter: false,
-      sort: false
+      sort: false,
     },
-    form: { }
-  }
-]
-export default columns
+    form: {},
+  },
+];
+export default columns;

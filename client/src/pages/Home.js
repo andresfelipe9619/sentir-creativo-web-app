@@ -1,75 +1,75 @@
-import React, { useEffect, useState } from 'react'
-import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
-import API from '../api'
-import Card from '../components/card/ServiceCard'
-import Carousel from 'react-material-ui-carousel'
-import { useHistory, useLocation } from 'react-router-dom'
-import { splitArrayIntoChunksOfLen } from '../utils'
-import ServicioModal from '../components/modals/ServicioModal'
-import DossierModal from '../components/modals/DossierModal'
-import { useTheme } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import React, { useEffect, useState } from "react";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import API from "../api";
+import Card from "../components/card/ServiceCard";
+import Carousel from "react-material-ui-carousel";
+import { useHistory, useLocation } from "react-router-dom";
+import { splitArrayIntoChunksOfLen } from "../utils";
+import ServicioModal from "../components/modals/ServicioModal";
+import DossierModal from "../components/modals/DossierModal";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-function useQuery () {
-  return new URLSearchParams(useLocation().search)
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
 }
 
-export default function Home () {
-  const [services, setServices] = useState([])
-  const [selectedService, setSelectedService] = useState(null)
-  const [showDossier, setShowDossier] = useState(false)
-  const history = useHistory()
-  const query = useQuery()
-  const selectedId = query.get('service')
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down('xs'))
-  const isMedium = useMediaQuery(theme.breakpoints.down('md'))
+export default function Home() {
+  const [services, setServices] = useState([]);
+  const [selectedService, setSelectedService] = useState(null);
+  const [showDossier, setShowDossier] = useState(false);
+  const history = useHistory();
+  const query = useQuery();
+  const selectedId = query.get("service");
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
+  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       const serviceResult = await API.Servicio.getAll({
-        params: { 'estado.id': 12 }
-      })
-      setServices(serviceResult)
-    })()
-  }, [])
+        params: { "estado.id": 12 },
+      });
+      setServices(serviceResult);
+    })();
+  }, []);
 
   useEffect(() => {
-    if (!services) return
+    if (!services) return;
 
     if (!selectedService && selectedId) {
-      let found = services.find(s => +s.id === +selectedId)
-      found && setSelectedService(found)
+      let found = services.find((s) => +s.id === +selectedId);
+      found && setSelectedService(found);
     }
-  }, [services, selectedService, selectedId])
+  }, [services, selectedService, selectedId]);
 
-  const handleOpenModal = service => () => {
-    history.push({ search: `?service=${service.id}` })
-  }
+  const handleOpenModal = (service) => () => {
+    history.push({ search: `?service=${service.id}` });
+  };
 
   const handleCloseModal = () => {
-    history.push({ search: '' })
-    setSelectedService(null)
-  }
+    history.push({ search: "" });
+    setSelectedService(null);
+  };
 
-  const handleOpenDossier = service => () => {
-    setSelectedService(service)
-    setShowDossier(true)
-  }
+  const handleOpenDossier = (service) => () => {
+    setSelectedService(service);
+    setShowDossier(true);
+  };
 
   const handleCloseDossier = () => {
-    setShowDossier(false)
-    setSelectedService(null)
-  }
+    setShowDossier(false);
+    setSelectedService(null);
+  };
 
-  const handleClick = service => () => {
-    history.push(`/servicios/${service.id}`)
-  }
+  const handleClick = (service) => () => {
+    history.push(`/servicios/${service.id}`);
+  };
 
-  const length = isSmall ? 1 : isMedium ? 2 : 3
-  const chunks = splitArrayIntoChunksOfLen(services, length)
+  const length = isSmall ? 1 : isMedium ? 2 : 3;
+  const chunks = splitArrayIntoChunksOfLen(services, length);
   return (
     <Box mt={8}>
       <DossierModal
@@ -95,9 +95,9 @@ export default function Home () {
             component={Box}
             m={0}
             p={0}
-            alignItems='center'
+            alignItems="center"
           >
-            {chunk.map(s => (
+            {chunk.map((s) => (
               <Grid
                 xs={12 / length}
                 component={Box}
@@ -118,9 +118,9 @@ export default function Home () {
         ))}
       </Carousel>
     </Box>
-  )
+  );
 }
 
-export const useStyles = makeStyles(theme => ({
-  title: { fontWeight: 'bold' }
-}))
+export const useStyles = makeStyles((theme) => ({
+  title: { fontWeight: "bold" },
+}));
