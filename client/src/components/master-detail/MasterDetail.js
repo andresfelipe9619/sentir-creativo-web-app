@@ -102,6 +102,11 @@ function MasterView ({
   const handleChange = e => setShowList(e.target.checked)
 
   const showCustom = toggle && showList && renderMaster
+
+  if (showCustom && typeof data[0]?.destacado === 'boolean') {
+    data = data.sort((a, b) => +b.destacado - +a.destacado);
+  }
+
   return (
     <>
       {toggle && (
