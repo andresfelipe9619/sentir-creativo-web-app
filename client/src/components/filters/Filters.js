@@ -60,6 +60,7 @@ function Filters({
   };
 
   const handleChangePage = (_, value) => {
+    if (value === page) return;
     const newFilters = {
       ...filters,
       pagination: { page: value, size: PAGE_SIZE },
@@ -181,16 +182,15 @@ function Filters({
       </AppBar>
       <Grid container>
         <Grid item md={3}>
-          {loading && <Spinner mt={0} />}
-          {!loading &&
-            filterOptions.map((fo, i) => (
-              <FilterOption
-                key={i}
-                {...fo}
-                handleChange={handleChangeFilter}
-                values={values[fo.name] || {}}
-              />
-            ))}
+          {filterOptions.map((fo, i) => (
+            <FilterOption
+              key={i}
+              {...fo}
+              loading={loading}
+              handleChange={handleChangeFilter}
+              values={values[fo.name] || {}}
+            />
+          ))}
         </Grid>
         <Grid
           item
@@ -212,17 +212,21 @@ const FilterOption = memo(function FilterOption({
   label,
   name,
   options,
+  loading,
   values,
   handleChange,
 }) {
   return (
     <AccordionOption title={label}>
-      <CheckboxGroup
-        name={name}
-        options={options}
-        values={values}
-        handleChange={handleChange}
-      />
+      {loading && <Spinner mt={0} />}
+      {!loading && (
+        <CheckboxGroup
+          name={name}
+          options={options}
+          values={values}
+          handleChange={handleChange}
+        />
+      )}
     </AccordionOption>
   );
 });
