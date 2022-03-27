@@ -13,6 +13,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Spinner from "../components/spinner/Spinner";
 import { getAreaBackground } from "../utils";
 import Filters from "../components/filters/Filters";
+import { useAlertDispatch } from "../providers/context/Alert";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 6;
@@ -65,6 +66,7 @@ export default function Areas() {
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
   const classes = useStyles();
   const { id: areaId } = useParams();
+  const { openAlert } = useAlertDispatch();
 
   const selectedId = query.get("service");
 
@@ -88,14 +90,21 @@ export default function Areas() {
     });
   }
 
-  async function loadServices(filters = {}, refreshFilters = false) {
+  async function loadServices(serviceFilters = {}, refreshFilters = false) {
     try {
+      let filters = { ...serviceFilters };
       setLoadingServices(true);
+
+      if (!filters?.pagination && !refreshFilters) {
+        await loadCount(filters);
+        filters = { ...filters, ...default_pagination };
+      }
       console.log("ah filters", filters);
       const serviceResult = await getServices(filters);
       setServices(serviceResult);
+
       if (!refreshFilters) return;
-      Reflect.deleteProperty(filters.pagination);
+      Reflect.deleteProperty(filters, "pagination");
       await loadCount(filters);
       // Find unique tecnica_artisticas and formatos for the filter's options
       const { formatos, tecnica_artisticas } = serviceResult.reduce(
@@ -125,6 +134,7 @@ export default function Areas() {
       setTecnics(tecnica_artisticas);
     } catch (error) {
       console.error(error);
+      openAlert({ variant: "error", message: "Oops! Algo salió mal" });
     } finally {
       setLoadingServices(false);
     }
@@ -142,6 +152,7 @@ export default function Areas() {
       loadServices(default_pagination, true);
     } catch (error) {
       console.error(error);
+      openAlert({ variant: "error", message: "Oops! Algo salió mal" });
       setLoadingArea(false);
     }
   }

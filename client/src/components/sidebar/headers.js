@@ -19,7 +19,7 @@ const getYellow = (index) => (index % 2 === 0 ? "#fed901" : "#fff158");
 
 const buttonsStyle = {
   borderRadius: 0,
-  height: 70,
+  height: 64,
   lineHeight: 1.2,
   padding: 16,
 };
@@ -70,7 +70,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
               classes={{
                 root: classes.buttons,
                 selected: classes.navigationButton,
-                label: classes.navigationButton
+                label: classes.navigationButton,
               }}
               icon={area.icono && <area.icono size={"2em"} />}
             />
@@ -86,22 +86,23 @@ export function MobileHeader({ areas, classes, goTo }) {
     <>
       <AppBar
         position="fixed"
-        className={clsx(classes.appBar, classes.navigationMobile)}
+        className={clsx(classes.appBar, classes.navigation)}
         elevation={0}
       >
-        <Toolbar disableGutters classes={{ root: classes.navigationMobile }}>
+        <Toolbar disableGutters style={{ minHeight: 64 }}>
           <Box width="70%" display="flex" height="100%">
             <Button
               fullWidth
               size="large"
               key={"sentircreativo"}
               style={{
+                ...buttonsStyle,
                 background: "#4E4E4E",
                 color: "white",
-                ...buttonsStyle,
+                padding: 0,
               }}
               startIcon={
-                <img src={LogoYellow} width={55} alt="logo sentir creativo" />
+                <img src={LogoYellow} width={50} alt="logo sentir creativo" />
               }
               onClick={() => goTo(`/about`)()}
             >
@@ -125,7 +126,13 @@ export function MobileHeader({ areas, classes, goTo }) {
             </Button>
           </Box>
         </Toolbar>
-        <Toolbar disableGutters classes={{ root: classes.navigationMobile }}>
+        <Toolbar
+          disableGutters
+          classes={{
+            root: classes.secondToolbar,
+            regular: classes.secondToolbar,
+          }}
+        >
           <MobileAreasButtons {...{ areas, goTo, classes }} />
         </Toolbar>
       </AppBar>
