@@ -152,6 +152,7 @@ export default function Areas() {
       loadServices(default_pagination, true);
     } catch (error) {
       console.error(error);
+      openAlert({ variant: "error", message: "Oops! Algo salió mal" });
       setLoadingArea(false);
     }
   }

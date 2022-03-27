@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
-const barHeight = 70;
+const barHeight = 64;
 
 const barProps = (theme) => ({
   background: theme.palette.background.paper,
@@ -19,13 +19,16 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "100%",
     height: barHeight,
+    minHeight: barHeight,
   },
-  navigationMobile: {
-    display: "flex",
-    minHeight: barHeight - 30,
+  secondToolbar: {
+    "@media (min-width: 600px)": {
+      minHeight: [[barHeight, "!important"]],
+      alignItems: [["normal", "!important"]],
+    },
   },
   navigationButton: {
-    fontSize: "0.8em"
+    fontSize: "0.8em",
   },
   appBar: barProps(theme),
   menuButton: {
@@ -59,7 +62,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0),
     overflowX: "hidden",
     [theme.breakpoints.between("xs", "sm")]: {
-      marginTop: barHeight + 4,
+      marginTop: barHeight - 6,
     },
   },
 }));
