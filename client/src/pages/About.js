@@ -218,6 +218,7 @@ export const useStyles = makeStyles(theme => ({
     fontSize: '44px',
     color: COLORS.text,
     lineHeight: 1.15,
+    fontStyle: 'italic',
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
@@ -226,6 +227,7 @@ export const useStyles = makeStyles(theme => ({
     fontWeight: 900,
     fontSize: '44px',
     color: COLORS.text,
+    fontStyle: 'italic',
     lineHeight: 1,
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
@@ -236,11 +238,13 @@ export const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(10),
     color: COLORS.text,
     lineHeight: 1.15,
+    fontStyle: 'italic',
     fontWeight: 400
   },
   headerFontmd: {
     fontSize: '40px',
     lineHeight: 1.15,
+    fontStyle: 'italic',
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
