@@ -10,7 +10,7 @@ import { Box } from "@material-ui/core";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import clsx from "clsx";
 import { getAreaBackground } from "../../utils";
-import Logo from "../../assets/iso-fullc-large.png";
+import Logo from "../../assets/full-logo.png";
 import LogoYellow from "../../assets/iso_amarillo.svg";
 
 const ICON_SIZE = "1.6em";
@@ -185,15 +185,12 @@ export function DesktopHeader({ areas, classes, goTo }) {
           >
             <Button
               fullWidth
+              onClick={() => goTo(`/`)()}
               classes={{ root: classes.buttons, startIcon: classes.buttons }}
               key={"sentir creativo"}
-              onClick={() => goTo(`/`)()}
               style={{ background: "#ffec11", ...buttonsStyle }}
-              startIcon={
-                <img src={Logo} width={60} alt="logo sentir creativo" />
-              }
             >
-              Sentir CREATIVO .com
+              <img src={Logo} width={180} alt="logo sentir creativo" />
             </Button>
 
             <AreasButtons {...{ areas, goTo, classes }} />
