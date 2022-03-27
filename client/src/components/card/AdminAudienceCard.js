@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -14,11 +14,28 @@ import { useHistory } from "react-router-dom";
 import { indigo } from "@material-ui/core/colors";
 import RowingIcon from "@material-ui/icons/Rowing";
 import useStyles from "./styles";
+import { useAlertDispatch } from "../../providers/context/Alert";
+import StarOutlineIcon from "@material-ui/icons/StarOutline";
+import API from "../../api";
 
 export default function Card(props) {
   if (!props.audience) return null;
   return <AdminAudienceCard {...props} />;
 }
+
+function sliceItems(collection = []) {
+  if (!collection) {
+    return collection;
+  }
+
+  if (collection?.length > 2) {
+    const others = collection.slice(2).length;
+    return collection?.slice(0, 2).join(", ") + `, +${others}`;
+  }
+
+  return collection.join(", ");
+}
+
 function AdminAudienceCard({ audience }) {
   const {
     id,
@@ -27,7 +44,6 @@ function AdminAudienceCard({ audience }) {
     estado,
     nombre,
     apellido,
-    photo,
     cargo,
     origen,
     cercania,
@@ -39,7 +55,16 @@ function AdminAudienceCard({ audience }) {
     departamento,
     antiguedad,
     celular,
+    cuponDescuento,
   } = audience;
+
+  const [destacado, setDestacado] = useState(audience.destacado);
+
+  const archivoAvatar = audience.archivos.filter((a) => a.tipo_archivo === 26);
+  const avatar =
+    archivoAvatar.length > 0
+      ? archivoAvatar[0].path
+      : "https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefault.png";
 
   const archivoGoogleContact = audience.archivos.filter(
     (a) => a.tipo_archivo === 25
@@ -51,17 +76,36 @@ function AdminAudienceCard({ audience }) {
 
   const classes = useStyles();
   const history = useHistory();
+  const { openAlert } = useAlertDispatch();
   const rows = [
     createData("Antigüedad", antiguedad?.nombre),
     createData("Cercanía", cercania?.nombre),
     createData("Motivación", motivacion?.nombre),
     createData("Origen", origen?.nombre),
     createData("Ciudad", ciudad),
+    createData("Cupón", sliceItems(cuponDescuento?.map((x) => x?.codigo))),
   ];
 
   const handleViewClick = () => {
     history.push(`/admin/audiencia/${id}`);
   };
+
+  const handleStared = async () => {
+    try {
+      setDestacado(!destacado);
+
+      await API.Audiencia.update(id, { destacado: !destacado });
+    } catch {
+      setDestacado(!destacado);
+
+      openAlert({
+        variant: "error",
+        message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
+      });
+    }
+  };
+
+  const IconStar = destacado ? StarIcon : StarOutlineIcon;
 
   return (
     <AdminCard
@@ -71,7 +115,7 @@ function AdminAudienceCard({ audience }) {
       chips={[email, email2, celular]}
       status={estado?.nombre}
       title={nombre + " " + apellido}
-      avatar={photo}
+      avatar={avatar}
       handleViewClick={handleViewClick}
       subheaderChip={
         <Typography
@@ -120,7 +164,7 @@ function AdminAudienceCard({ audience }) {
           icon: (
             <AccountCircleIcon
               fontSize="large"
-              style={{ color: colorGoogleContact }}
+              style={{ width: "0.88em", color: colorGoogleContact }}
             />
           ),
           label: "Google Contacts",
@@ -134,18 +178,34 @@ function AdminAudienceCard({ audience }) {
           },
         },
         {
-          icon: <WhatsAppIcon fontSize="large" style={{ color: "#25d366" }} />,
+          icon: (
+            <WhatsAppIcon
+              fontSize="large"
+              style={{ width: "0.88em", color: "#25d366" }}
+            />
+          ),
           label: "Whatsapp",
           handleClick: () => {
             window.open("https://wa.me/" + celular, "_blank");
           },
         },
         {
-          icon: <StarIcon fontSize="large" style={{ color: "#ffab00" }} />,
+          icon: (
+            <IconStar
+              fontSize="large"
+              style={{ width: "0.88em", color: "#ffab00" }}
+              onClick={() => handleStared()}
+            />
+          ),
           label: "Destacar",
         },
         {
-          icon: <PhoneIcon fontSize="large" style={{ color: "black" }} />,
+          icon: (
+            <PhoneIcon
+              fontSize="large"
+              style={{ width: "0.88em", color: "black" }}
+            />
+          ),
           label: "Llamar",
           url: "tel:" + celular,
         },

@@ -95,13 +95,7 @@ export default function ProjectCard(props) {
   const handleStared = async () => {
     try {
       setDestacado(!destacado);
-
-      const project = {
-        ...props,
-        destacado: !destacado,
-      };
-
-      await API.Proyecto.update(id, project);
+      await API.Proyecto.update(id, { destacado: !destacado });
     } catch {
       setDestacado(!destacado);
 

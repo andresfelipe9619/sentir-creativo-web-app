@@ -204,15 +204,13 @@ export const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     [theme.breakpoints.up("lg")]: {
       maxWidth: "none",
-      paddingRight: theme.spacing(5),
-      paddingLeft: theme.spacing(5),
     },
   },
   headerColor: {
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: "44px",
     color: COLORS.text,
-    lineHeight: 1.25,
+    lineHeight: 1.15,
     [theme.breakpoints.down("md")]: {
       fontSize: "36px",
     },
@@ -230,11 +228,11 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: "36px",
     marginTop: theme.spacing(10),
     color: COLORS.text,
-    lineHeight: 1.25,
+    lineHeight: 1.15,
   },
   headerFontmd: {
     fontSize: "40px",
-    lineHeight: 1.25,
+    lineHeight: 1.15,
     [theme.breakpoints.down("md")]: {
       fontSize: "36px",
     },
@@ -363,7 +361,7 @@ export default function About() {
   return (
     <Container className={classes.container}>
       <Grid container spacing={10} justifyContent="center">
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography color="textSecondary" className={classes.headerFontSm}>
             Somos una
           </Typography>
@@ -387,7 +385,7 @@ export default function About() {
         <Grid
           container
           item
-          xs={12}
+          xs={11}
           spacing={0}
           justifyContent="center"
           alignItems="flex-start"
@@ -450,6 +448,7 @@ export default function About() {
               backgroundColor: "rgba(0 0 0 / 10%)",
               zIndex: -1,
               borderRadius: "0 0 1rem 1rem",
+              marginBottom: 24,
             }}
           >
             <Connections
@@ -475,7 +474,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 2 */}
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography variant="h1">Trabajamos con</Typography>
           <Typography className={classes.principiosText}>
             Principios&nbsp;
@@ -492,7 +491,7 @@ export default function About() {
         <Grid
           container
           item
-          xs={12}
+          xs={11}
           spacing={isSmall ? 2 : 6}
           justifyContent="space-around"
           alignItems="center"
@@ -565,7 +564,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 3 */}
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography variant="h1">En distintas</Typography>
           <Typography className={classes.principiosText}>
             Aréas de&nbsp;
@@ -582,7 +581,7 @@ export default function About() {
         <Grid
           container
           item
-          xs={12}
+          xs={11}
           spacing={6}
           justifyContent="space-around"
           alignItems="center"
@@ -603,7 +602,7 @@ export default function About() {
         </Grid>
 
         {/* Seccion 3 */}
-        <Grid item xs={12}>
+        <Grid item xs={11}>
           <Typography variant="h1">Para diversos</Typography>
           <Typography className={classes.principiosText}>
             Rubros y&nbsp;
@@ -620,7 +619,7 @@ export default function About() {
         <Grid
           container
           item
-          xs={12}
+          xs={11}
           spacing={6}
           justifyContent="space-around"
           alignItems="center"

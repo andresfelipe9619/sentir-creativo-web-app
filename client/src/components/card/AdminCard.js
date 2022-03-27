@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
+import Avatar from "@mui/material/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -68,7 +69,7 @@ export default function AdminCard({
       <CardHeader
         component={Box}
         title={text}
-        avatar={avatar}
+        avatar={<Avatar alt={title} src={avatar} />}
         classes={{ content: classes.ellipsedHeader }}
         subheader={
           <Box display="flex" flexDirection="column">
@@ -166,7 +167,7 @@ export default function AdminCard({
             <Tooltip title={b.label} key={b.label}>
               <IconButton
                 size="small"
-                href={b.url ? b.url : "#"}
+                href={b.url ? b.url : null}
                 disabled={b.disabled ? b.disabled : false}
                 color={"primary"}
                 variant="contained"
