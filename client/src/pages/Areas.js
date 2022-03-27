@@ -90,16 +90,19 @@ export default function Areas() {
     });
   }
 
-  async function loadServices(filters = {}, refreshFilters = false) {
+  async function loadServices(serviceFilters = {}, refreshFilters = false) {
     try {
+      let filters = { ...serviceFilters };
       setLoadingServices(true);
+
+      if (!filters?.pagination && !refreshFilters) {
+        await loadCount(filters);
+        filters = { ...filters, ...default_pagination };
+      }
       console.log("ah filters", filters);
       const serviceResult = await getServices(filters);
       setServices(serviceResult);
-      if (!filters?.pagination && !refreshFilters) {
-        Reflect.deleteProperty(filters, "pagination");
-        await loadCount(filters);
-      }
+
       if (!refreshFilters) return;
       Reflect.deleteProperty(filters, "pagination");
       await loadCount(filters);

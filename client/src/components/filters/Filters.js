@@ -130,7 +130,6 @@ function Filters({
 
           <Box className={classes.chips}>
             {(chips || []).map((option) => {
-              console.log("option", option);
               return (
                 <Chip
                   key={option.label}
@@ -165,8 +164,8 @@ function Filters({
               height: "100%",
             }}
           >
-            {maxCount} experiencia{maxCount > 1 ? "s" : ""} encontrada
-            {maxCount > 1 ? "s" : ""}:
+            {maxCount} experiencia{maxCount === 1 ? "" : "s"} encontrada
+            {maxCount === 1 ? "" : "s"}:
           </Grid>
           <Grid item md={5}>
             <Pagination
