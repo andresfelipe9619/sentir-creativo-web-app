@@ -22,7 +22,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   navigationMobile: {
     display: "flex",
-    height: barHeight - 30,
+    minHeight: barHeight - 30,
+  },
+  navigationButton: {
+    fontSize: "0.8em"
   },
   appBar: barProps(theme),
   menuButton: {
@@ -56,7 +59,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0),
     overflowX: "hidden",
     [theme.breakpoints.between("xs", "sm")]: {
-      marginTop: barHeight,
+      marginTop: barHeight + 4,
     },
   },
 }));

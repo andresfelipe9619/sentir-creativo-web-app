@@ -46,13 +46,12 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
     >
       <BottomNavigation
         value={value}
-        onChange={(_, newValue) => {
-          let id = areas[newValue].id;
-          setValue(newValue);
+        onChange={(_, id) => {
+          setValue(id);
           goTo(`/areas/${id}`)();
         }}
-        showLabels={true}
-        className={classes.navigation}
+        showLabels
+        classes={{ root: classes.navigation }}
       >
         {areas.map((area, i) => {
           const selected = area.id === value;
@@ -64,10 +63,15 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
 
           return (
             <BottomNavigationAction
-              key={area.nombre}
+              key={area.id}
+              value={area.id}
               style={style}
               label={area.nombre}
-              className={classes.buttons}
+              classes={{
+                root: classes.buttons,
+                selected: classes.navigationButton,
+                label: classes.navigationButton
+              }}
               icon={area.icono && <area.icono size={"2em"} />}
             />
           );
@@ -121,7 +125,7 @@ export function MobileHeader({ areas, classes, goTo }) {
             </Button>
           </Box>
         </Toolbar>
-        <Toolbar disableGutters>
+        <Toolbar disableGutters classes={{ root: classes.navigationMobile }}>
           <MobileAreasButtons {...{ areas, goTo, classes }} />
         </Toolbar>
       </AppBar>
