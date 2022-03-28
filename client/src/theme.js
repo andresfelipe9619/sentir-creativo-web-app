@@ -32,7 +32,7 @@ const Typography = {
   fontSize: 14,
   htmlFontSize: 14,
   useNextVariants: true,
-  fontFamily: ['Fira Sans', 'sans-serif'].join(','),
+  fontFamily: ['Fira Sans', 'Roboto', 'sans-serif'].join(','),
   h1: {
     fontWeight: 600,
     fontSize: "1.6rem",
