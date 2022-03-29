@@ -116,15 +116,11 @@ export default function FlipCard({
         >
           <Icon className={classes.contentIcon} />
 
-          <Typography
-            align="center"
-            gutterBottom
-            style={{ fontSize: 36, lineHeight: 1 }}
-          >
+          <Typography align='center' gutterBottom style={{ fontSize: 36, lineHeight: 1, fontWeight: 700 }}>
             {title}
           </Typography>
 
-          <Typography align="center" style={{ fontSize: 18 }}>
+          <Typography align='center' style={{ fontSize: 18, fontWeight: 500, fontStyle: 'italic'}}>
             {detail}
           </Typography>
         </Box>

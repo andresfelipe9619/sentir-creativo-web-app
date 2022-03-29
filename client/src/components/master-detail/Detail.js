@@ -1,20 +1,23 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Prompt } from "react-router-dom";
-import { Formik } from "formik";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Paper from "@material-ui/core/Paper";
-import API from "../../api";
-import Spinner from "../spinner/Spinner";
-import { Button } from "@material-ui/core";
-import FormItem from "./FormItem";
-import useFormDependencies from "../../providers/hooks/useFormDependencies";
-import { useAlertDispatch } from "../../providers/context/Alert";
+import React, { useCallback, useEffect, useState } from 'react'
+import { Prompt, useHistory } from "react-router-dom";
+import { Formik } from 'formik'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import Paper from '@material-ui/core/Paper'
+import DeleteIcon from '@material-ui/icons/Delete'
+import API from '../../api'
+import Spinner from '../spinner/Spinner'
+import { Button } from '@material-ui/core'
+import FormItem from './FormItem'
+import useFormDependencies from '../../providers/hooks/useFormDependencies'
+import { useAlertDispatch } from '../../providers/context/Alert'
+import DialogButton from '../buttons/DialogButton'
 
 export default function Detail({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [inputsChanged, setInputsChanged] = useState([]);
+  const history = useHistory();
 
   const entityId = match?.params?.id;
   const { dependencies, loadDependencies, loadingDependencies } =
@@ -44,6 +47,29 @@ export default function Detail({ columns, service, match, reloadMaster }) {
     },
     [entityId, service, reloadMaster, openAlert]
   );
+
+  const handleDelete = async () => {
+    try {
+      setLoading(true)
+      await API[service].delete(entityId)
+      history.goBack()
+      reloadMaster && reloadMaster()
+
+      openAlert({
+        variant: 'success',
+        message: 'Borrado con éxito!'
+      })
+    } catch(e) {
+      console.error(e)
+
+      openAlert({
+        variant: 'error',
+        message: 'Oops! parece que algo salió mal'
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const init = useCallback(async () => {
     try {
@@ -118,7 +144,12 @@ export default function Detail({ columns, service, match, reloadMaster }) {
                   }}
                 />
               ))}
-              <Grid item md={12} container justifyContent="flex-end">
+
+              <Grid item md={12} container justifyContent='space-between'>
+                <DialogButton color='grey' label={<><DeleteIcon /> Eliminar {service}</>}
+                  onClose={async accepted => accepted && (await handleDelete())}
+                />
+
                 <Button
                   type="submit"
                   color="primary"
