@@ -58,6 +58,8 @@ export default function Areas() {
   const [serviceCount, setServiceCount] = useState(0);
   const [loadingServices, setLoadingServices] = useState(false);
   const [loadingArea, setLoadingArea] = useState(false);
+  const [searchOptions, setSearchOptions] = useState([]);
+  const [searchValue, setSearchValue] = useState(null);
 
   const history = useHistory();
   const query = useQuery();
@@ -70,7 +72,7 @@ export default function Areas() {
 
   const selectedId = query.get("service");
 
-  function getServicesCount(filters) {
+  function getServicesCount(filters = {}) {
     return API.Servicio.count({
       params: {
         area: areaId,
@@ -80,7 +82,7 @@ export default function Areas() {
     });
   }
 
-  function getServices(filters) {
+  function getServices(filters = {}) {
     return API.Servicio.getAll({
       params: {
         area: areaId,
@@ -144,12 +146,14 @@ export default function Areas() {
     try {
       setLoadingArea(true);
       setServiceCount(0);
-      setFormats([]);
-      setTecnics([]);
+      Object.keys(formats).length && setFormats({});
+      Object.keys(tecnics).length && setTecnics({});
+      searchOptions.length && setSearchOptions([]);
       const areaResult = await API.Area.get(areaId);
       setSelectedArea(areaResult);
       setLoadingArea(false);
       loadServices(default_pagination, true);
+      loadSearchOptions();
     } catch (error) {
       console.error(error);
       openAlert({ variant: "error", message: "Oops! Algo salió mal" });
@@ -160,6 +164,11 @@ export default function Areas() {
   async function loadCount(filters) {
     const count = await getServicesCount(filters);
     setServiceCount(count);
+  }
+
+  async function loadSearchOptions() {
+    const options = await getServices({ dense: true });
+    setSearchOptions(options);
   }
 
   const handleOpenModal = (service) => () => {
@@ -205,7 +214,7 @@ export default function Areas() {
   if (!selectedArea) return null;
 
   const color = selectedArea.colorPrimario;
-
+  const servicesToShow = searchValue ? [searchValue] : services;
   return (
     <Grid
       pt={4}
@@ -234,11 +243,11 @@ export default function Areas() {
       )}
       <Grid item sm={12} md={6} component={Box} py={4} textAlign="center">
         <Typography
-          variant='h1'
-          align='center'
-          component='strong'
+          variant="h1"
+          align="center"
+          component="strong"
           gutterBottom
-          style={{ color: 'white', backgroundColor: color, padding: '0 1rem' }}
+          style={{ color: "white", backgroundColor: color, padding: "0 1rem" }}
         >
           {selectedArea.nombre.toUpperCase()}
         </Typography>
@@ -248,24 +257,26 @@ export default function Areas() {
           align="center"
           className={classes.titleAccent}
         >
-          {selectedArea.slogan.split(' ').map((x, i) => {
+          {selectedArea.slogan.split(" ").map((x, i) => {
             const sloganStyle = {
-              fontWeight: i === 0 ? '300' : '900',
+              fontWeight: i === 0 ? "300" : "900",
               fontSize: 64,
               lineHeight: 1.15,
-              textShadow: 'rgba(255 255 255 / 60%) -4px 4px 4px'
-            }
+              textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
+            };
 
-            return <Typography style={sloganStyle}>{x}</Typography>
+            return <Typography style={sloganStyle}>{x}</Typography>;
           })}
         </Typography>
       </Grid>
       <Filters
         color={color}
-        data={services}
+        data={servicesToShow}
         loading={loadingServices}
         maxCount={serviceCount}
+        onSearchChange={setSearchValue}
         onFilterChange={loadServices}
+        searchOptions={searchOptions}
         filterOptions={[
           {
             label: "Formatos",
@@ -289,7 +300,7 @@ export default function Areas() {
           alignItems="center"
           minHeight={400}
         >
-          {services.map((s) => (
+          {servicesToShow.map((s) => (
             <Grid
               xs={12 / length}
               md={4}

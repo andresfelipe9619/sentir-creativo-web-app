@@ -25,10 +25,10 @@ function Filters({
   children,
   color,
   loading,
-  data = [],
+  searchOptions,
   maxCount = 6,
   filterOptions,
-  // onSearchChange,
+  onSearchChange,
   onFilterChange,
 }) {
   const classes = useStyles();
@@ -86,11 +86,7 @@ function Filters({
       return filterOptions(fo.name);
     })
     .flatMap((f) => f);
-
-  const options = autocompleteValue
-    ? data.filter((o) => o.id === autocompleteValue.id)
-    : data;
-
+    const count = autocompleteValue ? 1 : maxCount
   return (
     <ThemeProvider theme={areaTheme}>
       <AppBar
@@ -102,10 +98,11 @@ function Filters({
           <Autocomplete
             size="small"
             id="combo-box-demo"
-            options={options}
+            options={searchOptions}
             value={autocompleteValue}
             onChange={(_, newValue) => {
               setAutocompleteValue(newValue);
+              onSearchChange(newValue);
             }}
             getOptionLabel={(option) => option.nombre}
             style={{ width: 300 }}
@@ -164,19 +161,21 @@ function Filters({
               height: "100%",
             }}
           >
-            {maxCount} experiencia{maxCount === 1 ? "" : "s"} encontrada
-            {maxCount === 1 ? "" : "s"}:
+            {count} experiencia{count === 1 ? "" : "s"} encontrada
+            {count === 1 ? "" : "s"}:
           </Grid>
           <Grid item md={5}>
-            <Pagination
-              count={Math.ceil(maxCount / PAGE_SIZE)}
-              color="standard"
-              page={page}
-              classes={{ ul: classes.pagination }}
-              onChange={handleChangePage}
-              variant="outlined"
-              shape="rounded"
-            />
+            {!autocompleteValue && (
+              <Pagination
+                count={Math.ceil(count / PAGE_SIZE)}
+                color="standard"
+                page={page}
+                classes={{ ul: classes.pagination }}
+                onChange={handleChangePage}
+                variant="outlined"
+                shape="rounded"
+              />
+            )}
           </Grid>
         </Toolbar>
       </AppBar>
