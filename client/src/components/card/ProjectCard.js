@@ -52,7 +52,7 @@ export default function ProjectCard(props) {
     avance,
     impacto,
     fechaInicio,
-    formato,
+    formatos,
     servicios,
     publico_objetivos,
     audiencia,
@@ -60,6 +60,7 @@ export default function ProjectCard(props) {
     estado_proyecto,
     tipo_proyecto,
     cupon_descuentos,
+    ciudad
   } = props;
 
   const [destacado, setDestacado] = useState(props.destacado);
@@ -135,7 +136,7 @@ export default function ProjectCard(props) {
         </>
       }
       superheader={fechaInicio ? formatDate(fechaInicio, true) : ""}
-      subheader={`${formato?.nombre} • ${audiencia?.ciudad}`}
+      subheader={`${formatos[0]?.nombre} • ${ciudad}`}
       floatingHeader={{
         color: selectedProject?.color,
         icon: selectedProject?.icon,

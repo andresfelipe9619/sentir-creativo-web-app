@@ -11,9 +11,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: "72px",
     lineHeight: 1,
-    [theme.breakpoints.down("md")]: {
-      fontSize: "64px",
-    },
+    fontWeight: 900,
+    fontStyle: 'italic',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '64px'
+    }
   },
   arrowDownIcon: {
     width: "2.5rem",
@@ -44,21 +46,9 @@ export default function Connections({
         </Typography>
       </Box>
 
-      <Box
-        bgcolor="white"
-        p={2}
-        mt={4}
-        mb={8}
-        style={{
-          borderTopRightRadius: "50px",
-          borderBottomRightRadius: "50px",
-          width: "90%",
-        }}
-        display="flex"
-        justifyContent="space-around"
-        alignItems="center"
-      >
-        <Typography variant="h1" align="center" style={{ color }}>
+      <Box bgcolor='white' p={2} my={6} style={{ borderTopRightRadius: '50px', borderBottomRightRadius: '50px', width: '90%' }}
+        display='flex' justifyContent='space-around' alignItems='center'>
+        <Typography variant='h1' align='center' style={{ color }}>
           {subtitle}
         </Typography>
 
@@ -69,30 +59,27 @@ export default function Connections({
         />
       </Box>
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        {connections.map((x) => (
-          <ConnectionItem key={x.match} {...x} />
-        ))}
+      <Collapse in={expanded} timeout='auto' unmountOnExit>
+        {connections.map(x => <ConnectionItem key={x.match} hidden={!expanded} {...x} />)}
         {children}
       </Collapse>
     </>
   );
 }
 
-function ConnectionItem({ color, icon: Icon, details, match }) {
-  details = details.split(/\n/).map((text, index, array) => {
+function ConnectionItem({ color, icon: Icon, details, match, hidden }) {
+  details = details.split(/\n/)
+  .map((text, index, array) => {
     const props = {
-      component: "span",
-      display:
-        array[index + 1] === match || array[index - 1] === match
-          ? "inline"
-          : "block",
+      component: 'span',
+      display: (array[index + 1] === match || array[index - 1] === match) ? 'inline' : 'block',
+      style: { lineHeight: 1, fontWeight: 400 }
     };
 
     if (text === match) {
-      props.display = "inline";
-      props.style = { fontWeight: "bold" };
-      props.component = "strong";
+      props.display = 'inline'
+      props.style = { fontWeight: 500, lineHeight: 1 }
+      props.component = 'strong'
     }
 
     return (
@@ -109,13 +96,13 @@ function ConnectionItem({ color, icon: Icon, details, match }) {
         <Icon style={{ width: "5rem", height: "5rem", fill: color }} />
       </Grid>
 
-      <Grid xs={9}>
-        <Box mb={6} ml={2}>
-          <Typography variant="h6" color="textSecondary" paragraph gutterBottom>
-            {details}
-          </Typography>
-        </Box>
-      </Grid>
+    <Grid xs={9}>
+      <Box mb={6} ml={2}>
+        <Typography variant='h6' paragraph gutterBottom style={{ opacity: hidden ? 0 : 1, transition: 'opacity 1s ease-out' }}>
+          {details}
+        </Typography>
+      </Box>
+    </Grid>
     </Grid>
   );
 }

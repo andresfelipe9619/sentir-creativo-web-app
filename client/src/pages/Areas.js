@@ -232,15 +232,15 @@ export default function Areas() {
           service={selectedService}
         />
       )}
-      <Grid item sm={12} md={6} component={Box} py={4}>
+      <Grid item sm={12} md={6} component={Box} py={4} textAlign="center">
         <Typography
-          variant="h1"
-          align="center"
-          paragraph
+          variant='h1'
+          align='center'
+          component='strong'
           gutterBottom
-          style={{ color: "white", backgroundColor: color }}
+          style={{ color: 'white', backgroundColor: color, padding: '0 1rem' }}
         >
-          {selectedArea?.nombre}
+          {selectedArea.nombre.toUpperCase()}
         </Typography>
         <Typography
           paragraph
@@ -248,7 +248,16 @@ export default function Areas() {
           align="center"
           className={classes.titleAccent}
         >
-          {selectedArea?.slogan}
+          {selectedArea.slogan.split(' ').map((x, i) => {
+            const sloganStyle = {
+              fontWeight: i === 0 ? '300' : '900',
+              fontSize: 64,
+              lineHeight: 1.15,
+              textShadow: 'rgba(255 255 255 / 60%) -4px 4px 4px'
+            }
+
+            return <Typography style={sloganStyle}>{x}</Typography>
+          })}
         </Typography>
       </Grid>
       <Filters

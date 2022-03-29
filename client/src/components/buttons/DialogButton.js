@@ -8,13 +8,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function DialogButton(props) {
-  const {
-    label = "Eliminar",
-    title = "Eliminar elemento",
-    description = "¿Estas seguro que quieres eliminar este elemento?",
-    onClose,
-    buttonProps,
-  } = props;
+    const {
+        label = 'Eliminar',
+        title = 'Eliminar elemento',
+        description = '¿Estas seguro que quieres eliminar este elemento?',
+        onClose,
+        buttonProps,
+        color = 'primary'
+    } = props
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,24 +25,19 @@ export default function DialogButton(props) {
   const closeDialog = async (accepted) => {
     setOpen(false);
 
-    if (accepted && typeof onClose === "function") {
-      setLoading(true);
-      await onClose(accepted);
-      setLoading(true);
-    }
-  };
+        if (accepted && typeof onClose === 'function') {
+            setLoading(true)
+            await onClose(accepted)
+            setLoading(false)
+        }
+    };
 
-  return (
-    <>
-      <Button
-        size="small"
-        color="primary"
-        onClick={openDialog}
-        disabled={loading}
-        {...buttonProps}
-      >
-        {!loading ? label : <CircularProgress />}
-      </Button>
+    return (
+        <>
+            <Button type='button' size='small' color={color} onClick={openDialog} disabled={loading}
+                {...buttonProps}>
+                {!loading ? label : <CircularProgress />}
+            </Button>
 
       <Dialog
         open={open}
@@ -63,12 +59,12 @@ export default function DialogButton(props) {
               No
             </Button>
 
-            <Button onClick={() => closeDialog(true)} color="primary" autoFocus>
-              Si
-            </Button>
-          </DialogActions>
-        )}
-      </Dialog>
-    </>
-  );
+                        <Button onClick={() => closeDialog(true)} color="primary" autoFocus>
+                            Si
+                        </Button>
+                    </DialogActions>
+                )}
+            </Dialog>
+        </>
+    );
 }

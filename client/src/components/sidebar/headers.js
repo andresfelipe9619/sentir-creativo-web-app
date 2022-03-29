@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Button from "@material-ui/core/Button";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import { useLocation } from "react-router-dom";
-import { Box } from "@material-ui/core";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import clsx from "clsx";
-import { getAreaBackground } from "../../utils";
-import Logo from "../../assets/full-logo.png";
-import LogoYellow from "../../assets/iso_amarillo.svg";
+import React, { useState, useEffect } from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import Button from '@material-ui/core/Button'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import { useLocation } from 'react-router-dom'
+import { Box } from '@material-ui/core'
+import WbSunnyIcon from '@material-ui/icons/WbSunny'
+import clsx from 'clsx'
+import { getAreaBackground } from '../../utils'
+import Logo from '../../assets/iso-fullc-large.png'
+import LogoYellow from '../../assets/iso_amarillo.svg'
 
 const ICON_SIZE = "1.6em";
 
@@ -21,11 +21,16 @@ const buttonsStyle = {
   borderRadius: 0,
   height: 64,
   lineHeight: 1.2,
-  padding: 16,
-};
-export function MobileAreasButtons({ areas, goTo, classes }) {
-  const { pathname } = useLocation();
-  const [value, setValue] = useState(null);
+  padding: '16px 24px',
+  fontWeight: 700,
+  textAlign: 'left',
+  textTransform: 'none',
+  flex: '1 1 auto',
+  justifyContent: 'flex-start',
+}
+export function MobileAreasButtons ({ areas, goTo, classes }) {
+  const { pathname } = useLocation()
+  const [value, setValue] = useState(null)
 
   useEffect(() => {
     if (!pathname.includes("areas")) return;
@@ -162,8 +167,11 @@ function AreasButtons({ areas, goTo, classes }) {
     const style = {
       ...buttonsStyle,
       background: selected ? getAreaBackground(area) : getYellow(i),
-      color: selected ? "white" : "#4D4C4C",
-    };
+      color: selected ? 'white' : '#4D4C4C'
+    }
+
+    const [line1, line2] = area.nombre.split(' ');
+
     return (
       <Button
         key={area.nombre}
@@ -174,7 +182,7 @@ function AreasButtons({ areas, goTo, classes }) {
         }}
         startIcon={area.icono && <area.icono size={ICON_SIZE} />}
       >
-        {area.nombre}
+        {line1} <br/> {line2}
       </Button>
     );
   });
@@ -215,7 +223,7 @@ export function DesktopHeader({ areas, classes, goTo }) {
               onClick={() => goTo(`/about`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
-              ¿Quienes somos?
+              ¿Quienes <br /> somos?
             </Button>
           </ButtonGroup>
         </Box>
