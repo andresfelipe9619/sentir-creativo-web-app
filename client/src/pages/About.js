@@ -279,6 +279,9 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: '36px'
     }
+  },
+  principiosTitle: {
+    marginTop: '8rem'
   }
 }));
 
@@ -482,7 +485,9 @@ export default function About() {
 
         {/* Seccion 2 */}
         <Grid item xs={11}>
-          <Typography variant="h1">Trabajamos con</Typography>
+          <Typography variant="h1" className={classes.principiosTitle}>
+            Trabajamos con
+          </Typography>
           <Typography className={classes.principiosText}>
             Principios&nbsp;
             <Typography className={classes.principiosText} style={{ fontWeight: 900 }} component='span'>
@@ -568,7 +573,9 @@ export default function About() {
 
         {/* Seccion 3 */}
         <Grid item xs={11}>
-          <Typography variant="h1">En distintas</Typography>
+          <Typography variant="h1" className={classes.principiosTitle}>
+            En distintas
+          </Typography>
           <Typography className={classes.principiosText}>
             Aréas de&nbsp;
             <Typography className={classes.principiosText} style={{ fontWeight: 900 }} component='span'>
@@ -584,9 +591,10 @@ export default function About() {
           spacing={6}
           justifyContent="space-around"
           alignItems="center"
+          style={{ paddingTop: 0 }}
         >
           {areas.map((x, i) => (
-            <Grid item xs={12} md={6} key={x.id}>
+            <Grid item xs={12} md={6} key={x.id} style={{ paddingTop: 0 }}>
               <FlipCard
                 title={x.nombre}
                 detail={x.slogan}
@@ -602,7 +610,9 @@ export default function About() {
 
         {/* Seccion 3 */}
         <Grid item xs={11}>
-          <Typography variant="h1">Para diversos</Typography>
+          <Typography variant="h1" className={classes.principiosTitle}>
+            Para diversos
+          </Typography>
           <Typography className={classes.principiosText}>
             Rubros y&nbsp;
             <Typography className={classes.principiosText} style={{ fontWeight: 900 }} component='span'>
@@ -618,6 +628,7 @@ export default function About() {
           spacing={6}
           justifyContent="space-around"
           alignItems="center"
+          style={{ paddingTop: 0 }}
         >
           <Grid item xs={12} md={6}>
             <Typography variant="h1" color="textSecondary" gutterBottom>
