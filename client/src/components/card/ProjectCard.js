@@ -109,7 +109,7 @@ export default function ProjectCard(props) {
 
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
   const selectedProject = project[tipo_proyecto?.nombre?.toLowerCase()];
-  console.log(props);
+
   const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === 26);
   const avatar =
     archivoAvatar.length > 0
