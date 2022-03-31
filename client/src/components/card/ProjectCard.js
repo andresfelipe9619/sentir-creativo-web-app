@@ -109,6 +109,12 @@ export default function ProjectCard(props) {
 
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
   const selectedProject = project[tipo_proyecto?.nombre?.toLowerCase()];
+  console.log(props);
+  const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === 26);
+  const avatar =
+    archivoAvatar.length > 0
+      ? archivoAvatar[0].path
+      : "https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefault.png";
 
   return (
     <AdminCard
@@ -118,7 +124,7 @@ export default function ProjectCard(props) {
       chips={[audiencia?.email, audiencia?.email2, audiencia?.celular]}
       status={estado_proyecto?.nombre}
       title={nombre}
-      avatar={tipo_proyecto?.icono}
+      avatar={avatar}
       handleViewClick={handleClick}
       subheaderChip={
         <>
