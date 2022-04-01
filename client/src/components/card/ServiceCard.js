@@ -149,17 +149,6 @@ const useStyles = makeStyles((theme) => ({
               zIndex: 0,
             }}
           >
-            <Box
-              bgcolor="white"
-              py={0.2}
-              px={0.5}
-              m={0.5}
-              style={{ fontWeight: "bold" }}
-            >
-              <Typography variant="caption" color="textSecondary">
-                Técnicas artísticas
-              </Typography>
-            </Box>
             {tecnica_artisticas.map((t, i) => (
               <Box
                 key={i}

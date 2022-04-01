@@ -241,13 +241,13 @@ export default function Areas() {
           service={selectedService}
         />
       )}
-      <Grid item sm={12} md={6} component={Box} py={4} textAlign="center">
+      <Grid item sm={12} md={6} lg={5} component={Box} py={4} textAlign="center">
         <Typography
           variant="h1"
           align="center"
           component="strong"
           gutterBottom
-          style={{ color: "white", backgroundColor: color, padding: "0 1rem" }}
+          style={{ color: "white", backgroundColor: color, padding: "0 1.5rem" }}
         >
           {selectedArea.nombre.toUpperCase()}
         </Typography>
@@ -267,6 +267,13 @@ export default function Areas() {
 
             return <Typography style={sloganStyle}>{x}</Typography>;
           })}
+        </Typography>
+        <Typography
+          align="center"
+          component='small'
+          style={{ color: 'white' }}
+        >
+          {selectedArea.descripcion}
         </Typography>
       </Grid>
       <Filters

@@ -71,6 +71,9 @@ export default function ServicioModal({
   console.log(`service`, service);
   const handleFormSubmit = async (values) => {
     try {
+      if (values.coupon?.trim()?.length) {
+        values.coupon = await validateCoupon(values.coupon)
+      }
       console.log(`values`, values);
       const result = await API.Proyecto.start({
         ...values,
@@ -83,10 +86,21 @@ export default function ServicioModal({
       console.error(error);
       openAlert({
         variant: "error",
-        message: "Algo salió mal. Vuelve a intentarlo más tarde",
+        message: error?.message || "Algo salió mal. Vuelve a intentarlo más tarde",
       });
     }
   };
+
+  const validateCoupon = async (coupon) => {
+    const coupons = await API.CuponDescuento.getAll()
+    const currCoupon = coupons?.find(x => x.codigo === coupon)
+
+    if (!currCoupon) {
+      throw new Error('Cupón inválido')
+    }
+
+    return currCoupon
+  }
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => ++prevActiveStep);
@@ -212,7 +226,7 @@ function Info({ values, errors, touched, service, handleChange, handleBlur }) {
     <Grid container spacing={2}>
       <Grid item md={12}>
         <Typography color="primary" variant="h4" paragraph>
-          Para cuántas personas?
+          ¿Para cuántas personas?
         </Typography>
         <Typography>
           Responde esta pregunta y recibe un TICKET con los detalles del
