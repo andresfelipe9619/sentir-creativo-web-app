@@ -202,7 +202,7 @@ const useStyles = makeStyles((theme) => ({
               justifyContent="flex-end"
               p={0}
             >
-              <Box py={2} px={4} color="white" bgcolor="primary.light">
+              <Box py={2} px={4} color="white" bgcolor="primary.dark">
                 <Typography variant="body2">{sintesis}</Typography>
               </Box>
               <Box py={2} px={4} color="white" bgcolor="primary.main">
