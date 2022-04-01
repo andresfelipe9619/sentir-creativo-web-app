@@ -61,7 +61,8 @@ module.exports = {
       ciudad,
       formato,
       impacto,
-      departamento
+      departamento,
+      coupon
     } = request.body
     try {
       console.log(`BODY: `, request.body)
@@ -107,7 +108,8 @@ module.exports = {
         impacto: `${impacto} personas`,
         audiencia: audience.id,
         // estado: 1,
-        tipoProyecto: 3
+        tipoProyecto: 3,
+        cupon_descuentos: [coupon]
       })
       console.log(`proyecto`, proyecto)
       if (!proyecto) {

@@ -79,6 +79,19 @@ export const columns = (showOrganization) => [
       required: true,
     },
   },
+  {
+    name: "coupon",
+    label: "Cupón",
+    options: {
+      display: false,
+      filter: false,
+      sort: false
+    },
+    form: {
+      size: 4,
+      type: "input"
+    },
+  },
   ...(showOrganization
     ? [
         {
@@ -91,6 +104,7 @@ export const columns = (showOrganization) => [
           form: {
             size: 4,
             type: "input",
+            required: true
           },
         },
         {
