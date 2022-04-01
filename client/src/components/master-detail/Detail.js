@@ -119,7 +119,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
       {({ handleSubmit, ...formProps }) => (
         <form onSubmit={handleSubmit}>
           <Prompt
-            when={inputsChanged.length > 0}
+            when={inputsChanged.length}
             message={`Tiene cambios sin guardar, ¿Está seguro que desea salir?`}
           />
           <Paper elevation={3} component={Box} p={5}>
@@ -155,7 +155,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
                   color="primary"
                   variant="outlined"
                   disabled={
-                    formProps.isSubmitting || inputsChanged.length === 0
+                    formProps.isSubmitting || !inputsChanged.length
                   }
                 >
                   {formProps.isSubmitting ? "Guardando ..." : "Guardar"}

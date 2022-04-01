@@ -16,6 +16,7 @@ import WorkIcon from "@material-ui/icons/Work";
 import useStyles from "./styles";
 import API from "../../api";
 import { useAlertDispatch } from "../../providers/context/Alert";
+import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
 
 const project = {
   interno: {
@@ -110,11 +111,11 @@ export default function ProjectCard(props) {
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
   const selectedProject = project[tipo_proyecto?.nombre?.toLowerCase()];
 
-  const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === 26);
+  const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === FileTypes["AVATAR"]);
   const avatar =
-    archivoAvatar.length > 0
+    archivoAvatar.length
       ? archivoAvatar[0].path
-      : "https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefault.png";
+      : DEFAULT_AVATAR;
 
   return (
     <AdminCard

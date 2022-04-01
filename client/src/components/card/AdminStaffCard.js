@@ -15,6 +15,7 @@ import { brown } from "@material-ui/core/colors";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import API from "../../api";
+import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
 
 export default function Card(props) {
   if (!props.staff) return null;
@@ -60,17 +61,17 @@ function AdminStaffCard({ staff }) {
 
   const [destacado, setDestacado] = useState(staff.destacado);
 
-  const archivoAvatar = staff.archivos.filter((a) => a.tipo_archivo === 26);
+  const archivoAvatar = staff.archivos.filter((a) => a.tipo_archivo === FileTypes["AVATAR"]);
   const avatar =
-    archivoAvatar.length > 0
+    archivoAvatar.length
       ? archivoAvatar[0].path
-      : "https://sentircreativo.s3.us-east-2.amazonaws.com/images/Foto+de+Perfil/Avatar+de+default/avatarDefault.png";
+      : DEFAULT_AVATAR;
 
   const archivoGoogleContact = staff.archivos.filter(
-    (a) => a.tipo_archivo === 25
+    (a) => a.tipo_archivo === FileTypes["GOOGLE_CONTACT"]
   );
   const archivoGoogleContactUrl =
-    archivoGoogleContact.length > 0 ? archivoGoogleContact[0].path : null;
+    archivoGoogleContact.length ? archivoGoogleContact[0].path : null;
   const disableGoogleContact = archivoGoogleContactUrl === null;
   const colorGoogleContact = disableGoogleContact ? "#1a72e580" : " #1a72e5";
 
