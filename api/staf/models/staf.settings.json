@@ -79,6 +79,9 @@
     },
     "destacado": {
       "type": "boolean"
+    },
+    "ciudad": {
+      "model": "ciudad"
     }
   }
 }
