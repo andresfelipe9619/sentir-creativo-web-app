@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
-import Button from '@material-ui/core/Button'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import { useLocation } from 'react-router-dom'
-import { Box } from '@material-ui/core'
-import WbSunnyIcon from '@material-ui/icons/WbSunny'
-import clsx from 'clsx'
-import { getAreaBackground } from '../../utils'
+import React, { useState, useEffect } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Button from "@material-ui/core/Button";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import { useLocation } from "react-router-dom";
+import { Box } from "@material-ui/core";
+import WbSunnyIcon from "@material-ui/icons/WbSunny";
+import clsx from "clsx";
+import { getAreaBackground } from "../../utils";
 import Logo from "../../assets/full-logo.png";
-import LogoYellow from '../../assets/iso_amarillo.svg'
+import LogoYellow from "../../assets/iso_amarillo.svg";
 
 const ICON_SIZE = "1.6em";
 
@@ -21,16 +21,16 @@ const buttonsStyle = {
   borderRadius: 0,
   height: 64,
   lineHeight: 1.2,
-  padding: '16px 24px',
+  padding: "16px 24px",
   fontWeight: 700,
-  textAlign: 'left',
-  textTransform: 'none',
-  flex: '1 1 auto',
-  justifyContent: 'flex-start',
-}
-export function MobileAreasButtons ({ areas, goTo, classes }) {
-  const { pathname } = useLocation()
-  const [value, setValue] = useState(null)
+  textAlign: "left",
+  textTransform: "none",
+  flex: "1 1 auto",
+  justifyContent: "flex-start",
+};
+export function MobileAreasButtons({ areas, goTo, classes }) {
+  const { pathname } = useLocation();
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
     if (!pathname.includes("areas")) return;
@@ -94,7 +94,14 @@ export function MobileHeader({ areas, classes, goTo }) {
         className={clsx(classes.appBar, classes.navigation)}
         elevation={0}
       >
-        <Toolbar disableGutters style={{ minHeight: 64 }}>
+        <Toolbar
+          disableGutters
+          style={{ minHeight: 64 }}
+          classes={{
+            root: classes.secondToolbar,
+            regular: classes.secondToolbar,
+          }}
+        >
           <Box width="70%" display="flex" height="100%">
             <Button
               fullWidth
@@ -104,10 +111,10 @@ export function MobileHeader({ areas, classes, goTo }) {
                 ...buttonsStyle,
                 background: "#4E4E4E",
                 color: "white",
-                padding: 0,
               }}
+              classes={{ root: classes.buttons }}
               startIcon={
-                <img src={LogoYellow} width={50} alt="logo sentir creativo" />
+                <img src={LogoYellow} width={48} height={"auto"} alt="logo sentir creativo" />
               }
               onClick={() => goTo(`/about`)()}
             >
@@ -133,6 +140,7 @@ export function MobileHeader({ areas, classes, goTo }) {
         </Toolbar>
         <Toolbar
           disableGutters
+          style={{ minHeight: 64 }}
           classes={{
             root: classes.secondToolbar,
             regular: classes.secondToolbar,
@@ -167,10 +175,10 @@ function AreasButtons({ areas, goTo, classes }) {
     const style = {
       ...buttonsStyle,
       background: selected ? getAreaBackground(area) : getYellow(i),
-      color: selected ? 'white' : '#4D4C4C'
-    }
+      color: selected ? "white" : "#4D4C4C",
+    };
 
-    const [line1, line2] = area.nombre.split(' ');
+    const [line1, line2] = area.nombre.split(" ");
 
     return (
       <Button
@@ -182,7 +190,7 @@ function AreasButtons({ areas, goTo, classes }) {
         }}
         startIcon={area.icono && <area.icono size={ICON_SIZE} />}
       >
-        {line1} <br/> {line2}
+        {line1} <br /> {line2}
       </Button>
     );
   });
