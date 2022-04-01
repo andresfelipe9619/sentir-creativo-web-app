@@ -7,12 +7,13 @@ export default function Master({
   columns,
   onRowClick,
   onRowsDelete,
+ customToolbarSelect
 }) {
   return (
     <MUIDataTable
       data={data}
       title={title}
-      options={{ onRowClick, onRowsDelete }}
+      options={{ onRowClick, onRowsDelete, customToolbarSelect }}
       columns={columns}
     />
   );

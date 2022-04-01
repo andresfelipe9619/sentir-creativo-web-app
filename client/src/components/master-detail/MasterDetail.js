@@ -10,6 +10,8 @@ import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MuiSwitch from "@material-ui/core/Switch";
 import { formatDate } from "../../utils";
+import DialogButton from '../buttons/DialogButton'
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export default function MasterDetail({
   masterProps,
@@ -24,6 +26,7 @@ export default function MasterDetail({
   const masterPath = match.path;
   const detailPath = `${masterPath}/:id`;
   const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
   const { data, loading, init, create: createEntity, api } = useAPI(service);
 
   const handleClickRow = (_, { dataIndex }) => {
@@ -31,10 +34,11 @@ export default function MasterDetail({
     history.push(`${masterPath}/${entityId}`);
   };
 
-  const handleRowsDelete = async (indexes) => {
-    console.clear();
-    const ids = indexes.map((i) => data[i].id);
-    await Promise.all(ids.map(async (id) => await api.delete(id)));
+  const handleRowsDelete = async (indexes, fn) => {
+    const ids = indexes.map((i) => data[i].id)
+    await Promise.all(ids.map(async (id) => await api.delete(id)))
+    init && await init()
+    fn([]);
   };
 
   const handleOpenModal = () => setOpen(true);
@@ -138,7 +142,11 @@ function MasterView({
           data={data}
           loading={loading}
           onRowClick={handleClickRow}
-          onRowsDelete={({ lookup }) => handleRowsDelete(Object.keys(lookup))}
+          customToolbarSelect={({ lookup }, _, fn) => <DialogButton color='grey' label={<DeleteIcon />}
+            onClose={async accepted => accepted && await handleRowsDelete(Object.keys(lookup), fn)}/>
+          }
+          // onRowsDelete={({ lookup }) => handleRowsDelete(Object.keys(lookup))}
+
         />
       )}
     </>
