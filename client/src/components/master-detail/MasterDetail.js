@@ -26,7 +26,6 @@ export default function MasterDetail({
   const masterPath = match.path;
   const detailPath = `${masterPath}/:id`;
   const [open, setOpen] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
   const { data, loading, init, create: createEntity, api } = useAPI(service);
 
   const handleClickRow = (_, { dataIndex }) => {

@@ -96,7 +96,7 @@ export default function ServicioModal({
     const currCoupon = coupons?.find(x => x.codigo === coupon)
 
     if (!currCoupon) {
-      throw { message: 'Cupón inválido' }
+      throw new Error('Cupón inválido')
     }
 
     return currCoupon
