@@ -127,7 +127,7 @@ export function MobileHeader({ areas, classes, goTo }) {
               }}
               onClick={() => goTo(`/about`)()}
             >
-              ¿Quienes somos?
+              ¿Quiénes somos?
             </Button>
           </Box>
         </Toolbar>
@@ -223,7 +223,7 @@ export function DesktopHeader({ areas, classes, goTo }) {
               onClick={() => goTo(`/about`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
-              ¿Quienes <br /> somos?
+              ¿Quiénes <br /> somos?
             </Button>
           </ButtonGroup>
         </Box>
