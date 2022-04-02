@@ -72,9 +72,6 @@
     "comentarios": {
       "collection": "comentario"
     },
-    "ciudad": {
-      "type": "string"
-    },
     "origen": {
       "via": "audiencias",
       "model": "origen"
@@ -98,6 +95,9 @@
     },
     "destacado": {
       "type": "boolean"
+    },
+    "ciudad": {
+      "model": "ciudad"
     }
   }
 }
