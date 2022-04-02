@@ -16,6 +16,7 @@ import WorkIcon from "@material-ui/icons/Work";
 import useStyles from "./styles";
 import API from "../../api";
 import { useAlertDispatch } from "../../providers/context/Alert";
+import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
 
 const project = {
   interno: {
@@ -110,6 +111,12 @@ export default function ProjectCard(props) {
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
   const selectedProject = project[tipo_proyecto?.nombre?.toLowerCase()];
 
+  const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === FileTypes["AVATAR"]);
+  const avatar =
+    archivoAvatar.length
+      ? archivoAvatar[0].path
+      : DEFAULT_AVATAR;
+
   return (
     <AdminCard
       id={id}
@@ -118,7 +125,7 @@ export default function ProjectCard(props) {
       chips={[audiencia?.email, audiencia?.email2, audiencia?.celular]}
       status={estado_proyecto?.nombre}
       title={nombre}
-      avatar={tipo_proyecto?.icono}
+      avatar={avatar}
       handleViewClick={handleClick}
       subheaderChip={
         <>

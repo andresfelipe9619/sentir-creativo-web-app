@@ -109,7 +109,8 @@ module.exports = {
         audiencia: audience.id,
         // estado: 1,
         tipoProyecto: 3,
-        cupon_descuentos: [coupon]
+        cupon_descuentos: [coupon],
+        servicios: [servicio]
       })
       console.log(`proyecto`, proyecto)
       if (!proyecto) {
