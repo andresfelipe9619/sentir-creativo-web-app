@@ -55,9 +55,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   chips: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
+    padding: 4,
+    width: "80%",
+    overflow: "auto",
+    whiteSpace: "nowrap",
     "& > *": {
       margin: theme.spacing(0.5),
     },
