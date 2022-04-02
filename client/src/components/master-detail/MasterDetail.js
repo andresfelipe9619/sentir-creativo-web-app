@@ -12,6 +12,7 @@ import MuiSwitch from "@material-ui/core/Switch";
 import { formatDate } from "../../utils";
 import DialogButton from '../buttons/DialogButton'
 import DeleteIcon from "@material-ui/icons/Delete";
+import {useAlertDispatch} from "../../providers/context/Alert";
 
 export default function MasterDetail({
   masterProps,
@@ -27,6 +28,7 @@ export default function MasterDetail({
   const detailPath = `${masterPath}/:id`;
   const [open, setOpen] = useState(false);
   const { data, loading, init, create: createEntity, api } = useAPI(service);
+  const { openAlert } = useAlertDispatch()
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id;
@@ -34,10 +36,23 @@ export default function MasterDetail({
   };
 
   const handleRowsDelete = async (indexes, fn) => {
-    const ids = indexes.map((i) => data[i].id)
-    await Promise.all(ids.map(async (id) => await api.delete(id)))
-    init && await init()
-    fn([]);
+    try {
+      const ids = indexes.map((i) => data[i].id)
+      await Promise.all(ids.map(async (id) => await api.delete(id)))
+      init && await init()
+      openAlert({
+        variant: "success",
+        message: "¡Borrado con éxito!",
+      });
+    } catch(e) {
+      console.error(e)
+      openAlert({
+        variant: "error",
+        message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
+      });
+    } finally {
+      fn([])
+    }
   };
 
   const handleOpenModal = () => setOpen(true);

@@ -29,6 +29,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   navigationButton: {
     fontSize: "0.8em",
+    marginRight: 'auto'
   },
   appBar: barProps(theme),
   menuButton: {

@@ -23,6 +23,7 @@ export const useStyles = makeStyles((theme) => ({
     margin: "auto",
     boxShadow: "none",
     overflow: "visible",
+    cursor: "pointer"
   },
   content: {
     position: "relative",
