@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Accordion from "@material-ui/core/Accordion";
+import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -18,6 +19,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Pagination from "@material-ui/lab/Pagination";
 import useStyles from "./styles";
 import Spinner from "../spinner/Spinner";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import Slide from "@material-ui/core/Slide";
 
 const PAGE_SIZE = 6;
 
@@ -37,8 +40,7 @@ function Filters({
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const [autocompleteValue, setAutocompleteValue] = useState(null);
-
-  const cardColor = color || theme.palette.primary.main;
+  const [showFilters, setShowFilters] = useState(false);
 
   const handleDeleteFilter = (option) => () => {
     const { name, value } = option;
@@ -70,6 +72,11 @@ function Filters({
     onFilterChange(newFilters);
   };
 
+  const toggleFilter = () => setShowFilters((prev) => !prev);
+
+  const count = autocompleteValue ? 1 : maxCount;
+  const cardColor = color || theme.palette.primary.main;
+
   const areaTheme = createTheme({
     ...theme,
     palette: {
@@ -86,15 +93,24 @@ function Filters({
       return filterOptions(fo.name);
     })
     .flatMap((f) => f);
-    const count = autocompleteValue ? 1 : maxCount
+
   return (
     <ThemeProvider theme={areaTheme}>
       <AppBar
-        position="relative"
+        position="sticky"
         classes={{ root: classes.toolbar }}
         elevation={0}
       >
         <Toolbar>
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={toggleFilter}
+            style={{ marginRight: 16 }}
+            startIcon={<FilterListIcon />}
+          >
+            Filtros
+          </Button>
           <Autocomplete
             size="small"
             id="combo-box-demo"
@@ -180,20 +196,22 @@ function Filters({
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Grid item md={3}>
-          {filterOptions.map((fo, i) => (
-            <FilterOption
-              key={i}
-              {...fo}
-              loading={loading}
-              handleChange={handleChangeFilter}
-              values={values[fo.name] || {}}
-            />
-          ))}
-        </Grid>
+        <Slide direction="right" in={showFilters} mountOnEnter unmountOnExit>
+          <Grid item md={3}>
+            {filterOptions.map((fo, i) => (
+              <FilterOption
+                key={i}
+                {...fo}
+                loading={loading}
+                handleChange={handleChangeFilter}
+                values={values[fo.name] || {}}
+              />
+            ))}
+          </Grid>
+        </Slide>
         <Grid
           item
-          md={9}
+          md={showFilters ? 9 : 12}
           component={Box}
           px={1}
           bgcolor={"#212121"}
@@ -222,6 +240,7 @@ const FilterOption = memo(function FilterOption({
       {hasOptions && (
         <CheckboxGroup
           name={name}
+          disabled={loading}
           options={options}
           values={values}
           handleChange={handleChange}
@@ -249,14 +268,14 @@ const AccordionOption = memo(function AccordionOption({ title, children }) {
 });
 
 function getSelectedFilters(filters) {
-  let formatos = Object.entries(filters.formatos || {})
-    .filter(([, value]) => !!value)
-    .map(([key]) => +key);
-  let tecnica_artisticas = Object.entries(filters.tecnica_artisticas || {})
-    .filter(([, value]) => !!value)
-    .map(([key]) => +key);
+  const keys = Object.keys(filters);
+  return keys.reduce((acc, key) => {
+    let values = Object.entries(filters[key] || {})
+      .filter(([, value]) => !!value)
+      .map(([key]) => +key);
 
-  return { formatos, tecnica_artisticas };
+    return { ...acc, [key]: values };
+  }, {});
 }
 
 export default memo(Filters);
