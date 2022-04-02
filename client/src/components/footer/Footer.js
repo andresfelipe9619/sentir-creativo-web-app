@@ -84,7 +84,7 @@ export default function AppFooter() {
   const marginTop = window.location.href.includes("about") ? "-.5rem" : "0px";
 
   return (
-    <Container className={classes.root} maxWidth="xl" style={{ marginTop }}>
+    <Container className={classes.root} maxWidth="none" style={{ marginTop }}>
       <Grid container spacing={6} justifyContent="center">
         <Grid item xs={11}>
           <Typography variant="h1" className={classes.title}>
