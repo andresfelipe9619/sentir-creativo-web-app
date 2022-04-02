@@ -12,6 +12,10 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     overflow: "visible",
     borderRadius: ".75rem",
+    [theme.breakpoints.down('sm')]: {
+      marginTop: "4rem",
+      marginBottom: "4rem"
+    }
   },
   chips: {
     borderRadius: 0,
@@ -30,8 +34,9 @@ export default function PrinciplesCard({ title, details, avatar }) {
   const theme = useTheme();
   const classes = useStyles();
   const isMedium = useMediaQuery(theme.breakpoints.down("md"));
-  const size = isMedium ? "5rem" : "13rem";
-  const imgPosition = isMedium ? "auto 0 auto 1rem" : "-1rem 0 -1rem -6rem";
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
+  const size = isSmall ? "13rem" : isMedium ? "5rem" : "13rem";
+  const imgPosition = isSmall ? "-5rem 0" : isMedium ? "auto 0 auto 1rem" : "-1rem 0 -1rem -6rem";
 
   return (
     <Card className={classes.root}>
@@ -39,6 +44,7 @@ export default function PrinciplesCard({ title, details, avatar }) {
         component={Box}
         display="flex"
         alignItems="center"
+        flexDirection={isSmall ? 'column' : 'row'}
         style={{ padding: 0 }}
       >
         <Avatar
@@ -48,11 +54,11 @@ export default function PrinciplesCard({ title, details, avatar }) {
             width: size,
             height: size,
             margin: imgPosition,
-            borderRadius: 0,
+            borderRadius: 0
           }}
         />
 
-        <Box px={3}>
+        <Box px={isSmall ? 2 : 3} mt={isSmall ? 8 : 0}>
           <Typography variant="h1" className={classes.title}>
             {title}&nbsp;
             <Chip label="PRO" size="small" className={classes.chips} />
