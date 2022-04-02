@@ -86,14 +86,14 @@ function Filters({
 
   const chips = filterOptions
     .map((fo) => {
-      const filterOptions = (name) =>
+      const setFilterOptions = (name) =>
         (fo.options || [])
           .filter((o) => (filters[name] || []).includes(+o.value))
           .map((fo) => ({ ...fo, name }));
-      return filterOptions(fo.name);
+      return setFilterOptions(fo.name);
     })
     .flatMap((f) => f);
-
+  console.log("filterOptions aSDasda", filterOptions);
   return (
     <ThemeProvider theme={areaTheme}>
       <AppBar
