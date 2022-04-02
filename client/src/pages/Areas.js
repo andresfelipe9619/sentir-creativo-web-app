@@ -48,10 +48,15 @@ function getQueryFilters(filters) {
 
 const map2select = ([value, label]) => ({ label, value });
 
+const defaultFilters = {
+  formatos: {},
+  ocasions: {},
+  tecnica_artisticas: {},
+  publico_objetivos: {},
+};
+
 export default function Areas() {
   const [services, setServices] = useState([]);
-  const [formats, setFormats] = useState({});
-  const [tecnics, setTecnics] = useState({});
   const [selectedService, setSelectedService] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
   const [showDossier, setShowDossier] = useState(false);
@@ -60,6 +65,7 @@ export default function Areas() {
   const [loadingArea, setLoadingArea] = useState(false);
   const [searchOptions, setSearchOptions] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
+  const [filterOptions, setFilterOptions] = useState(defaultFilters);
 
   const history = useHistory();
   const query = useQuery();
@@ -108,32 +114,28 @@ export default function Areas() {
       if (!refreshFilters) return;
       Reflect.deleteProperty(filters, "pagination");
       await loadCount(filters);
-      // Find unique tecnica_artisticas and formatos for the filter's options
-      const { formatos, tecnica_artisticas } = serviceResult.reduce(
-        (acc, s) => {
-          const mTecnics = s.tecnica_artisticas
-            .filter((t) => !acc.tecnica_artisticas[t.id])
+
+      // Find unique options for the filters
+      const options = serviceResult.reduce((acc, s) => {
+        const keys = Object.keys(acc);
+        const result = keys.reduce((accFilters, filterKey) => {
+          let currentOptions = (s[filterKey] || [])
+            .filter((t) => !acc[filterKey][t.id])
             .reduce(
               (accT, t) => ({ ...accT, [t.id]: t.nombre }),
-              acc.tecnica_artisticas
+              acc[filterKey]
             );
 
-          const mFormats = s.formatos
-            .filter((f) => !acc.formatos[f.id])
-            .reduce((accF, f) => ({ ...accF, [f.id]: f.nombre }), acc.formatos);
-
           return {
-            formatos: mFormats,
-            tecnica_artisticas: mTecnics,
+            ...accFilters,
+            [filterKey]: currentOptions,
           };
-        },
-        {
-          formatos: {},
-          tecnica_artisticas: {},
-        }
-      );
-      setFormats(formatos);
-      setTecnics(tecnica_artisticas);
+        }, defaultFilters);
+
+        return result;
+      }, defaultFilters);
+
+      setFilterOptions(options);
     } catch (error) {
       console.error(error);
       openAlert({ variant: "error", message: "Oops! Algo salió mal" });
@@ -146,8 +148,7 @@ export default function Areas() {
     try {
       setLoadingArea(true);
       setServiceCount(0);
-      Object.keys(formats).length && setFormats({});
-      Object.keys(tecnics).length && setTecnics({});
+      setFilterOptions(defaultFilters);
       searchOptions.length && setSearchOptions([]);
       const areaResult = await API.Area.get(areaId);
       setSelectedArea(areaResult);
@@ -215,6 +216,7 @@ export default function Areas() {
 
   const color = selectedArea.colorPrimario;
   const servicesToShow = searchValue ? [searchValue] : services;
+
   return (
     <Grid
       pt={4}
@@ -241,13 +243,25 @@ export default function Areas() {
           service={selectedService}
         />
       )}
-      <Grid item sm={12} md={6} lg={5} component={Box} py={4} textAlign="center">
+      <Grid
+        item
+        sm={12}
+        md={6}
+        lg={5}
+        component={Box}
+        py={4}
+        textAlign="center"
+      >
         <Typography
           variant="h1"
           align="center"
           component="strong"
           gutterBottom
-          style={{ color: "white", backgroundColor: color, padding: "0 1.5rem" }}
+          style={{
+            color: "white",
+            backgroundColor: color,
+            padding: "0 1.5rem",
+          }}
         >
           {selectedArea.nombre.toUpperCase()}
         </Typography>
@@ -268,11 +282,7 @@ export default function Areas() {
             return <Typography style={sloganStyle}>{x}</Typography>;
           })}
         </Typography>
-        <Typography
-          align="center"
-          component='small'
-          style={{ color: 'white' }}
-        >
+        <Typography align="center" component="small" style={{ color: "white" }}>
           {selectedArea.descripcion}
         </Typography>
       </Grid>
@@ -288,12 +298,22 @@ export default function Areas() {
           {
             label: "Formatos",
             name: "formatos",
-            options: Object.entries(formats).map(map2select),
+            options: getFilterOptions(filterOptions.formatos),
           },
           {
             label: "Técnicas Artísticas",
             name: "tecnica_artisticas",
-            options: Object.entries(tecnics).map(map2select),
+            options: getFilterOptions(filterOptions.tecnica_artisticas),
+          },
+          {
+            label: "Ocasiones",
+            name: "ocasions",
+            options: getFilterOptions(filterOptions.ocasions),
+          },
+          {
+            label: "Públicos Objetivos",
+            name: "publico_objetivos",
+            options: getFilterOptions(filterOptions.publico_objetivos),
           },
         ]}
       >
@@ -330,6 +350,10 @@ export default function Areas() {
       </Filters>
     </Grid>
   );
+}
+
+function getFilterOptions(filter) {
+  return Object.entries(filter).map(map2select);
 }
 
 export const useStyles = makeStyles((theme) => ({
