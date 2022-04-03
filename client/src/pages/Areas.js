@@ -5,48 +5,20 @@ import Typography from "@material-ui/core/Typography";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import API from "../api";
 import Card from "../components/card/ServiceCard";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Spinner from "../components/spinner/Spinner";
-import { getAreaBackground } from "../utils";
+import { getAreaBackground, getQueryFilters, map2select } from "../utils";
 import Filters from "../components/filters/Filters";
 import { useAlertDispatch } from "../providers/context/Alert";
+import useQuery from "../providers/hooks/useQuery";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 6;
 const default_pagination = { pagination: { page: 1, pageSize: PAGE_SIZE } };
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
-
-function getPaginationData(pagination) {
-  console.log("pagination", pagination);
-  const { pageSize = 6, page = 1 } = pagination;
-  const _limit = pageSize;
-  const _start = (page - 1) * pageSize;
-  return { _limit, _start };
-}
-
-function getQueryFilters(filters) {
-  const entries = Object.entries(filters);
-  console.log("entries", entries);
-  if (!entries.length) return null;
-  return entries.reduce((acc, [key, value]) => {
-    if (key === "pagination") {
-      return { ...acc, ...getPaginationData(value) };
-    }
-    if (Array.isArray(value) && value.length) {
-      return { ...acc, [`${key}.id`]: value.join() };
-    }
-    return { ...acc, [key]: value };
-  }, {});
-}
-
-const map2select = ([value, label]) => ({ label, value });
 
 const defaultFilters = {
   formatos: {},
@@ -69,9 +41,9 @@ export default function Areas() {
 
   const history = useHistory();
   const query = useQuery();
-  const theme = useTheme();
-  const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
-  const isMedium = useMediaQuery(theme.breakpoints.down("md"));
+  const { breakpoints } = useTheme();
+  const isSmall = useMediaQuery(breakpoints.down("xs"));
+  const isMedium = useMediaQuery(breakpoints.down("md"));
   const classes = useStyles();
   const { id: areaId } = useParams();
   const { openAlert } = useAlertDispatch();
@@ -144,12 +116,16 @@ export default function Areas() {
     }
   }
 
+  function cleanState() {
+    setServiceCount(0);
+    setFilterOptions(defaultFilters);
+    searchOptions.length && setSearchOptions([]);
+  }
+
   async function loadArea() {
     try {
       setLoadingArea(true);
-      setServiceCount(0);
-      setFilterOptions(defaultFilters);
-      searchOptions.length && setSearchOptions([]);
+      cleanState();
       const areaResult = await API.Area.get(areaId);
       setSelectedArea(areaResult);
       setLoadingArea(false);
