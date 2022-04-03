@@ -69,7 +69,7 @@ export default function AdminCard({
       <CardHeader
         component={Box}
         title={text}
-        avatar={<Avatar alt={title} src={avatar} />}
+        avatar={<Avatar alt={title} src={avatar} sx={{ width: 60, height: 60 }}/>}
         classes={{ content: classes.ellipsedHeader }}
         subheader={
           <Box display="flex" flexDirection="column">
