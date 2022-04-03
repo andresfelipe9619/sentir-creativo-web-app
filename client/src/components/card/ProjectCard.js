@@ -143,7 +143,7 @@ export default function ProjectCard(props) {
         </>
       }
       superheader={fechaInicio ? formatDate(fechaInicio, true) : ""}
-      subheader={`${formatos[0]?.nombre} • ${ciudad}`}
+      subheader={`${formatos[0]?.nombre} • ${ciudad?.nombre}`}
       floatingHeader={{
         color: selectedProject?.color,
         icon: selectedProject?.icon,

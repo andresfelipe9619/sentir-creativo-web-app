@@ -64,6 +64,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
             ...buttonsStyle,
             background: selected ? getAreaBackground(area) : getYellow(i),
             color: selected ? "white" : "#4D4C4C",
+            maxWidth: 'none'
           };
 
           return (
@@ -77,7 +78,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
                 selected: classes.navigationButton,
                 label: classes.navigationButton,
               }}
-              icon={area.icono && <area.icono size={"2em"} />}
+              icon={area.icono && <area.icono size={"2em"} style={{ marginRight: 'auto' }} />}
             />
           );
         })}

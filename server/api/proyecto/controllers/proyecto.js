@@ -24,7 +24,8 @@ const populate = [
   'presupuestos',
   'audiencia.organizacion',
   'archivos.tipo_archivo',
-  'destacado'
+  'destacado',
+  'ciudad'
 ]
 
 module.exports = {
