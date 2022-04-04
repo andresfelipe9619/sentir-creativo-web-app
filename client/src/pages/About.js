@@ -638,7 +638,7 @@ export default function About() {
             <Card style={{ borderRadius: 8 }}>
               <CardContent>
                 <List
-                  style={{ overflow: "auto", maxHeight: "15rem" }}
+                  style={{ overflow: "auto", maxHeight: "25rem" }}
                   subheader={<li />}
                 >
                   {Object.keys(rubros).map((section) => (
@@ -676,7 +676,7 @@ export default function About() {
 
             <Card style={{ borderRadius: 8 }}>
               <CardContent>
-                <List style={{ overflow: "auto", maxHeight: "15rem" }}>
+                <List style={{ overflow: "auto", maxHeight: "25rem" }}>
                   {ocasiones.map((x, i) => (
                     <ListItem
                       key={`item-${x}`}

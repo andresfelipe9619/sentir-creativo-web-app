@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function getSteps() {
-  return ["Info Servicio", "Formato Servico", "Datos Contacto"];
+  return ["Info Servicio", "Formato Servicio", "Datos Contacto"];
 }
 
 function getStepContent(stepIndex, props) {

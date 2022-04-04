@@ -161,20 +161,22 @@ function Filters({
           style={{
             minHeight: 36,
             padding: 0,
-            backgroundColor: cardColor,
+            backgroundColor: areaTheme.palette.primary.dark,
           }}
         >
           <Grid item md={3}></Grid>
           <Grid
             item
             md={4}
+            component={Box}
+            width="100%"
+            height="100%"
+            py={0.5}
+            px={3}
+            bgcolor={areaTheme.palette.primary.dark}
             style={{
               fontSize: "1.2em",
               fontWeight: "bold",
-              backgroundColor: areaTheme.palette.primary.dark,
-              width: "100%",
-              padding: 4,
-              height: "100%",
             }}
           >
             {count} experiencia{count === 1 ? "" : "s"} encontrada
@@ -197,7 +199,7 @@ function Filters({
       </AppBar>
       <Grid container>
         <Slide direction="right" in={showFilters} mountOnEnter unmountOnExit>
-          <Grid item md={3}>
+          <Grid item md={2}>
             {filterOptions.map((fo, i) => (
               <FilterOption
                 key={i}
@@ -211,11 +213,11 @@ function Filters({
         </Slide>
         <Grid
           item
-          md={showFilters ? 9 : 12}
-          component={Box}
-          px={1}
-          bgcolor={"#212121"}
+          px={3}
           pt={2}
+          md={showFilters ? 10 : 12}
+          bgcolor={"#212121"}
+          component={Box}
           minHeight={400}
         >
           {loading ? <Spinner mt={"10vh"} /> : children}
@@ -262,7 +264,9 @@ const AccordionOption = memo(function AccordionOption({ title, children }) {
       >
         <Typography>{title}</Typography>
       </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
+      <AccordionDetails className={classes.accordionDetails}>
+        {children}
+      </AccordionDetails>
     </Accordion>
   );
 });

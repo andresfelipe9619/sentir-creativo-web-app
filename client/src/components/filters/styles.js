@@ -6,9 +6,12 @@ const useStyles = makeStyles((theme) => ({
   toolbar: { background: "#F5F5F5", zIndex: 1 },
   accordion: {
     color: "white",
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.dark,
     borderTop: [[1, "solid", "white"]],
     borderBottom: [[1, "solid", "white"]],
+  },
+  accordionDetails: {
+    padding: 4,
   },
   root: {
     "& > *": {
