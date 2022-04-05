@@ -258,7 +258,14 @@ export default function Areas() {
             return <Typography style={sloganStyle}>{x}</Typography>;
           })}
         </Typography>
-        <Typography align="center" component="small" style={{ color: "white" }}>
+        <Typography
+          align="center"
+          component="h6"
+          style={{
+            color: "white",
+            backgroundColor: color,
+            lineHeight: 1.15
+          }}>
           {selectedArea.descripcion}
         </Typography>
       </Grid>

@@ -4,8 +4,6 @@ html, body {
 
 body, #root  {
   min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: overlay;
 }
 main {
   min-height: 60vh;

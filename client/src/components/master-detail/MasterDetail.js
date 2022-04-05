@@ -37,7 +37,7 @@ export default function MasterDetail({
     loadMore,
     create: createEntity,
   } = useAPI({ service, lazy });
-  const { openAlert } = useAlertDispatch();
+  const { openAlert } = useAlertDispatch()
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id;
