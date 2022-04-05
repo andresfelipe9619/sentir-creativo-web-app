@@ -64,3 +64,7 @@ export function getQueryFilters(filters) {
 }
 
 export const map2select = ([value, label]) => ({ label, value });
+
+export function pluralize(word, count) {
+  return `${word}${count === 1 ? "" : "s"}`;
+}

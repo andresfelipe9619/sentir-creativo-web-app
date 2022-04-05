@@ -2,8 +2,8 @@ import React from "react";
 import MasterDetail from "../../master-detail/MasterDetail";
 import Grid from "@material-ui/core/Grid";
 import columns from "./columns";
-import LazyCards from "../../card/LazyCards";
 import AdminAudienceCard from "../../card/AdminAudienceCard";
+import PaginatedCards from "../../card/PaginatedCards";
 
 export default function Audiencia() {
   const master = {
@@ -18,10 +18,11 @@ export default function Audiencia() {
     <Grid item md={12}>
       <MasterDetail
         toggle
-        renderMaster={(props) => (
-          <LazyCards
-            data={props.data}
-            itemRenderer={(item) => <AdminAudienceCard audience={item} />}
+        renderMaster={({ data, loading }) => (
+          <PaginatedCards
+            data={data}
+            loading={loading}
+            renderCard={(item) => <AdminAudienceCard audience={item} />}
           />
         )}
         masterProps={master}

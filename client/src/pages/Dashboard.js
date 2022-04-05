@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { Switch, Route } from "react-router-dom";
 import Servicios from "../components/dashboard/servicio/Servicios";
@@ -15,8 +15,7 @@ import Organizaciones from "../components/dashboard/organizacion/Organizaciones"
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    padding: theme.spacing(4),
   },
 }));
 
@@ -55,7 +54,7 @@ export default function Dashboard(props) {
     { path: "/tags", render: (routerProps) => <Tags {...routerProps} /> },
   ];
   return (
-    <Container maxWidth="lg" className={classes.container}>
+    <Box className={classes.container}>
       <Grid container spacing={3}>
         <Switch>
           {items.map((item, i) => (
@@ -67,6 +66,6 @@ export default function Dashboard(props) {
           ))}
         </Switch>
       </Grid>
-    </Container>
+    </Box>
   );
 }
