@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import Avatar from "@mui/material/Avatar";
@@ -26,7 +26,7 @@ import { green } from "@material-ui/core/colors";
 import { grey } from "@material-ui/core/colors";
 import CopyClipboard from "../clipboard";
 
-export default function AdminCard({
+function AdminCard({
   id,
   chips,
   color,
@@ -205,7 +205,7 @@ const idStyle = {
   color: "#fff",
 };
 
-function FloatingID({ id }) {
+const FloatingID = memo(function FloatingID({ id }) {
   return (
     <Box
       display="flex"
@@ -222,7 +222,7 @@ function FloatingID({ id }) {
       {id}
     </Box>
   );
-}
+});
 
 const headerStyle = {
   height: 16,
@@ -232,7 +232,13 @@ const headerStyle = {
   zIndex: 1000,
 };
 
-function FloatingHeader({ icon: Icon, label, score, classes, color }) {
+const FloatingHeader = memo(function FloatingHeader({
+  icon: Icon,
+  label,
+  score,
+  classes,
+  color,
+}) {
   return (
     <Box display="flex" style={headerStyle} alignItems="center">
       {Icon && (
@@ -266,9 +272,9 @@ function FloatingHeader({ icon: Icon, label, score, classes, color }) {
       />
     </Box>
   );
-}
+});
 
-export function Stat({ label, value, color }) {
+export const Stat = memo(function Stat({ label, value, color }) {
   return (
     <Grid
       item
@@ -296,7 +302,7 @@ export function Stat({ label, value, color }) {
       </Box>
     </Grid>
   );
-}
+});
 
 export const StyledTableRow = withStyles(() => ({
   root: {
@@ -306,7 +312,7 @@ export const StyledTableRow = withStyles(() => ({
   },
 }))(TableRow);
 
-export function DenseTable({ nombre, rows, color }) {
+export const DenseTable = memo(function DenseTable({ nombre, rows, color }) {
   return (
     <Box p={1} my={2}>
       <TableContainer>
@@ -325,8 +331,10 @@ export function DenseTable({ nombre, rows, color }) {
       </TableContainer>
     </Box>
   );
-}
+});
 
 export function createData(label, value) {
   return { label, value };
 }
+
+export default memo(AdminCard);
