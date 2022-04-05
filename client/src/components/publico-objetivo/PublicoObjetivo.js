@@ -4,7 +4,7 @@ import Spinner from "../spinner/Spinner";
 import useAPI from "../../providers/hooks/useAPI";
 
 export default function PublicoObjetivo({ values, handleChange }) {
-  const { data, loading } = useAPI("PublicoObjetivo", true);
+  const { data, loading } = useAPI({ service: "PublicoObjetivo", map: true });
   if (loading) return <Spinner />;
   return (
     <CheckboxesGroup

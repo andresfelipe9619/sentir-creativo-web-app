@@ -93,6 +93,9 @@ function Filters({
       return setFilterOptions(fo.name);
     })
     .flatMap((f) => f);
+  const pagination = (
+    <FilterPagination {...{ loading, count, page, handleChangePage }} />
+  );
   console.log("filterOptions aSDasda", filterOptions);
   return (
     <ThemeProvider theme={areaTheme}>
@@ -147,6 +150,7 @@ function Filters({
                 <Chip
                   key={option.label}
                   label={option.label}
+                  disabled={loading}
                   onDelete={handleDeleteFilter(option)}
                   style={{
                     backgroundColor: cardColor,
@@ -183,23 +187,13 @@ function Filters({
             {count === 1 ? "" : "s"}:
           </Grid>
           <Grid item md={5}>
-            {!autocompleteValue && (
-              <Pagination
-                count={Math.ceil(count / PAGE_SIZE)}
-                color="standard"
-                page={page}
-                classes={{ ul: classes.pagination }}
-                onChange={handleChangePage}
-                variant="outlined"
-                shape="rounded"
-              />
-            )}
+            {!autocompleteValue && pagination}
           </Grid>
         </Toolbar>
       </AppBar>
       <Grid container>
         <Slide direction="right" in={showFilters} mountOnEnter unmountOnExit>
-          <Grid item md={2}>
+          <Grid item md={3}>
             {filterOptions.map((fo, i) => (
               <FilterOption
                 key={i}
@@ -213,17 +207,36 @@ function Filters({
         </Slide>
         <Grid
           item
-          px={3}
+          pl={2}
+          pr={3}
           pt={2}
-          md={showFilters ? 10 : 12}
+          md={showFilters ? 9 : 12}
           bgcolor={"#212121"}
           component={Box}
           minHeight={400}
         >
           {loading ? <Spinner mt={"10vh"} /> : children}
         </Grid>
+        {pagination}
       </Grid>
     </ThemeProvider>
+  );
+}
+
+function FilterPagination({ loading, count, page, handleChangePage }) {
+  const classes = useStyles();
+
+  return (
+    <Pagination
+      disabled={loading}
+      count={Math.ceil(count / PAGE_SIZE)}
+      color="standard"
+      page={page}
+      classes={{ root: classes.paginationRoot, ul: classes.paginationUL }}
+      onChange={handleChangePage}
+      variant="outlined"
+      shape="rounded"
+    />
   );
 }
 

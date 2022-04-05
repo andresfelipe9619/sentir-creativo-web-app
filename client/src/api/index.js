@@ -40,7 +40,8 @@ const Auth = {
 };
 
 const Proyecto = {
-  getAll: () => serverRequests.get(`/proyectos`),
+  getAll: (config) => serverRequests.get(`/proyectos`, config),
+  count: (config) => serverRequests.get(`/proyectos/count`, config),
   get: (id) => serverRequests.get(`/proyectos/${id}`),
   create: (project) => serverRequests.post("/proyectos", project),
   start: (project) => serverRequests.post("/proyectos/start", project),
@@ -58,7 +59,7 @@ const Servicio = {
 };
 
 const Area = {
-  getAll: () => serverRequests.get(`/areas`),
+  getAll: (config) => serverRequests.get(`/areas`, config),
   get: (id) => serverRequests.get(`/areas/${id}`),
   create: (area) => serverRequests.post("/areas", area),
   update: (id, area) => serverRequests.put(`/areas/${id}`, area),
@@ -84,7 +85,8 @@ const Archivo = {
 };
 
 const Audiencia = {
-  getAll: () => serverRequests.get(`/audiencias?_limit=20`),
+  getAll: (config) => serverRequests.get(`/audiencias`, config),
+  count: (config) => serverRequests.get(`/audiencias/count`, config),
   get: (id) => serverRequests.get(`/audiencias/${id}`),
   dossier: (audiencia) => serverRequests.post("/audiencias/dossier", audiencia),
   create: (audience) => serverRequests.post("/audiencias", audience),
@@ -182,7 +184,8 @@ const Prefijo = {
 };
 
 const Staf = {
-  getAll: () => serverRequests.get(`/stafs`),
+  getAll: (config) => serverRequests.get(`/stafs`, config),
+  count: (config) => serverRequests.get(`/stafs/count`, config),
   get: (id) => serverRequests.get(`/stafs/${id}`),
   create: (format) => serverRequests.post("/stafs", format),
   update: (id, format) => serverRequests.put(`/stafs/${id}`, format),

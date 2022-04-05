@@ -41,7 +41,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Files({ files, title, parent, initParent }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const { loading, create: createEntity, api } = useAPI("Archivo", null, false);
+  const {
+    api,
+    loading,
+    create: createEntity,
+  } = useAPI({ service: "Archivo", initilize: false });
   const params = useParams();
   const handleCloseModal = () => setOpen(false);
 

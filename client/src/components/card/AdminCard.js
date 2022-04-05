@@ -69,7 +69,9 @@ export default function AdminCard({
       <CardHeader
         component={Box}
         title={text}
-        avatar={<Avatar alt={title} src={avatar} sx={{ width: 60, height: 60 }}/>}
+        avatar={
+          <Avatar alt={title} src={avatar} sx={{ width: 60, height: 60 }} />
+        }
         classes={{ content: classes.ellipsedHeader }}
         subheader={
           <Box display="flex" flexDirection="column">
@@ -167,8 +169,8 @@ export default function AdminCard({
             <Tooltip title={b.label} key={b.label}>
               <IconButton
                 size="small"
-                href={b.url ? b.url : null}
-                disabled={b.disabled ? b.disabled : false}
+                href={b.url || null}
+                disabled={b.disabled || false}
                 color={"primary"}
                 variant="contained"
                 onClick={b.handleClick}

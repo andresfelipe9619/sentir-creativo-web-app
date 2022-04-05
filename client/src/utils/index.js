@@ -39,3 +39,28 @@ export const formatDate = (date, long = true) =>
     "es-CL",
     long ? longFormatOptions : shortFormatOptions
   );
+
+export function getPaginationData(pagination) {
+  console.log("pagination", pagination);
+  const { pageSize = 6, page = 1 } = pagination;
+  const _limit = pageSize;
+  const _start = (page - 1) * pageSize;
+  return { _limit, _start };
+}
+
+export function getQueryFilters(filters) {
+  const entries = Object.entries(filters);
+  console.log("entries", entries);
+  if (!entries.length) return null;
+  return entries.reduce((acc, [key, value]) => {
+    if (key === "pagination") {
+      return { ...acc, ...getPaginationData(value) };
+    }
+    if (Array.isArray(value) && value.length) {
+      return { ...acc, [`${key}.id`]: value.join() };
+    }
+    return { ...acc, [key]: value };
+  }, {});
+}
+
+export const map2select = ([value, label]) => ({ label, value });

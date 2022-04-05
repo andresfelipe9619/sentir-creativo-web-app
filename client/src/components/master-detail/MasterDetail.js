@@ -10,25 +10,34 @@ import Box from "@material-ui/core/Box";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MuiSwitch from "@material-ui/core/Switch";
 import { formatDate } from "../../utils";
-import DialogButton from '../buttons/DialogButton'
+import DialogButton from "../buttons/DialogButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {useAlertDispatch} from "../../providers/context/Alert";
+import { useAlertDispatch } from "../../providers/context/Alert";
 
 export default function MasterDetail({
-  masterProps,
-  detailProps,
-  service,
   create,
-  toggle,
+  detailProps,
+  lazy,
+  masterProps,
   renderMaster,
+  service,
+  toggle,
 }) {
   const match = useRouteMatch();
   const history = useHistory();
   const masterPath = match.path;
   const detailPath = `${masterPath}/:id`;
   const [open, setOpen] = useState(false);
-  const { data, loading, init, create: createEntity, api } = useAPI(service);
-  const { openAlert } = useAlertDispatch()
+  const {
+    api,
+    data,
+    loading,
+    init,
+    count,
+    loadMore,
+    create: createEntity,
+  } = useAPI({ service, lazy });
+  const { openAlert } = useAlertDispatch();
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id;
@@ -37,21 +46,21 @@ export default function MasterDetail({
 
   const handleRowsDelete = async (indexes, fn) => {
     try {
-      const ids = indexes.map((i) => data[i].id)
-      await Promise.all(ids.map(async (id) => await api.delete(id)))
-      init && await init()
+      const ids = indexes.map((i) => data[i].id);
+      await Promise.all(ids.map(async (id) => await api.delete(id)));
+      init && (await init());
       openAlert({
         variant: "success",
         message: "¡Borrado con éxito!",
       });
-    } catch(e) {
-      console.error(e)
+    } catch (e) {
+      console.error(e);
       openAlert({
         variant: "error",
         message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
       });
     } finally {
-      fn([])
+      fn([]);
     }
   };
 
@@ -62,7 +71,9 @@ export default function MasterDetail({
   const masterViewProps = {
     data,
     toggle,
+    count,
     loading,
+    loadMore,
     masterProps,
     renderMaster,
     handleClickRow,
@@ -119,9 +130,9 @@ function MasterView({
 
   const handleChange = (e) => setShowList(e.target.checked);
 
-  const showCustom = toggle && showList && renderMaster
+  const showCustom = toggle && showList && renderMaster;
 
-  if (showCustom && typeof data[0]?.destacado === 'boolean') {
+  if (showCustom && typeof data[0]?.destacado === "boolean") {
     data = data.sort((a, b) => +b.destacado - +a.destacado);
   }
 
@@ -156,11 +167,15 @@ function MasterView({
           data={data}
           loading={loading}
           onRowClick={handleClickRow}
-          customToolbarSelect={({ lookup }, _, fn) => <DialogButton color='grey' label={<DeleteIcon />}
-            onClose={async accepted => accepted && await handleRowsDelete(Object.keys(lookup), fn)}/>
-          }
-          // onRowsDelete={({ lookup }) => handleRowsDelete(Object.keys(lookup))}
-
+          customToolbarSelect={({ lookup }, _, fn) => (
+            <DialogButton
+              color="grey"
+              label={<DeleteIcon />}
+              onClose={async (accepted) =>
+                accepted && (await handleRowsDelete(Object.keys(lookup), fn))
+              }
+            />
+          )}
         />
       )}
     </>
