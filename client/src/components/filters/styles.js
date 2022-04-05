@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: [[1, "solid", "white"]],
   },
   accordionDetails: {
-    padding: 4,
+    padding: 2,
+    fontSize: 12,
   },
   root: {
     "& > *": {
@@ -66,10 +67,36 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0.5),
     },
   },
-  pagination: {
+  paginationRoot: {
+    display: "flex",
+    width: "100%",
+    backgroundColor: theme.palette.primary.dark,
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 4),
+  },
+  paginationUL: {
     padding: 4,
-    color: theme.palette.primary.main,
-    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.background.paper,
+    "& > li": {
+      backgroundColor: theme.palette.primary.dark,
+    },
+    "& > li > button": {
+      fontWeight: "bold",
+      color: theme.palette.primary.dark,
+      backgroundColor: theme.palette.background.paper,
+      "&:hover": {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.background.paper,
+      },
+    },
+    "& > li > button.Mui-selected": {
+      opacity: 0.8,
+      backgroundColor: theme.palette.background.paper,
+      "&:hover": {
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.primary.dark,
+      },
+    },
   },
 }));
 

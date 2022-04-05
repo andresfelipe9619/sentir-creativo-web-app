@@ -12,7 +12,7 @@ import MuiSwitch from "@material-ui/core/Switch";
 import { formatDate } from "../../utils";
 import DialogButton from "../buttons/DialogButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {useAlertDispatch} from "../../providers/context/Alert";
+import { useAlertDispatch } from "../../providers/context/Alert";
 
 export default function MasterDetail({
   create,
@@ -37,7 +37,7 @@ export default function MasterDetail({
     loadMore,
     create: createEntity,
   } = useAPI({ service, lazy });
-  const { openAlert } = useAlertDispatch()
+  const { openAlert } = useAlertDispatch();
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id;
@@ -46,21 +46,21 @@ export default function MasterDetail({
 
   const handleRowsDelete = async (indexes, fn) => {
     try {
-      const ids = indexes.map((i) => data[i].id)
-      await Promise.all(ids.map(async (id) => await api.delete(id)))
-      init && await init()
+      const ids = indexes.map((i) => data[i].id);
+      await Promise.all(ids.map(async (id) => await api.delete(id)));
+      init && (await init());
       openAlert({
         variant: "success",
         message: "¡Borrado con éxito!",
       });
-    } catch(e) {
-      console.error(e)
+    } catch (e) {
+      console.error(e);
       openAlert({
         variant: "error",
         message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
       });
     } finally {
-      fn([])
+      fn([]);
     }
   };
 
