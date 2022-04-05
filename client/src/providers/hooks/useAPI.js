@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import API from "../../api";
 import { getPaginationData } from "../../utils";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 10;
 
 export default function useAPI({
   service,
@@ -18,7 +18,7 @@ export default function useAPI({
   const init = useCallback(async () => {
     try {
       console.log("lazy", lazy);
-      let params = {};
+      let params = { _limit: -1 };
       if (lazy) {
         params = getPaginationData({ page, pageSize: PAGE_SIZE });
       }

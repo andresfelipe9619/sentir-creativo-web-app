@@ -119,7 +119,8 @@ export default function Areas() {
   function cleanState() {
     setServiceCount(0);
     setFilterOptions(defaultFilters);
-    searchOptions.length && setSearchOptions([]);
+    setSearchOptions([]);
+    setSearchValue(null);
   }
 
   async function loadArea() {
@@ -264,8 +265,9 @@ export default function Areas() {
           style={{
             color: "white",
             backgroundColor: color,
-            lineHeight: 1.15
-          }}>
+            lineHeight: 1.15,
+          }}
+        >
           {selectedArea.descripcion}
         </Typography>
       </Grid>

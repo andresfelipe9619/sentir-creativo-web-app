@@ -52,6 +52,19 @@ const columns = [
     },
   },
   {
+    name: "documentoIdentidad",
+    label: "Documento de Identidad",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "input",
+      inputType: "number",
+    },
+  },
+  {
     name: "email",
     label: "Email",
     options: {
