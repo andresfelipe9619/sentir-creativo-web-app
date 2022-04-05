@@ -6,8 +6,6 @@ import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import { formatDate } from '../../utils'
 import useAPI from "../../providers/hooks/useAPI";
 
@@ -23,7 +21,7 @@ const useStyles = makeStyles( ( theme ) => ( {
 
 export default function Comments ( props )
 {
-  const { title = 'Comentarios', data = [], initParent } = props;
+  const { title = 'Comentarios', data = [] } = props;
 
   const classes = useStyles();
 
