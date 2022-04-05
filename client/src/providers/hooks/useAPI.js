@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import API from "../../api";
 import { getPaginationData } from "../../utils";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 10;
 
 export default function useAPI({
   service,
