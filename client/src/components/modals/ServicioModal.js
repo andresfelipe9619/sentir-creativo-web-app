@@ -72,7 +72,7 @@ export default function ServicioModal({
   const handleFormSubmit = async (values) => {
     try {
       if (values.coupon?.trim()?.length) {
-        values.coupon = await validateCoupon(values.coupon)
+        values.coupon = await validateCoupon(values.coupon);
       }
       console.log(`values`, values);
       const result = await API.Proyecto.start({
@@ -86,21 +86,20 @@ export default function ServicioModal({
       console.error(error);
       openAlert({
         variant: "error",
-        message: error?.message || "Algo salió mal. Vuelve a intentarlo más tarde",
+        message:
+          error?.message || "Algo salió mal. Vuelve a intentarlo más tarde",
       });
     }
   };
 
   const validateCoupon = async (coupon) => {
-    const coupons = await API.CuponDescuento.getAll()
-    const currCoupon = coupons?.find(x => x.codigo === coupon)
+    const coupons = await API.CuponDescuento.getAll();
+    const currCoupon = coupons?.find((x) => x.codigo === coupon);
 
-    if (!currCoupon) {
-      throw new Error('Cupón inválido')
-    }
+    if (!currCoupon) throw new Error("Cupón inválido");
 
-    return currCoupon
-  }
+    return currCoupon;
+  };
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => ++prevActiveStep);
@@ -266,7 +265,7 @@ function Info({ values, errors, touched, service, handleChange, handleBlur }) {
 }
 
 function Format({ values, errors, handleChange }) {
-  const { data, loading } = useAPI("Formato", true);
+  const { data, loading } = useAPI({ service: "Formato", map: true });
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>
