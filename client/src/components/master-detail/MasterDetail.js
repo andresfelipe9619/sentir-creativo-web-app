@@ -28,10 +28,6 @@ export default function MasterDetail({
   const masterPath = match.path;
   const detailPath = `${masterPath}/:id`;
   const [open, setOpen] = useState(false);
-<<<<<<< HEAD
-  const { data, loading, init, create: createEntity, api } = useAPI(service);
-  const { openAlert } = useAlertDispatch()
-=======
   const {
     api,
     data,
@@ -41,7 +37,7 @@ export default function MasterDetail({
     loadMore,
     create: createEntity,
   } = useAPI({ service, lazy });
->>>>>>> 45e983b9fa607f45b016d52e57f84faa36b7cd2b
+  const { openAlert } = useAlertDispatch()
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id;
