@@ -183,8 +183,12 @@ function Filters({
               fontWeight: "bold",
             }}
           >
-            {count} experiencia{count === 1 ? "" : "s"} encontrada
-            {count === 1 ? "" : "s"}:
+            {loading
+              ? `Búscando experiencias ...`
+              : `${count} ${pluralize("experiencia", count)} ${pluralize(
+                  "encontrada",
+                  count
+                )}: `}
           </Grid>
           <Grid item md={5}>
             {!autocompleteValue && pagination}
@@ -207,8 +211,7 @@ function Filters({
         </Slide>
         <Grid
           item
-          pl={2}
-          pr={3}
+          px={1.5}
           pt={2}
           md={showFilters ? 9 : 12}
           bgcolor={"#212121"}
@@ -221,6 +224,10 @@ function Filters({
       </Grid>
     </ThemeProvider>
   );
+}
+
+function pluralize(word, count) {
+  return `${word}${count === 1 ? "" : "s"}`;
 }
 
 function FilterPagination({ loading, count, page, handleChangePage }) {
