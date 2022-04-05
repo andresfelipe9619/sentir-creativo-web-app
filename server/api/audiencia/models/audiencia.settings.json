@@ -98,6 +98,10 @@
     },
     "ciudad": {
       "model": "ciudad"
+    },
+    "documentoIdentidad": {
+      "type": "biginteger",
+      "unique": true
     }
   }
 }
