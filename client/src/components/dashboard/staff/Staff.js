@@ -2,8 +2,8 @@ import { Grid } from "@material-ui/core";
 import React from "react";
 import MasterDetail from "../../master-detail/MasterDetail";
 import AdminStaffCard from "../../card/AdminStaffCard";
-import useResponsiveCard from "../../../providers/hooks/useResponsiveCard";
 import columns from "./columns";
+import PaginatedCards from "../../card/PaginatedCards";
 
 export default function Staf() {
   const master = {
@@ -13,19 +13,17 @@ export default function Staf() {
   const detail = {
     columns,
   };
-  const length = useResponsiveCard();
+
   return (
     <Grid item md={12}>
       <MasterDetail
         toggle
-        renderMaster={({ data }) => (
-          <Grid item container md={12}>
-            {data.map((a) => (
-              <Grid item key={a.id} xs={12 / length} md={4} xl={3}>
-                <AdminStaffCard staff={a} />
-              </Grid>
-            ))}
-          </Grid>
+        renderMaster={({ data, loading }) => (
+          <PaginatedCards
+            data={data}
+            loading={loading}
+            renderCard={(item) => <AdminStaffCard staff={item} />}
+          />
         )}
         masterProps={master}
         detailProps={detail}

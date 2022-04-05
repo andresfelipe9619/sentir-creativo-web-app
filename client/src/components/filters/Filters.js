@@ -16,11 +16,12 @@ import { CheckboxGroup } from "../radio";
 import { useTheme } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Pagination from "@material-ui/lab/Pagination";
 import useStyles from "./styles";
 import Spinner from "../spinner/Spinner";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Slide from "@material-ui/core/Slide";
+import FilterPagination from "./FilterPagination";
+import { pluralize } from "../../utils";
 
 const PAGE_SIZE = 6;
 
@@ -93,10 +94,13 @@ function Filters({
       return setFilterOptions(fo.name);
     })
     .flatMap((f) => f);
+
   const pagination = (
-    <FilterPagination {...{ loading, count, page, handleChangePage }} />
+    <FilterPagination
+      {...{ loading, count, page, pageSize: PAGE_SIZE, handleChangePage }}
+    />
   );
-  console.log("filterOptions aSDasda", filterOptions);
+
   return (
     <ThemeProvider theme={areaTheme}>
       <AppBar
@@ -223,27 +227,6 @@ function Filters({
         {pagination}
       </Grid>
     </ThemeProvider>
-  );
-}
-
-function pluralize(word, count) {
-  return `${word}${count === 1 ? "" : "s"}`;
-}
-
-function FilterPagination({ loading, count, page, handleChangePage }) {
-  const classes = useStyles();
-
-  return (
-    <Pagination
-      disabled={loading}
-      count={Math.ceil(count / PAGE_SIZE)}
-      color="standard"
-      page={page}
-      classes={{ root: classes.paginationRoot, ul: classes.paginationUL }}
-      onChange={handleChangePage}
-      variant="outlined"
-      shape="rounded"
-    />
   );
 }
 

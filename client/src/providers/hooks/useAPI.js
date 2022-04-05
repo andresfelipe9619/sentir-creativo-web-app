@@ -18,7 +18,7 @@ export default function useAPI({
   const init = useCallback(async () => {
     try {
       console.log("lazy", lazy);
-      let params = {};
+      let params = { _limit: -1 };
       if (lazy) {
         params = getPaginationData({ page, pageSize: PAGE_SIZE });
       }

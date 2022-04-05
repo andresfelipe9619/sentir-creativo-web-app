@@ -61,7 +61,7 @@ function AdminCard({
     </Box>
   );
   return (
-    <Card className={classes.root} elevation={5}>
+    <Card className={classes.root} elevation={2}>
       {floatingHeader && (
         <FloatingHeader {...floatingHeader} classes={classes} />
       )}
