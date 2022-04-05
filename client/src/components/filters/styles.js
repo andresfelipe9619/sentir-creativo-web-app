@@ -3,7 +3,7 @@ import { alpha, makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   title: { fontWeight: "bold", fontSize: "24rm" },
   slogan: { fontSize: "24em" },
-  toolbar: { background: "#F5F5F5", zIndex: 1 },
+  toolbar: { background: "#F5F5F5", zIndex: 1010, top: '4rem' },
   accordion: {
     color: "white",
     background: theme.palette.primary.dark,

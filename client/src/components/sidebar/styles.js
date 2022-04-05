@@ -61,7 +61,6 @@ export const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(0),
-    overflowX: "hidden",
     [theme.breakpoints.between("xs", "sm")]: {
       marginTop: barHeight - 6,
     },
