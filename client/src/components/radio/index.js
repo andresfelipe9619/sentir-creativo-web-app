@@ -13,8 +13,13 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   formControl: {
-    margin: theme.spacing(2, 1),
-    padding: 2
+    margin: theme.spacing(1, 1, 2, 0),
+  },
+  controlLabel: {
+    margin: theme.spacing(1),
+  },
+  label: {
+    lineHeight: 1,
   },
 }));
 
@@ -29,7 +34,7 @@ export default function RadioButtonsGroup({
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">{legend}</FormLabel>
+        {legend && <FormLabel component="legend">{legend}</FormLabel>}
         <RadioGroup
           row
           name={name}
@@ -59,16 +64,18 @@ export function CheckboxGroup(props) {
   return (
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">{legend}</FormLabel>
+        {legend && <FormLabel component="legend">{legend}</FormLabel>}
         <FormGroup>
           {options.map((o) => {
             return (
               <FormControlLabel
                 key={o.value}
+                classes={{ root: classes.controlLabel, label: classes.label }}
                 value={+o.value}
                 control={
                   <Checkbox
                     color="primary"
+                    size="small"
                     name={name}
                     disabled={disabled}
                     onChange={handleChange}
