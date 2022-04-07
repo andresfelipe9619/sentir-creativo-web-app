@@ -11,10 +11,12 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "aws-sdk": "^2.1108.0",
     "bookshelf": "^1.2.0",
     "knex": "^0.95.14",
     "mui-datatables": "^4.0.0",
     "mysql": "^2.18.1",
+    "sharp": "^0.30.3",
     "strapi": "3.6.9",
     "strapi-admin": "3.6.9",
     "strapi-connector-bookshelf": "^3.6.9",

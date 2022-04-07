@@ -144,6 +144,7 @@ const columns = [
     form: {
       size: 6,
       type: "select",
+      renderLabel: (i) => `${i.nombre} • ${i?.organizacion?.nombre || ""}`,
       dependency: "Audiencia",
     },
   },
