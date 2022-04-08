@@ -26,14 +26,17 @@ const buttonsStyle = {
   textAlign: "left",
   textTransform: "none",
   flex: "1 1 auto",
-  justifyContent: "flex-start",
+  justifyContent: "flex-start"
 };
 export function MobileAreasButtons({ areas, goTo, classes }) {
   const { pathname } = useLocation();
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    if (!pathname.includes("areas")) return;
+    if (!pathname.includes("areas")) {
+      setValue(null);
+      return;
+    }
     let [id] = pathname.split("/").reverse();
     console.log("id", id);
     if (id && +id !== +value) {
@@ -117,7 +120,7 @@ export function MobileHeader({ areas, classes, goTo }) {
               startIcon={
                 <img src={LogoYellow} width={48} height={"auto"} alt="logo sentir creativo" />
               }
-              onClick={() => goTo(`/about`)()}
+              onClick={() => goTo(`/`)()}
             >
               SentirCreativo.com
             </Button>

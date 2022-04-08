@@ -8,7 +8,7 @@ import Card from "../components/card/ServiceCard";
 import { useHistory, useParams } from "react-router-dom";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme, createTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Spinner from "../components/spinner/Spinner";
 import { getAreaBackground, getQueryFilters, map2select } from "../utils";
@@ -192,6 +192,11 @@ export default function Areas() {
   if (!selectedArea) return null;
 
   const color = selectedArea.colorPrimario;
+  const areaTheme = createTheme({
+    palette: {
+      primary: { main: color },
+    }
+  })
   const servicesToShow = searchValue ? [searchValue] : services;
 
   return (
@@ -264,8 +269,9 @@ export default function Areas() {
           component="h6"
           style={{
             color: "white",
-            backgroundColor: color,
+            backgroundColor: areaTheme.palette.primary.dark,
             lineHeight: 1.15,
+            padding: '0.5rem',
           }}
         >
           {selectedArea.descripcion}
