@@ -321,6 +321,15 @@ const TecnicaArtistica = {
   delete: (id) => serverRequests.del(`/tecnica-artisticas/${id}`),
 };
 
+const Comentarios = {
+  getAll: () => serverRequests.get(`/comentarios`),
+  get: (id) => serverRequests.get(`/comentarios/${id}`),
+  create: (tecnica) => serverRequests.post("/comentarios", tecnica),
+  update: (id, tecnica) =>
+    serverRequests.put(`/comentarios/${id}`, tecnica),
+  delete: (id) => serverRequests.del(`/comentarios/${id}`),
+};
+
 const API = {
   Acuerdo,
   Antiguedad,
@@ -359,6 +368,7 @@ const API = {
   User,
   getToken,
   setToken,
+  Comentarios
 };
 
 export default API;
