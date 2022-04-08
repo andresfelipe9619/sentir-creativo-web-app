@@ -22,6 +22,7 @@ import MuiPhoneNumber from "material-ui-phone-number";
 import Bitacora from "../bitacora/Bitacora";
 import Upload from "../files/Upload";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Comments from '../commets';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -238,6 +239,7 @@ export default function FormItem(props) {
     bitacora: canRender("bitacora") && (
       <Bitacora data={value} {...fieldProps} />
     ),
+    comments: canRender("comments") && <Comments data={value} {...fieldProps} {...{ parent, initParent }} />
   };
   return (
     <Grid item xs={12} md={size}>

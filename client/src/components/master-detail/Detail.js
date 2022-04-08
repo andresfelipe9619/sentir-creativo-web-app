@@ -27,14 +27,15 @@ export default function Detail({ columns, service, match, reloadMaster }) {
   const handleFormSubmit = useCallback(
     async (values) => {
       try {
-        const result = await API[service].update(entityId, values);
-        console.log(`result`, result);
-        reloadMaster && reloadMaster();
-        openAlert({
-          variant: "success",
-          message: "Datos guardados exitosamente!",
-        });
-        setInputsChanged([]);
+        console.log('VALUES ->', values);
+        // const result = await API[service].update(entityId, values);
+        // console.log(`result`, result);
+        // reloadMaster && reloadMaster();
+        // openAlert({
+        //   variant: "success",
+        //   message: "Datos guardados exitosamente!",
+        // });
+        // setInputsChanged([]);
       } catch (error) {
         console.error(error);
         openAlert({
