@@ -83,7 +83,8 @@ export default function FormItem(props) {
         <KeyboardDateTimePicker
           disableToolbar
           variant="inline"
-          format="dd/MM/yyyy HH:mm"
+          format="dd/MM/yyyy hh:mm a"
+          ampm={false}
           margin="normal"
           id={key}
           fullWidth
