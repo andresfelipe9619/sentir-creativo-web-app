@@ -6,6 +6,8 @@ import { useAlertDispatch } from "../../providers/context/Alert";
 import FormItem from "../master-detail/FormItem";
 import useFormDependencies from "../../providers/hooks/useFormDependencies";
 
+const EXCLUDED_FIELDS = ["bitacora", "file", "tag"];
+
 export default function CreateEntity({
   open,
   entity,
@@ -14,9 +16,12 @@ export default function CreateEntity({
   handleCreate,
   ...props
 }) {
+  const filteredColumns = (columns || []).filter(
+    (column) => !EXCLUDED_FIELDS.includes(column?.form?.type)
+  );
   const { openAlert } = useAlertDispatch();
   const { dependencies, loadDependencies, loadingDependencies } =
-    useFormDependencies(columns);
+    useFormDependencies(filteredColumns);
 
   useEffect(() => {
     loadDependencies();
@@ -40,7 +45,7 @@ export default function CreateEntity({
       });
     }
   };
-  const initialValues = columns.reduce((acc, col) => {
+  const initialValues = filteredColumns.reduce((acc, col) => {
     let key = col.name;
     acc[key] = "";
     if (col.form.type === "date") {
@@ -65,7 +70,7 @@ export default function CreateEntity({
           >
             <form>
               <Grid container spacing={4}>
-                {columns.map((item, i) => (
+                {filteredColumns.map((item, i) => (
                   <FormItem
                     key={i}
                     item={item}
