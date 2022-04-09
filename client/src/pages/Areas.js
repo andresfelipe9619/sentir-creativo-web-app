@@ -241,7 +241,7 @@ export default function Areas() {
           gutterBottom
           style={{
             color: "white",
-            backgroundColor: color,
+            backgroundColor: areaTheme.palette.primary.dark,
             padding: "0 1.5rem",
             fontSize: isSmall ? 14 : 24
           }}
