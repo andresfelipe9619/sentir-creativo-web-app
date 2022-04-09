@@ -198,8 +198,8 @@ export const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: "10rem",
-    margin: theme.spacing(0, -1),
-    width: `calc(100% + ${theme.spacing(1) * 2}px)`,
+    // margin: theme.spacing(0, -1),
+    // width: `calc(100% + ${theme.spacing(1) * 2}px)`,
     backgroundColor: COLORS.bg,
     overflow: "hidden",
     [theme.breakpoints.up("lg")]: {

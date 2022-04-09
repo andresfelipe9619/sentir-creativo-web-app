@@ -241,7 +241,7 @@ export default function AppFooter() {
 
 function Copyright() {
   return (
-    <Box bgcolor="rgba(0 0 0 / 20%)" width="100%" color="#fff" px={4} py={1} mb={-3}>
+    <Box bgcolor="rgba(0 0 0 / 20%)" width="100%" color="#fff" px={4} py={1} style={{ marginBottom: -23 }}>
       <Link color="inherit" href={HOST}>
         {DOMAIN}.com
       </Link>{" "}

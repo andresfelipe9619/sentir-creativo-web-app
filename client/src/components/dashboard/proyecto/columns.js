@@ -204,14 +204,17 @@ const columns = [
     },
   },
   {
-    name: "delete",
-    label: "Delete",
+    name: "comentarios",
+    label: "Comentarios",
     options: {
       display: false,
       filter: false,
       sort: false,
     },
-    form: {},
+    form: {
+      size: 12,
+      type: "comments"
+    },
   },
 ];
 export default columns;

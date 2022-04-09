@@ -13,7 +13,7 @@ const barProps = (theme) => ({
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
+    display: "block",
   },
   navigation: {
     display: "flex",
@@ -28,7 +28,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   navigationButton: {
-    fontSize: "0.8em",
+    fontSize: ".75rem !important",
     marginRight: 'auto'
   },
   appBar: barProps(theme),

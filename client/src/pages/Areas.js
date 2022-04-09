@@ -8,7 +8,7 @@ import Card from "../components/card/ServiceCard";
 import { useHistory, useParams } from "react-router-dom";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme, createTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Spinner from "../components/spinner/Spinner";
 import { getAreaBackground, getQueryFilters, map2select } from "../utils";
@@ -192,6 +192,11 @@ export default function Areas() {
   if (!selectedArea) return null;
 
   const color = selectedArea.colorPrimario;
+  const areaTheme = createTheme({
+    palette: {
+      primary: { main: color },
+    }
+  })
   const servicesToShow = searchValue ? [searchValue] : services;
 
   return (
@@ -236,8 +241,9 @@ export default function Areas() {
           gutterBottom
           style={{
             color: "white",
-            backgroundColor: color,
+            backgroundColor: areaTheme.palette.primary.dark,
             padding: "0 1.5rem",
+            fontSize: isSmall ? 14 : 24
           }}
         >
           {selectedArea.nombre.toUpperCase()}
@@ -251,7 +257,7 @@ export default function Areas() {
           {selectedArea.slogan.split(" ").map((x, i) => {
             const sloganStyle = {
               fontWeight: i === 0 ? "300" : "900",
-              fontSize: 64,
+              fontSize: isSmall ? 48 : 64,
               lineHeight: 1.15,
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
             };
@@ -264,8 +270,10 @@ export default function Areas() {
           component="h6"
           style={{
             color: "white",
-            backgroundColor: color,
+            backgroundColor: areaTheme.palette.primary.dark,
             lineHeight: 1.15,
+            padding: '0.5rem',
+            fontSize: isSmall ? 14 : 18
           }}
         >
           {selectedArea.descripcion}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
 import { useDarkMode } from "./theme";
@@ -20,9 +20,13 @@ console.log("underConstruction", underConstruction);
 function App() {
   const [theme] = useDarkMode();
   const themeConfig = createTheme(theme);
-  const location = useLocation();
-  const isAdminArea = location.pathname.includes("admin");
+  const { pathname } = useLocation();
+  const isAdminArea = pathname.includes("admin");
   const user = useUserState();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   let content = <RouterApp />;
   if (isAdminArea) content = <DashboardSidebar>{content}</DashboardSidebar>;
