@@ -15,9 +15,6 @@
     "nombre": {
       "type": "string"
     },
-    "impacto": {
-      "type": "string"
-    },
     "fechaInicio": {
       "type": "datetime"
     },
@@ -77,6 +74,9 @@
     },
     "ciudad": {
       "model": "ciudad"
+    },
+    "impacto": {
+      "type": "biginteger"
     }
   }
 }
