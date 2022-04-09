@@ -241,8 +241,9 @@ export default function Areas() {
           gutterBottom
           style={{
             color: "white",
-            backgroundColor: color,
+            backgroundColor: areaTheme.palette.primary.dark,
             padding: "0 1.5rem",
+            fontSize: isSmall ? 14 : 24
           }}
         >
           {selectedArea.nombre.toUpperCase()}
@@ -256,7 +257,7 @@ export default function Areas() {
           {selectedArea.slogan.split(" ").map((x, i) => {
             const sloganStyle = {
               fontWeight: i === 0 ? "300" : "900",
-              fontSize: 64,
+              fontSize: isSmall ? 48 : 64,
               lineHeight: 1.15,
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
             };
@@ -272,6 +273,7 @@ export default function Areas() {
             backgroundColor: areaTheme.palette.primary.dark,
             lineHeight: 1.15,
             padding: '0.5rem',
+            fontSize: isSmall ? 14 : 18
           }}
         >
           {selectedArea.descripcion}
