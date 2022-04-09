@@ -100,7 +100,7 @@
       "model": "ciudad"
     },
     "documentoIdentidad": {
-      "type": "biginteger",
+      "type": "string",
       "unique": true
     }
   }

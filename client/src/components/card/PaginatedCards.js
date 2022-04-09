@@ -55,6 +55,24 @@ export default function PaginatedCards(props) {
           </Grid>
         ))}
       </Grid>
+      <Box
+        width="100%"
+        mb={5}
+        mt={2}
+        display="flex"
+        justifyContent="flex-end"
+        fontWeight={"bold"}
+      >
+        <Pagination
+          disabled={loading}
+          count={Math.ceil(count / PAGE_SIZE)}
+          color="standard"
+          page={page}
+          onChange={handleChangePage}
+          variant="outlined"
+          shape="rounded"
+        />
+      </Box>
     </Box>
   );
 }
