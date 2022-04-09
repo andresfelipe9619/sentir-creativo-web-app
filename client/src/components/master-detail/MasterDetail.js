@@ -15,7 +15,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useAlertDispatch } from "../../providers/context/Alert";
 
 export default function MasterDetail({
-  create,
   detailProps,
   lazy,
   masterProps,
@@ -37,7 +36,7 @@ export default function MasterDetail({
     loadMore,
     create: createEntity,
   } = useAPI({ service, lazy });
-  const { openAlert } = useAlertDispatch()
+  const { openAlert } = useAlertDispatch();
 
   const handleClickRow = (_, { dataIndex }) => {
     const entityId = data[dataIndex].id;
@@ -111,7 +110,7 @@ export default function MasterDetail({
         loading={loading}
         {...detailProps}
       />
-      {create && <SpeedDial service={service} handleCreate={handleOpenModal} />}
+      <SpeedDial service={service} handleCreate={handleOpenModal} />
     </>
   );
 }
