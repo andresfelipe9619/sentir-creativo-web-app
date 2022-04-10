@@ -6,7 +6,7 @@ import { useAlertDispatch } from "../../providers/context/Alert";
 import FormItem from "../master-detail/FormItem";
 import useFormDependencies from "../../providers/hooks/useFormDependencies";
 
-const EXCLUDED_FIELDS = ["bitacora", "file", "tag"];
+const EXCLUDED_FIELDS = ["bitacora", "file", "tag", "comments"];
 
 export default function CreateEntity({
   open,
