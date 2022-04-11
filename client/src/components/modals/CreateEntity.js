@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import GenericModal from "./GenericModal";
 import Grid from "@material-ui/core/Grid";
 import { Formik } from "formik";
+import * as Yup from "yup";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import FormItem from "../master-detail/FormItem";
 import useFormDependencies from "../../providers/hooks/useFormDependencies";
@@ -39,23 +40,24 @@ export default function CreateEntity({
       handleClose();
     } catch (error) {
       console.error(error);
+      const message =
+        error?.message || "Algo salió mal. Vuelve a intentarlo más tarde";
+
       openAlert({
+        message,
         variant: "error",
-        message: "Algo salió mal. Vuelve a intentarlo más tarde",
       });
     }
   };
-  const initialValues = filteredColumns.reduce((acc, col) => {
-    let key = col.name;
-    acc[key] = "";
-    if (col.form.type === "date") {
-      acc[key] = new Date();
-    }
-    return acc;
-  }, {});
 
+  const { validationSchema, initialValues } = getFormProps(filteredColumns);
+  console.log("validationSchema", validationSchema);
   return (
-    <Formik onSubmit={handleFormSubmit} initialValues={initialValues}>
+    <Formik
+      onSubmit={handleFormSubmit}
+      initialValues={initialValues}
+      validationSchema={Yup.object(validationSchema)}
+    >
       {({ handleSubmit, ...formikProps }) => {
         return (
           <GenericModal
@@ -65,7 +67,6 @@ export default function CreateEntity({
             loading={loadingDependencies}
             handleConfirm={handleSubmit}
             title={`Crear ${entity}`}
-            // disableOk={Object.values(formikProps.values).some(v => !v)}
             isSubmitting={formikProps.isSubmitting}
           >
             <form>
@@ -85,4 +86,34 @@ export default function CreateEntity({
       }}
     </Formik>
   );
+}
+
+function getFormProps(columns) {
+  const result = columns.reduce(
+    (acc, col) => {
+      const { name: key, form } = col;
+      const { inputType: type, required } = form;
+
+      acc.initialValues[key] = "";
+      if (type === "number") {
+        acc.initialValues[key] = 0;
+      }
+      if (type === "date") {
+        acc.initialValues[key] = new Date();
+      }
+      if (type === "email") {
+        let validation = Yup.string().email("Correo inválido!");
+        acc.initialValues[key] = "";
+        acc.validationSchema[key] = validation;
+
+        if (required) {
+          acc.validationSchema[key] = validation.required("Correo requerido!");
+        }
+      }
+
+      return acc;
+    },
+    { validationSchema: {}, initialValues: {} }
+  );
+  return result;
 }
