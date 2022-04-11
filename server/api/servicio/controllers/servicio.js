@@ -16,7 +16,8 @@ const populate = [
   'archivos',
   'condicions',
   'tecnica_artisticas',
-  'archivos.tipo_archivo'
+  'archivos.tipo_archivo',
+  'comentarios'
 ]
 
 module.exports = {
