@@ -61,6 +61,7 @@ const columns = [
     form: {
       size: 4,
       type: "input",
+      required: true,
       inputType: "email",
     },
   },
@@ -87,7 +88,7 @@ const columns = [
     form: {
       size: 4,
       type: "input",
-      inputType: "tel",
+      inputType: "number",
     },
   },
   {
@@ -113,6 +114,7 @@ const columns = [
     form: {
       size: 4,
       type: "input",
+      inputType: "number",
     },
   },
   {
