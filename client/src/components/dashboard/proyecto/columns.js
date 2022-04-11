@@ -36,6 +36,7 @@ const columns = [
     form: {
       size: 4,
       type: "input",
+      inputType: "number",
     },
   },
   {
