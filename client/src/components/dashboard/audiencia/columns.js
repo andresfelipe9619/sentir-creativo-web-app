@@ -304,6 +304,19 @@ const columns = [
       type: "bitacora",
     },
   },
+  {
+    name: "comentarios",
+    label: "Comentarios",
+    options: {
+      display: false,
+      filter: false,
+      sort: false,
+    },
+    form: {
+      size: 12,
+      type: "comments"
+    },
+  }
 ];
 
 export default columns;

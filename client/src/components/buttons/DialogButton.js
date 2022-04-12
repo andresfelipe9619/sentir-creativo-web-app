@@ -14,7 +14,8 @@ export default function DialogButton(props) {
         description = '¿Estas seguro que quieres eliminar este elemento?',
         onClose,
         buttonProps,
-        color = 'primary'
+        color = 'primary',
+        disabled = false
     } = props
 
   const [open, setOpen] = useState(false);
@@ -34,36 +35,35 @@ export default function DialogButton(props) {
 
     return (
         <>
-            <Button type='button' size='small' color={color} onClick={openDialog} disabled={loading}
-                {...buttonProps}>
-                {!loading ? label : <CircularProgress />}
-            </Button>
+          <Button type='button' size='small' color={color} onClick={openDialog} disabled={disabled || loading}
+              {...buttonProps}>
+              {!loading ? label : <CircularProgress />}
+          </Button>
 
-      <Dialog
-        open={open}
-        onClose={() => closeDialog(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+          <Dialog
+            open={open}
+            onClose={() => closeDialog(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
 
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {description}
-          </DialogContentText>
-        </DialogContent>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {description}
+              </DialogContentText>
+            </DialogContent>
 
-        {!loading && (
-          <DialogActions>
-            <Button onClick={() => closeDialog(false)} color="primary">
-              No
-            </Button>
+            {!loading && (
+              <DialogActions>
+                <Button onClick={() => closeDialog(false)} color="primary">
+                  No
+                </Button>
 
-                        <Button onClick={() => closeDialog(true)} color="primary" autoFocus>
-                            Si
-                        </Button>
-                    </DialogActions>
-                )}
+                <Button onClick={() => closeDialog(true)} color="primary" autoFocus>
+                    Si
+                </Button>
+              </DialogActions>)}
             </Dialog>
         </>
     );
