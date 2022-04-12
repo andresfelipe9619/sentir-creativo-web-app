@@ -18,6 +18,9 @@
     "staf": {
       "via": "comentarios",
       "model": "staf"
+    },
+    "creador": {
+      "type": "string"
     }
   }
 }

@@ -12,6 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { formatDate } from '../../utils'
 import { useAlertDispatch } from "../../providers/context/Alert"
+import { useUserState } from "../../providers/context/User"
 import API from '../../api'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
@@ -41,13 +42,10 @@ export default function Comments(props) {
   const [activeId, setActiveId] = useState(0);
 
   const params = useParams();
-
   const { openAlert } = useAlertDispatch();
+  const user = useUserState();
 
   const editing = activeId > 0;
-
-  console.clear();
-  console.log('PARENT NAME ->', parent[0]?.toUpperCase() + parent?.slice(1))
 
   const handleAddComment = async () => {
     try {
@@ -58,7 +56,7 @@ export default function Comments(props) {
 
       if (!params.id) return;
       setLoading(true);
-      const created = await API.Comentarios.create({ comentario: value });
+      const created = await API.Comentarios.create({ comentario: value, creador: user?.email || '' });
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
       const parentService = API[parentServiceName];
       await parentService.update(params.id, { comentarios: [ ...data, created ]});
@@ -80,7 +78,7 @@ export default function Comments(props) {
       if (!params.id) return
 
       setLoading(true);
-      const updated = await API.Comentarios.update(activeId, { comentario: value })
+      const updated = await API.Comentarios.update(activeId, { comentario: value, creador: user?.email || '' })
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1)
       const parentService = API[parentServiceName]
 
@@ -185,8 +183,8 @@ export default function Comments(props) {
                   &bull;
                   {' ' + new Date(x?.created_at).toLocaleTimeString("es-CL").slice(0, 5)}
                 </Typography>
-                <Typography variant="body2" color="primary">
-                  {x?.staf}
+                <Typography variant="caption" color="primary">
+                  {x?.creador}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
