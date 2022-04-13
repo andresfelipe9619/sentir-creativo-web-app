@@ -106,7 +106,7 @@ module.exports = {
       const proyecto = await strapi.services.proyecto.create({
         nombre: servicio.nombre,
         formato,
-        impacto: `${impacto} personas`,
+        impacto,
         audiencia: audience.id,
         // estado: 1,
         tipoProyecto: 3,
