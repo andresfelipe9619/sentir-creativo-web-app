@@ -26,7 +26,7 @@ export default function Upload(props) {
         value={showArea ? 0 : 1}
         indicatorColor="primary"
         textColor="primary"
-        onChange={(_, value) => setShowArea(value === 0 ? true : false)}
+        onChange={(_, value) => setShowArea(value === 0)}
       >
         <Tab label="Dropzone" />
         <Tab label="Path" />

@@ -84,7 +84,7 @@ function AdminAudienceCard({ audience }) {
     createData("Cercanía", cercania?.nombre),
     createData("Motivación", motivacion?.nombre),
     createData("Origen", origen?.nombre),
-    createData("Ciudad", ciudad),
+    createData("Ciudad", ciudad?.nombre),
     createData("Cupón", sliceItems(cuponDescuento?.map((x) => x?.codigo))),
   ];
 
