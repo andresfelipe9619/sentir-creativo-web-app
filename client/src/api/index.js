@@ -33,38 +33,32 @@ const serverRequests = {
   post: (url, body) => server.post(`${url}`, body).then(responseBody),
 };
 
+const Factory = (service, props = {}) => {
+  const services = {
+    getAll: (config) => serverRequests.get(`/${service}`, config),
+    count: (config) => serverRequests.get(`/${service}/count`, config),
+    get: (id) => serverRequests.get(`/${service}/${id}`),
+    create: (item) => serverRequests.post(`/${service}`, item),
+    update: (id, item) => serverRequests.put(`/${service}/${id}`, item),
+    delete: (id) => serverRequests.del(`/${service}/${id}`),
+    ...props,
+  };
+  return services;
+};
+
 const Auth = {
   login: (user) => serverRequests.post("/auth/local", user),
   loginGoogle: (user) => serverRequests.post("/login/google", user),
   register: (user) => serverRequests.post("/auth/local/register", user),
 };
 
-const Proyecto = {
-  getAll: (config) => serverRequests.get(`/proyectos`, config),
-  count: (config) => serverRequests.get(`/proyectos/count`, config),
-  get: (id) => serverRequests.get(`/proyectos/${id}`),
-  create: (project) => serverRequests.post("/proyectos", project),
+const Proyecto = Factory("proyectos", {
   start: (project) => serverRequests.post("/proyectos/start", project),
-  update: (id, project) => serverRequests.put(`/proyectos/${id}`, project),
-  delete: (id) => serverRequests.del(`/proyectos/${id}`),
-};
+});
 
-const Servicio = {
-  getAll: (config) => serverRequests.get(`/servicios`, config),
-  count: (config) => serverRequests.get(`/servicios/count`, config),
-  get: (id) => serverRequests.get(`/servicios/${id}`),
-  create: (service) => serverRequests.post("/servicios", service),
-  update: (id, service) => serverRequests.put(`/servicios/${id}`, service),
-  delete: (id) => serverRequests.del(`/servicios/${id}`),
-};
+const Servicio = Factory("servicios");
 
-const Area = {
-  getAll: (config) => serverRequests.get(`/areas`, config),
-  get: (id) => serverRequests.get(`/areas/${id}`),
-  create: (area) => serverRequests.post("/areas", area),
-  update: (id, area) => serverRequests.put(`/areas/${id}`, area),
-  delete: (id) => serverRequests.del(`/areas/${id}`),
-};
+const Area = Factory("areas");
 
 const Tag = {
   getAll: () => serverRequests.get(`/tags`),
@@ -321,14 +315,13 @@ const TecnicaArtistica = {
   delete: (id) => serverRequests.del(`/tecnica-artisticas/${id}`),
 };
 
-const Comentarios = {
-  getAll: () => serverRequests.get(`/comentarios`),
-  get: (id) => serverRequests.get(`/comentarios/${id}`),
-  create: (tecnica) => serverRequests.post("/comentarios", tecnica),
-  update: (id, tecnica) =>
-    serverRequests.put(`/comentarios/${id}`, tecnica),
-  delete: (id) => serverRequests.del(`/comentarios/${id}`),
-};
+const Comentarios = Factory("comentarios");
+
+const Ciudad = Factory("ciudads");
+
+const Region = Factory("regions");
+
+const Pais = Factory("pais");
 
 const API = {
   Acuerdo,
@@ -339,21 +332,25 @@ const API = {
   Audiencia,
   Auth,
   Cercania,
-  Condicion,
+  Ciudad,
   Coleccion,
+  Comentarios,
+  Condicion,
   CuponDescuento,
   Difusion,
   EstadoProyecto,
   Formato,
   Motivacion,
   Ocasion,
-  Origen,
   Organizacion,
+  Origen,
+  Pais,
   Prefijo,
   Prioridad,
   Proposito,
   Proyecto,
   PublicoObjetivo,
+  Region,
   Rubro,
   ServiceState,
   Servicio,
@@ -368,7 +365,6 @@ const API = {
   User,
   getToken,
   setToken,
-  Comentarios
 };
 
 export default API;
