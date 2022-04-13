@@ -92,16 +92,22 @@ function getFormProps(columns) {
   const result = columns.reduce(
     (acc, col) => {
       const { name: key, form } = col;
-      const { inputType: type, required } = form;
+      const { inputType, type: formType, required } = form;
 
       acc.initialValues[key] = "";
-      if (type === "number") {
+      if (inputType === "number") {
         acc.initialValues[key] = 0;
       }
-      if (type === "date") {
+      if (formType === "date") {
         acc.initialValues[key] = new Date();
       }
-      if (type === "email") {
+      if (formType === "input" && !inputType) {
+        let validation = Yup.string();
+        if (required) {
+          acc.validationSchema[key] = validation.required("Campo requerido!");
+        }
+      }
+      if (inputType === "email") {
         let validation = Yup.string().email("Correo inválido!");
         acc.initialValues[key] = "";
         acc.validationSchema[key] = validation;
