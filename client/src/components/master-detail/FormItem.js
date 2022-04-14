@@ -1,4 +1,5 @@
 import "date-fns";
+import PropTypes from "prop-types";
 import React from "react";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -22,7 +23,8 @@ import MuiPhoneNumber from "material-ui-phone-number";
 import Bitacora from "../bitacora/Bitacora";
 import Upload from "../files/Upload";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Comments from '../commets';
+import Comments from "../commets";
+import CitySelect from "../city-select/CitySelect";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -240,7 +242,10 @@ export default function FormItem(props) {
     bitacora: canRender("bitacora") && (
       <Bitacora data={value} {...fieldProps} />
     ),
-    comments: canRender("comments") && <Comments data={value} {...fieldProps} {...{ parent, initParent }} />
+    city: canRender("city") && <CitySelect {...props} item={item} />,
+    comments: canRender("comments") && (
+      <Comments data={value} {...fieldProps} {...{ parent, initParent }} />
+    ),
   };
   return (
     <Grid item xs={12} md={size}>
@@ -261,3 +266,18 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }));
+
+FormItem.propTypes = {
+  name: PropTypes.string,
+  parent: PropTypes.string,
+  isSubmitting: PropTypes.bool,
+  item: PropTypes.object,
+  values: PropTypes.object,
+  errors: PropTypes.object,
+  touched: PropTypes.object,
+  dependencies: PropTypes.object,
+  initParent: PropTypes.func,
+  setFieldValue: PropTypes.func,
+  handleChange: PropTypes.func,
+  handleBlur: PropTypes.func,
+};
