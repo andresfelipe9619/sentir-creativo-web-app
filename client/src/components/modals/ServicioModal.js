@@ -18,7 +18,7 @@ import Spinner from "../spinner/Spinner";
 import RadioGroup from "../radio";
 import useAPI from "../../providers/hooks/useAPI";
 import { useAlertDispatch } from "../../providers/context/Alert";
-import { columns, serviceSchema, serviceValues } from "./schema";
+import { columns, serviceSchema, serviceValues, horarioAgendaColumns } from "./schema";
 import FormItem from "../master-detail/FormItem";
 import useFormDependencies from "../../providers/hooks/useFormDependencies";
 import FinishForm from "../finish-form";
@@ -26,7 +26,8 @@ import FinishForm from "../finish-form";
 const fieldsByStep = [
   ["impacto", "publicoObjetivo"],
   ["formato"],
-  ["nombre", "email"],
+  ["fechaInicio", "fechaFin"],
+  ["nombre", "email"]
 ];
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function getSteps() {
-  return ["Info Servicio", "Formato Servicio", "Datos Contacto"];
+  return ["Info Servicio", "Formato Servicio", "Horario y agenda", "Datos Contacto"];
 }
 
 function getStepContent(stepIndex, props) {
@@ -52,6 +53,8 @@ function getStepContent(stepIndex, props) {
     case 1:
       return <Format {...props} />;
     case 2:
+      return <HorarioAgenda {...props} />;
+    case 3:
       return <Contact {...props} />;
     default:
       return "Unknown stepIndex";
@@ -74,6 +77,10 @@ export default function ServicioModal({
       if (values.coupon?.trim()?.length) {
         values.coupon = await validateCoupon(values.coupon);
       }
+
+      values.fechaInicio = new Date(values.fechaInicio).toISOString()
+      values.fechaFin = new Date(new Date(values.fechaInicio).valueOf() + values.fechaFin)
+
       console.log(`values`, values);
       const result = await API.Proyecto.start({
         ...values,
@@ -309,6 +316,41 @@ function Contact({ ...formProps }) {
           {...formProps}
           dependencies={dependencies}
         />
+      ))}
+    </Grid>
+  );
+}
+
+function HorarioAgenda({ ...formProps }) {
+  const columns = horarioAgendaColumns;
+
+  const oneHour = 1000 * 60 * 60;
+
+  const horarios = [
+      { label: '30 minutos', value: oneHour / 2 },
+      { label: '1 hora', value: oneHour },
+      { label: '1 hora y 30 minutos', value: oneHour + (oneHour / 2) },
+      { label: '2 horas', value: oneHour * 2 },
+      { label: '3 horas', value: oneHour * 3 },
+      { label: '4 horas', value: oneHour * 4 },
+      { label: '5 horas', value: oneHour * 5 },
+      { label: 'Más tiempo', value: oneHour * 6 }
+  ];
+
+  return (
+    <Grid container spacing={2} style={{ marginBottom: 32 }}>
+      {columns.map(item => (
+        <Grid item md={12}>
+          <Typography color="primary" variant="h4" paragraph>
+            {item.label}
+          </Typography>
+          <FormItem
+            key={item.name}
+            item={{ ...item, label: '' }}
+            {...formProps}
+            dependencies={{ horarios }}
+          />
+        </Grid>
       ))}
     </Grid>
   );

@@ -140,6 +140,34 @@ export const columns = (showOrganization) => [
   },
 ];
 
+export const horarioAgendaColumns = [
+  {
+    name: "fechaInicio",
+    label: "Fecha de ejecución",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "date"
+    },
+  },
+  {
+    name: "fechaFin",
+    label: "¿Tiempo disponible para la experiencia?",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "select",
+      dependency: 'horarios'
+    },
+  },
+];
+
 export const dossierValues = {
   nombre: "",
   apellido: "",
