@@ -10,6 +10,7 @@ const columns = [
     },
     form: {
       size: 4,
+      required: true,
       type: "input",
     },
   },
@@ -215,7 +216,7 @@ const columns = [
     },
     form: {
       size: 12,
-      type: "comments"
+      type: "comments",
     },
   },
 ];
