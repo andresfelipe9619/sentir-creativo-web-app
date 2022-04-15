@@ -10,6 +10,7 @@ export default function CitySelect({ item, ...formikProps }) {
   const [cities, setCities] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedRegion, setSelectedRegion] = useState(null);
+  const [selectedCity, setSelectedCity] = useState(null);
   const [loading, setLoading] = useState(false);
   console.log("formikProps", formikProps);
 
@@ -35,7 +36,6 @@ export default function CitySelect({ item, ...formikProps }) {
   const handleChangeCountry = async (_, newValue) => {
     try {
       setLoading(true);
-      console.log("newValue", newValue);
       setSelectedCountry(newValue);
       await loadRegions(newValue.id);
     } catch (e) {
@@ -48,7 +48,6 @@ export default function CitySelect({ item, ...formikProps }) {
   const handleChangeRegion = async (_, newValue) => {
     try {
       setLoading(true);
-      console.log("newValue", newValue);
       setSelectedRegion(newValue);
       await loadCities(newValue.id);
     } catch (e) {
@@ -56,6 +55,12 @@ export default function CitySelect({ item, ...formikProps }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleChangeCity = async (_, value) => {
+    const event = { target: { name: "ciudad", value: value.id } };
+    setSelectedCity(value);
+    formikProps.handleChange(event);
   };
 
   useEffect(() => {
@@ -83,48 +88,45 @@ export default function CitySelect({ item, ...formikProps }) {
       )}
       {selectedRegion && (
         <CustomAutocomplete
+          {...formikProps}
           label="Ciudad"
           name="ciudad"
           loading={loading}
           options={cities}
-          value={formikProps?.values?.ciudad || ""}
-          {...formikProps}
+          value={selectedCity}
+          handleChange={handleChangeCity}
         />
       )}
     </Box>
   );
 }
 
-function CustomAutocomplete({
-  value,
-  label,
-  name,
-  options,
-  handleBlur,
-  handleChange,
-  loading,
-  isSubmitting,
-}) {
+function CustomAutocomplete(props) {
+  const { handleChange, isSubmitting, label, loading, name, options, value } =
+    props;
   return (
     <Autocomplete
-      disabled={isSubmitting}
       id={name}
       name={name}
       options={options}
       loading={loading}
+      disabled={isSubmitting}
       loadingText="Cargando..."
-      value={value || ""}
-      onBlur={handleBlur}
+      value={value}
       onChange={handleChange}
-      getOptionSelected={(option) => option?.id || ""}
+      getOptionSelected={(option, v) => option?.id === v.id}
       getOptionLabel={(option) => option?.nombre || ""}
-      style={{ width: 300, margin: 4 }}
+      style={{ width: 300, margin: 8 }}
       renderInput={(params) => (
         <TextField
           {...params}
           label={label}
           variant="outlined"
           autoComplete="off"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: "new-password", // disable autocomplete and autofill
+          }}
         />
       )}
     />
