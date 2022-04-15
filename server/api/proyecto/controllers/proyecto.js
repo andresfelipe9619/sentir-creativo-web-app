@@ -20,7 +20,7 @@ const populate = [
   'publico_objetivos',
   'cupon_descuentos',
   'archivos',
-  'comentarios',
+  'comentarios.userId',
   'presupuestos',
   'audiencia.organizacion',
   'archivos.tipo_archivo',
