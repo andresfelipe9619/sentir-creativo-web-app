@@ -19,8 +19,9 @@
       "via": "comentarios",
       "model": "staf"
     },
-    "creador": {
-      "type": "string"
+    "userId": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

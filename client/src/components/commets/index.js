@@ -56,7 +56,7 @@ export default function Comments(props) {
 
       if (!params.id) return;
       setLoading(true);
-      const created = await API.Comentarios.create({ comentario: value, creador: user?.email || '' });
+      const created = await API.Comentarios.create({ comentario: value, userId: user?.id });
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
       const parentService = API[parentServiceName];
       await parentService.update(params.id, { comentarios: [ ...data, created ]});
@@ -78,7 +78,7 @@ export default function Comments(props) {
       if (!params.id) return
 
       setLoading(true);
-      const updated = await API.Comentarios.update(activeId, { comentario: value, creador: user?.email || '' })
+      const updated = await API.Comentarios.update(activeId, { comentario: value, userId: user?.id })
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1)
       const parentService = API[parentServiceName]
 
@@ -184,7 +184,7 @@ export default function Comments(props) {
                   {' ' + new Date(x?.created_at).toLocaleTimeString("es-CL").slice(0, 5)}
                 </Typography>
                 <Typography variant="caption" color="primary">
-                  {x?.creador}
+                  {x?.userId?.username}
                 </Typography>
               </CardContent>
               <CardActions disableSpacing>
