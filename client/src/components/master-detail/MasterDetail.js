@@ -191,7 +191,7 @@ export function customBodyRender(type) {
     if (type) return bodyType(type, value);
     if (isDate(value)) return formatDate(value);
     if (Array.isArray(value)) {
-      return value.map((i) => i.nombre).join(", ");
+      return value.map((i) => i.codigo || i.nombre).join(", ");
     }
     if (isObject(value)) {
       if (value.codigo) return value.codigo;
