@@ -32,8 +32,7 @@
       "via": "tamanoOrganizacion"
     },
     "rubro": {
-      "collection": "rubro",
-      "via": "rubroOrganizacion"
+      "model": "rubro"
     },
     "nota": {
       "collection": "notas-organizaciones",
@@ -41,6 +40,12 @@
     },
     "historial": {
       "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "telefono": {
+      "type": "biginteger"
     }
   }
 }

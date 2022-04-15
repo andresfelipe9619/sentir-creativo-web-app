@@ -17,10 +17,6 @@
     "email": {
       "type": "email"
     },
-    "stafs": {
-      "collection": "staf",
-      "via": "rol"
-    },
     "candidatos": {
       "type": "text"
     },
@@ -37,6 +33,10 @@
     "funciones": {
       "collection": "funciones",
       "via": "rol"
+    },
+    "staff": {
+      "via": "roles",
+      "collection": "staf"
     }
   }
 }

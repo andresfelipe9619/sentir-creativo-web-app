@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "archivos",
   "info": {
-    "name": "archivo"
+    "name": "archivo",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -13,6 +14,12 @@
   "attributes": {
     "path": {
       "type": "string"
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "tipo_archivo": {
+      "model": "tipo-archivo"
     }
   }
 }

@@ -13,19 +13,18 @@
   "pluginOptions": {},
   "attributes": {
     "servicio": {
-      "via": "planes",
+      "via": "servicioPlanes",
       "model": "servicio"
     },
     "plan": {
-      "via": "servicios",
       "model": "plan"
     },
     "presupuestos": {
       "via": "servicioPlan",
       "collection": "presupuesto"
     },
-    "requerimientos": {
-      "collection": "requerimiento"
+    "nombre": {
+      "type": "string"
     }
   }
 }

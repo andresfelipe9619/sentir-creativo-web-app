@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "acuerdos",
   "info": {
-    "name": "acuerdos"
+    "name": "acuerdos",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -14,9 +15,13 @@
     "nombre": {
       "type": "string"
     },
-    "staf": {
+    "staff": {
       "via": "acuerdos",
-      "model": "staf"
+      "collection": "staf",
+      "dominant": true
+    },
+    "estado": {
+      "model": "estado-staff"
     }
   }
 }

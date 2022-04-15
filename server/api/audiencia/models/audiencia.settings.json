@@ -18,18 +18,20 @@
       "maxLength": 80
     },
     "email": {
-      "type": "email"
+      "type": "email",
+      "required": false,
+      "unique": true
     },
     "celular": {
       "type": "biginteger"
     },
     "departamento": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "cargo": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "antiguedad": {
       "model": "antiguedad"
@@ -44,9 +46,6 @@
       "via": "audiencia",
       "collection": "proyecto"
     },
-    "photo": {
-      "type": "string"
-    },
     "apellido": {
       "type": "string"
     },
@@ -56,16 +55,53 @@
     "estado": {
       "model": "estado-audiencia"
     },
-    "bitacoras": {
-      "collection": "bitacora-audiencia",
-      "via": "audiencia"
-    },
     "notas": {
       "collection": "notas-audiencia",
       "via": "audiencia"
     },
     "organizacion": {
       "model": "organizacion"
+    },
+    "intereses": {
+      "collection": "intereses"
+    },
+    "tags": {
+      "via": "audiencias",
+      "collection": "tag"
+    },
+    "comentarios": {
+      "collection": "comentario"
+    },
+    "origen": {
+      "via": "audiencias",
+      "model": "origen"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "difusiones": {
+      "via": "audiencias",
+      "collection": "difusion"
+    },
+    "prefijo": {
+      "model": "prefijo"
+    },
+    "cuponDescuento": {
+      "collection": "cupon-descuento"
+    },
+    "email2": {
+      "type": "email",
+      "unique": true
+    },
+    "destacado": {
+      "type": "boolean"
+    },
+    "ciudad": {
+      "model": "ciudad"
+    },
+    "documentoIdentidad": {
+      "type": "string",
+      "unique": true
     }
   }
 }

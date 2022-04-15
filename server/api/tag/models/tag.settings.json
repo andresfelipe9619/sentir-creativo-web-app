@@ -29,6 +29,11 @@
     },
     "prioridad": {
       "model": "prioridad"
+    },
+    "audiencias": {
+      "via": "tags",
+      "collection": "audiencia",
+      "dominant": true
     }
   }
 }

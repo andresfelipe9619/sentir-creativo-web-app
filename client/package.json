@@ -3,35 +3,66 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
+    "@date-io/date-fns": "1.x",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.58",
-    "@nivo/core": "^0.69.0",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/pickers": "^3.3.10",
+    "@mui/icons-material": "^5.4.2",
+    "@mui/lab": "^5.0.0-alpha.70",
+    "@mui/material": "^5.4.3",
+    "@mui/styles": "^5.4.2",
+    "@nivo/core": "^0.73.0",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
+    "date-fns": "^2.25.0",
     "formik": "^2.2.8",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
+    "material-ui-dropzone": "^3.5.0",
+    "material-ui-phone-number": "2.2.6",
+    "mui-datatables": "^3.7.8",
+    "prettier": "^2.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-list": "^0.8.16",
+    "react-material-ui-carousel": "^2.3.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spinners-kit": "^1.9.1",
-    "web-vitals": "^1.0.1",
+    "web-vitals": "^2.1.0",
     "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint './src/**/*.{js,jsx}'",
+    "lint:fix": "eslint './src/**/*.{js,jsx}' --fix"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "browserslist": [
     ">0.2%",

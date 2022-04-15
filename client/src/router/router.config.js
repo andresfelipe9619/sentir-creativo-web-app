@@ -1,5 +1,11 @@
 import { lazy } from "react";
 const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
+const Areas = lazy(() =>
+  import(/* webpackChunkName: "areas" */ "../pages/Areas")
+);
+const Servicios = lazy(() =>
+  import(/* webpackChunkName: "servicios" */ "../pages/Servicios")
+);
 const About = lazy(() =>
   import(/* webpackChunkName: "about" */ "../pages/About")
 );
@@ -7,12 +13,35 @@ const Contact = lazy(() =>
   import(/* webpackChunkName: "contact" */ "../pages/Contact")
 );
 const Blog = lazy(() => import(/* webpackChunkName: "blog" */ "../pages/Blog"));
+const Dashboard = lazy(() =>
+  import(/* webpackChunkName: "dashboard" */ "../pages/Dashboard")
+);
+const Login = lazy(() =>
+  import(/* webpackChunkName: "login" */ "../pages/Login")
+);
+const Register = lazy(() =>
+  import(/* webpackChunkName: "register" */ "../pages/Register")
+);
 
 const routerConfig = [
   {
     path: "/",
     component: Home,
     name: "Home",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/areas/:id",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/servicios/:id",
+    component: Servicios,
+    name: "Servicios",
     exact: true,
     strict: true,
   },
@@ -37,17 +66,48 @@ const routerConfig = [
     exact: true,
     strict: true,
   },
-  // {
-  //   path: "/risks",
-  //   component: Risks,
-  //   name: "Risks",
-  //   routes: [
-  //     {
-  //       path: "/risks/:id",
-  //       name: "Risks Id",
-  //     },
-  //   ],
-  // },
+  {
+    path: "/login",
+    name: "Inicio",
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "Registro",
+    component: Register,
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    private: true,
+    component: Dashboard,
+    routes: [
+      {
+        path: "/admin/audiencia",
+        name: "Audiencia",
+      },
+      {
+        path: "/admin/organizaciones",
+        name: "Organizaciones",
+      },
+      {
+        path: "/admin/servicios",
+        name: "Servicios",
+      },
+      {
+        path: "/admin/proyectos",
+        name: "Proyectos",
+      },
+      {
+        path: "/admin/tags",
+        name: "Tags",
+      },
+      {
+        path: "/admin/archivos",
+        name: "Archivos",
+      },
+    ],
+  },
 ];
 
 export default routerConfig;

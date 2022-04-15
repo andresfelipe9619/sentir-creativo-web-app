@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "estado_staffs",
+  "info": {
+    "name": "estadoStaff"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "prioridad": {
+      "model": "prioridad"
+    }
+  }
+}

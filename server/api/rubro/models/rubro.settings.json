@@ -34,10 +34,6 @@
         "Media",
         "Baja"
       ]
-    },
-    "rubroOrganizacion": {
-      "via": "rubro",
-      "model": "organizacion"
     }
   }
 }

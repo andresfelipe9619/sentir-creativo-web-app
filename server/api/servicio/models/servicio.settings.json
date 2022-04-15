@@ -21,10 +21,6 @@
     "sintesis": {
       "type": "text"
     },
-    "planes": {
-      "via": "servicio",
-      "collection": "servicio-plan"
-    },
     "tags": {
       "collection": "tag"
     },
@@ -51,8 +47,8 @@
       "collection": "publico-objetivo"
     },
     "area": {
-      "model": "areas",
-      "via": "servicios"
+      "via": "servicios",
+      "model": "areas"
     },
     "condicions": {
       "collection": "condicion"
@@ -68,6 +64,41 @@
     },
     "propositos": {
       "collection": "proposito"
+    },
+    "servicioPlanes": {
+      "via": "servicio",
+      "collection": "servicio-plan"
+    },
+    "estado": {
+      "model": "estado-servicio",
+      "via": "servicios"
+    },
+    "stafs": {
+      "via": "servicios",
+      "collection": "staf",
+      "dominant": true
+    },
+    "colecciones": {
+      "via": "servicios",
+      "collection": "coleccion",
+      "dominant": true
+    },
+    "proyectos": {
+      "via": "servicios",
+      "collection": "proyecto",
+      "dominant": true
+    },
+    "minimoParticipantes": {
+      "type": "integer"
+    },
+    "maximoParticipantes": {
+      "type": "integer"
+    },
+    "acuerdos": {
+      "collection": "acuerdos"
+    },
+    "comentarios": {
+      "collection": "comentario"
     }
   }
 }

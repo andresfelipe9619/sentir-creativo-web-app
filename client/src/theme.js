@@ -1,51 +1,87 @@
-import { useState } from 'react'
-const primaryColor = '#ff1744'
-const secondaryColor = '#2196f3'
+import { useState } from "react";
+const primaryColor = "#ff4100";
+const secondaryColor = "#ef6c00";
 
 const Palette = {
-  type: 'light',
+  type: "light",
   primary: {
-    main: primaryColor
+    dark: "#c30000",
+    main: primaryColor,
+    light: "#ff783a",
   },
   secondary: {
-    main: secondaryColor
+    dark: "#b53d00",
+    main: secondaryColor,
+    light: "#ff9d3f",
   },
   success: {
-    main: '#5cb860'
+    main: "#5cb860",
   },
   warning: {
-    main: '#ffa21a'
+    main: "#ffa21a",
   },
   error: {
-    main: '#f55a4e'
+    main: "#f55a4e",
   },
   info: {
-    main: '#00d3ee'
-  }
-}
+    main: "#00d3ee",
+  },
+};
+
+const Typography = {
+  fontSize: 14,
+  htmlFontSize: 14,
+  useNextVariants: true,
+  fontFamily: ['Fira Sans', 'Roboto', 'sans-serif'].join(','),
+  h1: {
+    fontWeight: 600,
+    fontSize: "1.6rem",
+  },
+  h2: {
+    fontWeight: 600,
+    fontSize: "1.5rem",
+  },
+  h3: {
+    fontWeight: 500,
+    fontSize: "1.35rem",
+  },
+  h4: {
+    fontWeight: 500,
+    fontSize: "1.3rem",
+  },
+  h5: {
+    fontWeight: 500,
+    fontSize: "1.3rem",
+  },
+  h6: {
+    fontWeight: 500,
+    fontSize: "1.2rem",
+  },
+};
 
 const Theme = {
-  palette: Palette
-}
+  palette: Palette,
+  typography: Typography,
+};
 
-export function useDarkMode () {
-  const [theme, setTheme] = useState(Theme)
+export function useDarkMode() {
+  const [theme, setTheme] = useState(Theme);
   const {
-    palette: { type }
-  } = theme
+    palette: { type },
+  } = theme;
 
   const toggleDarkMode = () => {
     const updatedTheme = {
       ...theme,
       palette: {
         ...theme.palette,
-        type: type === 'light' ? 'dark' : 'light'
-      }
-    }
-    setTheme(updatedTheme)
-  }
+        type: type === "light" ? "dark" : "light",
+      },
+    };
+    setTheme(updatedTheme);
+  };
 
-  return [theme, toggleDarkMode]
+  return [theme, toggleDarkMode];
 }
 
-export default Theme
+export default Theme;

@@ -18,6 +18,10 @@
     "staf": {
       "via": "comentarios",
       "model": "staf"
+    },
+    "userId": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

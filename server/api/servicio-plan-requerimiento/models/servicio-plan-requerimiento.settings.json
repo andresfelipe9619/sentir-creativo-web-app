@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "servicio_plan_requerimientos",
+  "info": {
+    "name": "ServicioPlanRequerimiento"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "servicioPlan": {
+      "model": "servicio-plan"
+    },
+    "requerimiento": {
+      "model": "requerimiento"
+    }
+  }
+}

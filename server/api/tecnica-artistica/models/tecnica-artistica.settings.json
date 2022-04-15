@@ -13,6 +13,10 @@
   "attributes": {
     "nombre": {
       "type": "string"
+    },
+    "stafs": {
+      "via": "tecnica_artisticas",
+      "collection": "staf"
     }
   }
 }

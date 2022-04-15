@@ -14,10 +14,6 @@
   "attributes": {
     "nombre": {
       "type": "string"
-    },
-    "servicios": {
-      "via": "plan",
-      "collection": "servicio-plan"
     }
   }
 }

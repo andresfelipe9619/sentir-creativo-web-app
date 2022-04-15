@@ -15,12 +15,6 @@
     "nombre": {
       "type": "string"
     },
-    "formato": {
-      "type": "string"
-    },
-    "impacto": {
-      "type": "string"
-    },
     "fechaInicio": {
       "type": "datetime"
     },
@@ -30,7 +24,7 @@
     "avance": {
       "type": "decimal"
     },
-    "tipoProyecto": {
+    "tipo_proyecto": {
       "via": "proyectos",
       "model": "tipo-proyectos"
     },
@@ -41,12 +35,48 @@
       "via": "proyectos",
       "model": "audiencia"
     },
-    "imagenProyecto": {
+    "imagen": {
       "type": "string"
     },
     "presupuestos": {
       "via": "proyecto",
       "collection": "presupuesto"
+    },
+    "comentarios": {
+      "collection": "comentario"
+    },
+    "publico_objetivos": {
+      "collection": "publico-objetivo"
+    },
+    "estado_proyecto": {
+      "model": "estado-proyecto"
+    },
+    "formatos": {
+      "collection": "formato"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "staf": {
+      "via": "proyectos",
+      "collection": "staf",
+      "dominant": true
+    },
+    "servicios": {
+      "via": "proyectos",
+      "collection": "servicio"
+    },
+    "cupon_descuentos": {
+      "collection": "cupon-descuento"
+    },
+    "destacado": {
+      "type": "boolean"
+    },
+    "ciudad": {
+      "model": "ciudad"
+    },
+    "impacto": {
+      "type": "biginteger"
     }
   }
 }
