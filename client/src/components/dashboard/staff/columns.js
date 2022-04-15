@@ -129,6 +129,7 @@ const columns = [
     options: {
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 12,
