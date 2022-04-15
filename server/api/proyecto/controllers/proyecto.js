@@ -63,7 +63,9 @@ module.exports = {
       formato,
       impacto,
       departamento,
-      coupon
+      coupon,
+      fechaFin,
+      fechaInicio
     } = request.body
     try {
       console.log(`BODY: `, request.body)
@@ -107,9 +109,12 @@ module.exports = {
         nombre: servicio.nombre,
         formato,
         impacto,
+        ciudad,
+        fechaFin,
+        fechaInicio,
         audiencia: audience.id,
         // estado: 1,
-        tipoProyecto: 3,
+        tipo_proyecto: 3,
         cupon_descuentos: [coupon],
         servicios: [servicio]
       })
