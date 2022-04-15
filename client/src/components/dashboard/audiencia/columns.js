@@ -147,10 +147,11 @@ const columns = [
     options: {
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
-      size: 4,
-      type: "input",
+      size: 12,
+      type: "city",
     },
   },
   {
@@ -196,6 +197,20 @@ const columns = [
     },
   },
   {
+    name: "cercania",
+    label: "Cercania",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 6,
+      type: "select",
+      dependency: "Cercania",
+    },
+  },
+  {
     name: "difusiones",
     label: "Difusiones",
     options: {
@@ -221,20 +236,6 @@ const columns = [
       size: 4,
       type: "multiselect",
       dependency: "CuponDescuento",
-    },
-  },
-  {
-    name: "cercania",
-    label: "Cercania",
-    options: {
-      filter: true,
-      sort: true,
-      customBodyRender: customBodyRender(),
-    },
-    form: {
-      size: 6,
-      type: "select",
-      dependency: "Cercania",
     },
   },
   {
@@ -314,9 +315,9 @@ const columns = [
     },
     form: {
       size: 12,
-      type: "comments"
+      type: "comments",
     },
-  }
+  },
 ];
 
 export default columns;

@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { customBodyRender } from "../master-detail/MasterDetail";
 
 export const columns = (showOrganization) => [
   {
@@ -117,6 +118,7 @@ export const columns = (showOrganization) => [
     options: {
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 12,

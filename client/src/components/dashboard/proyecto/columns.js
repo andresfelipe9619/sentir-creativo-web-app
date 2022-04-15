@@ -109,6 +109,19 @@ const columns = [
     },
   },
   {
+    name: "ciudad",
+    label: "Ciudad",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 12,
+      type: "city",
+    },
+  },
+  {
     name: "formatos",
     label: "Formatos",
     options: {
