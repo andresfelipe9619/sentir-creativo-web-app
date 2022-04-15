@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import API from "../../api";
 
-export default function CitySelect({ item, ...formikProps }) {
+function CitySelect({ item, ...formikProps }) {
   const [countries, setCountries] = useState([]);
   const [regions, setRegions] = useState([]);
   const [cities, setCities] = useState([]);
@@ -12,7 +12,7 @@ export default function CitySelect({ item, ...formikProps }) {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log("formikProps.values.ciudad", formikProps.values.ciudad);
+
   const loadCities = async (region) => {
     let result = await API.Ciudad.getAll({
       params: { _limit: -1, region },
@@ -84,7 +84,7 @@ export default function CitySelect({ item, ...formikProps }) {
   }, [countries, selectedCity, formikProps.values]);
 
   return (
-    <Box display="flex">
+    <Grid container spacing={2}>
       <CustomAutocomplete
         label="País"
         name="pais"
@@ -113,7 +113,7 @@ export default function CitySelect({ item, ...formikProps }) {
           handleChange={handleChangeCity}
         />
       )}
-    </Box>
+    </Grid>
   );
 }
 
@@ -121,30 +121,33 @@ function CustomAutocomplete(props) {
   const { handleChange, isSubmitting, label, loading, name, options, value } =
     props;
   return (
-    <Autocomplete
-      id={name}
-      name={name}
-      options={options}
-      loading={loading}
-      disabled={isSubmitting}
-      loadingText="Cargando..."
-      value={value}
-      onChange={handleChange}
-      getOptionSelected={(option, v) => option?.id === v.id}
-      getOptionLabel={(option) => option?.nombre || ""}
-      style={{ width: 300, margin: 8 }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          variant="outlined"
-          autoComplete="off"
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: "new-password", // disable autocomplete and autofill
-          }}
-        />
-      )}
-    />
+    <Grid item xs={12} md={4}>
+      <Autocomplete
+        id={name}
+        name={name}
+        options={options}
+        loading={loading}
+        disabled={isSubmitting}
+        loadingText="Cargando..."
+        value={value}
+        onChange={handleChange}
+        getOptionSelected={(option, v) => option?.id === v.id}
+        getOptionLabel={(option) => option?.nombre || ""}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label={label}
+            fullWidth
+            variant="outlined"
+            autoComplete="off"
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: "new-password", // disable autocomplete and autofill
+            }}
+          />
+        )}
+      />
+    </Grid>
   );
 }
+export default memo(CitySelect);

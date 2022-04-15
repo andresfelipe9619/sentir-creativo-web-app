@@ -168,7 +168,7 @@ function MasterView({
           onRowClick={handleClickRow}
           customToolbarSelect={({ lookup }, _, fn) => (
             <DialogButton
-              color="grey"
+              color="default"
               label={<DeleteIcon />}
               onClose={async (accepted) =>
                 accepted && (await handleRowsDelete(Object.keys(lookup), fn))
