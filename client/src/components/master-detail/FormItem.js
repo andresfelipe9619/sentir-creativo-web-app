@@ -72,10 +72,11 @@ export default function FormItem(props) {
     ...fieldProps
   } = item.form;
   const key = item.name;
-  let value = values[key];
+  const value = values[key];
   const canRender = (name) => {
-    if (!visibleWith) return type === name;
-    return type === name && values[visibleWith];
+    const isSameType = type === name;
+    if (!visibleWith) return isSameType;
+    return isSameType && !!values[visibleWith];
   };
   const options = (dependencies || {})[dependency] || [];
 
@@ -135,7 +136,7 @@ export default function FormItem(props) {
         disabled={isSubmitting}
         onBlur={handleBlur}
         onChange={handleChange}
-        value={value}
+        value={value || ""}
         type={inputType}
         error={!!touched[key] && !!errors[key]}
         variant="outlined"
@@ -152,7 +153,7 @@ export default function FormItem(props) {
         variant="outlined"
         disabled={isSubmitting}
         onChange={(v) => setFieldValue(key, v.replace("+", ""))}
-        value={value}
+        value={value || ""}
         fullWidth
         countryCodeEditable={false}
         autoFormat={false}

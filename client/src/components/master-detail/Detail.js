@@ -147,7 +147,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
 
               <Grid item md={12} container justifyContent="space-between">
                 <DialogButton
-                  color="grey"
+                  color="default"
                   label={
                     <>
                       <DeleteIcon /> Eliminar {service}
