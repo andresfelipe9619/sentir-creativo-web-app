@@ -10,6 +10,7 @@ const columns = [
     },
     form: {
       size: 4,
+      required: true,
       type: "input",
     },
   },
@@ -105,6 +106,18 @@ const columns = [
       size: 4,
       type: "multiselect",
       dependency: "CuponDescuento",
+    },
+  },
+  {
+    name: "ciudad",
+    label: "Ciudad",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 12,
+      type: "city",
     },
   },
   {
@@ -215,7 +228,7 @@ const columns = [
     },
     form: {
       size: 12,
-      type: "comments"
+      type: "comments",
     },
   },
 ];

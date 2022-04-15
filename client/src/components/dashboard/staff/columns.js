@@ -124,6 +124,18 @@ const columns = [
     },
   },
   {
+    name: "ciudad",
+    label: "Ciudad",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 12,
+      type: "city",
+    },
+  },
+  {
     name: "estado",
     label: "Estado",
     options: {
@@ -230,8 +242,8 @@ const columns = [
     },
     form: {
       size: 12,
-      type: "comments"
+      type: "comments",
     },
-  }
+  },
 ];
 export default columns;

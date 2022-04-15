@@ -195,8 +195,8 @@ export default function Areas() {
   const areaTheme = createTheme({
     palette: {
       primary: { main: color },
-    }
-  })
+    },
+  });
   const servicesToShow = searchValue ? [searchValue] : services;
 
   return (
@@ -243,7 +243,7 @@ export default function Areas() {
             color: "white",
             backgroundColor: areaTheme.palette.primary.dark,
             padding: "0 1.5rem",
-            fontSize: isSmall ? 14 : 24
+            fontSize: isSmall ? 14 : 24,
           }}
         >
           {selectedArea.nombre.toUpperCase()}
@@ -262,7 +262,11 @@ export default function Areas() {
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
             };
 
-            return <Typography style={sloganStyle}>{x}</Typography>;
+            return (
+              <Typography key={i} style={sloganStyle}>
+                {x}
+              </Typography>
+            );
           })}
         </Typography>
         <Typography
@@ -272,8 +276,8 @@ export default function Areas() {
             color: "white",
             backgroundColor: areaTheme.palette.primary.dark,
             lineHeight: 1.15,
-            padding: '0.5rem',
-            fontSize: isSmall ? 14 : 18
+            padding: "0.5rem",
+            fontSize: isSmall ? 14 : 18,
           }}
         >
           {selectedArea.descripcion}

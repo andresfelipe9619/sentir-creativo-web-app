@@ -67,29 +67,16 @@ export const columns = (showOrganization) => [
     },
   },
   {
-    name: "ciudad",
-    label: "Desde la ciudad",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "city",
-      required: true,
-    },
-  },
-  {
     name: "coupon",
     label: "Cupón",
     options: {
       display: false,
       filter: false,
-      sort: false
+      sort: false,
     },
     form: {
       size: 4,
-      type: "input"
+      type: "input",
     },
   },
   ...(showOrganization
@@ -104,7 +91,7 @@ export const columns = (showOrganization) => [
           form: {
             size: 4,
             type: "input",
-            required: true
+            required: true,
           },
         },
         {
@@ -124,6 +111,19 @@ export const columns = (showOrganization) => [
         },
       ]
     : []),
+  {
+    name: "ciudad",
+    label: "Ciudad",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 12,
+      type: "city",
+      required: true,
+    },
+  },
   {
     name: "comentario",
     label: "Comentarios",

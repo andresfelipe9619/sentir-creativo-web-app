@@ -262,8 +262,8 @@ const AccordionOption = memo(function AccordionOption({ title, children }) {
       <AccordionSummary
         className={classes.accordion}
         expandIcon={<ExpandMoreIcon style={{ color: "white" }} />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls={`panel-${title}-content`}
+        id={`panel-${title}-header`}
       >
         <Typography>{title}</Typography>
       </AccordionSummary>
