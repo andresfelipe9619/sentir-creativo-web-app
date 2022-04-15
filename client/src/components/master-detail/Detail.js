@@ -98,11 +98,9 @@ export default function Detail({ columns, service, match, reloadMaster }) {
 
     if (type === "select") {
       value = value?.id;
-      console.log(`select`, value);
     }
     if (type === "multiselect") {
       value = (value || []).map((i) => i.id);
-      console.log(`multiselect`, value);
     }
 
     acc[key] = value;
@@ -121,7 +119,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
       {({ handleSubmit, ...formProps }) => (
         <form onSubmit={handleSubmit}>
           <Prompt
-            when={inputsChanged.length}
+            when={!!inputsChanged.length}
             message={`Tiene cambios sin guardar, ¿Está seguro que desea salir?`}
           />
           <Paper elevation={3} component={Box} p={5}>

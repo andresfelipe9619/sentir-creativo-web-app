@@ -12,8 +12,7 @@ export default function CitySelect({ item, ...formikProps }) {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log("formikProps", formikProps);
-
+  console.log("formikProps.values.ciudad", formikProps.values.ciudad);
   const loadCities = async (region) => {
     let result = await API.Ciudad.getAll({
       params: { _limit: -1, region },
@@ -26,6 +25,7 @@ export default function CitySelect({ item, ...formikProps }) {
       params: { _limit: -1, pais },
     });
     setRegions(result);
+    return result;
   };
 
   const loadCountries = async () => {
@@ -66,6 +66,22 @@ export default function CitySelect({ item, ...formikProps }) {
   useEffect(() => {
     loadCountries();
   }, []);
+
+  useEffect(() => {
+    const formCity = formikProps?.values?.ciudad;
+    if (!formCity?.id || selectedCity || !countries.length) return;
+    (async () => {
+      const pais = countries.find((p) => p.id === formCity.pais);
+      if (!pais) return;
+      setSelectedCountry(pais);
+      const result = await loadRegions(formCity.pais);
+      const region = result.find((r) => r.id === formCity.region);
+      if (!region) return;
+      setSelectedRegion(region);
+      loadCities(formCity.region);
+      setSelectedCity(formCity);
+    })();
+  }, [countries, selectedCity, formikProps.values]);
 
   return (
     <Box display="flex">
