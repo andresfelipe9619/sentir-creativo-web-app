@@ -213,7 +213,7 @@ export default function FormItem(props) {
                 {items.map((p, i) => (
                   <Chip
                     key={p + i}
-                    label={p.label}
+                    label={p?.label}
                     disabled={isSubmitting}
                     className={classes.chip}
                   />

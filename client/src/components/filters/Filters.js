@@ -22,6 +22,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import Slide from "@material-ui/core/Slide";
 import FilterPagination from "./FilterPagination";
 import { pluralize } from "../../utils";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const PAGE_SIZE = 6;
 
@@ -42,6 +43,7 @@ function Filters({
   const [page, setPage] = useState(1);
   const [autocompleteValue, setAutocompleteValue] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
+  const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
 
   const handleDeleteFilter = (option) => () => {
     const { name, value } = option;
@@ -115,8 +117,11 @@ function Filters({
             onClick={toggleFilter}
             style={{ marginRight: 16 }}
             startIcon={<FilterListIcon />}
+            classes={{
+              startIcon: classes.startIconMobile
+            }}
           >
-            Filtros
+            {!isSmall && 'Filtros'}
           </Button>
           <Autocomplete
             size="small"

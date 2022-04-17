@@ -345,7 +345,7 @@ function HorarioAgenda({ ...formProps }) {
   ];
 
   return (
-    <Grid container spacing={2} style={{ marginBottom: 32 }}>
+    <Grid container spacing={6} style={{ marginBottom: 32 }}>
       {columns.map((item) => (
         <Grid item md={12}>
           <Typography color="primary" variant="h4" paragraph>
