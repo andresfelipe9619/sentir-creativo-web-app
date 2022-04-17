@@ -17,7 +17,7 @@ const populate = [
   'condicions',
   'tecnica_artisticas',
   'archivos.tipo_archivo',
-  'comentarios'
+  'comentarios.userId'
 ]
 
 module.exports = {

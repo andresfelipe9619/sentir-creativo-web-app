@@ -10,9 +10,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { formatDate } from "../../utils";
+import { formatDate, parseJwt } from "../../utils";
 import { useAlertDispatch } from "../../providers/context/Alert";
-import { useUserState } from "../../providers/context/User";
 import API from "../../api";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
@@ -38,9 +37,10 @@ export default function Comments(props) {
 
   const params = useParams();
   const { openAlert } = useAlertDispatch();
-  const user = useUserState();
 
   const editing = activeId > 0;
+
+  const userId = parseJwt(API.getToken())?.id;
 
   const handleAddComment = async () => {
     try {
@@ -51,10 +51,7 @@ export default function Comments(props) {
 
       if (!params.id) return;
       setLoading(true);
-      const created = await API.Comentarios.create({
-        comentario: value,
-        userId: user?.id,
-      });
+      const created = await API.Comentarios.create({ comentario: value, userId });
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
       const parentService = API[parentServiceName];
       await parentService.update(params.id, {
@@ -78,10 +75,7 @@ export default function Comments(props) {
       if (!params.id) return;
 
       setLoading(true);
-      const updated = await API.Comentarios.update(activeId, {
-        comentario: value,
-        userId: user?.id,
-      });
+      const updated = await API.Comentarios.update(activeId, { comentario: value, userId });
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
       const parentService = API[parentServiceName];
 

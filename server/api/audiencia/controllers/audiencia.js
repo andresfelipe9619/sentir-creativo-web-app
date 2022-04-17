@@ -1,13 +1,66 @@
 'use strict'
 const axios = require('axios')
 const webhook = process.env.WEBHOOK_DOSSIER
+const { sanitizeEntity } = require('strapi-utils')
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
  * to customize this controller
  */
 
+const populate = [
+  'id',
+  'nombre',
+  'email',
+  'celular',
+  'organizacion',
+  'departamento',
+  'cargo',
+  'antiguedad',
+  'cercania',
+  'motivacion',
+  'sector',
+  'published_at',
+  'created_at',
+  'updated_at',
+  'apellido',
+  'profesion',
+  'estado',
+  'notas',
+  'bitacoras',
+  'prefijo',
+  'origen',
+  'cuponDescuento',
+  'email2',
+  'destacado',
+  'ciudad',
+  'documentoIdentidad',
+  'proyectos',
+  'intereses',
+  'tags',
+  'comentarios.userId',
+  'archivos',
+  'difusiones',
+]
+
 module.exports = {
+  async find (ctx) {
+    let entities
+    if (ctx.query._q) {
+      entities = await strapi.services.audiencia.search(ctx.query)
+    } else {
+      entities = await strapi.services.audiencia.find(ctx.query, populate)
+    }
+
+    return entities.map(entity =>
+      sanitizeEntity(entity, { model: strapi.models.audiencia })
+    )
+  },
+  async findOne (ctx) {
+    const { id } = ctx.params
+    const entity = await strapi.services.audiencia.findOne({ id }, populate)
+    return sanitizeEntity(entity, { model: strapi.models.audiencia })
+  },
   async dossier (ctx) {
     try {
       const { request, state } = ctx
