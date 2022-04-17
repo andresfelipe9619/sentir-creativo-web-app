@@ -1,5 +1,5 @@
 'use strict';
-const { sanitizeEntity } = require('strapi-utils')
+const { sanitizeEntity } = require('strapi-utils');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -35,24 +35,24 @@ const populate = [
   'archivos.tipo_archivo',
   'proyectos',
   'acuerdos',
-]
+];
 
 module.exports = {
   async find (ctx) {
-    let entities
+    let entities;
     if (ctx.query._q) {
-      entities = await strapi.services.staf.search(ctx.query)
+      entities = await strapi.services.staf.search(ctx.query);
     } else {
-      entities = await strapi.services.staf.find(ctx.query, populate)
+      entities = await strapi.services.staf.find(ctx.query, populate);
     }
 
     return entities.map(entity =>
       sanitizeEntity(entity, { model: strapi.models.staf })
-    )
+    );
   },
   async findOne (ctx) {
-    const { id } = ctx.params
-    const entity = await strapi.services.staf.findOne({ id }, populate)
-    return sanitizeEntity(entity, { model: strapi.models.staf })
+    const { id } = ctx.params;
+    const entity = await strapi.services.staf.findOne({ id }, populate);
+    return sanitizeEntity(entity, { model: strapi.models.staf });
   },
 };
