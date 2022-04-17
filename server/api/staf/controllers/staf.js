@@ -32,7 +32,7 @@ const populate = [
   'roles',
   'servicios',
   'tecnica_artisticas',
-  'archivos',
+  'archivos.tipo_archivo',
   'proyectos',
   'acuerdos',
 ]

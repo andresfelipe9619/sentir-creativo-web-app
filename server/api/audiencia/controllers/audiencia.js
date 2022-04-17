@@ -39,7 +39,7 @@ const populate = [
   'intereses',
   'tags',
   'comentarios.userId',
-  'archivos',
+  'archivos.tipo_archivo',
   'difusiones',
 ]
 
