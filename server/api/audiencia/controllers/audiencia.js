@@ -1,7 +1,7 @@
 'use strict'
 const axios = require('axios')
 const webhook = process.env.WEBHOOK_DOSSIER
-const { sanitizeEntity } = require('strapi-utils')
+const { sanitizeEntity } = require('strapi-utils');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -41,15 +41,15 @@ const populate = [
   'comentarios.userId',
   'archivos.tipo_archivo',
   'difusiones',
-]
+];
 
 module.exports = {
   async find (ctx) {
-    let entities
+    let entities;
     if (ctx.query._q) {
-      entities = await strapi.services.audiencia.search(ctx.query)
+      entities = await strapi.services.audiencia.search(ctx.query);
     } else {
-      entities = await strapi.services.audiencia.find(ctx.query, populate)
+      entities = await strapi.services.audiencia.find(ctx.query, populate);
     }
 
     return entities.map(entity =>
@@ -57,9 +57,9 @@ module.exports = {
     )
   },
   async findOne (ctx) {
-    const { id } = ctx.params
-    const entity = await strapi.services.audiencia.findOne({ id }, populate)
-    return sanitizeEntity(entity, { model: strapi.models.audiencia })
+    const { id } = ctx.params;
+    const entity = await strapi.services.audiencia.findOne({ id }, populate);
+    return sanitizeEntity(entity, { model: strapi.models.audiencia });
   },
   async dossier (ctx) {
     try {
@@ -90,7 +90,7 @@ module.exports = {
           motivacion: 7,
           estado: 8
         }
-      )
+      );
       if (comentario) {
         const comment = await strapi.services.comentario.create({ comentario })
         await knex.transaction(async trx => {
