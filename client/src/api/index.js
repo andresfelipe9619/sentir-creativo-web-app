@@ -61,23 +61,11 @@ const Archivo = Factory("archivos", {
     serverRequests.post(`/${entity}s/${id}/archivos`, files),
 });
 
-const Audiencia = {
-  getAll: (config) => serverRequests.get(`/audiencias`, config),
-  count: (config) => serverRequests.get(`/audiencias/count`, config),
-  get: (id) => serverRequests.get(`/audiencias/${id}`),
+const Audiencia = Factory("audiencias", {
   dossier: (audiencia) => serverRequests.post("/audiencias/dossier", audiencia),
-  create: (audience) => serverRequests.post("/audiencias", audience),
-  update: (id, audience) => serverRequests.put(`/audiencias/${id}`, audience),
-  delete: (id) => serverRequests.del(`/audiencias/${id}`),
-};
+});
 
-const User = {
-  getAll: () => serverRequests.get(`/user`),
-  profile: () => serverRequests.get("/profile"),
-  get: (id) => serverRequests.get(`/user/${id}`),
-  delete: (id) => serverRequests.del(`/user/${id}`),
-  update: (id, user) => serverRequests.put(`/user/${id}`, user),
-};
+const User = Factory("user");
 
 const Servicio = Factory("servicios");
 
