@@ -1,0 +1,19 @@
+{
+  "name": "sentir-creativo-web-app",
+  "version": "1.0.0",
+  "description": "Full stack app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresfelipe9619/sentir-creativo-web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andresfelipe9619/sentir-creativo-web-app/issues"
+  },
+  "homepage": "https://github.com/andresfelipe9619/sentir-creativo-web-app#readme"
+}

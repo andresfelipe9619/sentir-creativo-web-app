@@ -82,7 +82,7 @@ export default function FormItem(props) {
 
   const content = {
     date: canRender("date") && (
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} key={key}>
         <KeyboardDateTimePicker
           disableToolbar
           variant="inline"
@@ -108,11 +108,13 @@ export default function FormItem(props) {
     autocomplete: canRender("autocomplete") && (
       <Autocomplete
         id={key}
+        key={key}
         freeSolo
         options={options.map((option) => option.label)}
         renderInput={(params) => (
           <TextField
             fullWidth
+            key={key}
             label={item.label}
             disabled={isSubmitting}
             onBlur={handleBlur}
@@ -174,7 +176,7 @@ export default function FormItem(props) {
           onChange={handleChange}
         >
           {options.map((d, i) => (
-            <MenuItem key={d.value + i} value={d.value}>
+            <MenuItem key={i} value={d.value}>
               {d.label}
             </MenuItem>
           ))}
@@ -223,9 +225,9 @@ export default function FormItem(props) {
           }}
           MenuProps={MenuProps}
         >
-          {options.map((o) => (
+          {options.map((o, i) => (
             <MenuItem
-              key={o.value}
+              key={i}
               value={o.value}
               style={getStyles(o.value, value, theme)}
             >

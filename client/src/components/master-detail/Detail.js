@@ -12,6 +12,7 @@ import FormItem from "./FormItem";
 import useFormDependencies from "../../providers/hooks/useFormDependencies";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import DialogButton from "../buttons/DialogButton";
+import { nullifyObjectEmptyStrings } from "../../utils";
 
 export default function Detail({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null);
@@ -25,8 +26,10 @@ export default function Detail({ columns, service, match, reloadMaster }) {
   const { openAlert } = useAlertDispatch();
 
   const handleFormSubmit = useCallback(
-    async (values) => {
+    async (formValues) => {
       try {
+        console.log("formValues", formValues);
+        const values = nullifyObjectEmptyStrings(formValues);
         const result = await API[service].update(entityId, values);
         console.log(`result`, result);
         reloadMaster && reloadMaster();
