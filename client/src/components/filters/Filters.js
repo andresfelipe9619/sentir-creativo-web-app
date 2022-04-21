@@ -75,7 +75,13 @@ function Filters({
     onFilterChange(newFilters);
   };
 
-  const toggleFilter = () => setShowFilters((prev) => !prev);
+  const toggleFilter = () => setShowFilters((prev) => {
+    if (!prev) {
+      window.scrollTo(0, 275);
+    }
+
+    return !prev;
+  });
 
   const count = autocompleteValue ? 1 : maxCount;
   const cardColor = color || theme.palette.primary.main;
