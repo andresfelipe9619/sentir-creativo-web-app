@@ -70,11 +70,31 @@ export function pluralize(word, count) {
 }
 
 export function parseJwt(token) {
-  const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(atob(base64).split('').map((x) => {
-      return '%' + ('00' + x.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split("")
+      .map((x) => {
+        return "%" + ("00" + x.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
 
   return JSON.parse(jsonPayload);
+}
+
+export function nullifyObjectEmptyStrings(object) {
+  return Object.entries(object).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: replaceEmptyStringWithNull(value),
+    }),
+    {}
+  );
+}
+
+export function replaceEmptyStringWithNull(value) {
+  if (!value) return null;
+  return value;
 }
