@@ -293,19 +293,6 @@ const columns = [
     },
   },
   {
-    name: "bitacoras",
-    label: "Bitácoras",
-    options: {
-      display: false,
-      filter: false,
-      sort: false,
-    },
-    form: {
-      size: 12,
-      type: "bitacora",
-    },
-  },
-  {
     name: "comentarios",
     label: "Comentarios",
     options: {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import Typography from "@material-ui/core/Typography";
@@ -7,34 +8,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import BitacoraTable from "./BitacoraTable";
 import CreateEntity from "../modals/CreateEntity";
-import useAPI from "../../providers/hooks/useAPI";
+import API from "../../api";
+import { useAlertDispatch } from "../../providers/context/Alert";
+import { customBodyRender } from "../master-detail/MasterDetail";
 
 // TODO: Move to Bitacora section if there will be exists
 const columns = [
-  {
-    name: "entidadId",
-    label: "EntidadId",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-    },
-  },
-  {
-    name: "entidad",
-    label: "Entidad",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-    },
-  },
   {
     name: "accion",
     label: "Acción",
@@ -45,18 +24,7 @@ const columns = [
     form: {
       size: 4,
       type: "input",
-    },
-  },
-  {
-    name: "fecha",
-    label: "Fecha",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "date",
+      required: true
     },
   },
   {
@@ -65,25 +33,53 @@ const columns = [
     options: {
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
-      type: "input",
+      type: "select",
+      dependency: "vias",
+      required: true
     },
   },
   {
-    name: "relacion",
-    label: "Relación",
+    name: "staf",
+    label: "Staff",
     options: {
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender()
     },
     form: {
       size: 4,
-      type: "input",
+      type: "select",
+      dependency: "Staf",
     },
   },
+  {
+    name: "audiencia",
+    label: "Audiencia",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 4,
+      type: "select",
+      dependency: "Audiencia",
+    },
+  }
 ];
+
+const vias = [
+  'Sentircreativo.com',
+  'Gmail',
+  'admin',
+  'Celular',
+  'Whatsapp',
+  'En persona'
+].map(x => ({ label: x, value: x }));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,21 +92,42 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Bitacora(props) {
-  const { title = "Bitácora", data = [] } = props;
+  const { title = "Bitácora", data = [], parent, initParent } = props;
 
   // States
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   //
 
   const classes = useStyles();
-  const { loading } = useAPI({ service: "Bitacora", initilize: false });
+
+  const params = useParams();
+  const { openAlert } = useAlertDispatch();
 
   const handleCloseModal = () => setOpen(false);
 
   const handleOpenModal = () => setOpen(true);
 
-  const handleCreateBitacora = async () => {
-    return Promise.reject();
+  const handleCreateBitacora = async (value) => {
+    try {
+      setLoading(true);
+      const created = await API.Bitacora.create(value);
+      const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
+      const parentService = API[parentServiceName];
+      await parentService.update(params.id, {
+        bitacoras: [...data, created]
+      });
+
+      await initParent();
+    } catch (e) {
+      console.error(e);
+      openAlert({
+        variant: "error",
+        message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -143,6 +160,7 @@ export default function Bitacora(props) {
         handleCreate={handleCreateBitacora}
         loading={loading}
         columns={columns}
+        staticDependencies={{ vias }}
       />
     </div>
   );

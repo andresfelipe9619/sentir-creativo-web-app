@@ -15,6 +15,7 @@ export default function CreateEntity({
   columns,
   handleClose,
   handleCreate,
+  staticDependencies,
   ...props
 }) {
   const filteredColumns = (columns || []).filter(
@@ -76,7 +77,7 @@ export default function CreateEntity({
                     key={i}
                     item={item}
                     {...formikProps}
-                    dependencies={dependencies}
+                    dependencies={{ ...dependencies, ...staticDependencies }}
                   />
                 ))}
               </Grid>

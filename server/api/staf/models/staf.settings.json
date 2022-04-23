@@ -86,6 +86,10 @@
     "documentoIdentidad": {
       "type": "string",
       "unique": true
+    },
+    "bitacoras": {
+      "via": "staf",
+      "collection": "bitacora"
     }
   }
 }
