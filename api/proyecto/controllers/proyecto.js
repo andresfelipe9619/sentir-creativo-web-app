@@ -25,7 +25,9 @@ const populate = [
   'audiencia.organizacion',
   'archivos.tipo_archivo',
   'destacado',
-  'ciudad'
+  'ciudad',
+  'bitacoras.staf',
+  'bitacoras.audiencia'
 ]
 
 module.exports = {

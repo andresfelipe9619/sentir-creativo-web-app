@@ -102,6 +102,10 @@
     "documentoIdentidad": {
       "type": "string",
       "unique": true
+    },
+    "bitacoras": {
+      "via": "audiencia",
+      "collection": "bitacora"
     }
   }
 }
