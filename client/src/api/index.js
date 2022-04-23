@@ -135,6 +135,8 @@ const Region = Factory("regions");
 
 const Pais = Factory("pais");
 
+const Bitacora = Factory("bitacoras");
+
 const API = {
   Acuerdo,
   Antiguedad,
@@ -177,6 +179,7 @@ const API = {
   User,
   getToken,
   setToken,
+  Bitacora
 };
 
 export default API;

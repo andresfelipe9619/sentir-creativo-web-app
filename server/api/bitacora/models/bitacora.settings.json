@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "bitacoras",
   "info": {
-    "name": "bitacora"
+    "name": "bitacora",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -25,6 +26,17 @@
     },
     "entidadId": {
       "type": "integer"
+    },
+    "staf": {
+      "model": "staf",
+      "via": "bitacoras"
+    },
+    "audiencia": {
+      "model": "audiencia",
+      "via": "bitacoras"
+    },
+    "via": {
+      "type": "string"
     }
   }
 }

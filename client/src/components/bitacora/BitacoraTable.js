@@ -44,13 +44,13 @@ export default function BitacoraTable({ data = [], title = "Bitácoras" }) {
           <StyledTableRow key={x.id}>
             <TableCell>
               <Chip
-                label={formatDate(x.fecha, false)}
+                label={formatDate(x.created_at, false)}
                 className={classes.chip}
               />
             </TableCell>
             <TableCell>{x.accion}</TableCell>
             <TableCell>{x.via}</TableCell>
-            <TableCell>{x.realcion}</TableCell>
+            <TableCell>{x?.staf?.nombre || x?.audiencia?.nombre || 'Sin asignar'}</TableCell>
           </StyledTableRow>
         ))}
 

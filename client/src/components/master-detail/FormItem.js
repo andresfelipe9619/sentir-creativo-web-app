@@ -243,7 +243,7 @@ export default function FormItem(props) {
     ),
     upload: canRender("upload") && <Upload {...props} item={item} />,
     bitacora: canRender("bitacora") && (
-      <Bitacora data={value} {...fieldProps} />
+      <Bitacora data={value} {...fieldProps} {...{ parent, initParent }} />
     ),
     city: canRender("city") && <CitySelect {...props} item={item} />,
     comments: canRender("comments") && (
