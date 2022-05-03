@@ -1,9 +1,6 @@
 const { useCallback, useState } = require("react");
 const { default: API } = require("../../api");
-
-const API_OPTIONS = {
-  params: { _limit: -1, _sort: "nombre:ASC" },
-};
+const couponColumns = ["cupon_descuentos", "cuponDescuento"];
 
 export default function useFormDependencies(columns) {
   const [dependencies, setDependencies] = useState(null);
@@ -23,8 +20,14 @@ export default function useFormDependencies(columns) {
       await Promise.all(
         dependencyColumns.map(async (col) => {
           const { dependency, renderLabel } = col?.form;
-
-          const result = await API[dependency].getAll(API_OPTIONS);
+          const isCouponColumn = couponColumns.includes(col?.name);
+          const sort = isCouponColumn ? "codigo:ASC" : "nombre:ASC";
+          const result = await API[dependency].getAll({
+            params: {
+              _limit: -1,
+              _sort: sort,
+            },
+          });
           setDependencies((prev) => ({
             ...prev,
             [dependency]: result.map((item) => ({

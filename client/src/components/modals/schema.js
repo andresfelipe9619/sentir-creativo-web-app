@@ -90,7 +90,7 @@ export const columns = (showOrganization) => [
             sort: true,
           },
           form: {
-            size: 4,
+            size: 6,
             type: "input",
             required: true,
           },
@@ -103,8 +103,8 @@ export const columns = (showOrganization) => [
             sort: true,
           },
           form: {
-            size: 12,
-            type: "radio",
+            size: 6,
+            type: "select",
             required: true,
             visibleWith: "organizacion",
             dependency: "Rubro",

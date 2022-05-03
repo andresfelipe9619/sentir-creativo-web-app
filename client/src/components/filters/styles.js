@@ -105,6 +105,14 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  startIconMobile: {
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+      '& svg': {
+        fontSize: '28px !important'
+      }
+    }
+  }
 }));
 
 export default useStyles;

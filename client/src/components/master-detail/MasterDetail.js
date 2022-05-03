@@ -168,7 +168,7 @@ function MasterView({
           onRowClick={handleClickRow}
           customToolbarSelect={({ lookup }, _, fn) => (
             <DialogButton
-              color="grey"
+              color="default"
               label={<DeleteIcon />}
               onClose={async (accepted) =>
                 accepted && (await handleRowsDelete(Object.keys(lookup), fn))
@@ -182,7 +182,7 @@ function MasterView({
 }
 
 const isDate = (item) =>
-  new Date(item) !== "Invalid Date" && !isNaN(new Date(item));
+  isNaN(item) && new Date(item) !== "Invalid Date" && !isNaN(new Date(item));
 
 const isObject = (item) => !!item && typeof item === "object";
 

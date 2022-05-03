@@ -232,5 +232,18 @@ const columns = [
       type: "comments",
     },
   },
+  {
+    name: "bitacoras",
+    label: "Bitácoras",
+    options: {
+      display: false,
+      filter: false,
+      sort: false,
+    },
+    form: {
+      size: 12,
+      type: "bitacora",
+    },
+  }
 ];
 export default columns;

@@ -72,16 +72,17 @@ export default function FormItem(props) {
     ...fieldProps
   } = item.form;
   const key = item.name;
-  let value = values[key];
+  const value = values[key];
   const canRender = (name) => {
-    if (!visibleWith) return type === name;
-    return type === name && values[visibleWith];
+    const isSameType = type === name;
+    if (!visibleWith) return isSameType;
+    return isSameType && !!values[visibleWith];
   };
   const options = (dependencies || {})[dependency] || [];
 
   const content = {
     date: canRender("date") && (
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale} key={key}>
         <KeyboardDateTimePicker
           disableToolbar
           variant="inline"
@@ -107,11 +108,13 @@ export default function FormItem(props) {
     autocomplete: canRender("autocomplete") && (
       <Autocomplete
         id={key}
+        key={key}
         freeSolo
         options={options.map((option) => option.label)}
         renderInput={(params) => (
           <TextField
             fullWidth
+            key={key}
             label={item.label}
             disabled={isSubmitting}
             onBlur={handleBlur}
@@ -135,7 +138,7 @@ export default function FormItem(props) {
         disabled={isSubmitting}
         onBlur={handleBlur}
         onChange={handleChange}
-        value={value}
+        value={value || ""}
         type={inputType}
         error={!!touched[key] && !!errors[key]}
         variant="outlined"
@@ -152,7 +155,7 @@ export default function FormItem(props) {
         variant="outlined"
         disabled={isSubmitting}
         onChange={(v) => setFieldValue(key, v.replace("+", ""))}
-        value={value}
+        value={value || ""}
         fullWidth
         countryCodeEditable={false}
         autoFormat={false}
@@ -173,7 +176,7 @@ export default function FormItem(props) {
           onChange={handleChange}
         >
           {options.map((d, i) => (
-            <MenuItem key={d.value + i} value={d.value}>
+            <MenuItem key={i} value={d.value}>
               {d.label}
             </MenuItem>
           ))}
@@ -212,7 +215,7 @@ export default function FormItem(props) {
                 {items.map((p, i) => (
                   <Chip
                     key={p + i}
-                    label={p.label}
+                    label={p?.label}
                     disabled={isSubmitting}
                     className={classes.chip}
                   />
@@ -222,9 +225,9 @@ export default function FormItem(props) {
           }}
           MenuProps={MenuProps}
         >
-          {options.map((o) => (
+          {options.map((o, i) => (
             <MenuItem
-              key={o.value}
+              key={i}
               value={o.value}
               style={getStyles(o.value, value, theme)}
             >
@@ -240,7 +243,7 @@ export default function FormItem(props) {
     ),
     upload: canRender("upload") && <Upload {...props} item={item} />,
     bitacora: canRender("bitacora") && (
-      <Bitacora data={value} {...fieldProps} />
+      <Bitacora data={value} {...fieldProps} {...{ parent, initParent }} />
     ),
     city: canRender("city") && <CitySelect {...props} item={item} />,
     comments: canRender("comments") && (

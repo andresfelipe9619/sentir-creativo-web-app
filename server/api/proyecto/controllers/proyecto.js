@@ -25,7 +25,9 @@ const populate = [
   'audiencia.organizacion',
   'archivos.tipo_archivo',
   'destacado',
-  'ciudad'
+  'ciudad',
+  'bitacoras.staf',
+  'bitacoras.audiencia'
 ]
 
 module.exports = {
@@ -83,7 +85,7 @@ module.exports = {
       }
 
       if (organizacion) {
-        org = findOrCreate('organizacion', { nombre: organizacion }, { rubro })
+        org = await findOrCreate('organizacion', { nombre: organizacion }, { rubro })
       }
 
       if (!audience) {
@@ -95,26 +97,26 @@ module.exports = {
           ciudad,
           prefijo,
           departamento,
-          cercania: 3,
+          cercania: 4,
           origen: 1,
-          antiguedad: 3,
+          antiguedad: 2,
           motivacion: 5,
           estado: 7,
           organizacion: org.id
         })
       }
       console.log(`audience`, audience)
-
+      const projectName  =`${servicio.nombre} para ${org.nombre || audience.nombre}`
       const proyecto = await strapi.services.proyecto.create({
-        nombre: servicio.nombre,
-        formato,
         impacto,
         ciudad,
         fechaFin,
         fechaInicio,
-        audiencia: audience.id,
-        // estado: 1,
+        nombre: projectName,
+        estado_proyecto: 1,
         tipo_proyecto: 3,
+        audiencia: audience.id,
+        formatos: [formato],
         cupon_descuentos: [coupon],
         servicios: [servicio]
       })

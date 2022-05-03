@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import FormItem from "../master-detail/FormItem";
 import useFormDependencies from "../../providers/hooks/useFormDependencies";
+import { nullifyObjectEmptyStrings } from "../../utils";
 
 const EXCLUDED_FIELDS = ["bitacora", "file", "tag", "comments"];
 
@@ -15,6 +16,7 @@ export default function CreateEntity({
   columns,
   handleClose,
   handleCreate,
+  staticDependencies,
   ...props
 }) {
   const filteredColumns = (columns || []).filter(
@@ -29,12 +31,11 @@ export default function CreateEntity({
     //eslint-disable-next-line
   }, []);
 
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = async (formValues) => {
     try {
-      console.log(`values`, values);
-      const result = await handleCreate({
-        ...values,
-      });
+      console.log(`formValues`, formValues);
+      const values = nullifyObjectEmptyStrings(formValues);
+      const result = await handleCreate(values);
       console.log(`result`, result);
       openAlert({ variant: "success", message: `${entity} creado con éxito!` });
       handleClose();
@@ -51,7 +52,6 @@ export default function CreateEntity({
   };
 
   const { validationSchema, initialValues } = getFormProps(filteredColumns);
-  console.log("validationSchema", validationSchema);
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -76,7 +76,7 @@ export default function CreateEntity({
                     key={i}
                     item={item}
                     {...formikProps}
-                    dependencies={dependencies}
+                    dependencies={{ ...dependencies, ...staticDependencies }}
                   />
                 ))}
               </Grid>
