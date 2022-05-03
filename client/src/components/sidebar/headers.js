@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { getAreaBackground } from "../../utils";
 import Logo from "../../assets/full-logo.png";
 import LogoYellow from "../../assets/iso_amarillo.svg";
+import HideOnScroll from "./HideOnScroll";
 
 const ICON_SIZE = "1.6em";
 
@@ -26,7 +27,7 @@ const buttonsStyle = {
   textAlign: "left",
   textTransform: "none",
   flex: "1 1 auto",
-  justifyContent: "flex-start"
+  justifyContent: "flex-start",
 };
 export function MobileAreasButtons({ areas, goTo, classes }) {
   const { pathname } = useLocation();
@@ -67,7 +68,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
             ...buttonsStyle,
             background: selected ? getAreaBackground(area) : getYellow(i),
             color: selected ? "white" : "#4D4C4C",
-            maxWidth: 'none'
+            maxWidth: "none",
           };
 
           return (
@@ -81,7 +82,11 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
                 selected: classes.navigationButton,
                 label: classes.navigationButton,
               }}
-              icon={area.icono && <area.icono size={"2em"} style={{ marginRight: 'auto' }} />}
+              icon={
+                area.icono && (
+                  <area.icono size={"2em"} style={{ marginRight: "auto" }} />
+                )
+              }
             />
           );
         })}
@@ -92,7 +97,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
 
 export function MobileHeader({ areas, classes, goTo }) {
   return (
-    <>
+    <HideOnScroll>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, classes.navigation)}
@@ -118,7 +123,12 @@ export function MobileHeader({ areas, classes, goTo }) {
               }}
               classes={{ root: classes.buttons }}
               startIcon={
-                <img src={LogoYellow} width={48} height={"auto"} alt="logo sentir creativo" />
+                <img
+                  src={LogoYellow}
+                  width={48}
+                  height={"auto"}
+                  alt="logo sentir creativo"
+                />
               }
               onClick={() => goTo(`/`)()}
             >
@@ -153,7 +163,7 @@ export function MobileHeader({ areas, classes, goTo }) {
           <MobileAreasButtons {...{ areas, goTo, classes }} />
         </Toolbar>
       </AppBar>
-    </>
+    </HideOnScroll>
   );
 }
 
@@ -202,44 +212,46 @@ function AreasButtons({ areas, goTo, classes }) {
 
 export function DesktopHeader({ areas, classes, goTo }) {
   return (
-    <AppBar position="fixed" className={clsx(classes.appBar)} elevation={0}>
-      <Toolbar disableGutters>
-        <Box width="100%" display="flex" justifyContent="center">
-          <ButtonGroup
-            variant="text"
-            color="secondary"
-            className={classes.navigation}
-          >
-            <Button
-              fullWidth
-              onClick={() => goTo(`/`)()}
-              classes={{ root: classes.buttons, startIcon: classes.buttons }}
-              key={"sentir creativo"}
-              style={{ background: "#ffec11", ...buttonsStyle }}
+    <HideOnScroll>
+      <AppBar position="fixed" className={clsx(classes.appBar)} elevation={0}>
+        <Toolbar disableGutters>
+          <Box width="100%" display="flex" justifyContent="center">
+            <ButtonGroup
+              variant="text"
+              color="secondary"
+              className={classes.navigation}
             >
-              <img src={Logo} width={180} alt="logo sentir creativo" />
-            </Button>
+              <Button
+                fullWidth
+                onClick={() => goTo(`/`)()}
+                classes={{ root: classes.buttons, startIcon: classes.buttons }}
+                key={"sentir creativo"}
+                style={{ background: "#ffec11", ...buttonsStyle }}
+              >
+                <img src={Logo} width={180} alt="logo sentir creativo" />
+              </Button>
 
-            <AreasButtons {...{ areas, goTo, classes }} />
+              <AreasButtons {...{ areas, goTo, classes }} />
 
-            <Button
-              fullWidth
-              size="large"
-              key={"quienes somos"}
-              style={{
-                background: "#ff6c00",
-                color: "white",
-                ...buttonsStyle,
-              }}
-              classes={{ startIcon: classes.buttons }}
-              onClick={() => goTo(`/about`)()}
-              endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
-            >
-              ¿Quiénes <br /> somos?
-            </Button>
-          </ButtonGroup>
-        </Box>
-      </Toolbar>
-    </AppBar>
+              <Button
+                fullWidth
+                size="large"
+                key={"quienes somos"}
+                style={{
+                  background: "#ff6c00",
+                  color: "white",
+                  ...buttonsStyle,
+                }}
+                classes={{ startIcon: classes.buttons }}
+                onClick={() => goTo(`/about`)()}
+                endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
+              >
+                ¿Quiénes <br /> somos?
+              </Button>
+            </ButtonGroup>
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </HideOnScroll>
   );
 }

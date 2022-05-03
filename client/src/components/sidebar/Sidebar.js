@@ -53,13 +53,13 @@ export default function Sidebar({ children }) {
   }, []);
 
   if (laoding) return null;
+  let header = null;
   const headerProps = { classes, areas, goTo };
+  if (isMobile) header = <MobileHeader {...headerProps} />;
+  if (isDesktop && !isMobile) header = <DesktopHeader {...headerProps} />;
   return (
     <div className={classes.root}>
-      <Suspense fallback={"Loading ..."}>
-        {isMobile && <MobileHeader {...headerProps} />}
-        {isDesktop && !isMobile && <DesktopHeader {...headerProps} />}
-      </Suspense>
+      <Suspense fallback={"Loading ..."}>{header}</Suspense>
       <main className={clsx(classes.content)}>
         <div className={classes.drawerHeader} />
         {children}
