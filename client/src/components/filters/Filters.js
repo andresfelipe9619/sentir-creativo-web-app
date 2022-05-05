@@ -23,7 +23,6 @@ import Slide from "@material-ui/core/Slide";
 import FilterPagination from "./FilterPagination";
 import { pluralize } from "../../utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import HideOnScroll from "../sidebar/HideOnScroll";
 
 const PAGE_SIZE = 6;
 
@@ -113,107 +112,105 @@ function Filters({
 
   return (
     <ThemeProvider theme={areaTheme}>
-      <HideOnScroll threshold={420}>
-        <AppBar
-          position="sticky"
-          classes={{ root: classes.toolbar }}
-          elevation={0}
-        >
-          <Toolbar>
-            <Button
-              color="primary"
-              variant="outlined"
-              onClick={toggleFilter}
-              style={{ marginRight: 16 }}
-              startIcon={<FilterListIcon />}
-              classes={{
-                startIcon: classes.startIconMobile,
-              }}
-            >
-              {!isSmall && "Filtros"}
-            </Button>
-            <Autocomplete
-              size="small"
-              id="combo-box-demo"
-              options={searchOptions}
-              value={autocompleteValue}
-              onChange={(_, newValue) => {
-                setAutocompleteValue(newValue);
-                onSearchChange(newValue);
-              }}
-              getOptionLabel={(option) => option.nombre}
-              style={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Buscar"
-                  variant="outlined"
-                  InputProps={{
-                    ...params.InputProps,
-                    startAdornment: (
-                      <SearchIcon
-                        style={{
-                          color: cardColor,
-                        }}
-                      />
-                    ),
-                  }}
-                />
-              )}
-            />
-
-            <Box className={classes.chips}>
-              {(chips || []).map((option) => {
-                return (
-                  <Chip
-                    key={option.label}
-                    label={option.label}
-                    disabled={loading}
-                    onDelete={handleDeleteFilter(option)}
-                    style={{
-                      backgroundColor: cardColor,
-                      color: "white",
-                    }}
-                  />
-                );
-              })}
-            </Box>
-          </Toolbar>
-          <Toolbar
-            style={{
-              minHeight: 36,
-              padding: 0,
-              backgroundColor: areaTheme.palette.primary.dark,
+      <AppBar
+        position="sticky"
+        classes={{ root: classes.toolbar }}
+        elevation={0}
+      >
+        <Toolbar>
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={toggleFilter}
+            style={{ marginRight: 16 }}
+            startIcon={<FilterListIcon />}
+            classes={{
+              startIcon: classes.startIconMobile,
             }}
           >
-            <Grid item md={3}></Grid>
-            <Grid
-              item
-              md={4}
-              component={Box}
-              width="100%"
-              height="100%"
-              py={0.5}
-              px={3}
-              bgcolor={areaTheme.palette.primary.dark}
-              style={{
-                fontSize: "1.2em",
-                fontWeight: "bold",
-              }}
-            >
-              {loading
-                ? `Búscando experiencias ...`
-                : `${count} ${pluralize("experiencia", count)} ${pluralize(
-                    "encontrada",
-                    count
-                  )}: `}
-            </Grid>
-            <Grid item xs={12} md={5}>
-              {!autocompleteValue && pagination}
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
+            {!isSmall && "Filtros"}
+          </Button>
+          <Autocomplete
+            size="small"
+            id="combo-box-demo"
+            options={searchOptions}
+            value={autocompleteValue}
+            onChange={(_, newValue) => {
+              setAutocompleteValue(newValue);
+              onSearchChange(newValue);
+            }}
+            getOptionLabel={(option) => option.nombre}
+            style={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Buscar"
+                variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: (
+                    <SearchIcon
+                      style={{
+                        color: cardColor,
+                      }}
+                    />
+                  ),
+                }}
+              />
+            )}
+          />
+
+          <Box className={classes.chips}>
+            {(chips || []).map((option) => {
+              return (
+                <Chip
+                  key={option.label}
+                  label={option.label}
+                  disabled={loading}
+                  onDelete={handleDeleteFilter(option)}
+                  style={{
+                    backgroundColor: cardColor,
+                    color: "white",
+                  }}
+                />
+              );
+            })}
+          </Box>
+        </Toolbar>
+        <Toolbar
+          style={{
+            minHeight: 36,
+            padding: 0,
+            backgroundColor: areaTheme.palette.primary.dark,
+          }}
+        >
+          <Grid item md={3}></Grid>
+          <Grid
+            item
+            md={4}
+            component={Box}
+            width="100%"
+            height="100%"
+            py={0.5}
+            px={3}
+            bgcolor={areaTheme.palette.primary.dark}
+            style={{
+              fontSize: "1.2em",
+              fontWeight: "bold",
+            }}
+          >
+            {loading
+              ? `Búscando experiencias ...`
+              : `${count} ${pluralize("experiencia", count)} ${pluralize(
+                  "encontrada",
+                  count
+                )}: `}
+          </Grid>
+          <Grid item xs={12} md={5}>
+            {!autocompleteValue && pagination}
+          </Grid>
+        </Toolbar>
+      </AppBar>
       <Grid container>
         <Slide direction="right" in={showFilters} mountOnEnter unmountOnExit>
           <Grid item md={3}>
