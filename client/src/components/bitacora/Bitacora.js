@@ -54,6 +54,7 @@ const columns = [
       size: 4,
       type: "select",
       dependency: "Staf",
+      renderLabel: (x) => `${x.nombre} ${x.apellido}`
     },
   },
   {
@@ -67,7 +68,8 @@ const columns = [
     form: {
       size: 4,
       type: "select",
-      dependency: "Audiencia",
+      renderLabel: (x) => `${x.nombre} ${x.apellido} • ${x?.organizacion?.nombre || ""}`,
+      dependency: "Audiencia"
     },
   }
 ];
@@ -97,6 +99,7 @@ export default function Bitacora(props) {
   // States
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [editingValue, setEditingValue] = useState(null);
   //
 
   const classes = useStyles();
@@ -106,10 +109,18 @@ export default function Bitacora(props) {
 
   const handleCloseModal = () => setOpen(false);
 
-  const handleOpenModal = () => setOpen(true);
+  const handleOpenModal = () => {
+    setOpen(true);
+    setEditingValue(null);
+  };
 
   const handleCreateBitacora = async (value) => {
     try {
+      if (editingValue) {
+        await editBitacora(value);
+        return;
+      }
+
       setLoading(true);
       const created = await API.Bitacora.create(value);
       const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
@@ -128,6 +139,63 @@ export default function Bitacora(props) {
     } finally {
       setLoading(false);
     }
+  }
+
+  const editBitacora = async (value) => {
+    try {
+      setLoading(true);
+      const { id } = editingValue;
+
+      const updated = await API.Bitacora.update(id, value);
+      const parentServiceName = parent[0]?.toUpperCase() + parent?.slice(1);
+      const parentService = API[parentServiceName];
+      await parentService.update(params.id, {
+        bitacoras: [...data.filter(x => x.id !== id), updated]
+      });
+
+      await initParent();
+
+      setEditingValue(null);
+    } catch (e) {
+      console.error(e);
+      openAlert({
+        variant: "error",
+        message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleDelete = async (id = 0) => {
+    try {
+      setLoading(true);
+      await API.Bitacora.delete(id);
+      await initParent();
+      openAlert({
+        variant: "success",
+        message: "¡Borrado correctamente!",
+      });
+    } catch (e) {
+      console.error(e);
+      openAlert({
+        variant: "error",
+        message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePrepareToEdit = (value = {}) => {
+    setEditingValue({
+      id: value.id,
+      accion: value.accion,
+      audiencia: value.audiencia?.id,
+      staf: value.staf?.id,
+      via: value.via
+    });
+    setOpen(true);
   };
 
   return (
@@ -150,18 +218,19 @@ export default function Bitacora(props) {
       </Tooltip>
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
-        <BitacoraTable data={data} />
+        <BitacoraTable data={data} remove={handleDelete} edit={handlePrepareToEdit} />
       </Box>
 
-      <CreateEntity
-        open={open}
+      {open && <CreateEntity
+        open={true}
         entity={"Bitacora"}
         handleClose={handleCloseModal}
         handleCreate={handleCreateBitacora}
         loading={loading}
         columns={columns}
         staticDependencies={{ vias }}
-      />
+        initialState={editingValue}
+      />}
     </div>
   );
 }
