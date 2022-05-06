@@ -17,6 +17,7 @@ export default function CreateEntity({
   handleClose,
   handleCreate,
   staticDependencies,
+  initialState,
   ...props
 }) {
   const filteredColumns = (columns || []).filter(
@@ -37,7 +38,8 @@ export default function CreateEntity({
       const values = nullifyObjectEmptyStrings(formValues);
       const result = await handleCreate(values);
       console.log(`result`, result);
-      openAlert({ variant: "success", message: `${entity} creado con éxito!` });
+      const action = initialState ? 'actualizado' : 'creado';
+      openAlert({ variant: "success", message: `${entity} ${action} con éxito!` });
       handleClose();
     } catch (error) {
       console.error(error);
@@ -52,6 +54,11 @@ export default function CreateEntity({
   };
 
   const { validationSchema, initialValues } = getFormProps(filteredColumns);
+
+  if (initialState) {
+    Object.keys(initialState).forEach(key => initialValues[key] = initialState[key])
+  }
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -66,7 +73,7 @@ export default function CreateEntity({
             handleClose={handleClose}
             loading={loadingDependencies}
             handleConfirm={handleSubmit}
-            title={`Crear ${entity}`}
+            title={`${initialState ? 'Actualizar' : 'Crear'} ${entity}`}
             isSubmitting={formikProps.isSubmitting}
           >
             <form>
