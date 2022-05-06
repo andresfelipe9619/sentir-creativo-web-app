@@ -209,7 +209,7 @@ export default function AppFooter() {
           </Grid>
 
           <Grid container item xs={12} justifyContent="space-around">
-            <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
+            {/* <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
               <Button
                 variant="contained"
                 size="large"
@@ -218,7 +218,7 @@ export default function AppFooter() {
               >
                 Únete a la red
               </Button>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
               <Button
