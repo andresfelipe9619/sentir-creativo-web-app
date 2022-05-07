@@ -419,14 +419,14 @@ export default function About() {
             >
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     size="large"
                     className={classes.buttonColorful}
                     style={{ backgroundColor: COLORS.purple }}
                   >
                     Únete a la red
-                  </Button>
+                  </Button> */}
                 </Grid>
               </Grid>
             </Connections>

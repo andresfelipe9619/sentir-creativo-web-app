@@ -4,9 +4,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import Chip from "@material-ui/core/Chip";
 import Typography from "@material-ui/core/Typography";
 import { formatDate } from "../../utils";
+import DialogButton from "../buttons/DialogButton";
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -24,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BitacoraTable({ data = [], title = "Bitácoras" }) {
+export default function BitacoraTable({ data = [], title = "Bitácoras", remove, edit }) {
   const classes = useStyles();
 
   return (
@@ -35,6 +39,7 @@ export default function BitacoraTable({ data = [], title = "Bitácoras" }) {
           <TableCell>Acción</TableCell>
           <TableCell>Vía</TableCell>
           <TableCell>Relación</TableCell>
+          <TableCell></TableCell>
         </TableRow>
       </TableHead>
 
@@ -51,6 +56,19 @@ export default function BitacoraTable({ data = [], title = "Bitácoras" }) {
             <TableCell>{x.accion}</TableCell>
             <TableCell>{x.via}</TableCell>
             <TableCell>{x?.staf?.nombre || x?.audiencia?.nombre || 'Sin asignar'}</TableCell>
+            <TableCell>
+              <IconButton onClick={() => edit(x)}>
+                <EditIcon />
+              </IconButton>
+
+              <DialogButton
+                label={<DeleteIcon />}
+                color="textSecondary"
+                onClose={async (accepted) =>
+                  accepted && (await remove(x?.id))
+                }
+              />
+            </TableCell>
           </StyledTableRow>
         ))}
 

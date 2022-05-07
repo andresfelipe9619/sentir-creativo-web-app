@@ -15,6 +15,7 @@ import CreateEntity from "../modals/CreateEntity";
 import useAPI from "../../providers/hooks/useAPI";
 import columns from "../dashboard/archivos/columns";
 import DialogButton from "../buttons/DialogButton";
+import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 
 const dropzoneColumns = [
   ...columns.filter((x) => x.name !== "path"),
@@ -90,6 +91,12 @@ export default function Files({ files, title, parent, initParent }) {
           <Icon>add_circle</Icon>
         </IconButton>
       </Tooltip>
+
+      <Button color="primary" variant="contained" size="small" style={{ marginBottom: 16 }}>
+        <CreateNewFolderIcon />
+        Crear carpeta
+      </Button>
+
       <Box width="100%" display="flex" flexWrap={"wrap"}>
         {(files || []).map((f, i) => (
           <ImgMediaCard key={f.nombre + i} remove={handleDeleteFile} {...f} />

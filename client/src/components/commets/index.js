@@ -188,7 +188,7 @@ export default function Comments(props) {
 
       <Grid container spacing={4}>
         {data?.map((x) => (
-          <Grid item md={4}>
+          <Grid item md={4} key={x.id}>
             <Card>
               <CardContent>
                 <Typography variant="body2" component="p">
