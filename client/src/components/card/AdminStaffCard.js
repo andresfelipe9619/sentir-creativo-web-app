@@ -8,7 +8,7 @@ import orange from "@material-ui/core/colors/orange";
 import green from "@material-ui/core/colors/green";
 import grey from "@material-ui/core/colors/grey";
 import yellow from "@material-ui/core/colors/yellow";
-import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
+import SurfingIcon from '@mui/icons-material/Surfing';
 import AdminCard, { Stat, DenseTable, createData } from "./AdminCard";
 import { useHistory } from "react-router-dom";
 import { brown } from "@material-ui/core/colors";
@@ -123,7 +123,7 @@ function AdminStaffCard({ staff }) {
         .join(" • ")}
       floatingHeader={{
         color: brown[600],
-        icon: EmojiPeopleIcon,
+        icon: SurfingIcon,
         label: "STAFF",
         score: getRandomArbitrary(1, 7),
       }}
