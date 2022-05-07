@@ -12,7 +12,7 @@ import yellow from "@material-ui/core/colors/yellow";
 import AdminCard, { Stat, DenseTable, createData } from "./AdminCard";
 import { useHistory } from "react-router-dom";
 import { indigo } from "@material-ui/core/colors";
-import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import HailIcon from '@mui/icons-material/Hail';
 import useStyles from "./styles";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
@@ -135,7 +135,7 @@ function AdminAudienceCard({ audience }) {
       subheader={`${cargo} - ${departamento}`}
       floatingHeader={{
         color: indigo[800],
-        icon: EmojiPeopleIcon,
+        icon: HailIcon,
         label: "Audiencia",
         score: getRandomArbitrary(1, 7),
       }}
