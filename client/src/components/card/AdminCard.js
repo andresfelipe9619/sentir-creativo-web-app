@@ -20,9 +20,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 import useStyles from "./styles";
-import { red } from "@material-ui/core/colors";
-import { orange } from "@material-ui/core/colors";
-import { green } from "@material-ui/core/colors";
 import { grey } from "@material-ui/core/colors";
 import CopyClipboard from "../clipboard";
 
@@ -186,20 +183,6 @@ function AdminCard({
   );
 }
 
-function getScoreColor(score) {
-  // Safety score (because in some cases is necesary that contains special caracters)
-  if (typeof score === "string") {
-    // FIXME: Only take the first number
-    score = parseFloat(score.replace(/\D/g, "")[0]);
-  }
-
-  if (!score) return grey[700];
-  if (score >= 1 && score < 3) return red[700];
-  if (score >= 3 && score < 5) return orange[800];
-  if (score >= 5 && score < 8) return green["A700"];
-  return grey[700];
-}
-
 const idStyle = {
   float: "right",
   color: "#fff",
@@ -238,6 +221,7 @@ const FloatingHeader = memo(function FloatingHeader({
   score,
   classes,
   color,
+  scoreColor = grey[700]
 }) {
   return (
     <Box display="flex" style={headerStyle} alignItems="center">
@@ -268,7 +252,7 @@ const FloatingHeader = memo(function FloatingHeader({
       )}
       <Chip
         label={score}
-        style={{ backgroundColor: getScoreColor(score), color: "white" }}
+        style={{ backgroundColor: scoreColor, color: "white" }}
       />
     </Box>
   );

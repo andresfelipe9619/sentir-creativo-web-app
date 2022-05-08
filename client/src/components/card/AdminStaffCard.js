@@ -5,6 +5,7 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import StarIcon from "@material-ui/icons/Star";
 import PhoneIcon from "@mui/icons-material/Phone";
 import orange from "@material-ui/core/colors/orange";
+import red from "@material-ui/core/colors/red";
 import green from "@material-ui/core/colors/green";
 import grey from "@material-ui/core/colors/grey";
 import yellow from "@material-ui/core/colors/yellow";
@@ -105,6 +106,24 @@ function AdminStaffCard({ staff }) {
 
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
 
+  const score = getRandomArbitrary(1, 7);
+
+  const getScoreColor = (score = 0) => {
+    if (score === 7) {
+      return green['A700']
+    }
+
+    if (score >= 4) {
+      return orange[800]
+    }
+
+    if (score >= 1) {
+      return red[700]
+    }
+
+    return grey[700]
+  };
+
   return (
     <AdminCard
       id={id}
@@ -125,7 +144,8 @@ function AdminStaffCard({ staff }) {
         color: brown[600],
         icon: SurfingIcon,
         label: "STAFF",
-        score: getRandomArbitrary(1, 7),
+        score,
+        scoreColor: getScoreColor(parseFloat(score))
       }}
       renderContent={() => (
         <Grid container item md={12} spacing={3}>
