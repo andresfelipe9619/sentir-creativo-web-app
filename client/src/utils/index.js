@@ -98,3 +98,19 @@ export function replaceEmptyStringWithNull(value) {
   if (!value) return null;
   return value;
 }
+
+export const getScoreColor = (score = 0) => {
+  if (score === 7) {
+    return green['A700']
+  }
+
+  if (score >= 4) {
+    return orange[800]
+  }
+
+  if (score >= 1) {
+    return red[700]
+  }
+
+  return grey[700]
+};

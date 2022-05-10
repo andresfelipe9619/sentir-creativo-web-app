@@ -8,7 +8,6 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import orange from "@material-ui/core/colors/orange";
 import green from "@material-ui/core/colors/green";
 import grey from "@material-ui/core/colors/grey";
-import red from "@material-ui/core/colors/red";
 import yellow from "@material-ui/core/colors/yellow";
 import AdminCard, { Stat, DenseTable, createData } from "./AdminCard";
 import { useHistory } from "react-router-dom";
@@ -19,6 +18,7 @@ import { useAlertDispatch } from "../../providers/context/Alert";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import API from "../../api";
 import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
+import { getScoreColor } from '../../utils';
 
 export default function Card(props) {
   if (!props.audience) return null;
@@ -110,22 +110,6 @@ function AdminAudienceCard({ audience }) {
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
 
   const score = getRandomArbitrary(1, 7);
-
-  const getScoreColor = (score = 0) => {
-    if (score === 7) {
-      return green['A700']
-    }
-
-    if (score >= 4) {
-      return orange[800]
-    }
-
-    if (score >= 1) {
-      return red[700]
-    }
-
-    return grey[700]
-  };
 
   return (
     <AdminCard
