@@ -1,3 +1,8 @@
+import green from "@material-ui/core/colors/green";
+import orange from "@material-ui/core/colors/orange";
+import red from "@material-ui/core/colors/red";
+import grey from "@material-ui/core/colors/grey";
+
 export function splitArrayIntoChunksOfLen(arr, len) {
   var chunks = [],
     i = 0,
@@ -98,3 +103,19 @@ export function replaceEmptyStringWithNull(value) {
   if (!value) return null;
   return value;
 }
+
+export const getScoreColor = (score = 0) => {
+  if (score === 7) {
+    return green['A700']
+  }
+
+  if (score >= 4) {
+    return orange[800]
+  }
+
+  if (score >= 1) {
+    return red[700]
+  }
+
+  return grey[700]
+};

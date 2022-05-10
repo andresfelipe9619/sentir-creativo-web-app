@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_tareas",
+  "info": {
+    "name": "TipoTarea"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}
