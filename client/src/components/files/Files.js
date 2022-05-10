@@ -16,6 +16,7 @@ import useAPI from "../../providers/hooks/useAPI";
 import columns from "../dashboard/archivos/columns";
 import DialogButton from "../buttons/DialogButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
+import API from "../../api";
 
 const dropzoneColumns = [
   ...columns.filter((x) => x.name !== "path"),
@@ -67,13 +68,16 @@ export default function Files({ files, title, parent, initParent }) {
   const handleDeleteFile = async (fileId) => {
     const result = await api.delete(`${fileId}.${parent}`);
 
-    if (!result) {
-      return;
-    }
-
+    if (!result) return;
+    //TODO: Not to load everything again, only remove it from state
     await initParent();
   };
 
+  async function handleCreateFolder() {
+    await API.Proyecto.createFolder(params.id);
+  }
+
+  const useFolder = parent === "proyecto";
   return (
     <div className={classes.root}>
       {!!title && (
@@ -92,10 +96,18 @@ export default function Files({ files, title, parent, initParent }) {
         </IconButton>
       </Tooltip>
 
-      <Button color="primary" variant="contained" size="small" style={{ marginBottom: 16 }}>
-        <CreateNewFolderIcon />
-        Crear carpeta
-      </Button>
+      {useFolder && (
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          style={{ marginBottom: 16 }}
+          onClick={handleCreateFolder}
+        >
+          <CreateNewFolderIcon />
+          Crear carpeta
+        </Button>
+      )}
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
         {(files || []).map((f, i) => (

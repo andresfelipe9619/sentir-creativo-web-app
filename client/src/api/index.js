@@ -54,6 +54,7 @@ const Auth = {
 
 const Proyecto = Factory("proyectos", {
   start: (project) => serverRequests.post("/proyectos/start", project),
+  createFolder: (id) => serverRequests.post(`/proyectos/${id}/folder`),
 });
 
 const Archivo = Factory("archivos", {
@@ -179,7 +180,7 @@ const API = {
   User,
   getToken,
   setToken,
-  Bitacora
+  Bitacora,
 };
 
 export default API;
