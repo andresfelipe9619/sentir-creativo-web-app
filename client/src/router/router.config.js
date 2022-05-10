@@ -106,6 +106,10 @@ const routerConfig = [
         path: "/admin/archivos",
         name: "Archivos",
       },
+      {
+        path: "/admin/tareas",
+        name: "Tareas",
+      },
     ],
   },
 ];

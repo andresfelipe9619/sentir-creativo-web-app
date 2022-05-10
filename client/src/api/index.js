@@ -137,6 +137,8 @@ const Pais = Factory("pais");
 
 const Bitacora = Factory("bitacoras");
 
+const Tarea = Factory("tareas");
+
 const API = {
   Acuerdo,
   Antiguedad,
@@ -179,7 +181,8 @@ const API = {
   User,
   getToken,
   setToken,
-  Bitacora
+  Bitacora,
+  Tarea
 };
 
 export default API;

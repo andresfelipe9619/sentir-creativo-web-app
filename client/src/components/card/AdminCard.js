@@ -96,15 +96,15 @@ function AdminCard({
             </Typography>
           </Box>
         )}
-        <Box
+        {renderContent && <Box
           alignItems="center"
           display="flex"
           justifyContent="center"
           px={2}
           py={1}
         >
-          {renderContent && renderContent()}
-        </Box>
+          {renderContent()}
+        </Box>}
         <Box
           alignItems="center"
           bgcolor={cardColor}
