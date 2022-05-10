@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tipo-tareas",
+      "handler": "tipo-tarea.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipo-tareas/count",
+      "handler": "tipo-tarea.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipo-tareas/:id",
+      "handler": "tipo-tarea.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tipo-tareas",
+      "handler": "tipo-tarea.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tipo-tareas/:id",
+      "handler": "tipo-tarea.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tipo-tareas/:id",
+      "handler": "tipo-tarea.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
