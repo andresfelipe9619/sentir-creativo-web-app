@@ -26,6 +26,7 @@ const items = [
   { path: "/admin/staff", label: "Staff", icon: PeopleIcon },
   { path: "/admin/colecciones", label: "Colecciones", icon: LabelIcon },
   { path: "/admin/reportes", label: "Reportes", icon: BarChartIcon },
+  { path: "/admin/tareas", label: "Tareas", icon: AssignmentIcon }
 ];
 const secondaryItems = [
   { label: "Current month", icon: AssignmentIcon },

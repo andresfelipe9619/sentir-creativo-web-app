@@ -16,6 +16,7 @@ import { useAlertDispatch } from "../../providers/context/Alert";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import API from "../../api";
 import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
+import { getScoreColor } from '../../utils';
 
 export default function Card(props) {
   if (!props.staff) return null;
@@ -105,6 +106,8 @@ function AdminStaffCard({ staff }) {
 
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
 
+  const score = getRandomArbitrary(1, 7);
+
   return (
     <AdminCard
       id={id}
@@ -125,7 +128,8 @@ function AdminStaffCard({ staff }) {
         color: brown[600],
         icon: SurfingIcon,
         label: "STAFF",
-        score: getRandomArbitrary(1, 7),
+        score,
+        scoreColor: getScoreColor(parseFloat(score))
       }}
       renderContent={() => (
         <Grid container item md={12} spacing={3}>

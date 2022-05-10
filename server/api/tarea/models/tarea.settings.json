@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tareas",
+  "info": {
+    "name": "Tarea",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "sintesis": {
+      "type": "text"
+    },
+    "avance": {
+      "type": "decimal"
+    },
+    "duracion": {
+      "type": "integer"
+    },
+    "destacado": {
+      "type": "boolean"
+    },
+    "fechaInicio": {
+      "type": "datetime"
+    },
+    "fechaFin": {
+      "type": "datetime"
+    },
+    "estado_tarea": {
+      "model": "estado-tarea"
+    },
+    "tipo_tarea": {
+      "model": "tipo-tarea"
+    },
+    "stafs": {
+      "collection": "staf"
+    },
+    "proyecto": {
+      "model": "proyecto"
+    },
+    "prioridad": {
+      "model": "prioridad"
+    },
+    "direccion": {
+      "type": "text"
+    }
+  }
+}
