@@ -239,7 +239,7 @@ export default function FormItem(props) {
     ),
     tag: canRender("tag") && <Tags tags={value} title={item.label} />,
     file: canRender("file") && (
-      <Files files={value} title={item.label} {...{ parent, initParent }} />
+      <Files files={value} title={item.label} {...{ parent, initParent, values }} />
     ),
     upload: canRender("upload") && <Upload {...props} item={item} />,
     bitacora: canRender("bitacora") && (
