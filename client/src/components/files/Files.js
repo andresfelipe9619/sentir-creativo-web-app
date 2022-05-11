@@ -18,6 +18,8 @@ import DialogButton from "../buttons/DialogButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import API from "../../api";
 
+const PROJECT_FOLDER_ID = 36;
+
 const dropzoneColumns = [
   ...columns.filter((x) => x.name !== "path"),
   {
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Files({ files, title, parent, initParent }) {
+export default function Files({ files, title, values, parent, initParent }) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const {
@@ -78,6 +80,11 @@ export default function Files({ files, title, parent, initParent }) {
   }
 
   const useFolder = parent === "proyecto";
+  const missingSomething =
+    useFolder &&
+    [values?.nombre, values?.servicios?.length].some((value) => !value);
+  const alreadyCreated =
+    useFolder && files.some((f) => f?.tipo_archivo?.id === PROJECT_FOLDER_ID);
   return (
     <div className={classes.root}>
       {!!title && (
@@ -97,16 +104,29 @@ export default function Files({ files, title, parent, initParent }) {
       </Tooltip>
 
       {useFolder && (
-        <Button
-          color="primary"
-          variant="contained"
-          size="small"
-          style={{ marginBottom: 16 }}
-          onClick={handleCreateFolder}
+        <Tooltip
+          title={
+            missingSomething
+              ? "Falta agregar nombre y/o servicios al proyecto"
+              : alreadyCreated
+              ? "La carpeta ya fúe creada"
+              : "Crear carpeta en Google Drive"
+          }
         >
-          <CreateNewFolderIcon />
-          Crear carpeta
-        </Button>
+          <span>
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              style={{ marginBottom: 16 }}
+              onClick={handleCreateFolder}
+              startIcon={<CreateNewFolderIcon />}
+              disabled={alreadyCreated || missingSomething}
+            >
+              Crear carpeta
+            </Button>
+          </span>
+        </Tooltip>
       )}
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
