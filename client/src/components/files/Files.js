@@ -19,6 +19,7 @@ import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import API from "../../api";
 
 const PROJECT_FOLDER_ID = 36;
+const INTERNAL_PROJECT = 1;
 
 const dropzoneColumns = [
   ...columns.filter((x) => x.name !== "path"),
@@ -42,7 +43,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Files({ files, title, values, parent, initParent }) {
+export default function Files({
+  files,
+  title,
+  parent,
+  values = {},
+  initialValues = {},
+  initParent,
+}) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const {
@@ -79,12 +87,16 @@ export default function Files({ files, title, values, parent, initParent }) {
     await API.Proyecto.createFolder(params.id);
   }
 
-  const useFolder = parent === "proyecto";
+  const { nombre, servicios, tipo_proyecto } = initialValues;
+  const useFolder = parent === "proyecto" && tipo_proyecto !== INTERNAL_PROJECT;
   const missingSomething =
-    useFolder &&
-    [values?.nombre, values?.servicios?.length].some((value) => !value);
+    useFolder && [nombre, servicios?.length].some((value) => !value);
   const alreadyCreated =
     useFolder && files.some((f) => f?.tipo_archivo?.id === PROJECT_FOLDER_ID);
+  const formHasChanged = Object.entries(values).some(([key, value]) => {
+    if (value !== initialValues[key]) return true;
+    return false;
+  });
   return (
     <div className={classes.root}>
       {!!title && (
@@ -106,7 +118,9 @@ export default function Files({ files, title, values, parent, initParent }) {
       {useFolder && (
         <Tooltip
           title={
-            missingSomething
+            formHasChanged
+              ? "Hay cambios en el formulario, guarde los cambios para poder crear una carpeta"
+              : missingSomething
               ? "Falta agregar nombre y/o servicios al proyecto"
               : alreadyCreated
               ? "La carpeta ya fúe creada"
@@ -121,7 +135,7 @@ export default function Files({ files, title, values, parent, initParent }) {
               style={{ marginBottom: 16 }}
               onClick={handleCreateFolder}
               startIcon={<CreateNewFolderIcon />}
-              disabled={alreadyCreated || missingSomething}
+              disabled={alreadyCreated || missingSomething || formHasChanged}
             >
               Crear carpeta
             </Button>
