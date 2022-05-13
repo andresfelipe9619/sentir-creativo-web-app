@@ -140,6 +140,12 @@ const Bitacora = Factory("bitacoras");
 
 const Tarea = Factory("tareas");
 
+const EstadoTarea = Factory("estado-tareas");
+
+const TipoTarea = Factory("tipo-tareas");
+
+const Sprint = Factory("sprints");
+
 const API = {
   Acuerdo,
   Antiguedad,
@@ -183,7 +189,10 @@ const API = {
   getToken,
   setToken,
   Bitacora,
-  Tarea
+  Tarea,
+  EstadoTarea,
+  TipoTarea,
+  Sprint
 };
 
 export default API;

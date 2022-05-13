@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
-import Avatar from "@mui/material/Avatar";
+import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";

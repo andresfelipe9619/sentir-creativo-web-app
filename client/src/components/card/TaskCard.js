@@ -1,7 +1,7 @@
-import React from "react";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { formatDate } from "../../utils";
 import Typography from "@material-ui/core/Typography";
-import IconStar from "@material-ui/icons/Star";
 import orange from "@material-ui/core/colors/orange";
 import green from "@material-ui/core/colors/green";
 import grey from "@material-ui/core/colors/grey";
@@ -10,20 +10,52 @@ import yellow from "@material-ui/core/colors/yellow";
 import AdminCard, { DenseTable, createData } from "./AdminCard";
 import BoltIcon from '@mui/icons-material/Bolt';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import API from "../../api";
+import StarOutlineIcon from "@material-ui/icons/StarOutline";
+import StarIcon from "@material-ui/icons/Star";
+import { useAlertDispatch } from "../../providers/context/Alert";
+import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
 
-export default function TaskCard({
-  nombre = 'Confeccionar vestuario',
-  avatar = ''
-}) {
+export default function TaskCard(props) {
+  const {
+    id,
+    nombre,
+    estado_tarea,
+    stafs = [],
+    sprint,
+    fechaInicio,
+    prioridad,
+    duracion,
+    tipo_tarea,
+    proyecto,
+    avance,
+    sintesis,
+    direccion,
+    bitacoras
+  } = props;
+
+  const [destacado, setDestacado] = useState(props.destacado);
+  const history = useHistory();
+  const { openAlert } = useAlertDispatch();
+
   const rows = [
-    createData("Síntesis", 'Se debe crear un vestuario que permita la obra de teatro.'),
-    createData("Staff", 'Andrés Espinoza'),
-    createData("Dirección", 'Avda. Juan Pablo II #446'),
-    createData("Bitácora", 'Probar otros colores'),
-    createData("Sprint", ' Semana 3 Junio'),
+    createData("Síntesis", sintesis),
+    createData("Staff", stafs.length && stafs?.map(x => x.nombre)),
+    createData("Dirección", direccion),
+    createData("Bitácora", bitacoras?.map(x => x.accion)),
+    createData("Sprint", sprint?.nombre)
   ];
 
-  const handleViewClick = () => { }
+  const IconStar = destacado ? StarIcon : StarOutlineIcon;
+  const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === FileTypes["AVATAR"]);
+  const avatar =
+    archivoAvatar.length
+      ? archivoAvatar[0].path
+      : DEFAULT_AVATAR;
+
+  const handleClick = () => {
+    history.push(`/admin/tareas/${id}`);
+  };
 
   const getScoreColor = (score = 0) => {
     if (score === 100) {
@@ -41,39 +73,53 @@ export default function TaskCard({
     return grey[700]
   };
 
+  const handleStared = async () => {
+    try {
+      setDestacado(!destacado);
+      await API.Tarea.update(id, { destacado: !destacado });
+    } catch {
+      setDestacado(!destacado);
+
+      openAlert({
+        variant: "error",
+        message: "Ha ocurrido un error inesperado, intentalo de nuevo!",
+      });
+    }
+  };
+
   return (
     <AdminCard
-      id={1}
+      id={id}
       color={yellow}
-      statusColor={red[500]}
-      chips={['email1@gmail.com', '+569 684 9912']}
-      status={'En ejecución'}
+      statusColor={estado_tarea?.color}
+      chips={[stafs[0]?.email, stafs[0]?.celular]}
+      status={estado_tarea?.nombre}
       title={nombre}
       avatar={avatar}
-      handleViewClick={handleViewClick}
-      subheaderChip={'Obra de teatro • Minvu • Mejillones'}
-      superheader={formatDate(Date.now(), true)}
+      handleViewClick={handleClick}
+      subheaderChip={`${proyecto?.nombre} • ${proyecto?.audiencia?.organizacion?.nombre} • ${proyecto?.ciudad?.nombre}`}
+      superheader={formatDate(new Date(fechaInicio), true)}
       subheader={<>
         <Typography
           display="inline"
           variant="caption"
-          style={{ color: red[500], marginRight: 4 }}
+          style={{ color: prioridad?.color, marginRight: 4 }}
         >
-          Prioridad Alta
+          {prioridad?.nombre}
         </Typography>
         <Typography
           display="inline"
           variant="caption"
-          >
-          • 3 Horas • Diseñar
+        >
+          • {duracion} Horas • {tipo_tarea?.nombre}
         </Typography>
       </>}
       floatingHeader={{
         color: '#00a3bc',
         icon: BoltIcon,
         label: "Tarea",
-        score: '10%',
-        scoreColor: getScoreColor(1)
+        score: avance + '%',
+        scoreColor: getScoreColor(avance)
       }}
       renderHighlights={() => (
         <DenseTable rows={rows} nombre={nombre} color={yellow} />
@@ -84,7 +130,7 @@ export default function TaskCard({
             <EventAvailableIcon
               fontSize="large"
               style={{ color: "#2f5bc5" }}
-              onClick={() => {}}
+              onClick={() => { }}
             />
           ),
           label: "Calendario",
@@ -94,11 +140,11 @@ export default function TaskCard({
             <IconStar
               fontSize="large"
               style={{ color: "#ffab00" }}
-              onClick={() => {}}
+              onClick={() => handleStared()}
             />
           ),
           label: "Destacar",
-        }
+        },
       ]}
     />
   );

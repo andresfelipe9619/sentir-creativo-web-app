@@ -22,7 +22,7 @@ export default function Tareas() {
           <PaginatedCards
             data={data}
             loading={loading}
-            renderCard={(item) => <TaskCard staff={item} />}
+            renderCard={(item) => <TaskCard {...item} />}
           />
         )}
         masterProps={master}
