@@ -1,5 +1,5 @@
 'use strict';
-const { sanitizeEntity } = require('strapi-utils')
+const { sanitizeEntity } = require('strapi-utils');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -28,35 +28,35 @@ const { sanitizeEntity } = require('strapi-utils')
   'bitacoras',
   'bitacoras.staf',
   'bitacoras.audiencia'
-]
+];
 
 module.exports = {
   async find (ctx) {
-    let entities
+    let entities;
     if (ctx.query._q) {
-      entities = await strapi.services.tarea.search(ctx.query)
+      entities = await strapi.services.tarea.search(ctx.query);
     } else {
-      entities = await strapi.services.tarea.find(ctx.query, populate)
+      entities = await strapi.services.tarea.find(ctx.query, populate);
     }
 
     return entities.map(entity =>
       sanitizeEntity(entity, { model: strapi.models.tarea })
-    )
+    );
   },
   async findOne (ctx) {
-    const { id } = ctx.params
-    const entity = await strapi.services.tarea.findOne({ id }, populate)
-    return sanitizeEntity(entity, { model: strapi.models.tarea })
+    const { id } = ctx.params;
+    const entity = await strapi.services.tarea.findOne({ id }, populate);
+    return sanitizeEntity(entity, { model: strapi.models.tarea });
   },
   async addFiles (ctx) {
-    const { request, params } = ctx
-    const { id } = params
-    const { body: files } = request
+    const { request, params } = ctx;
+    const { id } = params;
+    const { body: files } = request;
     const result = await strapi.services.archivo.addFiles({
       id,
       files,
       collection: 'tarea'
-    })
-    return result
+    });
+    return result;
   },
 };
