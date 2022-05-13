@@ -50,6 +50,15 @@
     },
     "direccion": {
       "type": "text"
+    },
+    "sprint": {
+      "model": "sprint"
+    },
+    "bitacoras": {
+      "collection": "bitacora"
+    },
+    "archivos": {
+      "collection": "archivo"
     }
   }
 }
