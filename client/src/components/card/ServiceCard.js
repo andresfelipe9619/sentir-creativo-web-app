@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function ServiceCard({
+function ServiceCard({
   color,
   service,
   imageTitle,
@@ -269,4 +269,4 @@ function FloatingHeader({ icon: Icon, color }) {
   );
 }
 
-export default memo(ServiceCard)
+export default memo(ServiceCard);
