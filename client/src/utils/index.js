@@ -42,7 +42,7 @@ export const formatDate = (date, long = true) =>
 
 export function getPaginationData(pagination) {
   console.log("pagination", pagination);
-  const { pageSize = 6, page = 1 } = pagination;
+  const { pageSize = 12, page = 1 } = pagination;
   const _limit = pageSize;
   const _start = (page - 1) * pageSize;
   return { _limit, _start };

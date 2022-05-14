@@ -17,7 +17,7 @@ import { useAlertDispatch } from "../providers/context/Alert";
 import useQuery from "../providers/hooks/useQuery";
 
 const SERVICE_OK = 12;
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 12;
 const default_pagination = { pagination: { page: 1, pageSize: PAGE_SIZE } };
 
 const defaultFilters = {
@@ -43,7 +43,6 @@ export default function Areas() {
   const query = useQuery();
   const { breakpoints } = useTheme();
   const isSmall = useMediaQuery(breakpoints.down("xs"));
-  const isMedium = useMediaQuery(breakpoints.down("md"));
   const classes = useStyles();
   const { id: areaId } = useParams();
   const { openAlert } = useAlertDispatch();
@@ -187,7 +186,6 @@ export default function Areas() {
     }
   }, [services, selectedService, selectedId]);
 
-  const length = isSmall ? 1 : isMedium ? 2 : 3;
   if (loadingArea) return <Spinner />;
   if (!selectedArea) return null;
 
@@ -326,8 +324,10 @@ export default function Areas() {
         >
           {servicesToShow.map((s) => (
             <Grid
-              xs={12 / length}
+              xs={12}
+              sm={6}
               md={4}
+              lg={3}
               xl={3}
               component={Box}
               m={0}
