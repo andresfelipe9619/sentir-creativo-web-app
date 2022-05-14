@@ -129,6 +129,14 @@ const columns = [
       size: 6,
       type: "select",
       dependency: "Rubro",
+      renderLabel: (i) => {
+        const prop = i?.tipo_rubro?.nombre;
+        return (
+          <span>
+            {i.nombre} {prop ? "•" : ""} <strong>{prop || ""}</strong>
+          </span>
+        );
+      },
     },
   },
 ];
