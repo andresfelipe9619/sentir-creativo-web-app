@@ -56,9 +56,6 @@
     },
     "bitacoras": {
       "collection": "bitacora"
-    },
-    "archivos": {
-      "collection": "archivo"
     }
   }
 }
