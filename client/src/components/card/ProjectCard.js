@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import { formatDate } from "../../utils";
+import { formatDate, getScoreColor } from "../../utils";
 import yellow from "@material-ui/core/colors/yellow";
 import AdminCard, { Stat, DenseTable, createData } from "./AdminCard";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import orange from "@material-ui/core/colors/orange";
 import blue from "@material-ui/core/colors/blue";
-import red from "@material-ui/core/colors/red";
-import green from "@material-ui/core/colors/green";
-import grey from "@material-ui/core/colors/grey";
 import StarIcon from "@material-ui/icons/Star";
 import LooksIcon from '@mui/icons-material/Looks';
 import PostAddIcon from "@material-ui/icons/PostAdd";
@@ -119,22 +116,6 @@ export default function ProjectCard(props) {
     archivoAvatar.length
       ? archivoAvatar[0].path
       : DEFAULT_AVATAR;
-
-  const getScoreColor = (score = 0) => {
-    if (score === 100) {
-      return green['A700']
-    }
-
-    if (score >= 70) {
-      return orange[800]
-    }
-
-    if (score > 5) {
-      return red[700]
-    }
-
-    return grey[700]
-  };
 
   return (
     <AdminCard
