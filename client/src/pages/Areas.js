@@ -312,38 +312,40 @@ export default function Areas() {
           },
         ]}
       >
-        <Grid
-          container
-          component={Box}
-          my={0}
-          m={0}
-          p={0}
-          alignContent="center"
-          alignItems="center"
-          minHeight={400}
-        >
-          {servicesToShow.map((s) => (
-            <Grid
-              xs={12}
-              sm={6}
-              md={4}
-              lg={3}
-              xl={3}
-              component={Box}
-              m={0}
-              p={0}
-              item
-              key={s.id}
-            >
-              <Card
-                service={s}
-                color={color}
-                handleClickPrimary={handleOpenModal(s)}
-                handleClickSecundary={handleOpenDossier(s)}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        {({ showFilters }) => (
+          <Grid
+            container
+            component={Box}
+            my={0}
+            m={0}
+            p={0}
+            alignContent="center"
+            alignItems="center"
+            minHeight={400}
+          >
+            {servicesToShow.map((s) => (
+              <Grid
+                xs={12}
+                sm={6}
+                md={4}
+                lg={showFilters ? 4 : 3}
+                xl={showFilters ? 4 : 3}
+                component={Box}
+                m={0}
+                p={0}
+                item
+                key={s.id}
+              >
+                <Card
+                  service={s}
+                  color={color}
+                  handleClickPrimary={handleOpenModal(s)}
+                  handleClickSecundary={handleOpenDossier(s)}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </Filters>
     </Grid>
   );

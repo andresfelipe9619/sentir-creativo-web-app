@@ -2,17 +2,11 @@ import React, { memo, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Accordion from "@material-ui/core/Accordion";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { CheckboxGroup } from "../radio";
 import { useTheme } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -23,6 +17,7 @@ import Slide from "@material-ui/core/Slide";
 import FilterPagination from "./FilterPagination";
 import { pluralize } from "../../utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import FilterOption from "./FilterOption";
 
 const PAGE_SIZE = 12;
 
@@ -212,7 +207,13 @@ function Filters({
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Slide direction="right" in={showFilters} mountOnEnter unmountOnExit>
+        <Slide
+          appear
+          in={showFilters}
+          direction="right"
+          mountOnEnter
+          unmountOnExit
+        >
           <Grid item md={3}>
             {filterOptions.map((fo, i) => (
               <FilterOption
@@ -234,57 +235,13 @@ function Filters({
           component={Box}
           minHeight={400}
         >
-          {loading ? <Spinner mt={"10vh"} /> : children}
+          {loading ? <Spinner mt={"10vh"} /> : children({ showFilters })}
         </Grid>
         {pagination}
       </Grid>
     </ThemeProvider>
   );
 }
-
-const FilterOption = memo(function FilterOption({
-  label,
-  name,
-  options,
-  loading,
-  values,
-  handleChange,
-}) {
-  const hasOptions = (options || []).length;
-  return (
-    <AccordionOption title={label}>
-      {loading && !hasOptions && <Spinner mt={0} />}
-      {hasOptions && (
-        <CheckboxGroup
-          name={name}
-          disabled={loading}
-          options={options}
-          values={values}
-          handleChange={handleChange}
-        />
-      )}
-    </AccordionOption>
-  );
-});
-
-const AccordionOption = memo(function AccordionOption({ title, children }) {
-  const classes = useStyles();
-  return (
-    <Accordion>
-      <AccordionSummary
-        className={classes.accordion}
-        expandIcon={<ExpandMoreIcon style={{ color: "white" }} />}
-        aria-controls={`panel-${title}-content`}
-        id={`panel-${title}-header`}
-      >
-        <Typography>{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails className={classes.accordionDetails}>
-        {children}
-      </AccordionDetails>
-    </Accordion>
-  );
-});
 
 function getSelectedFilters(filters) {
   const keys = Object.keys(filters);
