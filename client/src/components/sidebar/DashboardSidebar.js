@@ -4,16 +4,19 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
+import Box from "@material-ui/core/Box";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { useHistory } from "react-router-dom";
+import MuiSwitch from "@material-ui/core/Switch";
 import clsx from "clsx";
 import { MainListItems } from "../dashboard/ListItems";
 import { useDashboardStyles } from "./styles";
 import AccessDenied from "../../router/AccessDenied";
 import API from "../../api";
+import CustomBreadcrumbs from "./BreadCrumb";
 
 export default function DashboardSidebar({ children }) {
   const [open, setOpen] = useState(false);
@@ -53,15 +56,20 @@ export default function DashboardSidebar({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            Dashboard
-          </Typography>
+          <CustomBreadcrumbs />
+          <Box display="flex" justifyContent="flex-end" mx={3}>
+            <FormControlLabel
+              control={
+                <MuiSwitch
+                  checked={false}
+                  // onChange={handleChange}
+                  name="cardView"
+                  color="primary"
+                />
+              }
+              label="Vista Cards"
+            />
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
