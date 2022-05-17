@@ -15,7 +15,7 @@ import Spinner from "../spinner/Spinner";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Slide from "@material-ui/core/Slide";
 import FilterPagination from "./FilterPagination";
-import { pluralize } from "../../utils";
+import { map2select, pluralize } from "../../utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import FilterOption from "./FilterOption";
 
@@ -243,7 +243,11 @@ function Filters({
   );
 }
 
-function getSelectedFilters(filters) {
+export function getFilterOptions(filter) {
+  return Object.entries(filter).map(map2select);
+}
+
+export function getSelectedFilters(filters) {
   const keys = Object.keys(filters);
   return keys.reduce((acc, key) => {
     let values = Object.entries(filters[key] || {})
