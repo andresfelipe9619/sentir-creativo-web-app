@@ -11,10 +11,11 @@ import DossierModal from "../components/modals/DossierModal";
 import { useTheme, createTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Spinner from "../components/spinner/Spinner";
-import { getAreaBackground, getQueryFilters, map2select } from "../utils";
-import Filters from "../components/filters/Filters";
+import { getAreaBackground, getQueryFilters } from "../utils";
+import Filters, { getFilterOptions } from "../components/filters/Filters";
 import { useAlertDispatch } from "../providers/context/Alert";
 import useQuery from "../providers/hooks/useQuery";
+import useFilterOptions from "../providers/hooks/useFilterOptions";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 12;
@@ -37,7 +38,6 @@ export default function Areas() {
   const [loadingArea, setLoadingArea] = useState(false);
   const [searchOptions, setSearchOptions] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
-  const [filterOptions, setFilterOptions] = useState(defaultFilters);
 
   const history = useHistory();
   const query = useQuery();
@@ -46,6 +46,8 @@ export default function Areas() {
   const classes = useStyles();
   const { id: areaId } = useParams();
   const { openAlert } = useAlertDispatch();
+  const { filterOptions, findUniqueOptions, setFilterOptions } =
+    useFilterOptions({ defaultFilters });
 
   const selectedId = query.get("service");
 
@@ -87,24 +89,7 @@ export default function Areas() {
       await loadCount(filters);
 
       // Find unique options for the filters
-      const options = serviceResult.reduce((acc, s) => {
-        const keys = Object.keys(acc);
-        const result = keys.reduce((accFilters, filterKey) => {
-          let currentOptions = (s[filterKey] || [])
-            .filter((t) => !acc[filterKey][t.id])
-            .reduce(
-              (accT, t) => ({ ...accT, [t.id]: t.nombre }),
-              acc[filterKey]
-            );
-
-          return {
-            ...accFilters,
-            [filterKey]: currentOptions,
-          };
-        }, defaultFilters);
-
-        return result;
-      }, defaultFilters);
+      const options = findUniqueOptions(serviceResult);
 
       setFilterOptions(options);
     } catch (error) {
@@ -312,47 +297,46 @@ export default function Areas() {
           },
         ]}
       >
-        {({ showFilters }) => (
-          <Grid
-            container
-            component={Box}
-            my={0}
-            m={0}
-            p={0}
-            alignContent="center"
-            alignItems="center"
-            minHeight={400}
-          >
-            {servicesToShow.map((s) => (
-              <Grid
-                xs={12}
-                sm={6}
-                md={4}
-                lg={showFilters ? 4 : 3}
-                xl={showFilters ? 4 : 3}
-                component={Box}
-                m={0}
-                p={0}
-                item
-                key={s.id}
-              >
-                <Card
-                  service={s}
-                  color={color}
-                  handleClickPrimary={handleOpenModal(s)}
-                  handleClickSecundary={handleOpenDossier(s)}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+        {({ showFilters }) => {
+          const size = showFilters ? 4 : 3
+          return (
+            <Grid
+              container
+              component={Box}
+              my={0}
+              m={0}
+              p={0}
+              alignContent="center"
+              alignItems="center"
+              minHeight={400}
+            >
+              {servicesToShow.map((s) => (
+                <Grid
+                  xs={12}
+                  sm={6}
+                  md={size}
+                  lg={size}
+                  xl={size}
+                  component={Box}
+                  m={0}
+                  p={0}
+                  item
+                  key={s.id}
+                >
+                  <Card
+                    service={s}
+                    color={color}
+                    handleClickPrimary={handleOpenModal(s)}
+                    handleClickSecundary={handleOpenDossier(s)}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          );
+        }}
       </Filters>
     </Grid>
   );
-}
-
-function getFilterOptions(filter) {
-  return Object.entries(filter).map(map2select);
 }
 
 export const useStyles = makeStyles((theme) => ({
