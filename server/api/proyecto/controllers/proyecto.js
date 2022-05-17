@@ -1,7 +1,8 @@
 'use strict'
 const { sanitizeEntity } = require('strapi-utils')
 const axios = require('axios')
-const webhook = process.env.WEBHOOK_TICKET
+const webhook_ticket = process.env.WEBHOOK_TICKET
+const webhook_folder = process.env.WEBHOOK_PROJECT_FOLDER
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -28,6 +29,25 @@ const populate = [
   'ciudad',
   'bitacoras.staf',
   'bitacoras.audiencia'
+]
+
+const folderPopulate = [
+  'id',
+  'staf',
+  'audiencia',
+  'formatos',
+  'propositos',
+  'servicios',
+  'tipo_proyecto',
+  'estado_proyecto',
+  'publico_objetivos',
+  'cupon_descuentos',
+  'archivos',
+  'presupuestos',
+  'servicios.area',
+  'archivos.tipo_archivo',
+  'destacado',
+  'ciudad',
 ]
 
 module.exports = {
@@ -151,7 +171,7 @@ module.exports = {
       )
 
       const webhookData = { ...audience, servicio, ticket: finalResult }
-      const { data: result } = await axios.post(webhook, webhookData)
+      const { data: result } = await axios.post(webhook_ticket, webhookData)
       return result
     } catch (error) {
       console.error(error)
@@ -167,6 +187,14 @@ module.exports = {
       files,
       collection: 'proyecto'
     })
+    return result
+  },
+  async createFolder (ctx) {
+    const { params } = ctx
+    const { id } = params
+    const webhookData = await strapi.services.proyecto.findOne({ id }, folderPopulate)
+    console.log('webhookData', webhookData)
+    const { data: result } = await axios.post(webhook_folder, webhookData)
     return result
   }
 }

@@ -110,7 +110,6 @@ export default function Detail({ columns, service, match, reloadMaster }) {
     return acc;
   }, {});
 
-  console.log(`initialValues`, initialValues);
   if (loading || loadingDependencies) return <Spinner />;
   return (
     <Formik

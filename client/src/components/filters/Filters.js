@@ -24,7 +24,7 @@ import FilterPagination from "./FilterPagination";
 import { pluralize } from "../../utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 12;
 
 function Filters({
   children,

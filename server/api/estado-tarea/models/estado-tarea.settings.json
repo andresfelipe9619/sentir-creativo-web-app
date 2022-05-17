@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "estado_tareas",
+  "info": {
+    "name": "EstadoTarea"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    }
+  }
+}

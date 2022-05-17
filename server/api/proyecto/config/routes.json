@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/proyectos/:id/folder",
+      "handler": "proyecto.createFolder",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/proyectos/:id",
       "handler": "proyecto.update",

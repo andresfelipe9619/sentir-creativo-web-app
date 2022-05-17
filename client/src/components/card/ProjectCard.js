@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import { formatDate } from "../../utils";
+import { formatDate, getScoreColor } from "../../utils";
 import yellow from "@material-ui/core/colors/yellow";
 import AdminCard, { Stat, DenseTable, createData } from "./AdminCard";
 import Grid from "@material-ui/core/Grid";
@@ -8,11 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import orange from "@material-ui/core/colors/orange";
 import blue from "@material-ui/core/colors/blue";
 import StarIcon from "@material-ui/icons/Star";
-import LooksIcon from "@material-ui/icons/Looks";
+import LooksIcon from '@mui/icons-material/Looks';
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
-import WorkIcon from "@material-ui/icons/Work";
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import WorkIcon from '@mui/icons-material/Work';
 import useStyles from "./styles";
 import API from "../../api";
 import { useAlertDispatch } from "../../providers/context/Alert";
@@ -149,6 +149,7 @@ export default function ProjectCard(props) {
         icon: selectedProject?.icon,
         label: tipo_proyecto?.nombre,
         score: `${avance || 0}%`,
+        scoreColor: getScoreColor(avance)
       }}
       renderContent={() => (
         <Grid container item md={12} spacing={3}>

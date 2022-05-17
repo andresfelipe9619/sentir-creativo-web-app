@@ -34,6 +34,10 @@
         "Media",
         "Baja"
       ]
+    },
+    "tipo_rubro": {
+      "via": "rubros",
+      "model": "tipo-rubro"
     }
   }
 }

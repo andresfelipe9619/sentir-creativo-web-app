@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tipo-rubros",
+      "handler": "tipo-rubro.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipo-rubros/count",
+      "handler": "tipo-rubro.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tipo-rubros/:id",
+      "handler": "tipo-rubro.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tipo-rubros",
+      "handler": "tipo-rubro.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tipo-rubros/:id",
+      "handler": "tipo-rubro.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tipo-rubros/:id",
+      "handler": "tipo-rubro.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

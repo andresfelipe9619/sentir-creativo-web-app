@@ -4,28 +4,31 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import PeopleIcon from "@material-ui/icons/People";
 import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import ArchiveIcon from "@material-ui/icons/Archive";
 import LabelIcon from "@material-ui/icons/Label";
 import BusinessIcon from "@material-ui/icons/Business";
+import HailIcon from '@mui/icons-material/Hail';
+import WorkIcon from '@mui/icons-material/Work';
+import SurfingIcon from '@mui/icons-material/Surfing';
+import BoltIcon from '@mui/icons-material/Bolt';
 
 const items = [
-  { path: "/admin/audiencia", label: "Audiencia", icon: PeopleIcon },
+  { path: "/admin/audiencia", label: "Audiencia", icon: HailIcon },
   {
     path: "/admin/organizaciones",
     label: "Organizaciones",
     icon: BusinessIcon,
   },
   { path: "/admin/servicios", label: "Servicios", icon: ShoppingCartIcon },
-  { path: "/admin/proyectos", label: "Proyectos", icon: LayersIcon },
+  { path: "/admin/proyectos", label: "Proyectos", icon: WorkIcon },
   { path: "/admin/archivos", label: "Archivos", icon: ArchiveIcon },
   { path: "/admin/tags", label: "Tags", icon: LabelIcon },
-  { path: "/admin/staff", label: "Staff", icon: PeopleIcon },
+  { path: "/admin/staff", label: "Staff", icon: SurfingIcon },
   { path: "/admin/colecciones", label: "Colecciones", icon: LabelIcon },
   { path: "/admin/reportes", label: "Reportes", icon: BarChartIcon },
+  { path: "/admin/tareas", label: "Tareas", icon: BoltIcon }
 ];
 const secondaryItems = [
   { label: "Current month", icon: AssignmentIcon },

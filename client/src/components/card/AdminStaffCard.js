@@ -8,7 +8,7 @@ import orange from "@material-ui/core/colors/orange";
 import green from "@material-ui/core/colors/green";
 import grey from "@material-ui/core/colors/grey";
 import yellow from "@material-ui/core/colors/yellow";
-import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
+import SurfingIcon from '@mui/icons-material/Surfing';
 import AdminCard, { Stat, DenseTable, createData } from "./AdminCard";
 import { useHistory } from "react-router-dom";
 import { brown } from "@material-ui/core/colors";
@@ -16,6 +16,7 @@ import { useAlertDispatch } from "../../providers/context/Alert";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import API from "../../api";
 import { FileTypes, DEFAULT_AVATAR } from "../../providers/globals";
+import { getScoreColor } from '../../utils';
 
 export default function Card(props) {
   if (!props.staff) return null;
@@ -105,6 +106,8 @@ function AdminStaffCard({ staff }) {
 
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
 
+  const score = getRandomArbitrary(1, 7);
+
   return (
     <AdminCard
       id={id}
@@ -123,9 +126,10 @@ function AdminStaffCard({ staff }) {
         .join(" • ")}
       floatingHeader={{
         color: brown[600],
-        icon: EmojiPeopleIcon,
+        icon: SurfingIcon,
         label: "STAFF",
-        score: getRandomArbitrary(1, 7),
+        score,
+        scoreColor: getScoreColor(parseFloat(score))
       }}
       renderContent={() => (
         <Grid container item md={12} spacing={3}>

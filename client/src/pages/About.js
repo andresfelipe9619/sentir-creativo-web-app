@@ -5,14 +5,14 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import CachedIcon from "@material-ui/icons/Cached";
-import SearchIcon from "@material-ui/icons/Search";
-import ReceiptIcon from "@material-ui/icons/Receipt";
-import ShowChartIcon from "@material-ui/icons/ShowChart";
-import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
-import WeekendIcon from "@material-ui/icons/Weekend";
-import WidgetsIcon from "@material-ui/icons/Widgets";
-import FaceIcon from "@material-ui/icons/Face";
+import CachedIcon from '@mui/icons-material/Cached';
+import SearchIcon from '@mui/icons-material/Search';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
+import ChairIcon from '@mui/icons-material/Chair';
+import CategoryIcon from '@mui/icons-material/Category';
+import ParaglidingIcon from '@mui/icons-material/Paragliding';
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -145,20 +145,20 @@ const artistasConnections = [
   },
   {
     color: COLORS.purple,
-    icon: ReceiptIcon,
+    icon: HistoryEduIcon,
     details:
       "Tus servicios artísticos en\n un \nCatálogo\n diseñado por \nartistas.",
     match: "Catálogo",
   },
   {
     color: COLORS.purple,
-    icon: ShowChartIcon,
+    icon: AutoGraphIcon,
     details: "Aumenta tus\n \nIngresos\n haciendo lo \nque amas.",
     match: "Ingresos",
   },
   {
     color: COLORS.purple,
-    icon: AttachMoneyIcon,
+    icon: PriceCheckIcon,
     details: "Valora tus talentos\n artísticos de forma \n\nprofesional.",
     match: "profesional.",
   },
@@ -173,21 +173,21 @@ const proyectosConnections = [
   },
   {
     color: COLORS.blue,
-    icon: FaceIcon,
+    icon: ParaglidingIcon,
     details:
       "Para pequeñas y grandes\n \nocasiones\n, contextos y \npresupuestos.",
     match: "ocasiones",
   },
   {
     color: COLORS.blue,
-    icon: WidgetsIcon,
+    icon: CategoryIcon,
     details:
       "Cotiza y recibe hasta \n\ntres propuestas\n \neconómicas detalladas.",
     match: "tres propuestas",
   },
   {
     color: COLORS.blue,
-    icon: WeekendIcon,
+    icon: ChairIcon,
     details:
       "Siente respaldo en asesoría\n artística, logística, en \nreportes y \nrendición.",
     match: "rendición.",
@@ -419,14 +419,14 @@ export default function About() {
             >
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     size="large"
                     className={classes.buttonColorful}
                     style={{ backgroundColor: COLORS.purple }}
                   >
                     Únete a la red
-                  </Button>
+                  </Button> */}
                 </Grid>
               </Grid>
             </Connections>

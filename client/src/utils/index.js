@@ -42,7 +42,7 @@ export const formatDate = (date, long = true) =>
 
 export function getPaginationData(pagination) {
   console.log("pagination", pagination);
-  const { pageSize = 6, page = 1 } = pagination;
+  const { pageSize = 12, page = 1 } = pagination;
   const _limit = pageSize;
   const _start = (page - 1) * pageSize;
   return { _limit, _start };
@@ -98,3 +98,28 @@ export function replaceEmptyStringWithNull(value) {
   if (!value) return null;
   return value;
 }
+
+export const getScoreColor = (score = 0) => {
+  let colors = [
+    '#616161',
+    '#757575',
+    '#e53935',
+    '#e53935',
+    '#f4511e',
+    '#ffb300',
+    '#d6b21e',
+    '#d6b21e',
+    '#79b700',
+    '#79b700',
+    '#1faa00'
+  ];
+
+  if (score < 10) {
+    colors = [...new Set(colors)];
+    score = score * 10;
+  }
+
+  score = parseInt(score / 10);
+
+  return colors[score];
+};

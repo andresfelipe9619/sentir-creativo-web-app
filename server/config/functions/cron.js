@@ -2,9 +2,9 @@
 const axios = require('axios')
 const APP = 'my-app-787742'
 const APP_VERSION = 1
-const BASE_URL = 'https://api.integromat.com/v1'
+const BASE_URL = 'https://us1.make.com/api/v2'
 const URL = `${BASE_URL}/app/${APP}/${APP_VERSION}/common`
-const TOKEN = process.env.INTEGROMAT_TOKEN
+const TOKEN = process.env.MAKE_TOKEN
 const SDK_VERSION = '1.3.9'
 /**
  * Cron config that gives you an opportunity
