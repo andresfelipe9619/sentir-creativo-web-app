@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { formatDate } from "../../utils";
+import { formatDate, getScoreColor } from "../../utils";
 import Typography from "@material-ui/core/Typography";
-import orange from "@material-ui/core/colors/orange";
-import green from "@material-ui/core/colors/green";
-import grey from "@material-ui/core/colors/grey";
-import red from "@material-ui/core/colors/red";
 import yellow from "@material-ui/core/colors/yellow";
 import AdminCard, { DenseTable, createData } from "./AdminCard";
 import BoltIcon from '@mui/icons-material/Bolt';
@@ -31,7 +27,7 @@ export default function TaskCard(props) {
     avance,
     sintesis,
     direccion,
-    bitacoras
+    bitacoras = []
   } = props;
 
   const [destacado, setDestacado] = useState(props.destacado);
@@ -42,12 +38,12 @@ export default function TaskCard(props) {
     createData("Síntesis", sintesis),
     createData("Staff", stafs.length && stafs?.map(x => x.nombre)),
     createData("Dirección", direccion),
-    createData("Bitácora", bitacoras?.map(x => x.accion)),
+    createData("Bitácora", bitacoras.length && bitacoras?.map(x => x.accion)),
     createData("Sprint", sprint?.nombre)
   ];
 
   const IconStar = destacado ? StarIcon : StarOutlineIcon;
-  const archivoAvatar = props.archivos.filter((a) => a.tipo_archivo.id === FileTypes["AVATAR"]);
+  const archivoAvatar = stafs.length ? stafs[0]?.archivos.filter((a) => a.tipo_archivo === FileTypes["AVATAR"]) : [];
   const avatar =
     archivoAvatar.length
       ? archivoAvatar[0].path
@@ -55,22 +51,6 @@ export default function TaskCard(props) {
 
   const handleClick = () => {
     history.push(`/admin/tareas/${id}`);
-  };
-
-  const getScoreColor = (score = 0) => {
-    if (score === 100) {
-      return green['A700']
-    }
-
-    if (score >= 70) {
-      return orange[800]
-    }
-
-    if (score > 5) {
-      return red[700]
-    }
-
-    return grey[700]
   };
 
   const handleStared = async () => {
