@@ -214,7 +214,8 @@ export default function Areas() {
         md={6}
         lg={5}
         component={Box}
-        py={4}
+        pt={1}
+        pb={4}
         textAlign="center"
       >
         <Typography
@@ -239,10 +240,11 @@ export default function Areas() {
         >
           {selectedArea.slogan.split(" ").map((x, i) => {
             const sloganStyle = {
-              fontWeight: i === 0 ? "300" : "900",
-              fontSize: isSmall ? 48 : 64,
+              fontWeight: i === 0 ? "500" : "900",
+              fontSize: isSmall ? 48 : i === 0 ? 64 : 72,
               lineHeight: 1.15,
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
+              fontStyle: "italic"
             };
 
             return (
