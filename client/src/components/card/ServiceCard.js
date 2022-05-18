@@ -21,6 +21,7 @@ import {
 import clsx from "clsx";
 import * as IO5 from "react-icons/io5";
 import * as GI from "react-icons/gi";
+import grey from "@material-ui/core/colors/grey";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
+    paddingTop: 6,
+    paddingBottom: 6
   },
   expandOpen: {
     transform: "rotate(180deg)",
@@ -62,10 +65,16 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   tags: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(.25),
     marginBottom: 0,
-    lineHeight: "1.5",
+    lineHeight: "1.15",
+    fontWeight: 400,
+    color: "#424242"
   },
+  header: {
+    paddingTop: 8,
+    paddingBottom: 8
+  }
 }));
 
 function ServiceCard({
@@ -115,8 +124,19 @@ function ServiceCard({
       <Card className={classes.root} elevation={5}>
         <FloatingHeader icon={Icon} color={cardColor} />
         <CardHeader
+          className={classes.header}
           component={Box}
-          title={text}
+          title={
+            <Typography
+              style={{
+                fontStyle: 'italic',
+                fontWeight: areaTheme.typography.fontWeightBold,
+                color: areaTheme.palette.common.black
+              }}
+              >
+              {text}
+            </Typography>
+          }
           // action={
           //   <IconButton aria-label='favoritos'>
           //     <StarIcon fontSize='large' style={{ color: '#ffab00' }} />
@@ -149,14 +169,14 @@ function ServiceCard({
               zIndex: 0,
             }}
           >
-            {tecnica_artisticas.map((t, i) => (
+            {tecnica_artisticas.slice(0, 4).map((t, i) => (
               <Box
                 key={i}
-                bgcolor="primary.main"
+                bgcolor="primary.dark"
                 color="white"
                 py={0.2}
                 px={0.5}
-                m={0.5}
+                m={0.25}
                 width="fit-content"
               >
                 <Typography variant="caption" style={{ fontWeight: "bold" }}>
@@ -178,9 +198,9 @@ function ServiceCard({
             justifyContent="center"
             alignItems="center"
             color="white"
-            bgcolor={cardColor}
+            bgcolor="primary.dark"
           >
-            <Typography variant="h5" component="h3" align="right">
+            <Typography variant="h6" component="h6" align="right">
               Síntesis
             </Typography>
             <IconButton
@@ -202,18 +222,14 @@ function ServiceCard({
               justifyContent="flex-end"
               p={0}
             >
-              <Box py={2} px={4} color="white" bgcolor="primary.dark">
+              <Box pt={0} pb={2} px={4} color="white" bgcolor="primary.dark">
                 <Typography variant="body2">{sintesis}</Typography>
               </Box>
               <Box py={2} px={4} color="white" bgcolor="primary.main">
-                <Typography variant="h3" gutterBottom>
+                <Typography variant="h6">
                   Ideal para:
                 </Typography>
-                {ocasions.map((o, i) => (
-                  <Typography variant="body2" key={i}>
-                    {o?.nombre || ""}
-                  </Typography>
-                ))}
+                {ocasions.map(x => x.nombre).join(" • ")}
               </Box>
             </Box>
           </Collapse>
@@ -230,6 +246,7 @@ function ServiceCard({
           <Button
             size="small"
             color={"primary"}
+            style={{ backgroundColor: areaTheme.palette.primary.dark }}
             variant="contained"
             onClick={handleClickPrimary}
           >
