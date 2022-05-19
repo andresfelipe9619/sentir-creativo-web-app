@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { getAreaBackground } from "../../utils";
 import Logo from "../../assets/full-logo.png";
 import LogoYellow from "../../assets/iso_amarillo.svg";
+import { AreasMap } from "../../providers/globals";
 
 const ICON_SIZE = "1.6em";
 
@@ -56,7 +57,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
         value={value}
         onChange={(_, id) => {
           setValue(id);
-          goTo(`/areas/${id}`)();
+          goTo(`/${AreasMap.get(id)}`)();
         }}
         showLabels
         classes={{ root: classes.navigation }}
@@ -144,7 +145,7 @@ export function MobileHeader({ areas, classes, goTo }) {
               color: "white",
               ...buttonsStyle,
             }}
-            onClick={() => goTo(`/about`)()}
+            onClick={() => goTo(`/somos`)()}
           >
             ¿Quiénes somos?
           </Button>
@@ -197,7 +198,7 @@ function AreasButtons({ areas, goTo, classes }) {
         style={style}
         onClick={() => {
           setValue(area.id);
-          goTo(`/areas/${area.id}`)();
+          goTo(`/${AreasMap.get(area.id)}`)();
         }}
         startIcon={area.icono && <area.icono size={ICON_SIZE} />}
       >
@@ -219,7 +220,10 @@ export function DesktopHeader({ areas, classes, goTo }) {
           >
             <Button
               fullWidth
-              onClick={() => goTo(`/`)()}
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+              // onClick={() => goTo(`/`)()}
               classes={{ root: classes.buttons, startIcon: classes.buttons }}
               key={"sentir creativo"}
               style={{ background: "#ffec11", ...buttonsStyle }}
@@ -239,7 +243,7 @@ export function DesktopHeader({ areas, classes, goTo }) {
                 ...buttonsStyle,
               }}
               classes={{ startIcon: classes.buttons }}
-              onClick={() => goTo(`/about`)()}
+              onClick={() => goTo(`/somos`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
               ¿Quiénes <br /> somos?

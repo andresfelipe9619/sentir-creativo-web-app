@@ -16,6 +16,7 @@ import Filters, { getFilterOptions } from "../components/filters/Filters";
 import { useAlertDispatch } from "../providers/context/Alert";
 import useQuery from "../providers/hooks/useQuery";
 import useFilterOptions from "../providers/hooks/useFilterOptions";
+import { AreasMap } from "../providers/globals";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 12;
@@ -27,6 +28,7 @@ const defaultFilters = {
   tecnica_artisticas: {},
   publico_objetivos: {},
 };
+
 
 export default function Areas() {
   const [services, setServices] = useState([]);
@@ -44,13 +46,15 @@ export default function Areas() {
   const { breakpoints } = useTheme();
   const isSmall = useMediaQuery(breakpoints.down("xs"));
   const classes = useStyles();
-  const { id: areaId } = useParams();
+  const { id: areaName } = useParams();
   const { openAlert } = useAlertDispatch();
   const { filterOptions, findUniqueOptions, setFilterOptions } =
     useFilterOptions({ defaultFilters });
 
   const selectedId = query.get("service");
+  const areaId = AreasMap.get(areaName);
 
+  console.log({ areaId });
   function getServicesCount(filters = {}) {
     return API.Servicio.count({
       params: {
@@ -244,7 +248,7 @@ export default function Areas() {
               fontSize: isSmall ? 48 : i === 0 ? 64 : 72,
               lineHeight: 1.15,
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
-              fontStyle: "italic"
+              fontStyle: "italic",
             };
 
             return (
@@ -300,7 +304,7 @@ export default function Areas() {
         ]}
       >
         {({ showFilters }) => {
-          const size = showFilters ? 4 : 3
+          const size = showFilters ? 4 : 3;
           return (
             <Grid
               container
