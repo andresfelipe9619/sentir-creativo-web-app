@@ -41,7 +41,6 @@ export const formatDate = (date, long = true) =>
   );
 
 export function getPaginationData(pagination) {
-  console.log("pagination", pagination);
   const { pageSize = 12, page = 1 } = pagination;
   const _limit = pageSize;
   const _start = (page - 1) * pageSize;
@@ -50,7 +49,6 @@ export function getPaginationData(pagination) {
 
 export function getQueryFilters(filters) {
   const entries = Object.entries(filters);
-  console.log("entries", entries);
   if (!entries.length) return null;
   return entries.reduce((acc, [key, value]) => {
     if (key === "pagination") {

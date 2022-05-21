@@ -29,22 +29,26 @@ const buttonsStyle = {
   flex: "1 1 auto",
   justifyContent: "flex-start",
 };
-export function MobileAreasButtons({ areas, goTo, classes }) {
-  const { pathname } = useLocation();
+
+function useAreaButtons() {
+  const location = useLocation();
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    if (!pathname.includes("areas")) {
-      setValue(null);
-      return;
-    }
-    let [id] = pathname.split("/").reverse();
-    console.log("id", id);
-    if (id && +id !== +value) {
-      setValue(+id);
-    }
-  }, [value, pathname]);
+    const { pathname } = location;
+    let [areaName] = pathname.split("/").reverse();
+    let id = AreasMap.get(areaName);
+    if (id) return setValue(+id);
 
+    return setValue(null);
+    //eslint-disable-next-line
+  }, [location]);
+
+  return [value, setValue];
+}
+
+export function MobileAreasButtons({ areas, goTo, classes }) {
+  const [value, setValue] = useAreaButtons();
   return (
     <Box
       width="100%"
@@ -165,22 +169,8 @@ export function MobileHeader({ areas, classes, goTo }) {
   );
 }
 
-function AreasButtons({ areas, goTo, classes }) {
-  const { pathname } = useLocation();
-  const [value, setValue] = useState(null);
-
-  useEffect(() => {
-    if (!pathname.includes("areas")) {
-      setValue(null);
-      return;
-    }
-
-    let [id] = pathname.split("/").reverse();
-
-    if (id && +id !== +value) {
-      setValue(+id);
-    }
-  }, [value, pathname]);
+function AreasButtons({ areas, goTo }) {
+  const [value, setValue] = useAreaButtons();
 
   return areas.map((area, i) => {
     const selected = area.id === value;

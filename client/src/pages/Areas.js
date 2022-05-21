@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -29,8 +29,7 @@ const defaultFilters = {
   publico_objetivos: {},
 };
 
-
-export default function Areas() {
+function Areas() {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
@@ -55,7 +54,6 @@ export default function Areas() {
   const [areaName] = location.pathname.split("/").reverse();
   const areaId = AreasMap.get(areaName);
 
-  console.log({ areaId });
   function getServicesCount(filters = {}) {
     return API.Servicio.count({
       params: {
@@ -402,3 +400,5 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+export default memo(Areas);
