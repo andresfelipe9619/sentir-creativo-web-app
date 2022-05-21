@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { getAreaBackground } from "../../utils";
 import Logo from "../../assets/full-logo.png";
 import LogoYellow from "../../assets/iso_amarillo.svg";
+import { AreasMap } from "../../providers/globals";
 
 const ICON_SIZE = "1.6em";
 
@@ -28,22 +29,26 @@ const buttonsStyle = {
   flex: "1 1 auto",
   justifyContent: "flex-start",
 };
-export function MobileAreasButtons({ areas, goTo, classes }) {
-  const { pathname } = useLocation();
+
+function useAreaButtons() {
+  const location = useLocation();
   const [value, setValue] = useState(null);
 
   useEffect(() => {
-    if (!pathname.includes("areas")) {
-      setValue(null);
-      return;
-    }
-    let [id] = pathname.split("/").reverse();
-    console.log("id", id);
-    if (id && +id !== +value) {
-      setValue(+id);
-    }
-  }, [value, pathname]);
+    const { pathname } = location;
+    let [areaName] = pathname.split("/").reverse();
+    let id = AreasMap.get(areaName);
+    if (id) return setValue(+id);
 
+    return setValue(null);
+    //eslint-disable-next-line
+  }, [location]);
+
+  return [value, setValue];
+}
+
+export function MobileAreasButtons({ areas, goTo, classes }) {
+  const [value, setValue] = useAreaButtons();
   return (
     <Box
       width="100%"
@@ -56,7 +61,7 @@ export function MobileAreasButtons({ areas, goTo, classes }) {
         value={value}
         onChange={(_, id) => {
           setValue(id);
-          goTo(`/areas/${id}`)();
+          goTo(`/${AreasMap.get(id)}`)();
         }}
         showLabels
         classes={{ root: classes.navigation }}
@@ -144,7 +149,7 @@ export function MobileHeader({ areas, classes, goTo }) {
               color: "white",
               ...buttonsStyle,
             }}
-            onClick={() => goTo(`/about`)()}
+            onClick={() => goTo(`/somos`)()}
           >
             ¿Quiénes somos?
           </Button>
@@ -164,22 +169,8 @@ export function MobileHeader({ areas, classes, goTo }) {
   );
 }
 
-function AreasButtons({ areas, goTo, classes }) {
-  const { pathname } = useLocation();
-  const [value, setValue] = useState(null);
-
-  useEffect(() => {
-    if (!pathname.includes("areas")) {
-      setValue(null);
-      return;
-    }
-
-    let [id] = pathname.split("/").reverse();
-
-    if (id && +id !== +value) {
-      setValue(+id);
-    }
-  }, [value, pathname]);
+function AreasButtons({ areas, goTo }) {
+  const [value, setValue] = useAreaButtons();
 
   return areas.map((area, i) => {
     const selected = area.id === value;
@@ -197,7 +188,7 @@ function AreasButtons({ areas, goTo, classes }) {
         style={style}
         onClick={() => {
           setValue(area.id);
-          goTo(`/areas/${area.id}`)();
+          goTo(`/${AreasMap.get(area.id)}`)();
         }}
         startIcon={area.icono && <area.icono size={ICON_SIZE} />}
       >
@@ -219,7 +210,10 @@ export function DesktopHeader({ areas, classes, goTo }) {
           >
             <Button
               fullWidth
-              onClick={() => goTo(`/`)()}
+              disableRipple
+              disableFocusRipple
+              disableTouchRipple
+              // onClick={() => goTo(`/`)()}
               classes={{ root: classes.buttons, startIcon: classes.buttons }}
               key={"sentir creativo"}
               style={{ background: "#ffec11", ...buttonsStyle }}
@@ -239,7 +233,7 @@ export function DesktopHeader({ areas, classes, goTo }) {
                 ...buttonsStyle,
               }}
               classes={{ startIcon: classes.buttons }}
-              onClick={() => goTo(`/about`)()}
+              onClick={() => goTo(`/somos`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
               ¿Quiénes <br /> somos?

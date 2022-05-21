@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import API from "../api";
 import Card from "../components/card/ServiceCard";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
 import { useTheme, createTheme } from "@material-ui/core/styles";
@@ -16,6 +16,7 @@ import Filters, { getFilterOptions } from "../components/filters/Filters";
 import { useAlertDispatch } from "../providers/context/Alert";
 import useQuery from "../providers/hooks/useQuery";
 import useFilterOptions from "../providers/hooks/useFilterOptions";
+import { AreasMap } from "../providers/globals";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 12;
@@ -28,7 +29,7 @@ const defaultFilters = {
   publico_objetivos: {},
 };
 
-export default function Areas() {
+function Areas() {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
@@ -44,12 +45,14 @@ export default function Areas() {
   const { breakpoints } = useTheme();
   const isSmall = useMediaQuery(breakpoints.down("xs"));
   const classes = useStyles();
-  const { id: areaId } = useParams();
+  const location = useLocation();
   const { openAlert } = useAlertDispatch();
   const { filterOptions, findUniqueOptions, setFilterOptions } =
     useFilterOptions({ defaultFilters });
 
   const selectedId = query.get("service");
+  const [areaName] = location.pathname.split("/").reverse();
+  const areaId = AreasMap.get(areaName);
 
   function getServicesCount(filters = {}) {
     return API.Servicio.count({
@@ -244,7 +247,7 @@ export default function Areas() {
               fontSize: isSmall ? 48 : i === 0 ? 64 : 72,
               lineHeight: 1.15,
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
-              fontStyle: "italic"
+              fontStyle: "italic",
             };
 
             return (
@@ -300,7 +303,7 @@ export default function Areas() {
         ]}
       >
         {({ showFilters }) => {
-          const size = showFilters ? 4 : 3
+          const size = showFilters ? 4 : 3;
           return (
             <Grid
               container
@@ -397,3 +400,5 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+export default memo(Areas);

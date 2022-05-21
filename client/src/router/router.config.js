@@ -59,7 +59,28 @@ const RouterConfig = [
     strict: true,
   },
   {
-    path: "/areas/:id",
+    path: "/creaciones",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/felicidad",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/universidad",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/galaxia",
     component: Areas,
     name: "Areas",
     exact: true,
@@ -73,7 +94,7 @@ const RouterConfig = [
     strict: true,
   },
   {
-    path: "/about",
+    path: "/somos",
     component: About,
     name: "About",
     exact: true,
