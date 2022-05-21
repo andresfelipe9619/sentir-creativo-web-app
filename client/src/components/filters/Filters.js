@@ -195,7 +195,7 @@ function Filters({
             }}
           >
             {loading
-              ? `Búscando experiencias ...`
+              ? `Buscando experiencias ...`
               : `${count} ${pluralize("experiencia", count)} ${pluralize(
                   "encontrada",
                   count

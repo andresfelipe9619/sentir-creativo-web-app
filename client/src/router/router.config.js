@@ -9,7 +9,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import SurfingIcon from "@mui/icons-material/Surfing";
 import BoltIcon from "@mui/icons-material/Bolt";
 
-// const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
+const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
 const Areas = lazy(() =>
   import(/* webpackChunkName: "areas" */ "../pages/Areas")
 );
@@ -51,19 +51,40 @@ export const DashboardRoutes = [
 ];
 
 const RouterConfig = [
-  // {
-  //   path: "/",
-  //   component: Home,
-  //   name: "Home",
-  //   exact: true,
-  //   strict: true,
-  // },
   {
-    path: "/:id",
+    path: "/",
+    component: Home,
+    name: "Home",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/creaciones",
     component: Areas,
     name: "Areas",
-    exact: false,
-    strict: false,
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/felicidad",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/universidad",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/galaxia",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
   },
   {
     path: "/servicios/:id",

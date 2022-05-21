@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import API from "../api";
 import Card from "../components/card/ServiceCard";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
 import { useTheme, createTheme } from "@material-ui/core/styles";
@@ -46,12 +46,13 @@ export default function Areas() {
   const { breakpoints } = useTheme();
   const isSmall = useMediaQuery(breakpoints.down("xs"));
   const classes = useStyles();
-  const { id: areaName } = useParams();
+  const location = useLocation();
   const { openAlert } = useAlertDispatch();
   const { filterOptions, findUniqueOptions, setFilterOptions } =
     useFilterOptions({ defaultFilters });
 
   const selectedId = query.get("service");
+  const [areaName] = location.pathname.split("/").reverse();
   const areaId = AreasMap.get(areaName);
 
   console.log({ areaId });
