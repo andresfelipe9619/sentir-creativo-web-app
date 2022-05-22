@@ -82,35 +82,35 @@ export const columns = (showOrganization) => [
   },
   ...(showOrganization
     ? [
-        {
-          name: "organizacion",
-          label: "Organización",
-          options: {
-            filter: true,
-            sort: true,
-          },
-          form: {
-            size: 6,
-            type: "input",
-            required: true,
-          },
+      {
+        name: "organizacion",
+        label: "Organización",
+        options: {
+          filter: true,
+          sort: true,
         },
-        {
-          name: "rubro",
-          label: "Rubro",
-          options: {
-            filter: true,
-            sort: true,
-          },
-          form: {
-            size: 6,
-            type: "select",
-            required: true,
-            visibleWith: "organizacion",
-            dependency: "Rubro",
-          },
+        form: {
+          size: 6,
+          type: "input",
+          required: true,
         },
-      ]
+      },
+      {
+        name: "rubro",
+        label: "Rubro",
+        options: {
+          filter: true,
+          sort: true,
+        },
+        form: {
+          size: 6,
+          type: "select",
+          required: true,
+          visibleWith: "organizacion",
+          dependency: "Rubro",
+        },
+      },
+    ]
     : []),
   {
     name: "ciudad",
@@ -215,3 +215,21 @@ export const serviceSchema = Yup.object().shape({
 });
 
 export const dossiersSchema = Yup.object().shape(contactSchema);
+
+export const artistValues = {};
+
+export const artistSchema = Yup.object().shape({
+  nombre: Yup.string()
+    .max(50, "Demasiado largo!")
+    .required("¡Reflautillas! El nombre es requerido"),
+  apellido: Yup.string()
+    .max(50, "Demasiado largo!")
+    .required("¡Reflautillas! El apellido es requerido"),
+  nacionalidad: Yup.string().required("¡Reflautillas! La nacionalidad es requerido"),
+  oficio: Yup.string().required("¡Reflautillas! El oficio o profesión es requerido"),
+  pais: Yup.string().required("¡Reflautillas! El país es requerido"),
+  reunion: Yup.string().required("¡Reflautillas! Este campo es requerido"),
+  email: Yup.string()
+    .email("¡Reflautillas! Un email correcto por favor.")
+    .required("¡Reflautillas! Un email es requerido"),
+});
