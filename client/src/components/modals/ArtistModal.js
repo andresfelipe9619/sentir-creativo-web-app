@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import GenericModal from "./GenericModal";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
@@ -597,7 +597,7 @@ function ActionAreas(props) {
   const [loading, setLoading] = useState(true);
   const [selectedAreas, setSelectedAreas] = useState([]);
 
-  const onSelectArea = useCallback(area => {
+  const onSelectArea = area => {
     const exists = selectedAreas.find(x => x.id === area.id);
 
     if (exists && selectedAreas.length === 1) {
@@ -610,7 +610,7 @@ function ActionAreas(props) {
 
     setSelectedAreas(values);
     props.values['areas'] = values;
-  }, [props.values, selectedAreas])
+  }
 
   useEffect(() => {
     (async () => {
@@ -655,7 +655,8 @@ function ActionAreas(props) {
         setLoading(false);
       }
     })();
-  }, [onSelectArea]);
+    // eslint-disable-next-line
+  }, []);
 
   if (loading) return <Spinner />;
 
