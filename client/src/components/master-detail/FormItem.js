@@ -103,6 +103,7 @@ export default function FormItem(props) {
             return handleChange(event);
           }}
           value={value || new Date()}
+          {...fieldProps}
         />
       </MuiPickersUtilsProvider>
     ),

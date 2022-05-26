@@ -69,40 +69,40 @@ export default function Connections({
 
 function ConnectionItem({ color, icon: Icon, details, match, hidden }) {
   details = details.split(/\n/)
-  .map((text, index, array) => {
-    const props = {
-      component: 'span',
-      display: (array[index + 1] === match || array[index - 1] === match) ? 'inline' : 'block',
-      style: { lineHeight: 1, fontWeight: 400 }
-    };
+    .map((text, index, array) => {
+      const props = {
+        component: 'span',
+        display: (array[index + 1] === match || array[index - 1] === match) ? 'inline' : 'block',
+        style: { lineHeight: 1, fontWeight: 400 }
+      };
 
-    if (text === match) {
-      props.display = 'inline'
-      props.style = { fontWeight: 500, lineHeight: 1 }
-      props.component = 'strong'
-    }
+      if (text === match) {
+        props.display = 'inline'
+        props.style = { fontWeight: 500, lineHeight: 1 }
+        props.component = 'strong'
+      }
 
-    return (
-      <Typography key={text} {...props}>
-        {text}
-      </Typography>
-    );
-  });
+      return (
+        <Typography key={text} {...props}>
+          {text}
+        </Typography>
+      );
+    });
 
   return (
     <Grid container spacing={2}>
-      <Grid xs={1}></Grid>
-      <Grid container xs={2} justifyContent="center">
+      <Grid xs={1} item></Grid>
+      <Grid container item xs={2} justifyContent="center">
         <Icon style={{ width: "5rem", height: "5rem", fill: color }} />
       </Grid>
 
-    <Grid xs={9}>
-      <Box mb={6} ml={2}>
-        <Typography variant='h6' paragraph gutterBottom style={{ opacity: hidden ? 0 : 1, transition: 'opacity 1s ease-out' }}>
-          {details}
-        </Typography>
-      </Box>
-    </Grid>
+      <Grid item xs={9}>
+        <Box mb={6} ml={2}>
+          <Typography variant='h6' paragraph gutterBottom style={{ opacity: hidden ? 0 : 1, transition: 'opacity 1s ease-out' }}>
+            {details}
+          </Typography>
+        </Box>
+      </Grid>
     </Grid>
   );
 }

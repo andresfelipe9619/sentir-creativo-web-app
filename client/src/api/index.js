@@ -94,7 +94,9 @@ const Tamano = Factory("tamanos");
 
 const Prefijo = Factory("prefijos");
 
-const Staf = Factory("stafs");
+const Staf = Factory("stafs", {
+  createNew: (staf) => serverRequests.post("/stafs/new", staf),
+});
 
 const Coleccion = Factory("coleccions");
 
