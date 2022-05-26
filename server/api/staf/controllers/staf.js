@@ -56,7 +56,7 @@ module.exports = {
     return sanitizeEntity(entity, { model: strapi.models.staf });
   },
   async new(ctx) {
-    const { request } = ctx
+    const { request } = ctx;
     let {
       prefijo,
       nombre,
@@ -70,10 +70,10 @@ module.exports = {
       coupon,
       tecnicas,
       oficio
-    } = request.body
+    } = request.body;
 
     try {
-      console.log(`BODY: `, request.body)
+      console.log(`BODY: `, request.body);
 
       const staf = await strapi.services.staf.create({
         nombre,
@@ -96,19 +96,19 @@ module.exports = {
 
       return staf;
     } catch (error) {
-      console.error(error)
-      return ctx.throw(500, error.toString())
+      console.error(error);
+      return ctx.throw(500, error.toString());
     }
   },
   async addFiles (ctx) {
-    const { request, params } = ctx
-    const { id } = params
-    const { body: files } = request
+    const { request, params } = ctx;
+    const { id } = params;
+    const { body: files } = request;
     const result = await strapi.services.archivo.addFiles({
       id,
       files,
       collection: 'staf'
-    })
-    return result
+    });
+    return result;
   },
 };
