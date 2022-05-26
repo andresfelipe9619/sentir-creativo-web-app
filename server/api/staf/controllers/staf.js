@@ -64,19 +64,16 @@ module.exports = {
       fechaNacimiento,
       nacionalidad,
       nombreArtistico,
-      pais,
+      ciudad,
       celular,
       email,
       coupon,
       tecnicas,
-      oficio,
-      comentarios = [],
+      oficio
     } = request.body
 
     try {
       console.log(`BODY: `, request.body)
-      if (!email) throw new Error('No hay Email para empezar proyecto')
-      const knex = strapi.connections.default
 
       const staf = await strapi.services.staf.create({
         nombre,
@@ -85,29 +82,17 @@ module.exports = {
         oficio,
         nacionalidad,
         email,
-        celular,
+        celular: celular || null,
         tecnica_artisticas: tecnicas,
         fechaNacimiento,
         cuponDescuento: [coupon],
         prefijo,
         destacado: false,
-        ciudad: pais,
+        ciudad,
         origen: 1,
         roles: [6],
         estado: 4
       });
-
-      await Promise.all(comentarios.map(async comentario => {
-        const comment = await strapi.services.comentario.create({ comentario })
-        await knex.transaction(async trx => {
-          await trx('stafs__comentarios').insert([
-            {
-              proyecto_id: staf.id,
-              comentario_id: comment.id
-            }
-          ])
-        })
-      }));
 
       return staf;
     } catch (error) {

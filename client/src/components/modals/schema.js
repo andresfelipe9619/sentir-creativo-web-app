@@ -227,7 +227,7 @@ export const artistSchema = Yup.object().shape({
     .required("¡Reflautillas! El apellido es requerido"),
   nacionalidad: Yup.string().required("¡Reflautillas! La nacionalidad es requerido"),
   oficio: Yup.string().required("¡Reflautillas! El oficio o profesión es requerido"),
-  pais: Yup.string().required("¡Reflautillas! El país es requerido"),
+  ciudad: Yup.string().required("¡Reflautillas! La ciudad es requerido"),
   reunion: Yup.string().required("¡Reflautillas! Este campo es requerido"),
   email: Yup.string()
     .email("¡Reflautillas! Un email correcto por favor.")

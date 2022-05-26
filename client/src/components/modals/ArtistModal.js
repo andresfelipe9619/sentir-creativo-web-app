@@ -31,9 +31,9 @@ import Avatar from '@material-ui/core/Avatar';
 const fieldsByStep = [
   ["nombre", "apellido", "fechaNacimiento", "nacionalidad"],
   [],
-  ["oficio"],
+  ["oficio", "tecnicas"],
   [],
-  ["pais", "email", 'reunion'],
+  ["ciudad", "email", "reunion"],
 ];
 
 const COLORS = {
@@ -153,17 +153,17 @@ const pInformationColumns = [
 
 const contactColumns = [
   {
-    name: "pais",
-    label: "País",
+    name: "ciudad",
+    label: "Ciudad",
     options: {
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
-      size: 3,
-      type: "select",
-      dependency: "Pais",
-      required: true
+      size: 12,
+      type: "city",
+      required: true,
     },
   },
   {
@@ -175,8 +175,7 @@ const contactColumns = [
     },
     form: {
       size: 6,
-      type: "input",
-      inputType: "number"
+      type: "phone"
     },
   },
   {
@@ -296,6 +295,14 @@ const socialColumns = [
   },
 ];
 
+const socialIcons = {
+  instagram: 'https://microsoft-store.azurewebsites.net/store/detail/9NBLGGH5L9XT/image',
+  tiktok: 'http://store-images.s-microsoft.com/image/apps.47495.13634052595610511.c45457c9-b4af-46b0-8e61-8d7c0aec3f56.a8b71481-8a43-465d-88d6-e63add92c112',
+  youtube: 'https://play-lh.googleusercontent.com/Qolm5gr9jnabjk-0z79srjYC1XPVExribNz5kbDmGJeEtmRlo0UQoQEIkKMHRyt5paw',
+  spotify: 'https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WXXWTK9q5b0Iw7B0YQMsVxZaNB7DM',
+  otherLink: 'https://cdn2.iconfinder.com/data/icons/pittogrammi/142/95-512.png'
+}
+
 function getStepContent(stepIndex, props) {
   switch (stepIndex) {
     case 0:
@@ -326,19 +333,19 @@ export default function ArtistModal() {
   ];
   const { openAlert } = useAlertDispatch();
 
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = async (value) => {
     if (!lastStep) {
       handleNext();
       return;
     }
 
-    console.log('VALUES ->', values)
     try {
-      const comentarios = [];
+      const values = Object.assign({}, value);
+      let comentarios = [];
 
       if (values.coupon?.trim()?.length) {
         values.coupon = await validateCoupon(values.coupon);
-        comentarios.push({ comentario: 'Viene de staff con cupón ' + values.coupon });
+        comentarios.push({ comentario: 'Viene de staff con cupón ' + values.coupon.codigo });
       }
 
       values.fechaNacimiento = new Date(values.fechaNacimiento).toISOString();
@@ -348,13 +355,26 @@ export default function ArtistModal() {
 
       comentarios.push({ comentario: values.reunion });
 
-      if (values.extra) {
+      if (values.extra?.length) {
         comentarios.push({ comentario: values.extra });
       }
 
-      values.comentarios = comentarios;
+      let archivos = [
+        { tipo_archivo: 37, path: values.instagram, nombre: 'Instagram', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
+        { tipo_archivo: 38, path: values.tiktok, nombre: 'Tiktok', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
+        { tipo_archivo: 39, path: values.youtube, nombre: 'Youtube', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
+        { tipo_archivo: 40, path: values.spotify, nombre: 'Spotify', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
+        { tipo_archivo: 41, path: values.otherLink, nombre: 'Otras redes sociales', updated_at: new Date().toISOString(), created_at: new Date().toISOString() }
+      ].filter(x => !!x.path);
+
       const result = await API.Staf.createNew(values);
-      console.log(`result`, result);
+
+      comentarios = await Promise.all(comentarios.filter(x => !!x.comentario?.length).map(async x => await API.Comentarios.create(x)));
+      await API.Staf.update(result.id, { comentarios });
+
+      archivos = await Promise.all(archivos.map(async x => await API.Archivo.create(x)));
+      archivos.length && await API.Archivo.addFiles2Entity(result.id, 'staf', [archivos.map(x => x.id)]);
+
       openAlert({ variant: "success", message: "Ticket creado con éxito" });
       handleNext();
     } catch (error) {
@@ -634,7 +654,6 @@ function ActionAreas(props) {
       : [...selectedAreas, area]
 
     setSelectedAreas(values);
-    console.log('SELECT AREA ->', area, values)
     props.values['areas'] = values;
   }
 
@@ -713,7 +732,7 @@ function ActionAreas(props) {
 }
 
 function Talented(props) {
-  const { data, loading } = useAPI({ service: "PublicoObjetivo", map: true });
+  const { data, loading } = useAPI({ service: "TecnicaArtistica", map: true });
 
   if (loading) return <Spinner />;
 
@@ -743,12 +762,14 @@ function Talented(props) {
         <Typography variant="h5" style={{ marginTop: 24 }}>
           Seleccione las técnicas que dominas:
         </Typography>
-        <CheckboxesGroup
-          legend=""
-          name="tecnicas"
-          options={data}
-          {...props}
-        />
+        <Box style={{ maxHeight: 200, overflow: 'auto' }}>
+          <CheckboxesGroup
+            legend=""
+            name="tecnicas"
+            options={data}
+            {...props}
+          />
+        </Box>
       </Grid>
     </Grid>
   );
@@ -771,8 +792,8 @@ function CurriculumVirtual(props) {
         <Grid item md={12} key={i}>
           <Box display="flex">
             <Avatar
-              src="https://w7.pngwing.com/pngs/275/474/png-transparent-android-google-play-social-work-service-work-service-heart-logo.png"
-              style={{ width: 65, height: 65, marginRight: 16 }}
+              src={socialIcons[item.name]}
+              style={{ width: 65, height: 65, marginRight: 16, objectFit: 'contain' }}
             />
 
             <FormItem item={item} {...props} />
