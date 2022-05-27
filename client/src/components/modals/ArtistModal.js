@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import GenericModal from "./GenericModal";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
@@ -21,12 +21,14 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Box from '@material-ui/core/Box';
-import { createTheme } from "@material-ui/core/styles";
+import { createTheme, useTheme } from "@material-ui/core/styles";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CheckboxesGroup from "../checkbox";
 import useAPI from "../../providers/hooks/useAPI";
 import Avatar from '@material-ui/core/Avatar';
+import green from '@material-ui/core/colors/green';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const fieldsByStep = [
   ["nombre", "apellido", "fechaNacimiento", "nacionalidad"],
@@ -193,7 +195,7 @@ const contactColumns = [
   },
   {
     name: "reunion",
-    label: "Prefiers una reunión",
+    label: "Prefieres una reunión",
     options: {
       filter: true,
       sort: false
@@ -332,6 +334,8 @@ export default function ArtistModal() {
     'Para comunicarnos'
   ];
   const { openAlert } = useAlertDispatch();
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleFormSubmit = async (value) => {
     if (!lastStep) {
@@ -451,13 +455,15 @@ export default function ArtistModal() {
 
             return (
               <form onSubmit={handleSubmit}>
-                <Stepper activeStep={activeStep} alternativeLabel>
-                  {steps.map((label) => (
-                    <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                    </Step>
-                  ))}
-                </Stepper>
+                {!isSmall && (
+                  <Stepper activeStep={activeStep} alternativeLabel>
+                    {steps.map((label) => (
+                      <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
+                )}
                 <div>
                   {sent ? (
                     <FinishForm handleCloseModal={handleCloseModal} />
@@ -597,7 +603,14 @@ function ActionAreas(props) {
   const [loading, setLoading] = useState(true);
   const [selectedAreas, setSelectedAreas] = useState([]);
 
-  const onSelectArea = useCallback(area => {
+  const tecnicas = {
+    "Creaciones Cuánticas": ['Espectáculo', 'Obra de Teatro', 'Show escénico'],
+    "Felicidad Organizacional": ['Autocuidado', 'Pausa activa', 'Terapias'],
+    "Universidad Creativa": ['Taller artístico', 'Taller de oficio', 'Charlas y Seminarios'],
+    "Galaxia Musical": ['Mi propuesta musical', 'Banda musical', 'Orquestas']
+  };
+
+  const onSelectArea = area => {
     const exists = selectedAreas.find(x => x.id === area.id);
 
     if (exists && selectedAreas.length === 1) {
@@ -610,7 +623,7 @@ function ActionAreas(props) {
 
     setSelectedAreas(values);
     props.values['areas'] = values;
-  }, [props.values, selectedAreas])
+  }
 
   useEffect(() => {
     (async () => {
@@ -655,12 +668,13 @@ function ActionAreas(props) {
         setLoading(false);
       }
     })();
-  }, [onSelectArea]);
+    // eslint-disable-next-line
+  }, []);
 
   if (loading) return <Spinner />;
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent="center">
       <Grid item md={12}>
         <Typography color="primary" variant="h1" gutterBottom>
           Nuestras áreas de acción:
@@ -679,9 +693,10 @@ function ActionAreas(props) {
         });
 
         const CheckIcon = selectedAreas.find(y => y.id === x.id) ? CheckCircleIcon : CheckCircleOutlineIcon;
+        const active = selectedAreas.find(y => y.id === x.id);
 
         return (
-          <Grid item md={3} key={x.id}>
+          <Grid item xs={8} md={3} key={x.id}>
             <Card>
               <CardActionArea onClick={() => onSelectArea(x)}>
                 <CardContent style={{ backgroundColor: areaTheme.palette.primary.dark }}>
@@ -691,7 +706,7 @@ function ActionAreas(props) {
                         Quiero subir:
                       </Typography>
 
-                      {[...x.tecnicas].sort((a, b) => a.length - b.length).slice(0, 3).map(tecnica => (
+                      {tecnicas[x.nombre].map(tecnica => (
                         <Typography
                           key={tecnica}
                           style={{
@@ -703,7 +718,7 @@ function ActionAreas(props) {
                       ))}
                     </Box>
 
-                    <CheckIcon style={{ color: '#fff' }} />
+                    <CheckIcon style={{ color: active ? green[500] : '#fff' }} />
                   </Box>
                 </CardContent>
                 <CardContent style={{ backgroundColor: areaTheme.palette.primary.main }}>
