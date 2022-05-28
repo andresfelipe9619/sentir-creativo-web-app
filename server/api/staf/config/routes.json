@@ -47,6 +47,22 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/stafs/new",
+      "handler": "staf.new",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/stafs/:id/archivos",
+      "handler": "staf.addFiles",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
