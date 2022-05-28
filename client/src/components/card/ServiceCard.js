@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
     paddingTop: 6,
-    paddingBottom: 6
+    paddingBottom: 6,
   },
   expandOpen: {
     transform: "rotate(180deg)",
@@ -64,16 +64,16 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   tags: {
-    marginTop: theme.spacing(.25),
+    marginTop: theme.spacing(0.25),
     marginBottom: 0,
     lineHeight: "1.15",
     fontWeight: 400,
-    color: "#424242"
+    color: "#424242",
   },
   header: {
     paddingTop: 8,
-    paddingBottom: 8
-  }
+    paddingBottom: 8,
+  },
 }));
 
 function ServiceCard({
@@ -111,7 +111,6 @@ function ServiceCard({
     },
   });
 
-  const text = <Typography variant="h3">{title}</Typography>;
   const [prefix, name] = (area?.icono || "").split("/");
   let Icon = null;
 
@@ -127,13 +126,14 @@ function ServiceCard({
           component={Box}
           title={
             <Typography
+              variant="h3"
               style={{
-                fontStyle: 'italic',
+                fontStyle: "italic",
                 fontWeight: areaTheme.typography.fontWeightBold,
-                color: areaTheme.palette.common.black
+                color: areaTheme.palette.common.black,
               }}
-              >
-              {text}
+            >
+              {title}
             </Typography>
           }
           // action={
@@ -225,10 +225,8 @@ function ServiceCard({
                 <Typography variant="body2">{sintesis}</Typography>
               </Box>
               <Box py={2} px={4} color="white" bgcolor="primary.main">
-                <Typography variant="h6">
-                  Ideal para:
-                </Typography>
-                {ocasions.map(x => x.nombre).join(" • ")}
+                <Typography variant="h6">Ideal para:</Typography>
+                {ocasions.map((x) => x.nombre).join(" • ")}
               </Box>
             </Box>
           </Collapse>

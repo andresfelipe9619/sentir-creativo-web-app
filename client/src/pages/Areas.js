@@ -17,6 +17,7 @@ import { useAlertDispatch } from "../providers/context/Alert";
 import useQuery from "../providers/hooks/useQuery";
 import useFilterOptions from "../providers/hooks/useFilterOptions";
 import { AreasMap } from "../providers/globals";
+import { useFiltersState } from "../providers/context/Filters";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 12;
@@ -43,12 +44,13 @@ function Areas() {
   const history = useHistory();
   const query = useQuery();
   const { breakpoints } = useTheme();
+  const { showFilters } = useFiltersState();
   const isSmall = useMediaQuery(breakpoints.down("xs"));
   const classes = useStyles();
   const location = useLocation();
   const { openAlert } = useAlertDispatch();
   const { filterOptions, findUniqueOptions, setFilterOptions } =
-    useFilterOptions({ defaultFilters });
+    useFilterOptions({ initialValues: defaultFilters });
 
   const selectedId = query.get("service");
   const [areaName] = location.pathname.split("/").reverse();
@@ -184,6 +186,7 @@ function Areas() {
     },
   });
   const servicesToShow = searchValue ? [searchValue] : services;
+  const size = showFilters ? 4 : 3;
 
   return (
     <Grid
@@ -302,43 +305,38 @@ function Areas() {
           },
         ]}
       >
-        {({ showFilters }) => {
-          const size = showFilters ? 4 : 3;
-          return (
+        <Grid
+          container
+          component={Box}
+          my={0}
+          m={0}
+          p={0}
+          alignContent="center"
+          alignItems="center"
+          minHeight={400}
+        >
+          {servicesToShow.map((s) => (
             <Grid
-              container
+              xs={12}
+              sm={6}
+              md={size}
+              lg={size}
+              xl={size}
               component={Box}
-              my={0}
               m={0}
               p={0}
-              alignContent="center"
-              alignItems="center"
-              minHeight={400}
+              item
+              key={s.id}
             >
-              {servicesToShow.map((s) => (
-                <Grid
-                  xs={12}
-                  sm={6}
-                  md={size}
-                  lg={size}
-                  xl={size}
-                  component={Box}
-                  m={0}
-                  p={0}
-                  item
-                  key={s.id}
-                >
-                  <Card
-                    service={s}
-                    color={color}
-                    handleClickPrimary={handleOpenModal(s)}
-                    handleClickSecundary={handleOpenDossier(s)}
-                  />
-                </Grid>
-              ))}
+              <Card
+                service={s}
+                color={color}
+                handleClickPrimary={handleOpenModal(s)}
+                handleClickSecundary={handleOpenDossier(s)}
+              />
             </Grid>
-          );
-        }}
+          ))}
+        </Grid>
       </Filters>
     </Grid>
   );

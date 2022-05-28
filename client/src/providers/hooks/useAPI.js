@@ -1,8 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import API from "../../api";
-import { getPaginationData } from "../../utils";
-
-const PAGE_SIZE = 10;
 
 export default function useAPI({
   service,
@@ -12,37 +9,39 @@ export default function useAPI({
 }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
 
-  const init = useCallback(async () => {
-    try {
-      console.log("lazy", lazy);
-      let params = { _limit: -1 };
-      if (lazy) {
-        params = getPaginationData({ page, pageSize: PAGE_SIZE });
+  const init = useCallback(
+    async (customParams) => {
+      try {
+        let params = { _limit: -1, ...(customParams || {}) };
+        // Use this for server side pagination
+        // if (lazy) {
+        //   params = getPaginationData({ page, pageSize: PAGE_SIZE });
+        // }
+        let result = await API[service].getAll({ params });
+        if (map) {
+          result = result
+            .map(({ id, nombre }) => ({
+              value: id,
+              label: nombre,
+            }))
+            .filter((i) => i.label);
+        }
+        if (!lazy) return setData(result || []);
+        // Use this for server side pagination
+        // setData((prev) => prev.concat(result));
+        // const countResult = await API[service].count();
+        // setCount(countResult);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-      console.log("params", params);
-      let result = await API[service].getAll({ params });
-      if (map) {
-        result = result
-          .map(({ id, nombre }) => ({
-            value: id,
-            label: nombre,
-          }))
-          .filter((i) => i.label);
-      }
-      if (!lazy) return setData(result || []);
-      setData((prev) => prev.concat(result));
-      const countResult = await API[service].count();
-      setCount(countResult);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    },
     //eslint-disable-next-line
-  }, [page, service, lazy]);
+    [page, service, lazy]
+  );
 
   const loadMore = useCallback(() => {
     setPage((prev) => ++prev);
@@ -71,7 +70,6 @@ export default function useAPI({
 
   return {
     api: API[service],
-    count,
     create,
     data,
     init,

@@ -99,17 +99,17 @@ export function replaceEmptyStringWithNull(value) {
 
 export const getScoreColor = (score = 0) => {
   let colors = [
-    '#616161',
-    '#757575',
-    '#e53935',
-    '#e53935',
-    '#f4511e',
-    '#ffb300',
-    '#d6b21e',
-    '#d6b21e',
-    '#79b700',
-    '#79b700',
-    '#1faa00'
+    "#616161",
+    "#757575",
+    "#e53935",
+    "#e53935",
+    "#f4511e",
+    "#ffb300",
+    "#d6b21e",
+    "#d6b21e",
+    "#79b700",
+    "#79b700",
+    "#1faa00",
   ];
 
   if (score < 10) {
@@ -121,3 +121,8 @@ export const getScoreColor = (score = 0) => {
 
   return colors[score];
 };
+
+export const isDate = (item) =>
+  isNaN(item) && new Date(item) !== "Invalid Date" && !isNaN(new Date(item));
+
+export const isObject = (item) => !!item && typeof item === "object";

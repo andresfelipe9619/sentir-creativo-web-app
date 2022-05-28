@@ -18,6 +18,7 @@ import FilterPagination from "./FilterPagination";
 import { map2select, pluralize } from "../../utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import FilterOption from "./FilterOption";
+import { useFilters } from "../../providers/context/Filters";
 
 const PAGE_SIZE = 12;
 
@@ -25,9 +26,9 @@ function Filters({
   children,
   color,
   loading,
-  searchOptions,
+  searchOptions = [],
   maxCount = 6,
-  filterOptions,
+  filterOptions = [],
   onSearchChange,
   onFilterChange,
 }) {
@@ -37,7 +38,7 @@ function Filters({
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const [autocompleteValue, setAutocompleteValue] = useState(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const [{ showFilters }, { toggleFilters }] = useFilters();
   const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
 
   const handleDeleteFilter = (option) => () => {
@@ -56,7 +57,7 @@ function Filters({
     setValues(newValues);
     const selectedFilters = getSelectedFilters(newValues);
     setFilters(selectedFilters);
-    onFilterChange(selectedFilters);
+    onFilterChange && onFilterChange(selectedFilters);
   };
 
   const handleChangePage = (_, value) => {
@@ -67,17 +68,13 @@ function Filters({
     };
     setPage(value);
     setFilters(newFilters);
-    onFilterChange(newFilters);
+    onFilterChange && onFilterChange(newFilters);
   };
 
-  const toggleFilter = () =>
-    setShowFilters((prev) => {
-      if (!prev) {
-        window.scrollTo(0, 275);
-      }
-
-      return !prev;
-    });
+  const handleClickFilters = () => {
+    if (!showFilters) window.scrollTo(0, 275);
+    toggleFilters(!showFilters);
+  };
 
   const count = autocompleteValue ? 1 : maxCount;
   const cardColor = color || theme.palette.primary.main;
@@ -92,7 +89,7 @@ function Filters({
   const chips = filterOptions
     .map((fo) => {
       const setFilterOptions = (name) =>
-        (fo.options || [])
+        (fo?.options || [])
           .filter((o) => (filters[name] || []).includes(+o.value))
           .map((fo) => ({ ...fo, name }));
       return setFilterOptions(fo.name);
@@ -116,7 +113,7 @@ function Filters({
           <Button
             color="primary"
             variant="outlined"
-            onClick={toggleFilter}
+            onClick={handleClickFilters}
             style={{ marginRight: 16 }}
             startIcon={<FilterListIcon />}
             classes={{
@@ -128,11 +125,11 @@ function Filters({
           <Autocomplete
             size="small"
             id="combo-box-demo"
-            options={searchOptions}
+            options={searchOptions || []}
             value={autocompleteValue}
             onChange={(_, newValue) => {
               setAutocompleteValue(newValue);
-              onSearchChange(newValue);
+              onSearchChange && onSearchChange(newValue);
             }}
             getOptionLabel={(option) => option.nombre}
             style={{ width: 300 }}
@@ -235,7 +232,7 @@ function Filters({
           component={Box}
           minHeight={400}
         >
-          {loading ? <Spinner mt={"10vh"} /> : children({ showFilters })}
+          {loading ? <Spinner mt={"10vh"} /> : children}
         </Grid>
         {pagination}
       </Grid>
@@ -244,7 +241,7 @@ function Filters({
 }
 
 export function getFilterOptions(filter) {
-  return Object.entries(filter).map(map2select);
+  return Object.entries(filter || {}).map(map2select);
 }
 
 export function getSelectedFilters(filters) {

@@ -17,16 +17,23 @@ import { useDashboardStyles } from "./styles";
 import AccessDenied from "../../router/AccessDenied";
 import API from "../../api";
 import CustomBreadcrumbs from "./BreadCrumb";
+import { useFilters } from "../../providers/context/Filters";
+import useDashboard from "../../providers/hooks/useDashboard";
+import { useTheme, createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 export default function DashboardSidebar({ children }) {
   const [open, setOpen] = useState(false);
   const classes = useDashboardStyles();
   const token = API.getToken();
   const history = useHistory();
+  const [{ showCards }, { toggleCardsView }] = useFilters();
+  const dashboardItem = useDashboard();
+  const theme = useTheme();
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -36,66 +43,77 @@ export default function DashboardSidebar({ children }) {
     history.push(path);
   };
 
+  const handleChange = (e) => toggleCardsView(e.target.checked);
+
+  const color = dashboardItem?.color || theme.palette.primary.main;
+  const customTheme = createTheme({
+    ...theme,
+    palette: {
+      primary: { main: color },
+    },
+  });
   if (!token) return <AccessDenied />;
   return (
-    <div className={classes.root}>
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
-          <CustomBreadcrumbs />
-          <Box display="flex" justifyContent="flex-end" mx={3}>
-            <FormControlLabel
-              control={
-                <MuiSwitch
-                  checked={false}
-                  // onChange={handleChange}
-                  name="cardView"
-                  color="primary"
-                />
-              }
-              label="Vista Cards"
+    <ThemeProvider theme={customTheme}>
+      <div className={classes.root}>
+        <AppBar
+          position="absolute"
+          className={clsx(classes.appBar, open && classes.appBarShift)}
+        >
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              className={clsx(
+                classes.menuButton,
+                open && classes.menuButtonHidden
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+            <CustomBreadcrumbs />
+            <Box display="flex" justifyContent="flex-end" mx={3}>
+              <FormControlLabel
+                control={
+                  <MuiSwitch
+                    checked={showCards}
+                    onChange={handleChange}
+                    name="cardView"
+                    color="secondary"
+                  />
+                }
+                label="Vista Cards"
+              />
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <MainListItems
+              handleClick={handleClick}
+              color={color}
+              dashboardItem={dashboardItem}
             />
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <MainListItems handleClick={handleClick} />
-        </List>
-        {/* <Divider />
-        <List>
-          <SecondaryListItems />
-        </List> */}
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        {children}
-      </main>
-    </div>
+          </List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          {children}
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }

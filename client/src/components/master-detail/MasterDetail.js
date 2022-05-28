@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
 import Master from "./Master";
 import Detail from "./Detail";
@@ -6,13 +6,14 @@ import useAPI from "../../providers/hooks/useAPI";
 import Spinner from "../spinner/Spinner";
 import SpeedDial from "../speed-dial/SpeedDial";
 import CreateEntity from "../modals/CreateEntity";
-import Box from "@material-ui/core/Box";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import MuiSwitch from "@material-ui/core/Switch";
-import { formatDate } from "../../utils";
+import { formatDate, getQueryFilters, isDate, isObject } from "../../utils";
 import DialogButton from "../buttons/DialogButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useAlertDispatch } from "../../providers/context/Alert";
+import { useFiltersState } from "../../providers/context/Filters";
+import Filters, { getFilterOptions } from "../filters/Filters";
+import useDashboard from "../../providers/hooks/useDashboard";
+import useFilterOptions from "../../providers/hooks/useFilterOptions";
 
 export default function MasterDetail({
   detailProps,
@@ -32,7 +33,6 @@ export default function MasterDetail({
     data,
     loading,
     init,
-    count,
     loadMore,
     create: createEntity,
   } = useAPI({ service, lazy });
@@ -69,8 +69,8 @@ export default function MasterDetail({
 
   const masterViewProps = {
     data,
+    init,
     toggle,
-    count,
     loading,
     loadMore,
     masterProps,
@@ -114,10 +114,11 @@ export default function MasterDetail({
     </>
   );
 }
+const PAGE_SIZE = 12;
 
 function MasterView({
   data,
-  loading,
+  init,
   toggle,
   masterProps,
   renderMaster,
@@ -125,36 +126,82 @@ function MasterView({
   handleRowsDelete,
   ...routerProps
 }) {
-  const [showList, setShowList] = useState(false);
+  const { showCards } = useFiltersState();
+  const dashboardItem = useDashboard();
+  const { filterOptions } = useFilterOptions({
+    data,
+    initialValues: masterProps?.filters,
+  });
+  const [searchValue, setSearchValue] = useState(null);
+  const [searchOptions, setSearchOptions] = useState([]);
+  const [pagination, setPagination] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => setShowList(e.target.checked);
+  const [firstItem] = data;
+  const showCustom = toggle && showCards && renderMaster;
 
-  const showCustom = toggle && showList && renderMaster;
+  const handleClose = (lookup, fn) => async (accepted) =>
+    accepted && (await handleRowsDelete(Object.keys(lookup), fn));
 
-  if (showCustom && typeof data[0]?.destacado === "boolean") {
-    data = data.sort((a, b) => +b.destacado - +a.destacado);
+  async function handleFilterChange(filters) {
+    const { pagination } = filters;
+    setPagination(pagination?.page || 1);
+    const params = getQueryFilters(filters);
+    Reflect.deleteProperty(params, "_start");
+    Reflect.deleteProperty(params, "_limit");
+    let entries = Object.entries(params);
+    if (!entries.length) return;
+    setLoading(true);
+    await init(params);
+    setLoading(false);
   }
 
+  function buildFilterOptions() {
+    return (masterProps?.filters || []).map((f) => {
+      let filter = filterOptions[f.name];
+      let options = getFilterOptions(filter);
+      return {
+        ...f,
+        options,
+      };
+    });
+  }
+
+  const offset = (pagination - 1) * PAGE_SIZE;
+  const limit = pagination * PAGE_SIZE;
+  let data2show = searchValue
+    ? [searchValue]
+    : showCustom
+    ? data.slice(offset, limit)
+    : data;
+
+  let shouldUseFavorite = typeof firstItem?.destacado === "boolean";
+  if (showCustom && shouldUseFavorite && data2show.length > 1) {
+    data2show = data2show.sort((a, b) => +b.destacado - +a.destacado);
+  }
+
+  useEffect(() => {
+    if (!data || searchOptions?.length) return;
+    setSearchOptions(data);
+  }, [data, searchOptions]);
+
   return (
-    <>
-      {toggle && (
-        <Box width="100%" display="flex" justifyContent="flex-end" my={2}>
-          <FormControlLabel
-            control={
-              <MuiSwitch
-                checked={showList}
-                onChange={handleChange}
-                name="cardView"
-                color="primary"
-              />
-            }
-            label="Vista Cards"
-          />
-        </Box>
+    <FiltersWrapper
+      show={showCustom}
+      color={dashboardItem?.color}
+      data={data2show}
+      loading={loading}
+      maxCount={data.length}
+      filterOptions={buildFilterOptions()}
+      onSearchChange={setSearchValue}
+      onFilterChange={handleFilterChange}
+      searchOptions={searchOptions.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
       )}
+    >
       {showCustom &&
         renderMaster({
-          data,
+          data: data2show,
           handleClickRow,
           handleRowsDelete,
           ...routerProps,
@@ -164,27 +211,25 @@ function MasterView({
           {...masterProps}
           {...routerProps}
           data={data}
-          loading={loading}
           onRowClick={handleClickRow}
           customToolbarSelect={({ lookup }, _, fn) => (
             <DialogButton
               color="default"
               label={<DeleteIcon />}
-              onClose={async (accepted) =>
-                accepted && (await handleRowsDelete(Object.keys(lookup), fn))
-              }
+              onClose={handleClose(lookup, fn)}
             />
           )}
         />
       )}
-    </>
+    </FiltersWrapper>
   );
 }
 
-const isDate = (item) =>
-  isNaN(item) && new Date(item) !== "Invalid Date" && !isNaN(new Date(item));
-
-const isObject = (item) => !!item && typeof item === "object";
+function FiltersWrapper({ show, children, ...filtersProps }) {
+  const { filterOptions } = filtersProps;
+  if (!filterOptions?.length || !show) return children;
+  return <Filters {...filtersProps}>{children}</Filters>;
+}
 
 export function customBodyRender(type) {
   return (value) => {

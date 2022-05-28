@@ -4,13 +4,14 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
 import { Route } from "react-router";
-import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import { DashboardRoutes } from "../../router/router.config";
 
 const LinkRouter = (props) => <Link {...props} component={RouterLink} />;
 
 const useStyles = makeStyles((theme) => ({
   link: {
+    fontWeight: "bold",
     display: "flex",
     color: "white",
   },
@@ -39,7 +40,7 @@ export default function CustomBreadcrumbs() {
             separator="›"
             className={classes.root}
           >
-            <LinkRouter color="inherit" href="/" className={classes.link}>
+            <LinkRouter color="inherit" to="/" className={classes.link}>
               Administración
             </LinkRouter>
 
@@ -50,14 +51,22 @@ export default function CustomBreadcrumbs() {
               if (!route) return null;
               const { icon: Icon, name } = route;
               return last ? (
-                <Typography color="disabled" key={to}>
-                  <Icon />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  color="disabled"
+                  key={to}
+                >
+                  {Icon && <Icon />}
                   {name}
-                </Typography>
+                </Box>
               ) : (
-                <LinkRouter color="inherit" to={to} key={to}>
-                  {name}
-                </LinkRouter>
+                <Box display="flex" alignItems="center" key={to}>
+                  {Icon && <Icon />}
+                  <LinkRouter color="inherit" to={to}>
+                    {name}
+                  </LinkRouter>
+                </Box>
               );
             })}
           </Breadcrumbs>

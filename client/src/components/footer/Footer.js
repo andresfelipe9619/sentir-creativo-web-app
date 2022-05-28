@@ -86,7 +86,12 @@ export default function AppFooter() {
 
   return (
     <Container className={classes.root} maxWidth={false} style={{ marginTop }}>
-      <Grid container spacing={6} justifyContent="center" style={{ width: '100%' }}>
+      <Grid
+        container
+        spacing={6}
+        justifyContent="center"
+        style={{ width: "100%" }}
+      >
         <Grid item xs={11}>
           <Typography variant="h1" className={classes.title}>
             Cuenta con nosotros
@@ -235,7 +240,14 @@ export default function AppFooter() {
 
 function Copyright() {
   return (
-    <Box bgcolor="rgba(0 0 0 / 20%)" width="100%" color="#fff" px={4} py={1} style={{ marginBottom: -23 }}>
+    <Box
+      bgcolor="rgba(0 0 0 / 20%)"
+      width="100%"
+      color="#fff"
+      px={4}
+      py={1}
+      style={{ marginBottom: -23 }}
+    >
       <Link color="inherit" href={HOST}>
         {DOMAIN}.com
       </Link>{" "}

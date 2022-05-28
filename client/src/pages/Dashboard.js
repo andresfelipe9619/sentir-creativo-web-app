@@ -14,10 +14,9 @@ import Tags from "../components/dashboard/tag/Tags";
 import Organizaciones from "../components/dashboard/organizacion/Organizaciones";
 import Tareas from "../components/dashboard/tarea/Tareas";
 
-
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(1),
   },
 }));
 

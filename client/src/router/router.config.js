@@ -34,20 +34,30 @@ const Register = lazy(() =>
 );
 
 export const DashboardRoutes = [
-  { path: "/admin/audiencia", name: "Audiencia", icon: HailIcon },
+  {
+    path: "/admin/audiencia",
+    name: "Audiencia",
+    icon: HailIcon,
+    color: "#283593",
+  },
   {
     path: "/admin/organizaciones",
     name: "Organizaciones",
     icon: BusinessIcon,
   },
   { path: "/admin/servicios", name: "Servicios", icon: ShoppingCartIcon },
-  { path: "/admin/proyectos", name: "Proyectos", icon: WorkIcon },
+  {
+    path: "/admin/proyectos",
+    name: "Proyectos",
+    icon: WorkIcon,
+    color: "#ad14ed",
+  },
   { path: "/admin/archivos", name: "Archivos", icon: ArchiveIcon },
   { path: "/admin/tags", name: "Tags", icon: LabelIcon },
-  { path: "/admin/staff", name: "Staff", icon: SurfingIcon },
+  { path: "/admin/staff", name: "Staff", icon: SurfingIcon, color: "#6d4c41" },
   { path: "/admin/colecciones", name: "Colecciones", icon: LabelIcon },
   { path: "/admin/reportes", name: "Reportes", icon: BarChartIcon },
-  { path: "/admin/tareas", name: "Tareas", icon: BoltIcon },
+  { path: "/admin/tareas", name: "Tareas", icon: BoltIcon, color: "#00a3bc" },
 ];
 
 const RouterConfig = [
