@@ -40,7 +40,7 @@ export default function CustomBreadcrumbs() {
             separator="›"
             className={classes.root}
           >
-            <LinkRouter color="inherit" href="/" className={classes.link}>
+            <LinkRouter color="inherit" to="/" className={classes.link}>
               Administración
             </LinkRouter>
 
@@ -61,11 +61,7 @@ export default function CustomBreadcrumbs() {
                   {name}
                 </Box>
               ) : (
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  key={to}
-                >
+                <Box display="flex" alignItems="center" key={to}>
                   {Icon && <Icon />}
                   <LinkRouter color="inherit" to={to}>
                     {name}

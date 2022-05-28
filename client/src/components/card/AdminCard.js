@@ -96,15 +96,17 @@ function AdminCard({
             </Typography>
           </Box>
         )}
-        {renderContent && <Box
-          alignItems="center"
-          display="flex"
-          justifyContent="center"
-          px={2}
-          py={1}
-        >
-          {renderContent()}
-        </Box>}
+        {renderContent && (
+          <Box
+            alignItems="center"
+            display="flex"
+            justifyContent="center"
+            px={2}
+            py={1}
+          >
+            {renderContent()}
+          </Box>
+        )}
         <Box
           alignItems="center"
           bgcolor={cardColor}
@@ -135,7 +137,7 @@ function AdminCard({
               {(chips || [])
                 .filter((n) => !!n)
                 .map((c) => (
-                  <CopyClipboard>
+                  <CopyClipboard key={c}>
                     {({ copy }) => (
                       <Chip
                         key={c}
@@ -221,7 +223,7 @@ const FloatingHeader = memo(function FloatingHeader({
   score,
   classes,
   color,
-  scoreColor = grey[700]
+  scoreColor = grey[700],
 }) {
   return (
     <Box display="flex" style={headerStyle} alignItems="center">
@@ -264,6 +266,7 @@ export const Stat = memo(function Stat({ label, value, color }) {
       item
       xs={4}
       container
+      component={Box}
       flexDirection="column"
       alignItems="center"
       justifyContent="center"

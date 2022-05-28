@@ -11,11 +11,13 @@ function filtersReducer(state, { type, toggleValue }) {
   switch (type) {
     case "toggleCardsView": {
       return {
+        ...state,
         showCards: toggleValue ?? !state.showCards,
       };
     }
     case "toggleFilters": {
       return {
+        ...state,
         showFilters: toggleValue ?? !state.showFilters,
       };
     }
@@ -32,7 +34,7 @@ function FiltersContext({ children }) {
     []
   );
   const toggleFilters = useCallback(
-    (props) => dispatch({ type: "toggleCardsView", ...props }),
+    (props) => dispatch({ type: "toggleFilters", ...props }),
     []
   );
   return (
