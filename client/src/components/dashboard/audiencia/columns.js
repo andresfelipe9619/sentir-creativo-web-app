@@ -305,6 +305,19 @@ const columns = [
       type: "comments",
     },
   },
+  {
+    name: "created_at",
+    label: "Fecha Creacion",
+    options: {
+      display: true,
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "date",
+    },
+  },
 ];
 
 export default columns;

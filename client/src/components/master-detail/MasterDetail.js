@@ -132,6 +132,7 @@ function MasterView({
     data,
     initialValues: masterProps?.filters,
   });
+  console.log("filterOptions", filterOptions);
   const [searchValue, setSearchValue] = useState(null);
   const [searchOptions, setSearchOptions] = useState([]);
   const [pagination, setPagination] = useState(1);

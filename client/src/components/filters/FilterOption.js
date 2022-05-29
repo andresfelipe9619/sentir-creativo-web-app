@@ -20,7 +20,7 @@ const FilterOption = memo(function FilterOption({
   return (
     <AccordionOption title={label}>
       {loading && !hasOptions && <Spinner mt={0} />}
-      {hasOptions && (
+      {hasOptions ? (
         <CheckboxGroup
           name={name}
           disabled={loading}
@@ -28,6 +28,8 @@ const FilterOption = memo(function FilterOption({
           values={values}
           handleChange={handleChange}
         />
+      ) : (
+        "No hay opciones para filtrar con los datos actuales..."
       )}
     </AccordionOption>
   );

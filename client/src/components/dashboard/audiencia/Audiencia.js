@@ -6,27 +6,27 @@ import AdminAudienceCard from "../../card/AdminAudienceCard";
 import PaginatedCards from "../../card/PaginatedCards";
 
 const filters = [
-  {
-    label: "Destacado",
-    name: "destacado",
-    type: "boolean",
-  },
-  {
-    label: "Fecha Creacion",
-    name: "created_at",
-    type: "date",
-  },
+  // {
+  //   label: "Destacado",
+  //   name: "destacado",
+  //   type: "boolean",
+  // },
+  // {
+  //   label: "Fecha Creacion",
+  //   name: "created_at",
+  //   type: "date",
+  // },
   {
     label: "Origen",
     name: "origen",
   },
   {
     label: "Estado Proyectos",
-    name: "estado_proyecto",
+    name: "estado",
   },
   {
     label: "Difusiones",
-    name: "difusions",
+    name: "difusiones",
   },
   {
     label: "Ciudad",

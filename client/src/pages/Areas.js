@@ -85,7 +85,6 @@ function Areas() {
         await loadCount(filters);
         filters = { ...filters, ...default_pagination };
       }
-      console.log("ah filters", filters);
       const serviceResult = await getServices(filters);
       setServices(serviceResult);
 
@@ -94,8 +93,7 @@ function Areas() {
       await loadCount(filters);
 
       // Find unique options for the filters
-      const options = findUniqueOptions(serviceResult);
-
+      const options = findUniqueOptions(serviceResult, defaultFilters);
       setFilterOptions(options);
     } catch (error) {
       console.error(error);
