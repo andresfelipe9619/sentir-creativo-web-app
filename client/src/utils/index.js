@@ -126,3 +126,7 @@ export const isDate = (item) =>
   isNaN(item) && new Date(item) !== "Invalid Date" && !isNaN(new Date(item));
 
 export const isObject = (item) => !!item && typeof item === "object";
+
+export const isBoolean = (item) => typeof item === "boolean";
+
+export const isNullish = (item) => typeof item === "undefined" || item === null;

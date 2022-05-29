@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { isObject } from "../../utils";
+import { isBoolean, isNullish, isObject } from "../../utils";
 
 export default function useFilterOptions({ data, initialValues }) {
   const [filterOptions, setFilterOptions] = useState({});
 
   useEffect(() => {
     if (!initialValues) return;
+    console.log("initialValues", initialValues);
     if (Array.isArray(initialValues)) {
       let defaultFilters = initialValues.reduce(
         (acc, f) => ({ ...acc, [f.name]: {} }),
@@ -22,35 +23,47 @@ export default function useFilterOptions({ data, initialValues }) {
     //eslint-disable-next-line
   }, []);
 
-  function findUniqueOptions(items, defaultFilters) {
-    const filters2use = defaultFilters || filterOptions;
-    return items.reduce((acc, item) => {
-      const keys = Object.keys(acc);
-      const result = keys.reduce((accFilters, filterKey) => {
-        let value = item[filterKey];
-        let isArray = Array.isArray(value);
-        let isObj = isObject(value);
-        let currentOptions = {};
-        if (isArray) {
-          currentOptions = (value || [])
-            .filter((t) => !acc[filterKey][t.id])
-            .reduce(
-              (accT, t) => ({ ...accT, [t.id]: t.nombre }),
-              acc[filterKey]
-            );
-        } else if (isObj && !acc[filterKey][value.id]) {
-          currentOptions = { ...acc[filterKey], [value.id]: value.nombre };
-        }
-
-        return {
-          ...accFilters,
-          [filterKey]: currentOptions,
-        };
-      }, filters2use);
-
-      return result;
-    }, filters2use);
-  }
-
   return { filterOptions, findUniqueOptions, setFilterOptions };
+}
+
+function findUniqueOptions(items, filters2use) {
+  // Map over all the items and find the unique options for each filter
+  return items.reduce((acc, item) => {
+    const keys = Object.keys(acc);
+    // For each filter from filters2use,
+    // get the values from the current item
+    const result = keys.reduce((accFilters, filterKey) => {
+      const value = item[filterKey];
+      const isArray = Array.isArray(value);
+      const isObj = isObject(value);
+      const isBool = isBoolean(value);
+      const accumulatedFilter = acc[filterKey];
+      const hasProperty = (prop) => accumulatedFilter.hasOwnProperty(prop);
+
+      let currentOptions = {};
+      if (isArray) {
+        currentOptions = (value || [])
+          .filter((t) => !hasProperty([t.id]))
+          .reduce(
+            (accT, t) => ({ ...accT, [t.id]: t.nombre }),
+            accumulatedFilter
+          );
+      } else if (isObj && value?.id && !hasProperty(value.id)) {
+        currentOptions = { ...accumulatedFilter, [value.id]: value.nombre };
+      } else if (!isObj && !hasProperty(value) && !isNullish(value)) {
+        let booleanLabel = value ? "Si" : "No";
+        let label = isBool ? booleanLabel : value;
+        currentOptions = {
+          ...accumulatedFilter,
+          [value]: label,
+        };
+      }
+      // Merge the options from the current item with the accumulated options
+      return {
+        ...accFilters,
+        [filterKey]: { ...accumulatedFilter, ...currentOptions },
+      };
+    }, filters2use);
+    return result;
+  }, filters2use);
 }
