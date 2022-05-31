@@ -140,7 +140,7 @@ function MasterView({
 
   const [firstItem] = data;
   const showCustom = toggle && showCards && renderMaster;
-
+  const shouldUseFilters = !!masterProps?.filters?.length;
   const handleClose = (lookup, fn) => async (accepted) =>
     accepted && (await handleRowsDelete(Object.keys(lookup), fn));
 
@@ -170,11 +170,12 @@ function MasterView({
 
   const offset = (pagination - 1) * PAGE_SIZE;
   const limit = pagination * PAGE_SIZE;
-  let data2show = searchValue
-    ? [searchValue]
-    : showCustom
-    ? data.slice(offset, limit)
-    : data;
+  let data2show = data;
+  if (searchValue) {
+    data2show = [searchValue];
+  } else if (shouldUseFilters) {
+    data2show = data.slice(offset, limit);
+  }
 
   let shouldUseFavorite = typeof firstItem?.destacado === "boolean";
   if (showCustom && shouldUseFavorite && data2show.length > 1) {

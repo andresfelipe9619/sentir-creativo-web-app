@@ -23,7 +23,7 @@ export default function PaginatedCards(props) {
   };
 
   return (
-    <Box>
+    <Box p={2}>
       {showPagination && (
         <Box
           width="100%"
