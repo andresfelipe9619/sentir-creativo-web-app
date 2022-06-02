@@ -1,7 +1,7 @@
 import React, { useReducer, useContext, useCallback } from "react";
 const initialState = {
   showCards: false,
-  showFilters: true,
+  showFilters: false,
 };
 
 const FiltersStateContext = React.createContext();
