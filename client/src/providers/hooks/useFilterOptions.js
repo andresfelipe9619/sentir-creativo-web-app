@@ -45,7 +45,7 @@ function findUniqueOptions(items, filters2use) {
         currentOptions = (value || [])
           .filter((t) => !hasProperty([t.id]))
           .reduce(
-            (accT, t) => ({ ...accT, [t.id]: t.nombre }),
+            (accT, t) => ({ ...accT, [t.id]: t.nombre || t.codigo }),
             accumulatedFilter
           );
       } else if (isObj && value?.id && !hasProperty(value.id)) {

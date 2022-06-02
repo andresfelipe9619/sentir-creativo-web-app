@@ -4,10 +4,12 @@ import MasterDetail from "../../master-detail/MasterDetail";
 import AdminStaffCard from "../../card/AdminStaffCard";
 import columns from "./columns";
 import PaginatedCards from "../../card/PaginatedCards";
+import filters from "./filters";
 
 export default function Staf() {
   const master = {
     columns,
+    filters,
     title: "Staf",
   };
   const detail = {
