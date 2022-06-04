@@ -4,11 +4,13 @@ import Card from "../../card/ServiceCard";
 import { useHistory } from "react-router-dom";
 import columns from "./columns";
 import PaginatedCards from "../../card/PaginatedCards";
+import filters from "./filters";
 
 export default function Servicios() {
   const history = useHistory();
   const master = {
     columns,
+    filters,
     title: "Servicios",
   };
   const detail = {

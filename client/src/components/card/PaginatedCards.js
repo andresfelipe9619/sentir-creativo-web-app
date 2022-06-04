@@ -8,7 +8,7 @@ import { pluralize } from "../../utils";
 const PAGE_SIZE = 12;
 
 export default function PaginatedCards(props) {
-  const { loading, renderCard, data, showPagination = true } = props;
+  const { loading, renderCard, data, showPagination = false } = props;
   const [page, setPage] = useState(1);
 
   const length = useResponsiveCard();
