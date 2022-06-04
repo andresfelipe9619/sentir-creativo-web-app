@@ -1,5 +1,7 @@
 'use strict';
 const { sanitizeEntity } = require('strapi-utils');
+const axios = require('axios')
+const webhook_artist = process.env.WEBHOOK_ARTIST
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -94,6 +96,8 @@ module.exports = {
         estado: 4
       });
 
+      const { data: result } = await axios.post(webhook_artist, staf);
+      console.log(`WEBHOOK RESULT: `, result);
       return staf;
     } catch (error) {
       console.error(error);

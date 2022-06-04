@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { isBoolean, isNullish, isObject } from "../../utils";
+import {
+  isBoolean,
+  isNullish,
+  isObject,
+  isDate,
+  formatFilterDate,
+} from "../../utils";
 
 export default function useFilterOptions({ data, initialValues }) {
   const [filterOptions, setFilterOptions] = useState({});
@@ -37,6 +43,7 @@ function findUniqueOptions(items, filters2use) {
       const isArray = Array.isArray(value);
       const isObj = isObject(value);
       const isBool = isBoolean(value);
+      const isADate = isDate(value);
       const accumulatedFilter = acc[filterKey];
       const hasProperty = (prop) => accumulatedFilter.hasOwnProperty(prop);
 
@@ -50,12 +57,23 @@ function findUniqueOptions(items, filters2use) {
           );
       } else if (isObj && value?.id && !hasProperty(value.id)) {
         currentOptions = { ...accumulatedFilter, [value.id]: value.nombre };
-      } else if (!isObj && !hasProperty(value) && !isNullish(value)) {
+      } else if (isBool && !hasProperty(value) && !isNullish(value)) {
         let booleanLabel = value ? "Si" : "No";
-        let label = isBool ? booleanLabel : value;
+        let booleanValue = value ? 1 : 0;
         currentOptions = {
           ...accumulatedFilter,
-          [value]: label,
+          [booleanValue]: booleanLabel,
+        };
+      } else if (isADate && !hasProperty(value) && !isNullish(value)) {
+        let dateLabel = formatFilterDate(value);
+        currentOptions = {
+          ...accumulatedFilter,
+          [value]: dateLabel,
+        };
+      } else if (!isObj && !hasProperty(value) && !isNullish(value)) {
+        currentOptions = {
+          ...accumulatedFilter,
+          [value]: value,
         };
       }
       // Merge the options from the current item with the accumulated options

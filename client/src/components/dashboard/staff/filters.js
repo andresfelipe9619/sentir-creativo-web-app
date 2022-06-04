@@ -1,14 +1,14 @@
 const filters = [
-  // {
-  //   label: "Destacado",
-  //   name: "destacado",
-  //   type: "boolean",
-  // },
-  // {
-  //   label: "Fecha Creacion",
-  //   name: "created_at",
-  //   type: "date",
-  // },
+  {
+    label: "Destacado",
+    name: "destacado",
+    type: "boolean",
+  },
+  {
+    label: "Fecha Creacion",
+    name: "created_at",
+    type: "date",
+  },
   {
     label: "Origen",
     name: "origen",
@@ -25,10 +25,10 @@ const filters = [
     label: "Ciudad",
     name: "ciudad",
   },
-//   {
-//     label: "Roles",
-//     name: "rol",
-//   },
+  // {
+  //   label: "Roles",
+  //   name: "rol",
+  // },
   {
     label: "Tecnicas Artisticas",
     name: "tecnica_artisticas",
