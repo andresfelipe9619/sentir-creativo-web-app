@@ -32,7 +32,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const fieldsByStep = [
   ["nombre", "apellido", "fechaNacimiento", "nacionalidad"],
-  [],
+  ["areas"],
   ["oficio", "tecnicas"],
   [],
   ["ciudad", "email", "reunion"],
@@ -379,7 +379,7 @@ export default function ArtistModal() {
       archivos = await Promise.all(archivos.map(async x => await API.Archivo.create(x)));
       archivos.length && await API.Archivo.addFiles2Entity(result.id, 'staf', [archivos.map(x => x.id)]);
 
-      openAlert({ variant: "success", message: "Ticket creado con éxito" });
+      openAlert({ variant: "success", message: "Postulación exitosa" });
       handleNext();
     } catch (error) {
       console.error(error);
@@ -601,7 +601,7 @@ function PersonalInformation(props) {
 function ActionAreas(props) {
   const [areas, setAreas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedAreas, setSelectedAreas] = useState([]);
+  const [selectedAreas, setSelectedAreas] = useState(props.values?.areas || []);
 
   const tecnicas = {
     "Creaciones Cuánticas": ['Espectáculo', 'Obra de Teatro', 'Show escénico'],
@@ -613,16 +613,13 @@ function ActionAreas(props) {
   const onSelectArea = area => {
     const exists = selectedAreas.find(x => x.id === area.id);
 
-    if (exists && selectedAreas.length === 1) {
-      return;
-    }
-
     const values = exists
       ? selectedAreas.filter(x => x.id !== area.id)
       : [...selectedAreas, area]
 
     setSelectedAreas(values);
-    props.values['areas'] = values;
+    const event = { target: { name: 'areas', value: values } };
+    props.handleChange(event);
   }
 
   useEffect(() => {
@@ -661,7 +658,6 @@ function ActionAreas(props) {
           })
         );
         setAreas(result);
-        onSelectArea(result[0]);
       } catch (error) {
         console.error(error);
       } finally {
