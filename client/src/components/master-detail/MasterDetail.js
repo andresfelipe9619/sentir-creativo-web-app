@@ -126,11 +126,12 @@ function MasterView({
   handleRowsDelete,
   ...routerProps
 }) {
+  const filtersSchema = masterProps?.filters;
   const { showCards } = useFiltersState();
   const dashboardItem = useDashboard();
   const { filterOptions } = useFilterOptions({
     data,
-    initialValues: masterProps?.filters,
+    initialValues: filtersSchema,
   });
   console.log("filterOptions", filterOptions);
   const [searchValue, setSearchValue] = useState(null);
@@ -140,14 +141,14 @@ function MasterView({
 
   const [firstItem] = data;
   const showCustom = toggle && showCards && renderMaster;
-  const shouldUseFilters = !!masterProps?.filters?.length;
+  const shouldUseFilters = !!filtersSchema?.length;
   const handleClose = (lookup, fn) => async (accepted) =>
     accepted && (await handleRowsDelete(Object.keys(lookup), fn));
 
   async function handleFilterChange(filters) {
     const { pagination } = filters;
     setPagination(pagination?.page || 1);
-    const params = getQueryFilters(filters);
+    const params = getQueryFilters(filters, filtersSchema);
     Reflect.deleteProperty(params, "_start");
     Reflect.deleteProperty(params, "_limit");
     let entries = Object.entries(params);

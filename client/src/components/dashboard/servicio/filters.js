@@ -1,18 +1,18 @@
 const filters = [
-  // {
-  //   label: "Destacado",
-  //   name: "destacado",
-  //   type: "boolean",
-  // },
+  {
+    label: "Destacado",
+    name: "destacado",
+    type: "boolean",
+  },
   {
     label: "Estado",
     name: "estado",
   },
-  // {
-  //   label: "Fecha Creacion",
-  //   name: "created_at",
-  //   type: "date",
-  // },
+  {
+    label: "Fecha Creacion",
+    name: "created_at",
+    type: "date",
+  },
   {
     label: "Area",
     name: "area",
@@ -37,9 +37,9 @@ const filters = [
     label: "Staff",
     name: "staff",
   },
-  //   {
-  //     label: "Ciudad del staff",
-  //     name: "ciudad",
-  //   },
+  // {
+  //   label: "Ciudad del staff",
+  //   name: "ciudad",
+  // },
 ];
 export default filters;

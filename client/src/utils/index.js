@@ -13,9 +13,7 @@ export const getAreaBackground = (area) => {
   const bgFileType = 24; // Background PNG
   const bgURI = files.find((x) => x.tipo_archivo?.id === bgFileType)?.path;
 
-  if (!bgURI) {
-    return area.colorPrimario;
-  }
+  if (!bgURI) return area.colorPrimario;
 
   return `url(${bgURI})`;
 };
@@ -28,11 +26,21 @@ const longFormatOptions = {
   hour: "numeric",
   minute: "numeric",
 };
+
 const shortFormatOptions = {
   year: "numeric",
   month: "short",
   day: "numeric",
 };
+
+const filterFormatOptions = {
+  ...shortFormatOptions,
+  hour: "numeric",
+  minute: "numeric",
+};
+
+export const formatFilterDate = (date) =>
+  new Date(date).toLocaleString("es-CL", filterFormatOptions);
 
 export const formatDate = (date, long = true) =>
   new Date(date).toLocaleString(
@@ -47,15 +55,21 @@ export function getPaginationData(pagination) {
   return { _limit, _start };
 }
 
-export function getQueryFilters(filters) {
+export function getQueryFilters(filters, schema) {
+  console.log("filters", filters);
   const entries = Object.entries(filters);
   if (!entries.length) return null;
   return entries.reduce((acc, [key, value]) => {
     if (key === "pagination") {
       return { ...acc, ...getPaginationData(value) };
     }
-    if (Array.isArray(value) && value.length) {
+    const columnSchema = (schema || []).find((x) => x.name === key);
+    const isValidArray = Array.isArray(value) && value.length;
+    if (isValidArray && !columnSchema?.type) {
       return { ...acc, [`${key}.id`]: value.join() };
+    }
+    if (isValidArray && columnSchema?.type) {
+      return { ...acc, [key]: value.join() };
     }
     return { ...acc, [key]: value };
   }, {});

@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "sugerencias",
   "info": {
-    "name": "sugerencia"
+    "name": "sugerencia",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -12,6 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "descripcion": {
+      "type": "string"
+    },
+    "nombre": {
       "type": "string"
     }
   }
