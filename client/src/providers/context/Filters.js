@@ -10,9 +10,11 @@ const FiltersDispatchContext = React.createContext();
 function filtersReducer(state, { type, toggleValue }) {
   switch (type) {
     case "toggleCardsView": {
+      let value= toggleValue ?? !state.showCards
       return {
         ...state,
-        showCards: toggleValue ?? !state.showCards,
+        showFilters: value,
+        showCards: value,
       };
     }
     case "toggleFilters": {

@@ -249,7 +249,7 @@ export function getSelectedFilters(filters) {
   return keys.reduce((acc, key) => {
     let values = Object.entries(filters[key] || {})
       .filter(([, value]) => !!value)
-      .map(([key]) => +key);
+      .map(([key]) => key);
 
     return { ...acc, [key]: values };
   }, {});
