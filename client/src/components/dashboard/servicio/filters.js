@@ -23,7 +23,7 @@ const filters = [
   },
   {
     label: "Colecciones",
-    name: "coleccion",
+    name: "colecciones",
   },
   {
     label: "Ocasiones",
