@@ -14,7 +14,7 @@ const filters = [
     name: "origen",
   },
   {
-    label: "Estado Proyectos",
+    label: "Estado Audiencia",
     name: "estado",
   },
   {
