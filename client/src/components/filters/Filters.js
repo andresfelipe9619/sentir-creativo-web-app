@@ -90,7 +90,7 @@ function Filters({
     .map((fo) => {
       const setFilterOptions = (name) =>
         (fo?.options || [])
-          .filter((o) => (filters[name] || []).includes(+o.value))
+          .filter((o) => (filters[name] || []).includes(o.value))
           .map((fo) => ({ ...fo, name }));
       return setFilterOptions(fo.name);
     })
