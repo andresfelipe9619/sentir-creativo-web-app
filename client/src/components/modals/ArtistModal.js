@@ -284,7 +284,7 @@ const socialColumns = [
     },
   },
   {
-    name: "otherLink",
+    name: "otroLink",
     label: "Otros links",
     options: {
       filter: true,
@@ -302,7 +302,7 @@ const socialIcons = {
   tiktok: 'http://store-images.s-microsoft.com/image/apps.47495.13634052595610511.c45457c9-b4af-46b0-8e61-8d7c0aec3f56.a8b71481-8a43-465d-88d6-e63add92c112',
   youtube: 'https://play-lh.googleusercontent.com/Qolm5gr9jnabjk-0z79srjYC1XPVExribNz5kbDmGJeEtmRlo0UQoQEIkKMHRyt5paw',
   spotify: 'https://play-lh.googleusercontent.com/UrY7BAZ-XfXGpfkeWg0zCCeo-7ras4DCoRalC_WXXWTK9q5b0Iw7B0YQMsVxZaNB7DM',
-  otherLink: 'https://cdn2.iconfinder.com/data/icons/pittogrammi/142/95-512.png'
+  otroLink: 'https://cdn2.iconfinder.com/data/icons/pittogrammi/142/95-512.png'
 }
 
 function getStepContent(stepIndex, props) {
@@ -363,21 +363,10 @@ export default function ArtistModal() {
         comentarios.push({ comentario: values.extra });
       }
 
-      let archivos = [
-        { tipo_archivo: 37, path: values.instagram, nombre: 'Instagram', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
-        { tipo_archivo: 38, path: values.tiktok, nombre: 'Tiktok', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
-        { tipo_archivo: 39, path: values.youtube, nombre: 'Youtube', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
-        { tipo_archivo: 40, path: values.spotify, nombre: 'Spotify', updated_at: new Date().toISOString(), created_at: new Date().toISOString() },
-        { tipo_archivo: 41, path: values.otherLink, nombre: 'Otras redes sociales', updated_at: new Date().toISOString(), created_at: new Date().toISOString() }
-      ].filter(x => !!x.path);
-
       const result = await API.Staf.createNew(values);
 
       comentarios = await Promise.all(comentarios.filter(x => !!x.comentario?.length).map(async x => await API.Comentarios.create(x)));
       await API.Staf.update(result.id, { comentarios });
-
-      archivos = await Promise.all(archivos.map(async x => await API.Archivo.create(x)));
-      archivos.length && await API.Archivo.addFiles2Entity(result.id, 'staf', [archivos.map(x => x.id)]);
 
       openAlert({ variant: "success", message: "Postulación exitosa" });
       handleNext();
