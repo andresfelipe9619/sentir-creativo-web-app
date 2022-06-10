@@ -71,7 +71,12 @@ module.exports = {
       email,
       coupon,
       tecnicas,
-      oficio
+      oficio,
+      instagram,
+      tiktok,
+      youtube,
+      spotify,
+      otroLink,
     } = request.body
 
     try {
@@ -95,7 +100,12 @@ module.exports = {
             ciudad,
             origen: 1,
             roles: [6],
-            estado: 4
+            estado: 4,
+            instagram: instagram || null,
+            tiktok: tiktok || null,
+            youtube: youtube || null,
+            spotify: spotify || null,
+            otroLink: otroLink || null,
           },
           { transacting }
         )

@@ -124,6 +124,66 @@ const columns = [
     },
   },
   {
+    name: "instagram",
+    label: "Instagram",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "tiktok",
+    label: "Tiktok",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "youtube",
+    label: "Youtube",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "spotify",
+    label: "Spotify",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "otroLink",
+    label: "Otros links",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input"
+    },
+  },
+  {
     name: "ciudad",
     label: "Ciudad",
     options: {

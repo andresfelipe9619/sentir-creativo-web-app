@@ -28,8 +28,8 @@
       "type": "integer"
     },
     "staf": {
-      "model": "staf",
-      "via": "bitacoras"
+      "via": "bitacoras",
+      "model": "staf"
     },
     "audiencia": {
       "model": "audiencia",
