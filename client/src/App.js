@@ -15,7 +15,6 @@ import Construction from "./pages/Construction";
 const { REACT_APP_CONSTRUCTION } = process.env;
 const underConstruction =
   REACT_APP_CONSTRUCTION === true || REACT_APP_CONSTRUCTION === "true";
-console.log("underConstruction", underConstruction);
 
 function App() {
   const [theme] = useDarkMode();

@@ -215,7 +215,7 @@ export default function Comments(props) {
                 </IconButton>
                 <DialogButton
                   label={<DeleteIcon />}
-                  color="textSecondary"
+                  color="inherit"
                   disabled={loading}
                   onClose={async (accepted) =>
                     accepted && (await handleDelete(x?.id))
