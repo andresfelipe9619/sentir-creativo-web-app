@@ -63,7 +63,7 @@ export default function BitacoraTable({ data = [], title = "Bitácoras", remove,
 
               <DialogButton
                 label={<DeleteIcon />}
-                color="textSecondary"
+                color="inherit"
                 onClose={async (accepted) =>
                   accepted && (await remove(x?.id))
                 }
