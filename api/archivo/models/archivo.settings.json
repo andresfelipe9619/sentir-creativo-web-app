@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "archivos",
+  "info": {
+    "name": "archivo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "path": {
+      "type": "string"
+    },
+    "nombre": {
+      "type": "string"
+    },
+    "tipo_archivo": {
+      "model": "tipo-archivo"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "antiguedads",
+  "info": {
+    "name": "antiguedad",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    }
+  }
+}

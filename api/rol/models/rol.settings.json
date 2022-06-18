@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rols",
+  "info": {
+    "name": "rol"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "candidatos": {
+      "type": "text"
+    },
+    "log": {
+      "type": "text"
+    },
+    "calendarios": {
+      "collection": "calendarios",
+      "via": "rol"
+    },
+    "presupuestoTotal": {
+      "type": "biginteger"
+    },
+    "funciones": {
+      "collection": "funciones",
+      "via": "rol"
+    },
+    "staff": {
+      "via": "roles",
+      "collection": "staf"
+    }
+  }
+}

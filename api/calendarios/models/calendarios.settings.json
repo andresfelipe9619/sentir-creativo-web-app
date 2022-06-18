@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "calendarios",
+  "info": {
+    "name": "calendarios"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "color": {
+      "type": "string"
+    },
+    "log": {
+      "type": "text"
+    },
+    "numberEvents": {
+      "type": "string"
+    },
+    "timeTraking": {
+      "type": "decimal"
+    },
+    "rol": {
+      "via": "calendarios",
+      "model": "rol"
+    }
+  }
+}

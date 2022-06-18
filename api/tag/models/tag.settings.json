@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tags",
+  "info": {
+    "name": "tag",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "colorPrimario": {
+      "type": "string"
+    },
+    "colorSecundario": {
+      "type": "string"
+    },
+    "imagen": {
+      "type": "text"
+    },
+    "icono": {
+      "type": "string"
+    },
+    "prioridad": {
+      "model": "prioridad"
+    },
+    "audiencias": {
+      "via": "tags",
+      "collection": "audiencia",
+      "dominant": true
+    }
+  }
+}

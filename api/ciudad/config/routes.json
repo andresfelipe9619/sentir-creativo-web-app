@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/ciudads",
+      "handler": "ciudad.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/ciudads/count",
+      "handler": "ciudad.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/ciudads/:id",
+      "handler": "ciudad.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/ciudads",
+      "handler": "ciudad.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/ciudads/:id",
+      "handler": "ciudad.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/ciudads/:id",
+      "handler": "ciudad.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

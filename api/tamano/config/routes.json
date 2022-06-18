@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tamanos",
+      "handler": "tamano.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tamanos/count",
+      "handler": "tamano.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tamanos/:id",
+      "handler": "tamano.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tamanos",
+      "handler": "tamano.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tamanos/:id",
+      "handler": "tamano.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tamanos/:id",
+      "handler": "tamano.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

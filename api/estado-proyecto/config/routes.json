@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/estado-proyectos",
+      "handler": "estado-proyecto.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/estado-proyectos/count",
+      "handler": "estado-proyecto.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/estado-proyectos/:id",
+      "handler": "estado-proyecto.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/estado-proyectos",
+      "handler": "estado-proyecto.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/estado-proyectos/:id",
+      "handler": "estado-proyecto.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/estado-proyectos/:id",
+      "handler": "estado-proyecto.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

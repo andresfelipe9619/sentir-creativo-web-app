@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/estado-tareas",
+      "handler": "estado-tarea.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/estado-tareas/count",
+      "handler": "estado-tarea.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/estado-tareas/:id",
+      "handler": "estado-tarea.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/estado-tareas",
+      "handler": "estado-tarea.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/estado-tareas/:id",
+      "handler": "estado-tarea.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/estado-tareas/:id",
+      "handler": "estado-tarea.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

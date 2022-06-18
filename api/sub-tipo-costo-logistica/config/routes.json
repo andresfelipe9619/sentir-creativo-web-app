@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sub-tipo-costo-logisticas",
+      "handler": "sub-tipo-costo-logistica.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sub-tipo-costo-logisticas/count",
+      "handler": "sub-tipo-costo-logistica.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sub-tipo-costo-logisticas/:id",
+      "handler": "sub-tipo-costo-logistica.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sub-tipo-costo-logisticas",
+      "handler": "sub-tipo-costo-logistica.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sub-tipo-costo-logisticas/:id",
+      "handler": "sub-tipo-costo-logistica.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sub-tipo-costo-logisticas/:id",
+      "handler": "sub-tipo-costo-logistica.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

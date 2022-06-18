@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_tipo_proyectos",
+  "info": {
+    "name": "SubTipoProyecto",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subTipo": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "tipo_proyecto": {
+      "via": "sub_tipo_proyectos",
+      "model": "tipo-proyectos"
+    }
+  }
+}

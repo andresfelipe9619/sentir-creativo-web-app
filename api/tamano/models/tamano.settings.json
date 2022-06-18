@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tamanos",
+  "info": {
+    "name": "tamano"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "prioridad": {
+      "type": "enumeration",
+      "enum": [
+        "Alta",
+        "Media",
+        "Baja"
+      ]
+    },
+    "tamanoOrganizacion": {
+      "via": "tamano",
+      "model": "organizacion"
+    }
+  }
+}

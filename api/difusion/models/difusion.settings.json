@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "difusions",
+  "info": {
+    "name": "difusion",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "audiencias": {
+      "via": "difusiones",
+      "collection": "audiencia",
+      "dominant": true
+    },
+    "plataforma": {
+      "via": "difusiones",
+      "model": "plataforma"
+    },
+    "cuponDescuento": {
+      "model": "cupon-descuento"
+    }
+  }
+}
