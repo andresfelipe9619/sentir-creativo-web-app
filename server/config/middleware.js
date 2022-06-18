@@ -1,12 +1,16 @@
 module.exports = {
   //...
   settings: {
-    // cors: {
-    //   origin: ['http://localhost', 'https://mysite.com', 'https://www.mysite.com'],
-    // },
-    'pluginAuditLogTrails': {
-      enabled: true,
+    cors: {
+      origin: [
+        'http://localhost:1337',
+        'http://localhost:5000',
+        'https://www.sentircreativo.com',
+        'https://priceless-mirzakhani-124f21.netlify.app'
+      ]
     },
-  },
-};
- 
+    pluginAuditLogTrails: {
+      enabled: true
+    }
+  }
+}
