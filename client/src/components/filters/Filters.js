@@ -2,17 +2,11 @@ import React, { memo, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Accordion from "@material-ui/core/Accordion";
 import Button from "@material-ui/core/Button";
 import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { CheckboxGroup } from "../radio";
 import { useTheme } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -21,8 +15,10 @@ import Spinner from "../spinner/Spinner";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import Slide from "@material-ui/core/Slide";
 import FilterPagination from "./FilterPagination";
-import { pluralize } from "../../utils";
+import { map2select, pluralize } from "../../utils";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import FilterOption from "./FilterOption";
+import { useFilters } from "../../providers/context/Filters";
 
 const PAGE_SIZE = 12;
 
@@ -30,9 +26,9 @@ function Filters({
   children,
   color,
   loading,
-  searchOptions,
+  searchOptions = [],
   maxCount = 6,
-  filterOptions,
+  filterOptions = [],
   onSearchChange,
   onFilterChange,
 }) {
@@ -42,7 +38,7 @@ function Filters({
   const [filters, setFilters] = useState({});
   const [page, setPage] = useState(1);
   const [autocompleteValue, setAutocompleteValue] = useState(null);
-  const [showFilters, setShowFilters] = useState(false);
+  const [{ showFilters }, { toggleFilters }] = useFilters();
   const isSmall = useMediaQuery(theme.breakpoints.down("xs"));
 
   const handleDeleteFilter = (option) => () => {
@@ -61,7 +57,7 @@ function Filters({
     setValues(newValues);
     const selectedFilters = getSelectedFilters(newValues);
     setFilters(selectedFilters);
-    onFilterChange(selectedFilters);
+    onFilterChange && onFilterChange(selectedFilters);
   };
 
   const handleChangePage = (_, value) => {
@@ -72,17 +68,13 @@ function Filters({
     };
     setPage(value);
     setFilters(newFilters);
-    onFilterChange(newFilters);
+    onFilterChange && onFilterChange(newFilters);
   };
 
-  const toggleFilter = () =>
-    setShowFilters((prev) => {
-      if (!prev) {
-        window.scrollTo(0, 275);
-      }
-
-      return !prev;
-    });
+  const handleClickFilters = () => {
+    if (!showFilters) window.scrollTo(0, 275);
+    toggleFilters(!showFilters);
+  };
 
   const count = autocompleteValue ? 1 : maxCount;
   const cardColor = color || theme.palette.primary.main;
@@ -97,8 +89,8 @@ function Filters({
   const chips = filterOptions
     .map((fo) => {
       const setFilterOptions = (name) =>
-        (fo.options || [])
-          .filter((o) => (filters[name] || []).includes(+o.value))
+        (fo?.options || [])
+          .filter((o) => (filters[name] || []).includes(o.value))
           .map((fo) => ({ ...fo, name }));
       return setFilterOptions(fo.name);
     })
@@ -121,7 +113,7 @@ function Filters({
           <Button
             color="primary"
             variant="outlined"
-            onClick={toggleFilter}
+            onClick={handleClickFilters}
             style={{ marginRight: 16 }}
             startIcon={<FilterListIcon />}
             classes={{
@@ -133,11 +125,11 @@ function Filters({
           <Autocomplete
             size="small"
             id="combo-box-demo"
-            options={searchOptions}
+            options={searchOptions || []}
             value={autocompleteValue}
             onChange={(_, newValue) => {
               setAutocompleteValue(newValue);
-              onSearchChange(newValue);
+              onSearchChange && onSearchChange(newValue);
             }}
             getOptionLabel={(option) => option.nombre}
             style={{ width: 300 }}
@@ -200,7 +192,7 @@ function Filters({
             }}
           >
             {loading
-              ? `Búscando experiencias ...`
+              ? `Buscando experiencias ...`
               : `${count} ${pluralize("experiencia", count)} ${pluralize(
                   "encontrada",
                   count
@@ -212,7 +204,13 @@ function Filters({
         </Toolbar>
       </AppBar>
       <Grid container>
-        <Slide direction="right" in={showFilters} mountOnEnter unmountOnExit>
+        <Slide
+          appear
+          in={showFilters}
+          direction="right"
+          mountOnEnter
+          unmountOnExit
+        >
           <Grid item md={3}>
             {filterOptions.map((fo, i) => (
               <FilterOption
@@ -242,56 +240,16 @@ function Filters({
   );
 }
 
-const FilterOption = memo(function FilterOption({
-  label,
-  name,
-  options,
-  loading,
-  values,
-  handleChange,
-}) {
-  const hasOptions = (options || []).length;
-  return (
-    <AccordionOption title={label}>
-      {loading && !hasOptions && <Spinner mt={0} />}
-      {hasOptions && (
-        <CheckboxGroup
-          name={name}
-          disabled={loading}
-          options={options}
-          values={values}
-          handleChange={handleChange}
-        />
-      )}
-    </AccordionOption>
-  );
-});
+export function getFilterOptions(filter) {
+  return Object.entries(filter || {}).map(map2select);
+}
 
-const AccordionOption = memo(function AccordionOption({ title, children }) {
-  const classes = useStyles();
-  return (
-    <Accordion>
-      <AccordionSummary
-        className={classes.accordion}
-        expandIcon={<ExpandMoreIcon style={{ color: "white" }} />}
-        aria-controls={`panel-${title}-content`}
-        id={`panel-${title}-header`}
-      >
-        <Typography>{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails className={classes.accordionDetails}>
-        {children}
-      </AccordionDetails>
-    </Accordion>
-  );
-});
-
-function getSelectedFilters(filters) {
+export function getSelectedFilters(filters) {
   const keys = Object.keys(filters);
   return keys.reduce((acc, key) => {
     let values = Object.entries(filters[key] || {})
       .filter(([, value]) => !!value)
-      .map(([key]) => +key);
+      .map(([key]) => key);
 
     return { ...acc, [key]: values };
   }, {});

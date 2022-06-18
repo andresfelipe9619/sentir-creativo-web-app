@@ -29,6 +29,7 @@ import FlipCard from "../components/about/FlipCard";
 import PrinciplesCard from "../components/about/PrinciplesCard";
 import Connections from "../components/about/Connections";
 import Spinner from "../components/spinner/Spinner";
+import ArtistModal from "../components/modals/ArtistModal";
 
 // TODO: Move collection to own files
 const rubros = {
@@ -419,14 +420,7 @@ export default function About() {
             >
               <Grid container justifyContent="center">
                 <Grid item>
-                  {/* <Button
-                    variant="contained"
-                    size="large"
-                    className={classes.buttonColorful}
-                    style={{ backgroundColor: COLORS.purple }}
-                  >
-                    Únete a la red
-                  </Button> */}
+                 <ArtistModal />
                 </Grid>
               </Grid>
             </Connections>

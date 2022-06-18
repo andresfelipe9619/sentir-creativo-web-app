@@ -34,8 +34,8 @@ export default function Upload(props) {
       <br />
       {showArea ? (
         <DropzoneArea
-          showPreviews={true}
-          maxFileSize={15000} // 15mb
+          showPreviews
+          maxFileSize={15e6} // 15mb
           filesLimit={1}
           showPreviewsInDropzone={false}
           dropzoneText={item.label}

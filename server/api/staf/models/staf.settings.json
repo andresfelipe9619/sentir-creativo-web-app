@@ -90,6 +90,24 @@
     "bitacoras": {
       "via": "staf",
       "collection": "bitacora"
+    },
+    "tiktok": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "spotify": {
+      "type": "string"
+    },
+    "youtube": {
+      "type": "string"
+    },
+    "otroLink": {
+      "type": "string"
     }
   }
 }

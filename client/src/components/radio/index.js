@@ -71,7 +71,7 @@ export function CheckboxGroup(props) {
               <FormControlLabel
                 key={o.value}
                 classes={{ root: classes.controlLabel, label: classes.label }}
-                value={+o.value}
+                value={o.value}
                 control={
                   <Checkbox
                     color="primary"

@@ -1,4 +1,14 @@
 import { lazy } from "react";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import BarChartIcon from "@material-ui/icons/BarChart";
+import ArchiveIcon from "@material-ui/icons/Archive";
+import LabelIcon from "@material-ui/icons/Label";
+import BusinessIcon from "@material-ui/icons/Business";
+import HailIcon from "@mui/icons-material/Hail";
+import WorkIcon from "@mui/icons-material/Work";
+import SurfingIcon from "@mui/icons-material/Surfing";
+import BoltIcon from "@mui/icons-material/Bolt";
+
 const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
 const Areas = lazy(() =>
   import(/* webpackChunkName: "areas" */ "../pages/Areas")
@@ -23,7 +33,34 @@ const Register = lazy(() =>
   import(/* webpackChunkName: "register" */ "../pages/Register")
 );
 
-const routerConfig = [
+export const DashboardRoutes = [
+  {
+    path: "/admin/audiencia",
+    name: "Audiencia",
+    icon: HailIcon,
+    color: "#283593",
+  },
+  {
+    path: "/admin/organizaciones",
+    name: "Organizaciones",
+    icon: BusinessIcon,
+  },
+  { path: "/admin/servicios", name: "Servicios", icon: ShoppingCartIcon },
+  {
+    path: "/admin/proyectos",
+    name: "Proyectos",
+    icon: WorkIcon,
+    color: "#ad14ed",
+  },
+  { path: "/admin/archivos", name: "Archivos", icon: ArchiveIcon },
+  { path: "/admin/tags", name: "Tags", icon: LabelIcon },
+  { path: "/admin/staff", name: "Staff", icon: SurfingIcon, color: "#6d4c41" },
+  { path: "/admin/colecciones", name: "Colecciones", icon: LabelIcon },
+  { path: "/admin/reportes", name: "Reportes", icon: BarChartIcon },
+  { path: "/admin/tareas", name: "Tareas", icon: BoltIcon, color: "#00a3bc" },
+];
+
+const RouterConfig = [
   {
     path: "/",
     component: Home,
@@ -32,7 +69,28 @@ const routerConfig = [
     strict: true,
   },
   {
-    path: "/areas/:id",
+    path: "/creaciones",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/felicidad",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/universidad",
+    component: Areas,
+    name: "Areas",
+    exact: true,
+    strict: true,
+  },
+  {
+    path: "/galaxia",
     component: Areas,
     name: "Areas",
     exact: true,
@@ -46,7 +104,7 @@ const routerConfig = [
     strict: true,
   },
   {
-    path: "/about",
+    path: "/somos",
     component: About,
     name: "About",
     exact: true,
@@ -81,37 +139,8 @@ const routerConfig = [
     name: "Admin",
     private: true,
     component: Dashboard,
-    routes: [
-      {
-        path: "/admin/audiencia",
-        name: "Audiencia",
-      },
-      {
-        path: "/admin/organizaciones",
-        name: "Organizaciones",
-      },
-      {
-        path: "/admin/servicios",
-        name: "Servicios",
-      },
-      {
-        path: "/admin/proyectos",
-        name: "Proyectos",
-      },
-      {
-        path: "/admin/tags",
-        name: "Tags",
-      },
-      {
-        path: "/admin/archivos",
-        name: "Archivos",
-      },
-      {
-        path: "/admin/tareas",
-        name: "Tareas",
-      },
-    ],
+    routes: DashboardRoutes,
   },
 ];
 
-export default routerConfig;
+export default RouterConfig;

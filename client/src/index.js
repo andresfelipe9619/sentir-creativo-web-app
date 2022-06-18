@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { AlertContext } from "./providers/context/Alert";
 import { UserContext } from "./providers/context/User";
+import { FiltersContext } from "./providers/context/Filters";
 import "./index.css";
 
 ReactDOM.render(
@@ -12,7 +13,9 @@ ReactDOM.render(
     <BrowserRouter>
       <AlertContext>
         <UserContext>
-          <App />
+          <FiltersContext>
+            <App />
+          </FiltersContext>
         </UserContext>
       </AlertContext>
     </BrowserRouter>

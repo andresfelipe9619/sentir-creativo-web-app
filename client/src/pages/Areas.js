@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import API from "../api";
 import Card from "../components/card/ServiceCard";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
 import { useTheme, createTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Spinner from "../components/spinner/Spinner";
-import { getAreaBackground, getQueryFilters, map2select } from "../utils";
-import Filters from "../components/filters/Filters";
+import { getAreaBackground, getQueryFilters } from "../utils";
+import Filters, { getFilterOptions } from "../components/filters/Filters";
 import { useAlertDispatch } from "../providers/context/Alert";
 import useQuery from "../providers/hooks/useQuery";
+import useFilterOptions from "../providers/hooks/useFilterOptions";
+import { AreasMap } from "../providers/globals";
+import { useFiltersState } from "../providers/context/Filters";
 
 const SERVICE_OK = 12;
 const PAGE_SIZE = 12;
@@ -27,7 +30,7 @@ const defaultFilters = {
   publico_objetivos: {},
 };
 
-export default function Areas() {
+function Areas() {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [selectedArea, setSelectedArea] = useState(null);
@@ -37,17 +40,21 @@ export default function Areas() {
   const [loadingArea, setLoadingArea] = useState(false);
   const [searchOptions, setSearchOptions] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
-  const [filterOptions, setFilterOptions] = useState(defaultFilters);
 
   const history = useHistory();
   const query = useQuery();
   const { breakpoints } = useTheme();
+  const { showFilters } = useFiltersState();
   const isSmall = useMediaQuery(breakpoints.down("xs"));
   const classes = useStyles();
-  const { id: areaId } = useParams();
+  const location = useLocation();
   const { openAlert } = useAlertDispatch();
+  const { filterOptions, findUniqueOptions, setFilterOptions } =
+    useFilterOptions({ initialValues: defaultFilters });
 
   const selectedId = query.get("service");
+  const [areaName] = location.pathname.split("/").reverse();
+  const areaId = AreasMap.get(areaName);
 
   function getServicesCount(filters = {}) {
     return API.Servicio.count({
@@ -78,7 +85,6 @@ export default function Areas() {
         await loadCount(filters);
         filters = { ...filters, ...default_pagination };
       }
-      console.log("ah filters", filters);
       const serviceResult = await getServices(filters);
       setServices(serviceResult);
 
@@ -87,25 +93,7 @@ export default function Areas() {
       await loadCount(filters);
 
       // Find unique options for the filters
-      const options = serviceResult.reduce((acc, s) => {
-        const keys = Object.keys(acc);
-        const result = keys.reduce((accFilters, filterKey) => {
-          let currentOptions = (s[filterKey] || [])
-            .filter((t) => !acc[filterKey][t.id])
-            .reduce(
-              (accT, t) => ({ ...accT, [t.id]: t.nombre }),
-              acc[filterKey]
-            );
-
-          return {
-            ...accFilters,
-            [filterKey]: currentOptions,
-          };
-        }, defaultFilters);
-
-        return result;
-      }, defaultFilters);
-
+      const options = findUniqueOptions(serviceResult, defaultFilters);
       setFilterOptions(options);
     } catch (error) {
       console.error(error);
@@ -196,6 +184,7 @@ export default function Areas() {
     },
   });
   const servicesToShow = searchValue ? [searchValue] : services;
+  const size = showFilters ? 4 : 3;
 
   return (
     <Grid
@@ -229,7 +218,8 @@ export default function Areas() {
         md={6}
         lg={5}
         component={Box}
-        py={4}
+        pt={1}
+        pb={4}
         textAlign="center"
       >
         <Typography
@@ -254,10 +244,11 @@ export default function Areas() {
         >
           {selectedArea.slogan.split(" ").map((x, i) => {
             const sloganStyle = {
-              fontWeight: i === 0 ? "300" : "900",
-              fontSize: isSmall ? 48 : 64,
+              fontWeight: i === 0 ? "500" : "900",
+              fontSize: isSmall ? 48 : i === 0 ? 64 : 72,
               lineHeight: 1.15,
               textShadow: "rgba(255 255 255 / 60%) -4px 4px 4px",
+              fontStyle: "italic",
             };
 
             return (
@@ -326,9 +317,9 @@ export default function Areas() {
             <Grid
               xs={12}
               sm={6}
-              md={4}
-              lg={3}
-              xl={3}
+              md={size}
+              lg={size}
+              xl={size}
               component={Box}
               m={0}
               p={0}
@@ -347,10 +338,6 @@ export default function Areas() {
       </Filters>
     </Grid>
   );
-}
-
-function getFilterOptions(filter) {
-  return Object.entries(filter).map(map2select);
 }
 
 export const useStyles = makeStyles((theme) => ({
@@ -409,3 +396,5 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+export default memo(Areas);

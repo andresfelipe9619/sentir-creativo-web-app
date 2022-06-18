@@ -7,7 +7,7 @@ export default function Master({
   columns,
   onRowClick,
   onRowsDelete,
- customToolbarSelect
+  customToolbarSelect,
 }) {
   return (
     <MUIDataTable

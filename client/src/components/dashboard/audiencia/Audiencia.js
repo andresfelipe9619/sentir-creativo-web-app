@@ -4,9 +4,11 @@ import Grid from "@material-ui/core/Grid";
 import columns from "./columns";
 import AdminAudienceCard from "../../card/AdminAudienceCard";
 import PaginatedCards from "../../card/PaginatedCards";
+import filters from "./filters"
 
 export default function Audiencia() {
   const master = {
+    filters,
     columns,
     title: "Audiencia",
   };
@@ -22,6 +24,7 @@ export default function Audiencia() {
           <PaginatedCards
             data={data}
             loading={loading}
+            showPagination={false}
             renderCard={(item) => <AdminAudienceCard audience={item} />}
           />
         )}

@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#F5F5F5",
     zIndex: 1010,
     top: '4rem',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       top: '8rem'
     }
   },

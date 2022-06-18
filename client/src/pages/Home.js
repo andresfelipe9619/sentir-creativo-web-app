@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import API from "../api";
 import Card from "../components/card/ServiceCard";
 import Carousel from "react-material-ui-carousel";
-import { useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import { splitArrayIntoChunksOfLen } from "../utils";
 import ServicioModal from "../components/modals/ServicioModal";
 import DossierModal from "../components/modals/DossierModal";
@@ -16,7 +16,11 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-export default function Home() {
+export default function NewHome(){
+  return <Redirect to={"/creaciones"} />
+}
+
+ export function Home() {
   const [services, setServices] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [showDossier, setShowDossier] = useState(false);

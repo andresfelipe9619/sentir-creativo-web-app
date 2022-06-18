@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -17,6 +17,13 @@ import columns from "../dashboard/archivos/columns";
 import DialogButton from "../buttons/DialogButton";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import API from "../../api";
+import {
+  deleteFileFromS3,
+  getFileFromS3,
+  uploadFileToS3,
+} from "../../utils/aws";
+
+const BucketName = process.env.REACT_APP_BUCKET_NAME;
 
 const PROJECT_FOLDER_ID = 36;
 const INTERNAL_PROJECT = 1;
@@ -43,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const isFromS3 = (path) => path.includes(`${BucketName}.s3`);
+
 export default function Files({
   files,
   title,
@@ -52,6 +61,7 @@ export default function Files({
   initParent,
 }) {
   const classes = useStyles();
+  const [signedFiles, setSignedFiles] = useState([]);
   const [open, setOpen] = useState(false);
   const {
     api,
@@ -59,23 +69,64 @@ export default function Files({
     create: createEntity,
   } = useAPI({ service: "Archivo", initilize: false });
   const params = useParams();
+
+  useEffect(() => {
+    if (!files?.length) return;
+    async function signFiles() {
+      const promises = files.map(async (file) => {
+        let path = file?.path;
+        console.log("prev path", path);
+        if (isFromS3(path)) {
+          path = await getFileFromS3(path);
+          console.log("post path", path);
+        }
+        return { ...file, path };
+      });
+      const signed = await Promise.all(promises);
+      setSignedFiles(signed);
+    }
+    signFiles();
+  }, [files]);
+
   const handleCloseModal = () => setOpen(false);
 
   const handleOpenModal = () => setOpen(true);
 
   const handleCreateFiles = async (values) => {
-    if (!params.id) return;
-    const fileCreated = await createEntity(values);
-    console.log(`fileCreated`, fileCreated);
+    const parentId = params.id;
+    if (!parentId) return;
+    console.log("values: ", values);
+    let path = values.path;
+    const fromDropzone = Array.isArray(path);
+    if (fromDropzone) {
+      let [file] = path;
+      let name = values.nombre;
+      const { Location } = await uploadFileToS3({
+        name,
+        file,
+        parentId,
+        parent,
+      });
+      path = Location;
+    }
+    const fileCreated = await createEntity({ ...values, path });
+    console.log(`fileCreated: `, fileCreated);
     if (!fileCreated) return;
-    const result = await api.addFiles2Entity(params.id, parent, [
+    const result = await api.addFiles2Entity(parentId, parent, [
       fileCreated.id,
     ]);
-    console.log(`result`, result);
+    console.log(`addFiles2Entity result: `, result);
     await initParent();
   };
 
   const handleDeleteFile = async (fileId) => {
+    const found = files.find((x) => x.id === fileId);
+    console.log("found: ", found);
+    if (!found) throw new Error("Archivo no encontrado");
+    if (isFromS3(found.path)) {
+      let result = await deleteFileFromS3(found.path);
+      console.log("deleteFileFromS3 result: ", result);
+    }
     const result = await api.delete(`${fileId}.${parent}`);
 
     if (!result) return;
@@ -92,7 +143,8 @@ export default function Files({
   const missingSomething =
     useFolder && [nombre, servicios?.length].some((value) => !value);
   const alreadyCreated =
-    useFolder && files.some((f) => f?.tipo_archivo?.id === PROJECT_FOLDER_ID);
+    useFolder &&
+    signedFiles.some((f) => f?.tipo_archivo?.id === PROJECT_FOLDER_ID);
   const formHasChanged = Object.entries(values).some(([key, value]) => {
     if (value !== initialValues[key]) return true;
     return false;
@@ -144,7 +196,7 @@ export default function Files({
       )}
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
-        {(files || []).map((f, i) => (
+        {(signedFiles || []).map((f, i) => (
           <ImgMediaCard key={f.nombre + i} remove={handleDeleteFile} {...f} />
         ))}
       </Box>

@@ -24,6 +24,7 @@ import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CopyClipboard from "../clipboard";
+import ArtistModal from "../modals/ArtistModal";
 
 const DOMAIN = "sentircreativo";
 const HOST = `https://www.${DOMAIN}.com`;
@@ -84,8 +85,13 @@ export default function AppFooter() {
   const marginTop = window.location.href.includes("about") ? "-.5rem" : "0px";
 
   return (
-    <Container className={classes.root} maxWidth="none" style={{ marginTop }}>
-      <Grid container spacing={6} justifyContent="center" style={{ width: '100%' }}>
+    <Container className={classes.root} maxWidth={false} style={{ marginTop }}>
+      <Grid
+        container
+        spacing={6}
+        justifyContent="center"
+        style={{ width: "100%" }}
+      >
         <Grid item xs={11}>
           <Typography variant="h1" className={classes.title}>
             Cuenta con nosotros
@@ -209,16 +215,9 @@ export default function AppFooter() {
           </Grid>
 
           <Grid container item xs={12} justifyContent="space-around">
-            {/* <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
-              <Button
-                variant="contained"
-                size="large"
-                className={classes.buttonColorful}
-                style={{ backgroundColor: COLORS.purple, fontSize: "1.5rem" }}
-              >
-                Únete a la red
-              </Button>
-            </Grid> */}
+            <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
+              <ArtistModal />
+            </Grid>
 
             <Grid item xs={12} md={4} style={{ textAlign: "center" }}>
               <Button
@@ -241,7 +240,14 @@ export default function AppFooter() {
 
 function Copyright() {
   return (
-    <Box bgcolor="rgba(0 0 0 / 20%)" width="100%" color="#fff" px={4} py={1} style={{ marginBottom: -23 }}>
+    <Box
+      bgcolor="rgba(0 0 0 / 20%)"
+      width="100%"
+      color="#fff"
+      px={4}
+      py={1}
+      style={{ marginBottom: -23 }}
+    >
       <Link color="inherit" href={HOST}>
         {DOMAIN}.com
       </Link>{" "}

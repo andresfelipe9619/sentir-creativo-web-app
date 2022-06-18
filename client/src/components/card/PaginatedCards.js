@@ -8,7 +8,7 @@ import { pluralize } from "../../utils";
 const PAGE_SIZE = 12;
 
 export default function PaginatedCards(props) {
-  const { loading, renderCard, data } = props;
+  const { loading, renderCard, data, showPagination = false } = props;
   const [page, setPage] = useState(1);
 
   const length = useResponsiveCard();
@@ -23,31 +23,33 @@ export default function PaginatedCards(props) {
   };
 
   return (
-    <Box>
-      <Box
-        width="100%"
-        my={4}
-        display="flex"
-        justifyContent="space-between"
-        fontWeight={"bold"}
-      >
-        {loading
-          ? `Haciendo magia ...`
-          : `${count} ${pluralize("elemento", count)} ${pluralize(
-              "encontrado",
-              count
-            )}: `}
+    <Box p={2}>
+      {showPagination && (
+        <Box
+          width="100%"
+          my={4}
+          display="flex"
+          justifyContent="space-between"
+          fontWeight={"bold"}
+        >
+          {loading
+            ? `Haciendo magia ...`
+            : `${count} ${pluralize("elemento", count)} ${pluralize(
+                "encontrado",
+                count
+              )}: `}
 
-        <Pagination
-          disabled={loading}
-          count={Math.ceil(count / PAGE_SIZE)}
-          color="standard"
-          page={page}
-          onChange={handleChangePage}
-          variant="outlined"
-          shape="rounded"
-        />
-      </Box>
+          <Pagination
+            disabled={loading}
+            count={Math.ceil(count / PAGE_SIZE)}
+            color="standard"
+            page={page}
+            onChange={handleChangePage}
+            variant="outlined"
+            shape="rounded"
+          />
+        </Box>
+      )}
       <Grid item container md={12} alignItems="center">
         {items2show.map((a) => (
           <Grid item key={a.id} xs={12 / length} md={4} xl={3}>
@@ -55,24 +57,26 @@ export default function PaginatedCards(props) {
           </Grid>
         ))}
       </Grid>
-      <Box
-        width="100%"
-        mb={5}
-        mt={2}
-        display="flex"
-        justifyContent="flex-end"
-        fontWeight={"bold"}
-      >
-        <Pagination
-          disabled={loading}
-          count={Math.ceil(count / PAGE_SIZE)}
-          color="standard"
-          page={page}
-          onChange={handleChangePage}
-          variant="outlined"
-          shape="rounded"
-        />
-      </Box>
+      {showPagination && (
+        <Box
+          width="100%"
+          mb={5}
+          mt={2}
+          display="flex"
+          justifyContent="flex-end"
+          fontWeight={"bold"}
+        >
+          <Pagination
+            disabled={loading}
+            count={Math.ceil(count / PAGE_SIZE)}
+            color="standard"
+            page={page}
+            onChange={handleChangePage}
+            variant="outlined"
+            shape="rounded"
+          />
+        </Box>
+      )}
     </Box>
   );
 }

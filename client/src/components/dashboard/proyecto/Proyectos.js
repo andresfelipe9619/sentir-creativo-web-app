@@ -3,9 +3,9 @@ import columns from "./columns";
 import MasterDetail from "../../master-detail/MasterDetail";
 import ProjectCard from "../../card/ProjectCard";
 import PaginatedCards from "../../card/PaginatedCards";
-
+import filters from "./filters";
 export default function Proyectos() {
-  const detail = { columns };
+  const detail = { columns, filters };
 
   return (
     <MasterDetail
