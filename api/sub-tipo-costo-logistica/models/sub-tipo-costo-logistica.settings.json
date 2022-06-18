@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sub_tipo_costo_logisticas",
+  "info": {
+    "name": "SubTipoCostoLogistica"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "subTipoCosto": {
+      "via": "subTipoCostoLogistica",
+      "model": "costo-logistica"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cantidads",
+  "info": {
+    "name": "cantidad"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "valor": {
+      "type": "integer"
+    },
+    "unidadMedida": {
+      "model": "unidad-medida"
+    }
+  }
+}

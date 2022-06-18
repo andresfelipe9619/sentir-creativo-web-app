@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "monedas",
+  "info": {
+    "name": "moneda"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "moneda": {
+      "type": "string"
+    },
+    "UnidadMonetaria": {
+      "via": "Moneda",
+      "model": "costo-logistica"
+    }
+  }
+}

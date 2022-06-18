@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "funciones",
+  "info": {
+    "name": "funciones"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "contexto": {
+      "model": "contexto",
+      "via": "funciones"
+    },
+    "rol": {
+      "via": "funciones",
+      "model": "rol"
+    }
+  }
+}

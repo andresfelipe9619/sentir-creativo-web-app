@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notas_audiencias",
+  "info": {
+    "name": "NotasAudiencia",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nota": {
+      "type": "text"
+    },
+    "audiencia": {
+      "via": "notas",
+      "model": "audiencia"
+    }
+  }
+}

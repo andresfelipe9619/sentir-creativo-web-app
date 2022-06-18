@@ -1,19 +1,42 @@
 {
-  "name": "sentir-creativo-web-app",
-  "version": "1.0.0",
-  "description": "Full stack app",
-  "main": "index.js",
+  "name": "api",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "ENV_PATH=/.env strapi"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andresfelipe9619/sentir-creativo-web-app.git"
+  "devDependencies": {},
+  "dependencies": {
+    "bookshelf": "^1.2.0",
+    "knex": "^0.95.14",
+    "mui-datatables": "^4.0.0",
+    "mysql2": "^2.3.3",
+    "sharp": "^0.30.3",
+    "strapi": "3.6.9",
+    "strapi-admin": "3.6.9",
+    "strapi-connector-bookshelf": "3.6.9",
+    "strapi-plugin-content-manager": "3.6.9",
+    "strapi-plugin-content-type-builder": "3.6.9",
+    "strapi-plugin-email": "3.6.9",
+    "strapi-plugin-entity-relationship-chart": "^3.1.0",
+    "strapi-plugin-i18n": "3.6.9",
+    "strapi-plugin-upload": "3.6.9",
+    "strapi-plugin-users-permissions": "3.6.9",
+    "strapi-utils": "3.6.9"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/andresfelipe9619/sentir-creativo-web-app/issues"
+  "author": {
+    "name": "Andrés Suárez"
   },
-  "homepage": "https://github.com/andresfelipe9619/sentir-creativo-web-app#readme"
+  "strapi": {
+    "uuid": "d6c20fd0-d9ea-4197-8aff-454424c6d41c"
+  },
+  "engines": {
+    "node": ">=10.16.0 <=16.x.x",
+    "npm": "^6.0.0"
+  },
+  "license": "MIT"
 }

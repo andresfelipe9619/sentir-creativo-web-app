@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sub-tipo-costo-recursos-humanos",
+      "handler": "sub-tipo-costo-recursos-humanos.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sub-tipo-costo-recursos-humanos/count",
+      "handler": "sub-tipo-costo-recursos-humanos.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sub-tipo-costo-recursos-humanos/:id",
+      "handler": "sub-tipo-costo-recursos-humanos.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sub-tipo-costo-recursos-humanos",
+      "handler": "sub-tipo-costo-recursos-humanos.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sub-tipo-costo-recursos-humanos/:id",
+      "handler": "sub-tipo-costo-recursos-humanos.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sub-tipo-costo-recursos-humanos/:id",
+      "handler": "sub-tipo-costo-recursos-humanos.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

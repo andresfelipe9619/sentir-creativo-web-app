@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proyectos",
+  "info": {
+    "name": "proyecto",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "fechaInicio": {
+      "type": "datetime"
+    },
+    "fechaFin": {
+      "type": "datetime"
+    },
+    "avance": {
+      "type": "decimal"
+    },
+    "tipo_proyecto": {
+      "via": "proyectos",
+      "model": "tipo-proyectos"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "audiencia": {
+      "via": "proyectos",
+      "model": "audiencia"
+    },
+    "imagen": {
+      "type": "string"
+    },
+    "presupuestos": {
+      "via": "proyecto",
+      "collection": "presupuesto"
+    },
+    "comentarios": {
+      "collection": "comentario"
+    },
+    "publico_objetivos": {
+      "collection": "publico-objetivo"
+    },
+    "estado_proyecto": {
+      "model": "estado-proyecto"
+    },
+    "formatos": {
+      "collection": "formato"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "staf": {
+      "via": "proyectos",
+      "collection": "staf",
+      "dominant": true
+    },
+    "servicios": {
+      "via": "proyectos",
+      "collection": "servicio"
+    },
+    "cupon_descuentos": {
+      "collection": "cupon-descuento"
+    },
+    "destacado": {
+      "type": "boolean"
+    },
+    "ciudad": {
+      "model": "ciudad"
+    },
+    "impacto": {
+      "type": "biginteger"
+    },
+    "bitacoras": {
+      "collection": "bitacora"
+    }
+  }
+}

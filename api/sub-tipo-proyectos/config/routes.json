@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sub-tipo-proyectos",
+      "handler": "sub-tipo-proyectos.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sub-tipo-proyectos/count",
+      "handler": "sub-tipo-proyectos.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sub-tipo-proyectos/:id",
+      "handler": "sub-tipo-proyectos.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sub-tipo-proyectos",
+      "handler": "sub-tipo-proyectos.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sub-tipo-proyectos/:id",
+      "handler": "sub-tipo-proyectos.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sub-tipo-proyectos/:id",
+      "handler": "sub-tipo-proyectos.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

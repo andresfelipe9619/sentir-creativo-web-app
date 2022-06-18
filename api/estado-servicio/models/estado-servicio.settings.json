@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "estado_servicios",
+  "info": {
+    "name": "estadoServicio"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "servicios": {
+      "via": "estado",
+      "collection": "servicio"
+    }
+  }
+}

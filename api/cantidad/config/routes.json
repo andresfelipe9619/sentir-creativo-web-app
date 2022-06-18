@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cantidads",
+      "handler": "cantidad.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cantidads/count",
+      "handler": "cantidad.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cantidads/:id",
+      "handler": "cantidad.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cantidads",
+      "handler": "cantidad.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cantidads/:id",
+      "handler": "cantidad.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cantidads/:id",
+      "handler": "cantidad.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_rubros",
+  "info": {
+    "name": "TipoRubro"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "rubros": {
+      "collection": "rubro",
+      "via": "tipo_rubro"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cercanias",
+      "handler": "cercania.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cercanias/count",
+      "handler": "cercania.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cercanias/:id",
+      "handler": "cercania.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cercanias",
+      "handler": "cercania.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cercanias/:id",
+      "handler": "cercania.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cercanias/:id",
+      "handler": "cercania.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

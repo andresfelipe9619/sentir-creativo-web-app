@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prioridads",
+  "info": {
+    "name": "prioridad"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}
