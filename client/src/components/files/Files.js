@@ -95,6 +95,7 @@ export default function Files({
   const handleCreateFiles = async (values) => {
     const parentId = params.id;
     if (!parentId) return;
+    if(!values.tipo_archivo) throw new Error()
     console.log("values: ", values);
     let path = values.path;
     const fromDropzone = Array.isArray(path);

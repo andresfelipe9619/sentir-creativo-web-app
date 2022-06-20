@@ -30,7 +30,7 @@ export async function uploadFileToS3({ name, file, parentId, parent }) {
 
 const getFileNameFromUrl = (url) => {
   if (!url) return null;
-  let fileName = url
+  let fileName = decodeURIComponent(url)
     .split("/")
     .filter((x) => x)
     .slice(2)
