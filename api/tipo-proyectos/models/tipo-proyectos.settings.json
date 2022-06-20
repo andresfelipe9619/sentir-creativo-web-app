@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipo_proyectos",
+  "info": {
+    "name": "tipoProyecto",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalId": {
+      "type": "uid",
+      "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "sub_tipo_proyectos": {
+      "via": "tipo_proyecto",
+      "collection": "sub-tipo-proyectos"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "proyectos": {
+      "via": "tipo_proyecto",
+      "collection": "proyecto"
+    }
+  }
+}

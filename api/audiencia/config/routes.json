@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/audiencias",
+      "handler": "audiencia.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/audiencias/count",
+      "handler": "audiencia.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/audiencias/:id",
+      "handler": "audiencia.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/audiencias",
+      "handler": "audiencia.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/audiencias/dossier",
+      "handler": "audiencia.dossier",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/audiencias/:id/archivos",
+      "handler": "audiencia.addFiles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/audiencias/:id",
+      "handler": "audiencia.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/audiencias/:id",
+      "handler": "audiencia.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

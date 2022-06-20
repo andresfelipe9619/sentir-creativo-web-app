@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "coleccions",
+  "info": {
+    "name": "coleccion",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "cupon_descuentos": {
+      "collection": "cupon-descuento"
+    },
+    "servicios": {
+      "via": "colecciones",
+      "collection": "servicio"
+    }
+  }
+}

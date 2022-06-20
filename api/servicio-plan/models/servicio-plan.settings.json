@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "servicio_plans",
+  "info": {
+    "name": "servicioPlan",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "servicio": {
+      "via": "servicioPlanes",
+      "model": "servicio"
+    },
+    "plan": {
+      "model": "plan"
+    },
+    "presupuestos": {
+      "via": "servicioPlan",
+      "collection": "presupuesto"
+    },
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

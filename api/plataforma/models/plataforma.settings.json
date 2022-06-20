@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plataformas",
+  "info": {
+    "name": "plataforma"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "difusiones": {
+      "via": "plataforma",
+      "collection": "difusion"
+    }
+  }
+}

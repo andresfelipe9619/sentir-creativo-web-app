@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "atributos",
+  "info": {
+    "name": "Atributo"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  }
+}

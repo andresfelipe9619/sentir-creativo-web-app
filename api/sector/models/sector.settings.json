@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sectors",
+  "info": {
+    "name": "sector",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "internalId": {
+      "type": "uid",
+      "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    }
+  }
+}

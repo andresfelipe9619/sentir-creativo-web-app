@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "condicions",
+  "info": {
+    "name": "condicion"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcion": {
+      "type": "string"
+    }
+  }
+}

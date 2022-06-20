@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "logs",
+  "info": {
+    "name": "Log"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcion": {
+      "type": "text"
+    },
+    "tipo": {
+      "type": "string"
+    },
+    "idEmisor": {
+      "type": "string"
+    }
+  }
+}
