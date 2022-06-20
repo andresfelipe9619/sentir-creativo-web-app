@@ -166,7 +166,12 @@ export default function FormItem(props) {
       />
     ),
     select: canRender("select") && (
-      <FormControl fullWidth variant="outlined">
+      <FormControl
+        fullWidth
+        variant="outlined"
+        required={fieldProps.required}
+        error={!!errors[key]}
+      >
         <InputLabel id={`${key}-label`}>{item.label}</InputLabel>
         <Select
           labelId={`${key}-label`}
@@ -189,7 +194,7 @@ export default function FormItem(props) {
       </FormControl>
     ),
     multiselect: canRender("multiselect") && (
-      <FormControl fullWidth variant="outlined">
+      <FormControl fullWidth variant="outlined" required={fieldProps.required}>
         <InputLabel id={`${key}-label`}>{item.label}</InputLabel>
         <Select
           label={item.label}
