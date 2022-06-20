@@ -114,6 +114,12 @@ function getFormProps(columns) {
           acc.validationSchema[key] = validation.required("Campo requerido!");
         }
       }
+      if (formType === "select") {
+        let validation = Yup.string();
+        if (required) {
+          acc.validationSchema[key] = validation.required("Campo requerido!");
+        }
+      }
       if (inputType === "email") {
         let validation = Yup.string().email("Correo inválido!");
         acc.initialValues[key] = "";

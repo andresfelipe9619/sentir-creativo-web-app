@@ -10,6 +10,7 @@ const columns = [
     },
     form: {
       size: 4,
+      required: true,
       type: "input",
     },
   },
@@ -36,6 +37,7 @@ const columns = [
     form: {
       size: 4,
       type: "select",
+      required: true,
       dependency: "TipoArchivo",
     },
   },
