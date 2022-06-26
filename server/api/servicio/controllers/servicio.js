@@ -21,7 +21,7 @@ const populate = [
 ]
 
 module.exports = {
-  async find (ctx) {
+  async find(ctx) {
     let entities
     console.log('ctx.query', ctx.query)
     if (ctx.query.dense) {
@@ -37,12 +37,12 @@ module.exports = {
       sanitizeEntity(entity, { model: strapi.models.servicio })
     )
   },
-  async findOne (ctx) {
+  async findOne(ctx) {
     const { id } = ctx.params
     const entity = await strapi.services.servicio.findOne({ id }, populate)
     return sanitizeEntity(entity, { model: strapi.models.servicio })
   },
-  async addFiles (ctx) {
+  async addFiles(ctx) {
     const { request, params } = ctx
     const { id } = params
     const { body: files } = request
@@ -52,5 +52,78 @@ module.exports = {
       collection: 'servicio'
     })
     return result
+  },
+  async upload(ctx) {
+    const { request } = ctx;
+    const toMinutes = x => x / (60 * 1000);
+    let {
+      id: stafId,
+      area,
+      servicioNombre: nombre,
+      slogan,
+      sintesis,
+      trayectoria,
+      formato,
+      tecnicasArtisticas,
+      tags,
+      cantidadArtistas,
+      cantidadArtistasApoyo,
+      duracionMinima,
+      duracionMaxima,
+      sesionesMinimo,
+      sesionesMaximas,
+      duracionMontaje,
+      duracionDesmontaje,
+      minimoParticipantes,
+      maximoParticipantes,
+      publicoObjetivo,
+      ocasiones
+    } = request.body;
+
+    cantidadArtistas = parseInt(cantidadArtistas);
+    cantidadArtistasApoyo = parseInt(cantidadArtistasApoyo);
+    duracionMinima = toMinutes(duracionMinima);
+    duracionMaxima = toMinutes(duracionMaxima);
+    sesionesMinimo = parseInt(sesionesMinimo);
+    sesionesMaximas = parseInt(sesionesMaximas);
+    duracionMontaje = toMinutes(duracionMontaje);
+    duracionDesmontaje = toMinutes(duracionDesmontaje);
+    minimoParticipantes = parseInt(minimoParticipantes);
+    maximoParticipantes = parseInt(maximoParticipantes);
+
+    try {
+      console.log(`BODY: `, request.body);
+
+      const servicio = await strapi.services.servicio.create({
+        nombre,
+        slogan,
+        sintesis,
+        tags,
+        tecnica_artisticas: tecnicasArtisticas,
+        ocasions: ocasiones,
+        colorPrimario: area.colorPrimario,
+        colorSecundario: area.colorSecundario,
+        publico_objetivos: publicoObjetivo,
+        area: area.id,
+        formatos: formato,
+        stafs: stafId,
+        minimoParticipantes,
+        maximoParticipantes,
+        cantidadArtistas,
+        cantidadArtistasApoyo,
+        duracionMinima,
+        duracionMaxima,
+        sesionesMinimo,
+        sesionesMaximas,
+        duracionMontaje,
+        duracionDesmontaje,
+        trayectoria
+      });
+
+      return servicio;
+    } catch (error) {
+      console.error(error);
+      return ctx.throw(500, error.toString());
+    }
   }
 }
