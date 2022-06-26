@@ -31,6 +31,7 @@ export default function Modal({
   handleConfirm,
   hideCloseButton,
   hideConfirmButton,
+  backgroundColor
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -47,6 +48,7 @@ export default function Modal({
       maxWidth="md"
       open={open}
       classes={{ paper: classes.paper }}
+      style={{ backgroundColor: backgroundColor }}
       className={classes.root}
       fullScreen={fullScreen}
       onClose={handleClose}
