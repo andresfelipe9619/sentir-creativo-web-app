@@ -32,6 +32,7 @@ const Login = lazy(() =>
 const Register = lazy(() =>
   import(/* webpackChunkName: "register" */ "../pages/Register")
 );
+const StaffServicio = lazy(() => import(/* webpackChunkName: "home" */ "../pages/StaffServicio"));
 
 export const DashboardRoutes = [
   {
@@ -140,6 +141,11 @@ const RouterConfig = [
     private: true,
     component: Dashboard,
     routes: DashboardRoutes,
+  },
+  {
+    path: "/subir-servicio",
+    name: "StaffServicio",
+    component: StaffServicio
   },
 ];
 

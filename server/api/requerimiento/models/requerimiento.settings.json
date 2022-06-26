@@ -23,6 +23,12 @@
     },
     "impuesto": {
       "type": "float"
+    },
+    "subTipoRequerimiento": {
+      "model": "sub-tipo-requerimiento"
+    },
+    "clase": {
+      "model": "clase"
     }
   }
 }

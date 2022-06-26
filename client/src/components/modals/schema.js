@@ -233,3 +233,85 @@ export const artistSchema = Yup.object().shape({
     .email("¡Reflautillas! Un email correcto por favor.")
     .required("¡Reflautillas! Un email es requerido"),
 });
+
+export const artist2Values = {
+  accept1: false,
+  accept2: false,
+  accept3: false,
+  accept4: false,
+  id: '',
+  email: '',
+  nombreCoupon: '',
+  area: {},
+  servicioNombre: '',
+  slogan: '',
+  sintesis: '',
+  trayectoria: '',
+  formato: [],
+  tecnicasArtisticas: [],
+  tags: [],
+  cantidadArtistas: '',
+  cantidadArtistasApoyo: '',
+  duracionMinima: 1800000,
+  duracionMaxima: 1800000,
+  sesionesMinimo: '',
+  sesionesMaximas: '',
+  duracionMontaje: 1800000,
+  duracionDesmontaje: 1800000,
+  publicoObjetivo: [],
+  minimoParticipantes: '',
+  maximoParticipantes: '',
+  ocasiones: [],
+  archivos: []
+};
+
+export const artist2Schema = Yup.object().shape({
+  id: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  nombreCoupon: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  servicioNombre: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  slogan: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  sintesis: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  formato: Yup.array()
+    .required("¡Reflautillas! Este campo es requerido"),
+  cantidadArtistas: Yup.number()
+    .required("¡Reflautillas! Este campo es requerido"),
+  cantidadArtistasApoyo: Yup.number()
+    .required("¡Reflautillas! Este campo es requerido"),
+  email: Yup.string()
+    .email("¡Reflautillas! Un email correcto por favor.")
+    .required("¡Reflautillas! Este campo es requerido"),
+  tecnicasArtisticas: Yup.array().required("¡Reflautillas! Este campo es requerido"),
+  tags: Yup.array().required("¡Reflautillas! Este campo es requerido"),
+  duracionMinima: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  duracionMaxima: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  sesionesMinimo: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  sesionesMaximas: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  duracionMontaje: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  duracionDesmontaje: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  publicoObjetivo: Yup.array().required("¡Reflautillas! Este campo es requerido"),
+  minimoParticipantes: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  maximoParticipantes: Yup.string()
+    .required("¡Reflautillas! Este campo es requerido"),
+  ocasiones: Yup.array().required("¡Reflautillas! Este campo es requerido"),
+  masFavorable: Yup.number()
+    .integer("¡Reflautillas! Este campo debe ser numerico")
+    .required("¡Reflautillas! Este campo es requerido"),
+  medianas: Yup.number()
+    .integer("¡Reflautillas! Este campo debe ser numerico")
+    .required("¡Reflautillas! Este campo es requerido"),
+  menosFavorable: Yup.number()
+    .integer("¡Reflautillas! Este campo debe ser numerico")
+    .required("¡Reflautillas! Este campo es requerido")
+});

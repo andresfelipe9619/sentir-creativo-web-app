@@ -68,7 +68,9 @@ const Audiencia = Factory("audiencias", {
 
 const User = Factory("user");
 
-const Servicio = Factory("servicios");
+const Servicio = Factory("servicios", {
+  upload: (values) => serverRequests.post("/servicios/upload", values)
+});
 
 const Area = Factory("areas");
 
@@ -148,6 +150,8 @@ const TipoTarea = Factory("tipo-tareas");
 
 const Sprint = Factory("sprints");
 
+const Trayectoria = Factory("trayectorias");
+
 const API = {
   Acuerdo,
   Antiguedad,
@@ -194,7 +198,8 @@ const API = {
   Tarea,
   EstadoTarea,
   TipoTarea,
-  Sprint
+  Sprint,
+  Trayectoria
 };
 
 export default API;
