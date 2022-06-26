@@ -122,8 +122,8 @@ module.exports = {
 
       return servicio;
     } catch (error) {
-      console.error(error)
-      return ctx.throw(500, error.toString())
+      console.error(error);
+      return ctx.throw(500, error.toString());
     }
   }
 }
