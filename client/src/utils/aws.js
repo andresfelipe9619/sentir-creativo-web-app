@@ -10,7 +10,13 @@ AWS.config.update({
 
 const s3 = new AWS.S3();
 
-export async function uploadFileToS3({ name, file, parentId, parent }) {
+export async function uploadFileToS3({
+  name,
+  file,
+  parentId,
+  parent,
+  publicFile,
+}) {
   console.log("file", file);
   if (!file) throw new Error("Please choose a file to upload first.");
   const [ext] = file.name.split(".").reverse();
@@ -20,6 +26,7 @@ export async function uploadFileToS3({ name, file, parentId, parent }) {
       Bucket: BucketName,
       Key: fileKey,
       Body: file,
+      ...(publicFile ? { ACL: "public-read" } : {}),
     },
   });
 

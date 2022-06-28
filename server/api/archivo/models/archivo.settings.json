@@ -20,6 +20,10 @@
     },
     "tipo_archivo": {
       "model": "tipo-archivo"
+    },
+    "publico": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

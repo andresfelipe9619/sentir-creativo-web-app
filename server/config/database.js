@@ -10,6 +10,7 @@ module.exports = ({ env }) => ({
         database: env('DATABASE_NAME', 'sentircr'),
         username: env('DATABASE_USERNAME', "colibri"),
         password: env('DATABASE_PASSWORD', 'root'),
+        timezone: "+00:00",
       },
       options: {
         autoMigration: true

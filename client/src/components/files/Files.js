@@ -74,9 +74,9 @@ export default function Files({
     if (!files?.length) return;
     async function signFiles() {
       const promises = files.map(async (file) => {
-        let path = file?.path;
+        let { path, publico } = file || {};
         console.log("prev path", path);
-        if (isFromS3(path)) {
+        if (isFromS3(path) && !publico) {
           path = await getFileFromS3(path);
           console.log("post path", path);
         }
@@ -95,18 +95,20 @@ export default function Files({
   const handleCreateFiles = async (values) => {
     const parentId = params.id;
     if (!parentId) return;
-    if(!values.tipo_archivo) throw new Error()
+    if (!values.tipo_archivo) throw new Error();
     console.log("values: ", values);
     let path = values.path;
     const fromDropzone = Array.isArray(path);
     if (fromDropzone) {
       let [file] = path;
       let name = values.nombre;
+      let publicFile = values.publico;
       const { Location } = await uploadFileToS3({
         name,
         file,
         parentId,
         parent,
+        publicFile,
       });
       path = Location;
     }

@@ -25,6 +25,7 @@ import Upload from "../files/Upload";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Comments from "../commets";
 import CitySelect from "../city-select/CitySelect";
+import { FormControlLabel, Switch } from "@material-ui/core";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -130,6 +131,21 @@ export default function FormItem(props) {
             {...fieldProps}
           />
         )}
+      />
+    ),
+    boolean: canRender("boolean") && (
+      <FormControlLabel
+        id={key}
+        disabled={isSubmitting}
+        control={
+          <Switch
+            checked={!!value}
+            onChange={handleChange}
+            name={key}
+            color="primary"
+          />
+        }
+        label={item.label}
       />
     ),
     input: canRender("input") && (
