@@ -35,7 +35,7 @@ const filters = [
   },
   {
     label: "Staff",
-    name: "staff",
+    name: "stafs",
   },
   // {
   //   label: "Ciudad del staff",

@@ -26,10 +26,14 @@ const filters = [
     label: "Ciudad",
     name: "ciudad",
   },
-  // {
-  //   label: "Area",
-  //   name: "area",
-  // },
+  {
+    label: "Servicio",
+    name: "servicios",
+  },
+  {
+    label: "Area",
+    name: "servicios.area",
+  },
   {
     label: "Formato",
     name: "formatos",

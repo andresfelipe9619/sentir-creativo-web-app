@@ -3,6 +3,7 @@ const populate = [
   'id',
   'area',
   'tags',
+  'stafs',
   'estado',
   'propositos',
   'notas',

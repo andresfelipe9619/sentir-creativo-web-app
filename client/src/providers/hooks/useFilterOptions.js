@@ -32,6 +32,19 @@ export default function useFilterOptions({ data, initialValues }) {
   return { filterOptions, findUniqueOptions, setFilterOptions };
 }
 
+function getNestedProp(object, accessor) {
+  const parts = accessor.split(".");
+  if (parts.length === 1) return object[accessor];
+  const nestedProp = parts.reduce((acc, key, i) => {
+    let isLast = i === parts.length - 1;
+    if (isLast && Array.isArray(acc)) {
+      return acc.map((item) => item[key]);
+    }
+    return acc[key];
+  }, object);
+  return nestedProp;
+}
+
 function findUniqueOptions(items, filters2use) {
   // Map over all the items and find the unique options for each filter
   return items.reduce((acc, item) => {
@@ -39,7 +52,7 @@ function findUniqueOptions(items, filters2use) {
     // For each filter from filters2use,
     // get the values from the current item
     const result = keys.reduce((accFilters, filterKey) => {
-      const value = item[filterKey];
+      const value = getNestedProp(item, filterKey);
       const isArray = Array.isArray(value);
       const isObj = isObject(value);
       const isBool = isBoolean(value);
