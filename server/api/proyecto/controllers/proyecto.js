@@ -23,6 +23,7 @@ const populate = [
   'archivos',
   'comentarios.userId',
   'presupuestos',
+  'servicios.area',
   'audiencia.organizacion',
   'archivos.tipo_archivo',
   'destacado',
