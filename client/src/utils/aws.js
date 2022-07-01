@@ -35,6 +35,22 @@ export async function uploadFileToS3({
   return data;
 }
 
+export async function updateFileACL(url, publicFile) {
+  return new Promise((resolve, reject) => {
+    const fileName = getFileNameFromUrl(url);
+    if (!fileName) return resolve("");
+    const params = {
+      Bucket: BucketName,
+      Key: `${fileName}`,
+      ACL: publicFile ? "public-read" : "private",
+    };
+    s3.putObjectAcl(params, (error, url) => {
+      if (error) return reject(error);
+      return resolve(url);
+    });
+  });
+}
+
 const getFileNameFromUrl = (url) => {
   if (!url) return null;
   let fileName = decodeURIComponent(url)
@@ -45,7 +61,7 @@ const getFileNameFromUrl = (url) => {
   return fileName;
 };
 
-export const getFileFromS3 = (url, expiry) => {
+export function getFileFromS3(url, expiry) {
   return new Promise((resolve, reject) => {
     const fileName = getFileNameFromUrl(url);
     if (!fileName) return resolve("");
@@ -59,7 +75,7 @@ export const getFileFromS3 = (url, expiry) => {
       return resolve(url);
     });
   });
-};
+}
 
 export function deleteFileFromS3(url) {
   return new Promise((resolve, reject) => {
