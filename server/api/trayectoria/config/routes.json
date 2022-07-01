@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/trayectorias",
+      "handler": "trayectoria.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trayectorias/count",
+      "handler": "trayectoria.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trayectorias/:id",
+      "handler": "trayectoria.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trayectorias",
+      "handler": "trayectoria.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/trayectorias/:id",
+      "handler": "trayectoria.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/trayectorias/:id",
+      "handler": "trayectoria.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

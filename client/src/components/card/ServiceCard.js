@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -21,6 +21,11 @@ import {
 import clsx from "clsx";
 import * as IO5 from "react-icons/io5";
 import * as GI from "react-icons/gi";
+import { getFileFromS3 } from "../../utils/aws";
+
+const BucketName = process.env.REACT_APP_BUCKET_NAME;
+
+const isFromS3 = (path) => path?.includes(`${BucketName}.s3`);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -98,11 +103,23 @@ function ServiceCard({
     tecnica_artisticas,
   } = service;
 
+  const [imageUrl, setImageUrl] = React.useState((archivos || [])[0]?.path);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const imageUrl = (archivos || [])[0]?.path;
+  useEffect(() => {
+    async function signFiles() {
+      if (isFromS3(imageUrl)) {
+        const path = await getFileFromS3(imageUrl);
+        setImageUrl(path);
+      }
+    }
+    signFiles();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const cardColor = color || theme.palette.primary.main;
   const areaTheme = createTheme({
     ...theme,

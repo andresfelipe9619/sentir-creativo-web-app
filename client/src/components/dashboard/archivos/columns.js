@@ -53,7 +53,6 @@ const columns = [
       type: "date",
     },
   },
-
   {
     name: "created_at",
     label: "Creado el",
@@ -65,6 +64,18 @@ const columns = [
     form: {
       size: 4,
       type: "date",
+    },
+  },
+  {
+    name: "publico",
+    label: "Público",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 4,
+      type: "boolean",
     },
   },
 ];

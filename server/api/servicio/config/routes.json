@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/servicios/upload",
+      "handler": "servicio.upload",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

@@ -99,6 +99,33 @@
     },
     "comentarios": {
       "collection": "comentario"
+    },
+    "cantidadArtistas": {
+      "type": "integer"
+    },
+    "cantidadArtistasApoyo": {
+      "type": "integer"
+    },
+    "duracionMinima": {
+      "type": "integer"
+    },
+    "duracionMaxima": {
+      "type": "integer"
+    },
+    "sesionesMinimo": {
+      "type": "integer"
+    },
+    "sesionesMaximas": {
+      "type": "integer"
+    },
+    "duracionMontaje": {
+      "type": "integer"
+    },
+    "duracionDesmontaje": {
+      "type": "integer"
+    },
+    "trayectoria": {
+      "model": "trayectoria"
     }
   }
 }
