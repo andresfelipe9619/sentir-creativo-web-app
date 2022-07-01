@@ -13,6 +13,7 @@ import useFormDependencies from "../../providers/hooks/useFormDependencies";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import DialogButton from "../buttons/DialogButton";
 import { nullifyObjectEmptyStrings } from "../../utils";
+import { updateFileACL } from "../../utils/aws";
 
 export default function Detail({ columns, service, match, reloadMaster }) {
   const [data, setData] = useState(null);
@@ -28,6 +29,12 @@ export default function Detail({ columns, service, match, reloadMaster }) {
   const handleFormSubmit = useCallback(
     async (formValues) => {
       try {
+        const isFile = service === "Archivo";
+        const haveChangedACL = formValues.publico !== data.publico;
+        if (isFile && haveChangedACL) {
+          let aclResult = await updateFileACL(data.path, formValues.publico);
+          console.log("aclResult", aclResult);
+        }
         console.log("formValues", formValues);
         const values = nullifyObjectEmptyStrings(formValues);
         const result = await API[service].update(entityId, values);
@@ -48,7 +55,7 @@ export default function Detail({ columns, service, match, reloadMaster }) {
         setLoading(false);
       }
     },
-    [entityId, service, reloadMaster, openAlert]
+    [data, entityId, service, reloadMaster, openAlert]
   );
 
   const handleDelete = useCallback(async () => {
