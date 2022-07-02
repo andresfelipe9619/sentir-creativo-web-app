@@ -37,9 +37,9 @@ const filters = [
     label: "Staff",
     name: "stafs",
   },
-  // {
-  //   label: "Ciudad del staff",
-  //   name: "ciudad",
-  // },
+  {
+    label: "Ciudad del staff",
+    name: "stafs.ciudad",
+  },
 ];
 export default filters;

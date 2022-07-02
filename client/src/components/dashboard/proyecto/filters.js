@@ -14,6 +14,11 @@ const filters = [
     type: "date",
   },
   {
+    label: "Fecha Inicio",
+    name: "fechaInicio",
+    type: "date",
+  },
+  {
     label: "Tipo Proyecto",
     name: "tipo_proyecto",
   },

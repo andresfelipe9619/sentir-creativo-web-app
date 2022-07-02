@@ -25,10 +25,10 @@ const filters = [
     label: "Ciudad",
     name: "ciudad",
   },
-  // {
-  //   label: "Roles",
-  //   name: "rol",
-  // },
+  {
+    label: "Roles",
+    name: "roles",
+  },
   {
     label: "Tecnicas Artisticas",
     name: "tecnica_artisticas",
