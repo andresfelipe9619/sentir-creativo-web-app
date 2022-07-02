@@ -19,6 +19,9 @@ export default function ServiceIdentification(props) {
   if (loadingDependencies) return <Spinner />;
 
   Object.keys(dependencies || {}).forEach(key => props.values.storagesDeeps[key] = dependencies[key]);
+  if (dependencies?.Formato) {
+    dependencies.Formato = dependencies.Formato.filter(({label}) => !['Aún no lo se', 'Mixto'].includes(label)) || [];
+  }
 
   return (
     <Grid container spacing={2}>

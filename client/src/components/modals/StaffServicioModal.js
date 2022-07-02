@@ -1,15 +1,13 @@
 import { useState } from "react";
 import GenericModal from "./GenericModal";
-import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Formik } from "formik";
 import { useAlertDispatch } from "../../providers/context/Alert";
 import {
   artist2Schema,
-  artist2Values} from "./schema";
+  artist2Values
+} from "./schema";
 import API from '../../api';
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -24,18 +22,35 @@ import Finanzas from '../staff-servicio/Finanzas';
 import Archivos from '../staff-servicio/Archivos';
 import VistaPrevia from '../staff-servicio/VistaPrevia';
 import FinishForm from '../staff-servicio/FinishForm';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const fieldsByStep = [
   ['id', 'email', 'nombreCoupon'],
   ['area'],
   ['servicioNombre', 'slogan', 'sintesis', 'trayectoria', 'formato'],
   ['tecnicasArtisticas.3', 'tags.5', 'cantidadArtistas', 'cantidadArtistasApoyo'],
-  ['duracionMinima', 'duracionMaxima', 'sesionesMinimo', 'sesionesMaximas', 'duracionMontaje', 'duracionDesmontaje'],
+  ['duracionMinima', 'duracionMaxima', 'sesionesMinimo', 'sesionesMaximas'],
   ['publicoObjetivo.3', 'minimoParticipantes', 'maximoParticipantes', 'ocasiones.3'],
   ['masFavorable', 'medianas', 'menosFavorable'],
   ['archivos', 'accept1'],
   ['accept2', 'accept3', 'accept4']
 ];
+
+const BorderLinearProgress = withStyles((theme) => ({
+  root: {
+    height: 10,
+    borderRadius: 5,
+  },
+  colorPrimary: {
+    backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+  },
+  bar: {
+    borderRadius: 5,
+    backgroundColor: '#ff6c00',
+  },
+}))(LinearProgress);
 
 const useStyles = makeStyles((theme) => ({
   buttonColorful: {
@@ -239,13 +254,16 @@ export default function StaffServicioModal({ handleClose, open }) {
             return (
               <form onSubmit={handleSubmit}>
                 {!isSmall && (
-                  <Stepper activeStep={activeStep} alternativeLabel>
-                    {steps.map((label) => (
-                      <Step key={label}>
-                        <StepLabel>{''}</StepLabel>
-                      </Step>
-                    ))}
-                  </Stepper>
+                  <Box display="flex" alignItems="center" mt={3} mb={5}>
+                    <Box width="100%" mr={1}>
+                      <BorderLinearProgress variant="determinate" value={(activeStep / steps.length) * 100} />
+                    </Box>
+                    <Box minWidth={35}>
+                      <Typography variant="body2" color="textSecondary">
+                        {`${Math.floor((activeStep / steps.length) * 100)}%`}
+                      </Typography>
+                    </Box>
+                  </Box>
                 )}
                 <div>
                   {sent ? (

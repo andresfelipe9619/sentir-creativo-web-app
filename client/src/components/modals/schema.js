@@ -256,8 +256,8 @@ export const artist2Values = {
   duracionMaxima: 1800000,
   sesionesMinimo: '',
   sesionesMaximas: '',
-  duracionMontaje: 1800000,
-  duracionDesmontaje: 1800000,
+  duracionMontaje: '',
+  duracionDesmontaje: '',
   publicoObjetivo: [],
   minimoParticipantes: '',
   maximoParticipantes: '',
@@ -296,10 +296,6 @@ export const artist2Schema = Yup.object().shape({
   sesionesMinimo: Yup.string()
     .required("¡Reflautillas! Este campo es requerido"),
   sesionesMaximas: Yup.string()
-    .required("¡Reflautillas! Este campo es requerido"),
-  duracionMontaje: Yup.string()
-    .required("¡Reflautillas! Este campo es requerido"),
-  duracionDesmontaje: Yup.string()
     .required("¡Reflautillas! Este campo es requerido"),
   publicoObjetivo: Yup.array().required("¡Reflautillas! Este campo es requerido"),
   minimoParticipantes: Yup.string()

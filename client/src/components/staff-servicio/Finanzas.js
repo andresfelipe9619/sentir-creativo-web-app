@@ -1,6 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from '@material-ui/core/Box';
+import grey from '@material-ui/core/colors/grey';
 
 export default function Finanzas(props) {
 
@@ -12,11 +13,11 @@ export default function Finanzas(props) {
     if (isNaN(amount)) return 0;
 
     const percent = amount * (12.56 / 100);
-    return (amount - percent)?.toFixed(2);
+    return parseInt(amount - percent);
   };
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={6}>
       <Grid item md={12}>
         <Typography color="primary" variant="h1" gutterBottom>
           Finanzas
@@ -30,15 +31,15 @@ export default function Finanzas(props) {
 
       <Grid item container md={12} justifyContent="space-around" alignItems="center">
         <Grid item md={3}>
-          <Typography color="textSecondary" variant="subtitle">
+          <Typography color={grey[100]} variant="subtitle">
             Condiciones más favorables
           </Typography>
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item>
           <Box display="flex" alignItems="center" p={2} style={{ border: '1px solid #000', borderRadius: 10, margin: '0 auto' }}>
             <Typography variant="subtitle">
-              <strong>Referencia: </strong>
+              <strong>Bruto: </strong>
             </Typography>
 
             <input
@@ -48,7 +49,7 @@ export default function Finanzas(props) {
                 border: 0,
                 outline: 0,
                 fontSize: 16,
-                color: '#808080',
+                color: grey[700],
                 textAlign: 'right'
               }}
               type="number"
@@ -67,7 +68,7 @@ export default function Finanzas(props) {
               Referencia<br />
               Líquido:
             </Typography>
-            <Typography variant="subtitle" color="textSecondary" style={{ marginRight: 'auto', marginLeft: 8 }}>
+            <Typography variant="subtitle" color={grey[700]} style={{ marginRight: 'auto', marginLeft: 8 }}>
               ${getLiquido(props.values.masFavorable)}
             </Typography>
           </Box>
@@ -76,15 +77,15 @@ export default function Finanzas(props) {
 
       <Grid item container md={12} justifyContent="space-around" alignItems="center">
         <Grid item md={3}>
-          <Typography color="textSecondary" variant="subtitle">
+          <Typography color={grey[700]} variant="subtitle">
             Condiciones Medianas
           </Typography>
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item>
           <Box display="flex" alignItems="center" p={2} style={{ border: '1px solid #000', borderRadius: 10, margin: '0 auto' }}>
             <Typography variant="subtitle">
-              <strong>Referencia: </strong>
+              <strong>Bruto: </strong>
             </Typography>
 
             <input
@@ -94,7 +95,7 @@ export default function Finanzas(props) {
                 border: 0,
                 outline: 0,
                 fontSize: 16,
-                color: '#808080',
+                color: grey[700],
                 textAlign: 'right'
               }}
               type="number"
@@ -113,7 +114,7 @@ export default function Finanzas(props) {
               Referencia<br />
               Líquido:
             </Typography>
-            <Typography variant="subtitle" color="textSecondary" style={{ marginRight: 'auto', marginLeft: 8 }}>
+            <Typography variant="subtitle" color={grey[700]} style={{ marginRight: 'auto', marginLeft: 8 }}>
               ${getLiquido(props.values.medianas)}
             </Typography>
           </Box>
@@ -122,15 +123,15 @@ export default function Finanzas(props) {
 
       <Grid item container md={12} justifyContent="space-around" alignItems="center">
         <Grid item md={3}>
-          <Typography color="textSecondary" variant="subtitle">
+          <Typography color={grey[700]} variant="subtitle">
             Condiciones menos favorables
           </Typography>
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item>
           <Box display="flex" alignItems="center" p={2} style={{ border: '1px solid #000', borderRadius: 10, margin: '0 auto' }}>
             <Typography variant="subtitle">
-              <strong>Referencia: </strong>
+              <strong>Bruto: </strong>
             </Typography>
 
             <input
@@ -140,7 +141,7 @@ export default function Finanzas(props) {
                 border: 0,
                 outline: 0,
                 fontSize: 16,
-                color: '#808080',
+                color: grey[700],
                 textAlign: 'right'
               }}
               type="number"
@@ -159,7 +160,7 @@ export default function Finanzas(props) {
               Referencia<br />
               Líquido:
             </Typography>
-            <Typography variant="subtitle" color="textSecondary" style={{ marginRight: 'auto', marginLeft: 8 }}>
+            <Typography variant="subtitle" color={grey[700]} style={{ marginRight: 'auto', marginLeft: 8 }}>
               ${getLiquido(props.values.menosFavorable)}
             </Typography>
           </Box>
