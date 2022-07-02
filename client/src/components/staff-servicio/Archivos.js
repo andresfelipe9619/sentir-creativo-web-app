@@ -119,19 +119,18 @@ export default function Archivos(props) {
             onClick={() => setActiveTab(0)}>
             Fotografía de Portada
           </Box>
-          {data.length > 0 && (
-            <Box
-              px={2}
-              py={.5}
-              bgcolor={activeTab === 1 ? 'primary.main' : 'gray'}
-              style={{
-                color: 'white',
-                cursor: 'pointer'
-              }}
-              onClick={() => setActiveTab(1)}>
-              Fotografía detalle
-            </Box>
-          )}
+
+          <Box
+            px={2}
+            py={.5}
+            bgcolor={activeTab === 1 ? 'primary.main' : 'gray'}
+            style={{
+              color: 'white',
+              cursor: 'pointer'
+            }}
+            onClick={() => setActiveTab(1)}>
+            Fotografía detalle
+          </Box>
         </Box>
         {activeTab === 0 && (
           <Box bgcolor="#8080801f" p={3}>
@@ -165,7 +164,11 @@ export default function Archivos(props) {
         {activeTab === 1 && (
           <Box bgcolor="#8080801f" p={3}>
             <Typography variant="subtitle" gutterBottom paragraph>
-            En ésta sección puedes subir fotografías relacionadas al servicio que subes, en ejecución, del público, materiales, instrumentos o de los resultados. Pueden tener un tamaño más bajo.
+              En ésta sección puedes subir fotografías relacionadas al servicio que subes, en ejecución, del público, materiales, instrumentos o de los resultados. Pueden tener un tamaño más bajo, pero intenta mantener la calidad, ya que serán también utilizadas en futuras secciones o en campañas de difusión.
+            </Typography>
+
+            <Typography variant="subtitle" gutterBottom paragraph>
+              Si en la sección anterior no pudiste subir la Fotografía de Portada, porque no tienen los requerimientos ideales, tendrás que subir todo en ésta sección. Nosotros haremos lo posible para optimizar las imágenes.
             </Typography>
 
             <input
@@ -229,7 +232,10 @@ export default function Archivos(props) {
 
             <TableBody>
               {data.map((x, i) => {
-                const rowStyle = { backgroundColor: '#80808033', border: '1px solid #80808054' };
+                const rowStyle = {
+                  backgroundColor: '#80808033',
+                  border: '1px solid #80808054'
+                };
 
                 return (
                   <StyledTableRow key={i}>
@@ -260,10 +266,9 @@ export default function Archivos(props) {
                       />
                     </TableCell>
                     <TableCell>
-                      {i > 0 && (<IconButton onClick={() => handleDelete(i)}>
+                      <IconButton onClick={() => handleDelete(i)}>
                         <DeleteIcon />
                       </IconButton>
-                      )}
                     </TableCell>
                   </StyledTableRow>
                 );
