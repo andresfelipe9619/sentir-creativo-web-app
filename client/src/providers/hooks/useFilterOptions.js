@@ -63,7 +63,7 @@ function findUniqueOptions(items, filters2use) {
       let currentOptions = {};
       if (isArray) {
         currentOptions = (value || [])
-          .filter((t) => !hasProperty([t.id]))
+          .filter((t) => t && !hasProperty([t.id]))
           .reduce(
             (accT, t) => ({ ...accT, [t.id]: t.nombre || t.codigo }),
             accumulatedFilter

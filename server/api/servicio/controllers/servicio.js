@@ -4,6 +4,7 @@ const populate = [
   'area',
   'tags',
   'stafs',
+  'stafs.ciudad',
   'estado',
   'propositos',
   'notas',
@@ -16,6 +17,7 @@ const populate = [
   'ocasions',
   'archivos',
   'condicions',
+  'proyectos',
   'tecnica_artisticas',
   'archivos.tipo_archivo',
   'comentarios.userId'

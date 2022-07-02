@@ -36,6 +36,7 @@ const populate = [
   'ciudad',
   'documentoIdentidad',
   'proyectos',
+  'proyectos.estado_proyecto',
   'intereses',
   'tags',
   'comentarios.userId',
