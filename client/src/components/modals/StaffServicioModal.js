@@ -34,7 +34,7 @@ const fieldsByStep = [
   ['duracionMinima', 'duracionMaxima', 'sesionesMinimo', 'sesionesMaximas'],
   ['publicoObjetivo.3', 'minimoParticipantes', 'maximoParticipantes', 'ocasiones.3'],
   ['masFavorable', 'medianas', 'menosFavorable'],
-  ['archivos', 'accept1'],
+  ['archivos.1', 'accept1'],
   ['accept2', 'accept3', 'accept4']
 ];
 

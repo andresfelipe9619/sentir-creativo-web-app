@@ -12,6 +12,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -21,14 +23,15 @@ const StyledTableRow = withStyles((theme) => ({
 
 export default function Archivos(props) {
   const [data, setData] = useState(props?.values?.archivos || []);
+  const [activeTab, setActiveTab] = useState(0);
   const { openAlert } = useAlertDispatch();
 
-  const handleUpload = ({ target }) => {
+  const handleUpload = ({ target }, tipo = 0) => {
+
     if (!target?.files?.length) {
       return;
     }
 
-    const tipo = data.length < 1 ? 28 : 45;
     const file = target.files[0];
     target.value = '';
     const fileReader = new FileReader();
@@ -38,7 +41,7 @@ export default function Archivos(props) {
 
       img.onload = () => {
         const dimensions = [img.width, img.height];
-        if (dimensions[0] < 2560 || dimensions[1] < 1706) {
+        if (tipo === 28 && (dimensions[0] < 2560 || dimensions[1] < 1706)) {
           openAlert({
             variant: "error",
             message: "Debe colocar una imagen con tamaño adecuado",
@@ -56,11 +59,18 @@ export default function Archivos(props) {
           ajuste: false
         };
 
-        console.log(item)
+        let items = [...data];
 
-        const event = { target: { name: 'archivos', value: [...data, item] } };
+        const indexPortada = data.findIndex(x => x.tipo === 28);
+        if (tipo === 28 && indexPortada > -1) {
+          items.splice(indexPortada, 1, item);
+        } else {
+          items = [...items, item];
+        }
+
+        const event = { target: { name: 'archivos', value: items } };
         props.handleChange(event);
-        setData([...data, item]);
+        setData(items);
       };
 
       img.src = fileReader.result;
@@ -74,6 +84,13 @@ export default function Archivos(props) {
     item.ajuste = !item.ajuste;
     const items = [...data];
     items.splice(index, 1, item);
+    setData(items);
+  }
+
+  const handleDelete = (index = 0) => {
+    const items = data.filter((_, i) => i !== index);
+    const event = { target: { name: 'archivos', value: items } };
+    props.handleChange(event);
     setData(items);
   }
 
@@ -91,58 +108,106 @@ export default function Archivos(props) {
 
       <Grid item md={8}>
         <Box display="flex">
-          <Box px={2} py={.5} bgcolor="primary.main" style={{ color: 'white' }}>
+          <Box
+            px={2}
+            py={.5}
+            bgcolor="primary.main"
+            style={{
+              color: 'white',
+              cursor: 'pointer'
+            }}
+            onClick={() => setActiveTab(0)}>
             Fotografía de Portada
           </Box>
-          <Box px={2} py={.5} bgcolor="gray" style={{ color: 'white' }}>
-            Fotografía detalle
-          </Box>
-          <Box px={2} py={.5} bgcolor="#808080c2" style={{ color: 'white' }}>
-            Video
-          </Box>
+          {data.length > 0 && (
+            <Box
+              px={2}
+              py={.5}
+              bgcolor="gray"
+              style={{
+                color: 'white',
+                cursor: 'pointer'
+              }}
+              onClick={() => setActiveTab(1)}>
+              Fotografía detalle
+            </Box>
+          )}
         </Box>
-        <Box bgcolor="#8080801f" p={3}>
-          <Typography variant="subtitle" gutterBottom paragraph>
-            Es la fotografía principal de la experiencia, se utilizará en catálogo, colecciones, en la
-            confeccción del Dossier, en ventas y en campañas de difusión. Por lo tanto le
-            sugerimos que sea muy representativa de su trabajo
+        {activeTab === 0 && (
+          <Box bgcolor="#8080801f" p={3}>
+            <Typography variant="subtitle" gutterBottom paragraph>
+              Es la fotografía principal de la experiencia, se utilizará en catálogo, colecciones, en la
+              confeccción del Dossier, en ventas y en campañas de difusión. Por lo tanto le
+              sugerimos que sea muy representativa de su trabajo
+            </Typography>
+
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="contained-button-file"
+              type="file"
+              onChange={(e) => handleUpload(e, 28)}
+            />
+
+            <label htmlFor="contained-button-file">
+              <Button
+                color="primary"
+                variant="contained"
+                style={{ marginTop: 16 }}
+                component="span"
+              >
+                Subir
+              </Button>
+            </label>
+          </Box>
+        )}
+
+        {activeTab === 1 && (
+          <Box bgcolor="#8080801f" p={3}>
+            <Typography variant="subtitle" gutterBottom paragraph>
+              Es la fotografía principal de la experiencia, se utilizará en catálogo, colecciones, en la
+              confeccción del Dossier, en ventas y en campañas de difusión. Por lo tanto le
+              sugerimos que sea muy representativa de su trabajo
+            </Typography>
+
+            <input
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="contained-button-file"
+              type="file"
+              multiple
+              onChange={(e) => handleUpload(e, 45)}
+            />
+
+            <label htmlFor="contained-button-file">
+              <Button
+                color="primary"
+                variant="contained"
+                style={{ marginTop: 16 }}
+                component="span"
+              >
+                Subir
+              </Button>
+            </label>
+          </Box>
+        )}
+      </Grid>
+
+      {activeTab === 0 && (
+        <Grid item md={4} style={{ alignSelf: "center" }}>
+          <Typography variant="subtitle">
+            <strong>Requerimientos ideales:</strong><br />
           </Typography>
 
-          <input
-            accept="image/*"
-            style={{ display: 'none' }}
-            id="contained-button-file"
-            type="file"
-            multiple
-            onChange={handleUpload}
-          />
+          <Typography variant="subtitle">
+            Tamaño: 2560px x 1706px<br />
+          </Typography>
 
-          <label htmlFor="contained-button-file">
-            <Button
-              color="primary"
-              variant="contained"
-              style={{ marginTop: 16 }}
-              component="span"
-            >
-              Subir
-            </Button>
-          </label>
-        </Box>
-      </Grid>
-
-      <Grid item md={4} style={{ alignSelf: "center" }}>
-        <Typography variant="subtitle">
-          <strong>Requerimientos ideales:</strong><br />
-        </Typography>
-
-        <Typography variant="subtitle">
-          Tamaño: 2560px x 1706px<br />
-        </Typography>
-
-        <Typography variant="subtitle">
-          Formato: Raw, CR2, jpeg.
-        </Typography>
-      </Grid>
+          <Typography variant="subtitle">
+            Formato: Raw, CR2, jpeg.
+          </Typography>
+        </Grid>
+      )}
 
       <Grid item md={12}>
         <Typography variant="h6" gutterBottom>
@@ -160,6 +225,7 @@ export default function Archivos(props) {
                 <TableCell style={{ color: '#a00' }}>
                   ¿Requiere ajustes?
                 </TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
 
@@ -194,6 +260,12 @@ export default function Archivos(props) {
                         control={<Checkbox checked={x?.ajuste} onChange={() => handleAjustar(i)} />}
                         label="Sí"
                       />
+                    </TableCell>
+                    <TableCell>
+                      {i > 0 && (<IconButton onClick={() => handleDelete(i)}>
+                        <DeleteIcon />
+                      </IconButton>
+                      )}
                     </TableCell>
                   </StyledTableRow>
                 );

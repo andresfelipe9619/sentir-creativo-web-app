@@ -31,7 +31,7 @@ export default function ArtistTech2(props) {
       </Grid>
       {artistsTech2Columns.slice(0, 2).map((item, i) => <FormItem key={i} item={item} {...props} dependencies={{ horarios }} />)}
 
-      <Grid item md={12}>
+      <Grid item md={12} style={{ marginTop: 24 }}>
         <Typography>
           Cantidad de sesiones:
 
@@ -42,7 +42,7 @@ export default function ArtistTech2(props) {
       </Grid>
       {artistsTech2Columns.slice(2, 4).map((item, i) => <FormItem key={i} item={item} {...props} />)}
 
-      <Grid item md={12}>
+      <Grid item md={12} style={{ marginTop: 24 }}>
         <Typography gutterBottom>Duración en montaje y desmontaje, si lo hubiere:</Typography>
       </Grid>
       {artistsTech2Columns.slice(4).map((item, i) => <FormItem key={i} item={item} {...props} dependencies={{ horarios }} />)}

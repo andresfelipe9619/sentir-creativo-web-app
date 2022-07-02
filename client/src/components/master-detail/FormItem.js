@@ -16,7 +16,6 @@ import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Chip from "@material-ui/core/Chip";
-import Input from "@material-ui/core/Input";
 import Tags from "../tags/Tags";
 import Files from "../files/Files";
 import MuiPhoneNumber from "material-ui-phone-number";
@@ -221,14 +220,6 @@ export default function FormItem(props) {
           disabled={isSubmitting}
           value={value || []}
           onChange={handleChange}
-          input={
-            <Input
-              variant="outlined"
-              disabled={isSubmitting}
-              id={`select-multiple-${key}`}
-              aria-label={item.label}
-            />
-          }
           renderValue={(selected) => {
             const items = selected.map((id) =>
               options.find((o) => o.value === id)

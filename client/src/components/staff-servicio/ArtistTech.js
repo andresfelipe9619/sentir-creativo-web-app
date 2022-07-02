@@ -37,9 +37,11 @@ export default function ArtistTech(props) {
       </Grid>
 
       {artistsTechColumns.map((item, i) => (
-        <Grid item md={12} key={i}>
+        <Grid item md={12} key={i} style={{ marginBottom: 24 }}>
           <Box display="flex" flexDirection="column">
-            <Typography gutterBottom>{labels[i]}</Typography>
+            <Typography style={{ marginBottom: 24 }}>
+              {labels[i]}
+            </Typography>
             <FormItem item={item} {...props} dependencies={dependencies} />
           </Box>
         </Grid>

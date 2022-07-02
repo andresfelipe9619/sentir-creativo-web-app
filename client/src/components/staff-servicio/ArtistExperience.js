@@ -1,7 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {
-  artistExperienceColumns} from "../modals/schema";
+import { artistExperienceColumns } from "../modals/schema";
 import FormItem from "../master-detail/FormItem";
 
 export default function ArtistExperience(props) {
