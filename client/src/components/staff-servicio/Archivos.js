@@ -111,7 +111,7 @@ export default function Archivos(props) {
           <Box
             px={2}
             py={.5}
-            bgcolor="primary.main"
+            bgcolor={activeTab === 0 ? 'primary.main' : 'gray'}
             style={{
               color: 'white',
               cursor: 'pointer'
@@ -123,7 +123,7 @@ export default function Archivos(props) {
             <Box
               px={2}
               py={.5}
-              bgcolor="gray"
+              bgcolor={activeTab === 1 ? 'primary.main' : 'gray'}
               style={{
                 color: 'white',
                 cursor: 'pointer'
@@ -138,7 +138,7 @@ export default function Archivos(props) {
             <Typography variant="subtitle" gutterBottom paragraph>
               Es la fotografía principal de la experiencia, se utilizará en catálogo, colecciones, en la
               confeccción del Dossier, en ventas y en campañas de difusión. Por lo tanto le
-              sugerimos que sea muy representativa de su trabajo
+              sugerimos que sea muy representativa de su trabajo.
             </Typography>
 
             <input
@@ -165,9 +165,7 @@ export default function Archivos(props) {
         {activeTab === 1 && (
           <Box bgcolor="#8080801f" p={3}>
             <Typography variant="subtitle" gutterBottom paragraph>
-              Es la fotografía principal de la experiencia, se utilizará en catálogo, colecciones, en la
-              confeccción del Dossier, en ventas y en campañas de difusión. Por lo tanto le
-              sugerimos que sea muy representativa de su trabajo
+            En ésta sección puedes subir fotografías relacionadas al servicio que subes, en ejecución, del público, materiales, instrumentos o de los resultados. Pueden tener un tamaño más bajo.
             </Typography>
 
             <input
