@@ -23,7 +23,7 @@ export default function ArtistExperience(props) {
 
       <Grid item md={12}>
         <Typography gutterBottom>
-          Ésta convocatoria estará disponible hasta el 30 de Junio 2022
+          Ésta convocatoria estará disponible hasta el 31 de Julio 2022
         </Typography>
       </Grid>
     </Grid>

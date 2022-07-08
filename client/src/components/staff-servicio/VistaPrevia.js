@@ -14,7 +14,7 @@ export default function VistaPrevia(props) {
     area: storagesDeeps.Area?.find(x => x.id === props.values.area.id),
     tags: props.values.tags?.map(x => mapWithName(storagesDeeps.Tag?.find(y => y.value === x))),
     sintesis: props.values.sintesis,
-    archivos: [{ path: props.values.archivos[0].img.src }],
+    archivos: [{ path: props.values.archivos?.find(x => x.tipo === 28)?.img?.src || 'https://sentircreativo.s3.us-east-2.amazonaws.com/images/defaultImageServicio.jpg' }],
     ocasions: props.values.ocasiones?.map(x => mapWithName(storagesDeeps.Ocasion?.find(y => y.value === x))),
     nombre: props.values.servicioNombre,
     tecnica_artisticas: props.values.tecnicasArtisticas?.map(x => mapWithName(storagesDeeps.TecnicaArtistica?.find(y => y.value === x))),
