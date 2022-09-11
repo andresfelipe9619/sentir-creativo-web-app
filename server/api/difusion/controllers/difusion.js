@@ -29,7 +29,7 @@ module.exports = {
 
     return entities.map(entity =>
       sanitizeEntity(entity, { model: strapi.models.difusion })
-    )
+    );
   },
   async findOne(ctx) {
     const { id } = ctx.params;
