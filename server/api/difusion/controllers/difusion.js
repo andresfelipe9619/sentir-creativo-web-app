@@ -15,7 +15,8 @@ const populate = [
   'updated_at',
   'plataforma',
   'cuponDescuento',
-  'audiencias.organizacion'
+  'audiencias.organizacion',
+  'audiencias.bitacoras'
 ];
 
 module.exports = {
