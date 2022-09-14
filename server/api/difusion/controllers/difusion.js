@@ -20,7 +20,8 @@ const populate = [
   'audiencias.organizacion.rubro.tipo_rubro',
   'audiencias.bitacoras',
   'audiencias.prefijo',
-  'audiencias.notas'
+  'audiencias.notas',
+  'audiencias.intereses'
 ];
 
 module.exports = {
