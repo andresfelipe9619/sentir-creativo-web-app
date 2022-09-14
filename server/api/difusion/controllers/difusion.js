@@ -16,7 +16,11 @@ const populate = [
   'plataforma',
   'cuponDescuento',
   'audiencias.organizacion',
-  'audiencias.bitacoras'
+  'audiencias.organizacion.rubro',
+  'audiencias.organizacion.rubro.tipo_rubro',
+  'audiencias.bitacoras',
+  'audiencias.prefijo',
+  'audiencias.notas'
 ];
 
 module.exports = {
