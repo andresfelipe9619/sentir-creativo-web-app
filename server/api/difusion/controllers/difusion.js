@@ -21,7 +21,17 @@ const populate = [
   'audiencias.bitacoras',
   'audiencias.prefijo',
   'audiencias.notas',
-  'audiencias.intereses'
+  'audiencias.intereses',
+  'audiencias.antiguedad',
+  'audiencias.cercania',
+  'audiencias.motivacion',
+  'audiencias.proyectos.tipo_proyecto',
+  'audiencias.proyectos.publico_objetivos',
+  'audiencias.proyectos.estado_proyecto',
+  'audiencias.proyectos.formatos',
+  'audiencias.proyectos.archivos',
+  'audiencias.proyectos.servicios',
+  'audiencias.archivos.tipo_archivo'
 ];
 
 module.exports = {
