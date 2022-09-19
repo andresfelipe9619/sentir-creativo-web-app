@@ -59,7 +59,7 @@ module.exports = {
     const entity = await strapi.services.difusion.findOne({ id });
     const ids = entity.audiencias.map(({ id }) => id);
     audiencias = audiencias.filter(x => !ids.includes(x));
-    audiencias = await Promise.all([...ids, ...audiencias].map(id => strapi.services.audiencia.findOne({ id })))
+    audiencias = await Promise.all([...ids, ...audiencias].map(id => strapi.services.audiencia.findOne({ id })));
     const result = await strapi.services.difusion.update({id}, { audiencias });
     return result;
   }
