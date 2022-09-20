@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/difusions/:id/audiencias",
+      "handler": "difusion.addAudiencias",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
