@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "emailings",
+  "info": {
+    "name": "Emailing",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string"
+    },
+    "Asunto": {
+      "type": "string"
+    },
+    "prioridad": {
+      "model": "prioridad"
+    },
+    "archivos": {
+      "collection": "archivo"
+    },
+    "utm": {
+      "type": "string"
+    },
+    "saludos": {
+      "collection": "saludo"
+    },
+    "contenido": {
+      "type": "text"
+    }
+  }
+}

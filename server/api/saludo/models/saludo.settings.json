@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "saludos",
+  "info": {
+    "name": "Saludo",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcion": {
+      "type": "text"
+    }
+  }
+}
