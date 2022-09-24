@@ -1,16 +1,17 @@
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import Chip from "@material-ui/core/Chip";
-import Typography from "@material-ui/core/Typography";
-import { formatDate } from "../../utils";
-import DialogButton from "../buttons/DialogButton";
+import Chip from '@material-ui/core/Chip';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+
+import { formatDate } from '../../utils';
+import DialogButton from '../buttons/DialogButton';
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
@@ -49,7 +50,7 @@ export default function BitacoraTable({ data = [], title = "Bitácoras", remove,
           <StyledTableRow key={x.id}>
             <TableCell>
               <Chip
-                label={formatDate(x.created_at, false)}
+                label={formatDate(new Date(x.fecha) || x.created_at, false)}
                 className={classes.chip}
               />
             </TableCell>

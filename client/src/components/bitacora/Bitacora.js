@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { useParams } from "react-router";
-import IconButton from "@material-ui/core/IconButton";
-import Icon from "@material-ui/core/Icon";
-import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
-import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import BitacoraTable from "./BitacoraTable";
-import CreateEntity from "../modals/CreateEntity";
-import API from "../../api";
-import { useAlertDispatch } from "../../providers/context/Alert";
-import { customBodyRender } from "../master-detail/MasterDetail";
+import Box from '@material-ui/core/Box';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import React, { useState } from 'react';
+import { useParams } from 'react-router';
+
+import API from '../../api';
+import { useAlertDispatch } from '../../providers/context/Alert';
+import { customBodyRender } from '../master-detail/MasterDetail';
+import CreateEntity from '../modals/CreateEntity';
+import BitacoraTable from './BitacoraTable';
 
 // TODO: Move to Bitacora section if there will be exists
 const columns = [
@@ -39,6 +40,20 @@ const columns = [
       size: 4,
       type: "select",
       dependency: "vias",
+      required: true
+    },
+  },
+  {
+    name: "fecha",
+    label: "Fecha",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 4,
+      type: "date",
       required: true
     },
   },
