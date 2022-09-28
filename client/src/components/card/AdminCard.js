@@ -1,27 +1,28 @@
-import React, { memo, useState } from "react";
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Button from "@material-ui/core/Button";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Collapse from "@material-ui/core/Collapse";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import clsx from "clsx";
-import { Chip, Tooltip } from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableRow from "@material-ui/core/TableRow";
-import { withStyles } from "@material-ui/core/styles";
-import useStyles from "./styles";
-import { grey } from "@material-ui/core/colors";
-import CopyClipboard from "../clipboard";
+import { Chip, Tooltip } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Collapse from '@material-ui/core/Collapse';
+import { grey } from '@material-ui/core/colors';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+import React, { memo, useState } from 'react';
+
+import CopyClipboard from '../clipboard';
+import useStyles from './styles';
 
 function AdminCard({
   id,
@@ -96,7 +97,7 @@ function AdminCard({
             </Typography>
           </Box>
         )}
-        {renderContent && (
+        {/* {renderContent && (
           <Box
             alignItems="center"
             display="flex"
@@ -106,7 +107,7 @@ function AdminCard({
           >
             {renderContent()}
           </Box>
-        )}
+        )} */}
         <Box
           alignItems="center"
           bgcolor={cardColor}

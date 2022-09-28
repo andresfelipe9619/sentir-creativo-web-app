@@ -1,11 +1,12 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from "react-router-dom";
-import { Route } from "react-router";
-import Box from "@material-ui/core/Box";
-import { DashboardRoutes } from "../../router/router.config";
+import Box from '@material-ui/core/Box';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { Route } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
+
+import { DashboardRoutes } from '../../router/router.config';
 
 const LinkRouter = (props) => <Link {...props} component={RouterLink} />;
 
@@ -40,9 +41,9 @@ export default function CustomBreadcrumbs() {
             separator="›"
             className={classes.root}
           >
-            <LinkRouter color="inherit" to="/" className={classes.link}>
+            <span color="inherit" className={classes.link}>
               Administración
-            </LinkRouter>
+            </span>
 
             {pathnames.map((value, index) => {
               const last = index === pathnames.length - 1;

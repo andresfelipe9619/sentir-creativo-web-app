@@ -37,6 +37,9 @@
     },
     "via": {
       "type": "string"
+    },
+    "fecha": {
+      "type": "datetime"
     }
   }
 }

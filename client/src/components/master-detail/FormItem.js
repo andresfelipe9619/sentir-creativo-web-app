@@ -1,30 +1,29 @@
-import "date-fns";
-import PropTypes from "prop-types";
-import React from "react";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDateTimePicker,
-} from "@material-ui/pickers";
-import esLocale from "date-fns/locale/es";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import Chip from "@material-ui/core/Chip";
-import Tags from "../tags/Tags";
-import Files from "../files/Files";
-import MuiPhoneNumber from "material-ui-phone-number";
-import Bitacora from "../bitacora/Bitacora";
-import Upload from "../files/Upload";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Comments from "../commets";
-import CitySelect from "../city-select/CitySelect";
-import { FormControlLabel, Switch } from "@material-ui/core";
+import 'date-fns';
+
+import DateFnsUtils from '@date-io/date-fns';
+import { FormControlLabel, Switch } from '@material-ui/core';
+import Chip from '@material-ui/core/Chip';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import esLocale from 'date-fns/locale/es';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import PropTypes from 'prop-types';
+import React from 'react';
+
+import Bitacora from '../bitacora/Bitacora';
+import CitySelect from '../city-select/CitySelect';
+import Comments from '../commets';
+import Files from '../files/Files';
+import Upload from '../files/Upload';
+import Tags from '../tags/Tags';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
