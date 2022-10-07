@@ -1,13 +1,13 @@
-import { lazy } from "react";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import ArchiveIcon from "@material-ui/icons/Archive";
-import LabelIcon from "@material-ui/icons/Label";
-import BusinessIcon from "@material-ui/icons/Business";
-import HailIcon from "@mui/icons-material/Hail";
-import WorkIcon from "@mui/icons-material/Work";
-import SurfingIcon from "@mui/icons-material/Surfing";
-import BoltIcon from "@mui/icons-material/Bolt";
+import ArchiveIcon from '@material-ui/icons/Archive';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import BusinessIcon from '@material-ui/icons/Business';
+import LabelIcon from '@material-ui/icons/Label';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import BoltIcon from '@mui/icons-material/Bolt';
+import HailIcon from '@mui/icons-material/Hail';
+import SurfingIcon from '@mui/icons-material/Surfing';
+import WorkIcon from '@mui/icons-material/Work';
+import { lazy } from 'react';
 
 const Home = lazy(() => import(/* webpackChunkName: "home" */ "../pages/Home"));
 const Areas = lazy(() =>
@@ -59,6 +59,7 @@ export const DashboardRoutes = [
   { path: "/admin/colecciones", name: "Colecciones", icon: LabelIcon },
   { path: "/admin/reportes", name: "Reportes", icon: BarChartIcon },
   { path: "/admin/tareas", name: "Tareas", icon: BoltIcon, color: "#00a3bc" },
+  { path: "/admin/difusion", name: "Difusion", icon: BoltIcon, color: "#00a3bc" },
 ];
 
 const RouterConfig = [

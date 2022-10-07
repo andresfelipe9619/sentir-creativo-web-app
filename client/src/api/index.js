@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const server = axios.create({
   baseURL: process.env.REACT_APP_API_ROOT,
@@ -152,6 +152,8 @@ const Sprint = Factory("sprints");
 
 const Trayectoria = Factory("trayectorias");
 
+const Plataforma = Factory("plataformas");
+
 const API = {
   Acuerdo,
   Antiguedad,
@@ -199,7 +201,8 @@ const API = {
   EstadoTarea,
   TipoTarea,
   Sprint,
-  Trayectoria
+  Trayectoria,
+  Plataforma
 };
 
 export default API;
