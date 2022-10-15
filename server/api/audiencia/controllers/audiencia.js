@@ -130,5 +130,13 @@ module.exports = {
       collection: 'audiencia'
     })
     return result
+  },
+  async updateOrganizacion(ctx) {
+    const { request, params } = ctx;
+    const { id } = params;
+    const { body } = request;
+    const organizacion = await strapi.services.organizacion.findOne({ id: body.organizacionId });
+    const result = await strapi.services.audiencia.update({id}, { organizacion });
+    return result;
   }
 }

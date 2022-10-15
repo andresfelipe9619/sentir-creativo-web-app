@@ -49,6 +49,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/audiencias/:id/organizaciones",
+      "handler": "audiencia.updateOrganizacion",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/audiencias/:id",
       "handler": "audiencia.update",

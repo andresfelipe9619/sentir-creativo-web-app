@@ -4,7 +4,6 @@ import DateFnsUtils from '@date-io/date-fns';
 import { FormControlLabel, Switch } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -180,32 +179,29 @@ export default function FormItem(props) {
       />
     ),
     select: canRender("select") && (
-      <FormControl
-        fullWidth
-        variant="outlined"
-        required={fieldProps.required}
-        error={!!errors[key]}
-      >
-        <InputLabel id={`${key}-label`}>{item.label}</InputLabel>
-        <Select
-          labelId={`${key}-label`}
-          id={key}
-          name={key}
-          label={item.label}
-          disabled={isSubmitting}
-          value={value || ""}
-          onChange={handleChange}
-        >
-          {options.map((d, i) => (
-            <MenuItem key={i} value={d.value}>
-              {d.label}
-            </MenuItem>
-          ))}
-        </Select>
-        <FormHelperText>
-          {!!touched[key] && errors[key] ? errors[key] : ""}
-        </FormHelperText>
-      </FormControl>
+      <Autocomplete
+        disablePortal
+        id={key}
+        key={key}
+        options={options.map((option) => option.value)}
+        onChange={handleChange}
+        value={value}
+        getOptionLabel={(option) => options.find(x => x.value === option).label}
+        renderInput={(params) => (
+          <TextField
+            fullWidth
+            key={key}
+            label={item.label}
+            disabled={isSubmitting}
+            onBlur={handleBlur}
+            error={!!touched[key] && !!errors[key]}
+            variant="outlined"
+            helperText={!!touched[key] && errors[key] ? errors[key] : ""}
+            {...params}
+            {...fieldProps}
+          />
+        )}
+      />
     ),
     multiselect: canRender("multiselect") && (
       <FormControl fullWidth variant="outlined" required={fieldProps.required}>

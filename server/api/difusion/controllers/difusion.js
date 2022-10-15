@@ -31,7 +31,8 @@ const populate = [
   'audiencias.proyectos.formatos',
   'audiencias.proyectos.archivos',
   'audiencias.proyectos.servicios',
-  'audiencias.archivos.tipo_archivo'
+  'audiencias.archivos.tipo_archivo',
+  'coleccion'
 ];
 
 module.exports = {

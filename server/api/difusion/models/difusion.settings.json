@@ -29,6 +29,9 @@
     },
     "cuponDescuento": {
       "model": "cupon-descuento"
+    },
+    "coleccion": {
+      "model": "coleccion"
     }
   }
 }

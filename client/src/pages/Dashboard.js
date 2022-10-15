@@ -13,6 +13,7 @@ import Archivos from "../components/dashboard/archivos/Archivos";
 import Tags from "../components/dashboard/tag/Tags";
 import Organizaciones from "../components/dashboard/organizacion/Organizaciones";
 import Tareas from "../components/dashboard/tarea/Tareas";
+import Difusion from "../components/dashboard/difusion/Difusion";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -54,6 +55,7 @@ export default function Dashboard(props) {
     },
     { path: "/tags", render: (routerProps) => <Tags {...routerProps} /> },
     { path: "/tareas", render: (routerProps) => <Tareas {...routerProps} /> },
+    { path: "/difusion", render: (routerProps) => <Difusion {...routerProps} /> },
   ];
   return (
     <Box className={classes.container}>
