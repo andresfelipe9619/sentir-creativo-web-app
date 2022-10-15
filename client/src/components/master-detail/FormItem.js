@@ -184,9 +184,13 @@ export default function FormItem(props) {
         id={key}
         key={key}
         options={options.map((option) => option.value)}
-        onChange={handleChange}
-        value={value}
-        getOptionLabel={(option) => options.find(x => x.value === option).label}
+        value={value || ""}
+        onChange={(e) => {
+          const value = options.find(x => x.label === e.target.innerText)?.value;
+          const event = { target: { name: key, value } };
+          return handleChange(event);
+        }}
+        getOptionLabel={(option) => options.find(x => x.value === option)?.label || ''}
         renderInput={(params) => (
           <TextField
             fullWidth
