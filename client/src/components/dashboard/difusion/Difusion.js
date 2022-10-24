@@ -70,6 +70,19 @@ const columns = [
       dependency: "Coleccion",
     },
   },
+  {
+    name: "audiencias",
+    label: "Audiencias",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender()
+    },
+    form: {
+      size: 12,
+      type: "audiencia"
+    },
+  }
 ];
 
 export default function Servicios() {

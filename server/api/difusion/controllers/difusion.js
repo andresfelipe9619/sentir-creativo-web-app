@@ -16,6 +16,7 @@ const populate = [
   'plataforma',
   'cuponDescuento',
   'audiencias.organizacion',
+  'audiencias.estado.nombre',
   'audiencias.organizacion.rubro',
   'audiencias.organizacion.rubro.tipo_rubro',
   'audiencias.bitacoras',

@@ -22,6 +22,7 @@ export default function MasterDetail({
   renderMaster,
   service,
   toggle,
+  DetailCpm = Detail
 }) {
   const match = useRouteMatch();
   const history = useHistory();
@@ -92,7 +93,7 @@ export default function MasterDetail({
           <Route
             path={detailPath}
             render={(props) => (
-              <Detail
+              <DetailCpm
                 {...detailProps}
                 {...props}
                 service={service}

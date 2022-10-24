@@ -14,6 +14,7 @@ export default function Proyectos() {
       masterProps={detail}
       detailProps={detail}
       service="Proyecto"
+      // DetailCpm={Detail}
       renderMaster={({ data, loading }) => (
         <PaginatedCards
           data={data}

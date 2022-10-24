@@ -14,6 +14,7 @@ const populate = [
   'email',
   'celular',
   'organizacion',
+  'organizacion.rubro.nombre',
   'departamento',
   'cargo',
   'antiguedad',
