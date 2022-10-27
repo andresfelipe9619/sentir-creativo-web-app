@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Bitacora from '../bitacora/Bitacora';
+import Audiencia from '../audiencia/Audencia';
 import CitySelect from '../city-select/CitySelect';
 import Comments from '../commets';
 import Files from '../files/Files';
@@ -265,6 +266,9 @@ export default function FormItem(props) {
     city: canRender("city") && <CitySelect {...props} item={item} />,
     comments: canRender("comments") && (
       <Comments data={value} {...fieldProps} {...{ parent, initParent }} />
+    ),
+    audiencia: canRender("audiencia") && (
+      <Audiencia data={value} {...fieldProps} {...{ parent, initParent }} />
     ),
   };
   return (
