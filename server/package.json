@@ -26,7 +26,7 @@
     "strapi-plugin-i18n": "3.6.9",
     "strapi-plugin-upload": "3.6.9",
     "strapi-plugin-users-permissions": "3.6.9",
-    "strapi-utils": "3.6.9"
+    "strapi-utils": "^3.6.10"
   },
   "author": {
     "name": "Andrés Suárez"
