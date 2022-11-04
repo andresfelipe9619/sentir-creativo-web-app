@@ -2,17 +2,14 @@ import { customBodyRender } from "../../master-detail/MasterDetail";
 
 const columns = [
   {
-    name: "prefijo",
-    label: "Prefijo",
+    name: "id",
+    label: "ID",
     options: {
-      filter: true,
       sort: true,
-      customBodyRender: customBodyRender(),
     },
     form: {
-      size: 2,
-      type: "select",
-      dependency: "Prefijo",
+      size: 0,
+      type: "id",
     },
   },
   {
@@ -23,7 +20,7 @@ const columns = [
       sort: true,
     },
     form: {
-      size: 5,
+      size: 6,
       type: "input",
     },
   },
@@ -35,123 +32,36 @@ const columns = [
       sort: true,
     },
     form: {
-      size: 5,
+      size: 6,
       type: "input",
     },
   },
   {
-    name: "documentoIdentidad",
-    label: "Documento de Identidad",
+    name: "created_at",
+    label: "Fecha Creacion",
     options: {
+      display: true,
       filter: true,
       sort: true,
     },
     form: {
-      size: 4,
-      type: "input",
+      size: 6,
+      type: "date",
     },
   },
   {
-    name: "email",
-    label: "Email",
+    name: "estado",
+    label: "Estado",
     options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-      required: true,
-      inputType: "email",
-    },
-  },
-  {
-    name: "email2",
-    label: "Email 2",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-      inputType: "email",
-    },
-  },
-  {
-    name: "celular",
-    label: "Celular",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-      inputType: "number",
-    },
-  },
-  {
-    name: "profesion",
-    label: "Profesion",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-    },
-  },
-  {
-    name: "impacto",
-    label: "Impacto",
-    options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
     },
     form: {
-      size: 4,
-      type: "input",
-      inputType: "number",
-    },
-  },
-  {
-    name: "cargo",
-    label: "Cargo",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-    },
-  },
-  {
-    name: "departamento",
-    label: "Departamento",
-    options: {
-      filter: true,
-      sort: true,
-    },
-    form: {
-      size: 4,
-      type: "input",
-    },
-  },
-  {
-    name: "ciudad",
-    label: "Ciudad",
-    options: {
-      filter: true,
-      sort: true,
-      customBodyRender: customBodyRender(),
-    },
-    form: {
-      size: 12,
-      type: "city",
+      size: 6,
+      type: "select",
+      dependency: "AudienceState",
     },
   },
   {
@@ -169,8 +79,49 @@ const columns = [
     },
   },
   {
-    name: "estado",
-    label: "Estado",
+    name: "celular",
+    label: "Celular",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+      inputType: "number",
+    },
+  },
+  {
+    name: "email",
+    label: "Email",
+    options: {
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+      required: true,
+      inputType: "email",
+    },
+  },
+  {
+    name: "email2",
+    label: "Email 2",
+    options: {
+      display: false,
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+      inputType: "email",
+    },
+  },
+  {
+    name: "ciudad",
+    label: "Ciudad",
     options: {
       filter: true,
       sort: true,
@@ -178,14 +129,81 @@ const columns = [
     },
     form: {
       size: 6,
-      type: "select",
-      dependency: "AudienceState",
+      type: "city",
+    },
+  },
+  {
+    name: "documentoIdentidad",
+    label: "Documento de Identidad",
+    options: {
+      display: false,
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "profesion",
+    label: "Profesion",
+    options: {
+      display: false,
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "impacto",
+    label: "Impacto",
+    options: {
+      display: false,
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 6,
+      type: "input",
+      inputType: "number",
+    },
+  },
+  {
+    name: "cargo",
+    label: "Cargo",
+    options: {
+      display: false,
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
+    },
+  },
+  {
+    name: "departamento",
+    label: "Departamento",
+    options: {
+      display: false,
+      filter: true,
+      sort: true,
+    },
+    form: {
+      size: 6,
+      type: "input",
     },
   },
   {
     name: "antiguedad",
     label: "Antiguedad",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -200,6 +218,7 @@ const columns = [
     name: "cercania",
     label: "Cercania",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -214,6 +233,7 @@ const columns = [
     name: "difusiones",
     label: "Difusiones",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -228,12 +248,13 @@ const columns = [
     name: "cuponDescuento",
     label: "Cupones Descuentos",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
     },
     form: {
-      size: 4,
+      size: 6,
       type: "multiselect",
       dependency: "CuponDescuento",
     },
@@ -242,6 +263,7 @@ const columns = [
     name: "origen",
     label: "Origen",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -256,6 +278,7 @@ const columns = [
     name: "motivacion",
     label: "Motivacion",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -306,16 +329,18 @@ const columns = [
     },
   },
   {
-    name: "created_at",
-    label: "Fecha Creacion",
+    name: "prefijo",
+    label: "Prefijo",
     options: {
-      display: true,
+      display: false,
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
-      size: 6,
-      type: "date",
+      size: 2,
+      type: "select",
+      dependency: "Prefijo",
     },
   },
 ];

@@ -79,17 +79,20 @@ export default function MasterDetail({
     handleClickRow,
     handleRowsDelete,
   };
+  console.log('dataa', data)
   return (
     <>
       {loading && <Spinner />}
       {!loading && (
         <Switch>
+          {/* Renders all the audiences */}
           <Route
             exact
             strict
             path={masterPath}
             render={(props) => <MasterView {...props} {...masterViewProps} />}
           />
+          {/* Render a specific audience */}
           <Route
             path={detailPath}
             render={(props) => (
@@ -127,6 +130,7 @@ function MasterView({
   handleRowsDelete,
   ...routerProps
 }) {
+  console.log('data', data)
   const filtersSchema = masterProps?.filters;
   const { showCards } = useFiltersState();
   const dashboardItem = useDashboard();
@@ -249,4 +253,4 @@ export function customBodyRender(type) {
   };
 }
 
-function bodyType(type, value) {}
+function bodyType(type, value) { }
