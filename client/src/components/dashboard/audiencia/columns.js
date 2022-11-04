@@ -53,7 +53,6 @@ const columns = [
     name: "estado",
     label: "Estado",
     options: {
-      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
