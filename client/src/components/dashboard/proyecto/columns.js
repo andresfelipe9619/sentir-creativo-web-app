@@ -2,6 +2,17 @@ import { customBodyRender } from "../../master-detail/MasterDetail";
 
 const columns = [
   {
+    name: "id",
+    label: "ID",
+    options: {
+      sort: true,
+    },
+    form: {
+      size: 0,
+      type: "id",
+    },
+  },
+  {
     name: "nombre",
     label: "Nombre",
     options: {
@@ -15,43 +26,58 @@ const columns = [
     },
   },
   {
-    name: "impacto",
-    label: "Impacto",
-    options: {
-      filter: true,
-      sort: false,
-    },
-    form: {
-      size: 4,
-      type: "input",
-      inputType: "number",
-    },
-  },
-  {
-    name: "avance",
-    label: "Avance",
-    options: {
-      filter: true,
-      sort: false,
-    },
-    form: {
-      size: 4,
-      type: "input",
-      inputType: "number",
-    },
-  },
-  {
     name: "tipo_proyecto",
     label: "Tipo Proyecto",
     options: {
       filter: true,
-      sort: false,
       customBodyRender: customBodyRender(),
     },
     form: {
       size: 4,
       type: "select",
       dependency: "TipoProyecto",
+    },
+  },
+  {
+    name: "servicios",
+    label: "Servicios",
+    options: {
+      filter: true,
+      sort: true,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 6,
+      type: "multiselect",
+      dependency: "Servicio",
+    },
+  },
+  {
+    name: "estado_proyecto",
+    label: "Estado",
+    options: {
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 6,
+      type: "select",
+      dependency: "EstadoProyecto",
+    },
+  },
+  {
+    name: "publico_objetivos",
+    label: "Público Objetivo",
+    options: {
+      filter: false,
+      sort: false,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 6,
+      type: "multiselect",
+      dependency: "PublicoObjetivo",
     },
   },
   {
@@ -81,6 +107,49 @@ const columns = [
     },
   },
   {
+    name: "impacto",
+    label: "Impacto",
+    options: {
+      display: false,
+      filter: true,
+      sort: false,
+    },
+    form: {
+      size: 4,
+      type: "input",
+      inputType: "number",
+    },
+  },
+  {
+    name: "avance",
+    label: "Avance",
+    options: {
+      display: false,
+      filter: true,
+      sort: false,
+    },
+    form: {
+      size: 4,
+      type: "input",
+      inputType: "number",
+    },
+  },
+  {
+    name: "tipo_proyecto",
+    label: "Tipo Proyecto",
+    options: {
+      display: false,
+      filter: true,
+      sort: false,
+      customBodyRender: customBodyRender(),
+    },
+    form: {
+      size: 4,
+      type: "select",
+      dependency: "TipoProyecto",
+    },
+  },
+  {
     name: "descripcion",
     label: "Descripcion",
     options: {
@@ -98,6 +167,7 @@ const columns = [
     name: "cupon_descuentos",
     label: "Cupones Descuentos",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -112,6 +182,7 @@ const columns = [
     name: "ciudad",
     label: "Ciudad",
     options: {
+      display: false,
       filter: true,
       sort: true,
       customBodyRender: customBodyRender(),
@@ -125,6 +196,7 @@ const columns = [
     name: "formatos",
     label: "Formatos",
     options: {
+      display: false,
       filter: true,
       sort: false,
       customBodyRender: customBodyRender(),
@@ -133,20 +205,6 @@ const columns = [
       size: 6,
       type: "multiselect",
       dependency: "Formato",
-    },
-  },
-  {
-    name: "estado_proyecto",
-    label: "Estado",
-    options: {
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender(),
-    },
-    form: {
-      size: 6,
-      type: "select",
-      dependency: "EstadoProyecto",
     },
   },
   {
@@ -176,34 +234,6 @@ const columns = [
       size: 6,
       type: "multiselect",
       dependency: "Staf",
-    },
-  },
-  {
-    name: "servicios",
-    label: "Servicios",
-    options: {
-      filter: true,
-      sort: true,
-      customBodyRender: customBodyRender(),
-    },
-    form: {
-      size: 6,
-      type: "multiselect",
-      dependency: "Servicio",
-    },
-  },
-  {
-    name: "publico_objetivos",
-    label: "Público Objetivo",
-    options: {
-      filter: false,
-      sort: false,
-      customBodyRender: customBodyRender(),
-    },
-    form: {
-      size: 6,
-      type: "multiselect",
-      dependency: "PublicoObjetivo",
     },
   },
   {
