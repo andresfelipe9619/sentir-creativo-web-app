@@ -43,6 +43,7 @@ const columns = [
       display: true,
       filter: true,
       sort: true,
+      customBodyRender: customBodyRender(),
     },
     form: {
       size: 6,

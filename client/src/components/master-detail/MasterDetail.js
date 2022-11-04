@@ -79,7 +79,6 @@ export default function MasterDetail({
     handleClickRow,
     handleRowsDelete,
   };
-  console.log('dataa', data)
   return (
     <>
       {loading && <Spinner />}
@@ -130,7 +129,6 @@ function MasterView({
   handleRowsDelete,
   ...routerProps
 }) {
-  console.log('data', data)
   const filtersSchema = masterProps?.filters;
   const { showCards } = useFiltersState();
   const dashboardItem = useDashboard();
