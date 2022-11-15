@@ -2,6 +2,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import Checkbox from '@material-ui/core/Checkbox';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
@@ -15,11 +16,13 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default function AudienciaTable({ data = [], title = "Audiencias" }) {
+export default function AudienciaTable({ data = [], title = "Audiencias", onSelected, selected }) {
+
   return (
     <Table aria-label={title + " Table"}>
       <TableHead>
         <TableRow>
+          <TableCell></TableCell>
           <TableCell>Id</TableCell>
           <TableCell>Nombre</TableCell>
           <TableCell>Estado</TableCell>
@@ -31,8 +34,11 @@ export default function AudienciaTable({ data = [], title = "Audiencias" }) {
       </TableHead>
 
       <TableBody>
-        {data?.map((x) => (
+        {data?.map((x, i) => (
           <StyledTableRow key={x.id}>
+            <TableCell>
+              <Checkbox checked={!!selected.find(y => y.id === x.id)} onChange={(e) => onSelected(e, x)} />
+            </TableCell>
             <TableCell>{x.id}</TableCell>
             <TableCell>{x?.nombre} {x?.apellido}</TableCell>
             <TableCell>{x?.estado?.nombre || 'Sin asignar'}</TableCell>
