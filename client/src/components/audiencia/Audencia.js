@@ -221,7 +221,7 @@ export default function Audiencia(props) {
       </Grid>
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
-        <AudienciaTable data={data} remove={onDelete} onSelected={onSelectedChange} selected={selected} />
+        <AudienciaTable data={data} onSelected={onSelectedChange} selected={selected} />
       </Box>
 
       {open && (
