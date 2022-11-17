@@ -221,11 +221,20 @@ export default function Audiencia(props) {
       </Grid>
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
-        <AudienciaTable data={data} onSelected={onSelectedChange} selected={selected} />
+        <AudienciaTable
+          data={data}
+          onSelected={onSelectedChange}
+          selected={selected}
+        />
       </Box>
 
       {open && (
-        <AudienciaModal open={true} close={() => setOpen(false)} includes={data} params={values} onAdd={onAdd} />
+        <AudienciaModal
+          open={true} close={() => setOpen(false)}
+          includes={data}
+          params={values}
+          onAdd={onAdd}
+          />
       )}
     </div>
   );
