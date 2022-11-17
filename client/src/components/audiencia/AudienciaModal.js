@@ -28,11 +28,11 @@ export default function AudienciaModal({ close, includes = [], params, onAdd }) 
   }, [params, includes]);
 
 
-  const add = () => {
+  const add = (news) => {
     setLoading(true);
 
     API.Difusion.update(parameters.id, {
-      audiencias: [...includes, ...data]
+      audiencias: [...includes, ...news]
     }).then(() => onAdd(data))
       .finally(() => setLoading(false));
   }
