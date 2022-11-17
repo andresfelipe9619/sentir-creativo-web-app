@@ -11,6 +11,7 @@ export default function AudienciaModal({ close, includes = [], params, onAdd }) 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const parameters = useParams();
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -31,10 +32,24 @@ export default function AudienciaModal({ close, includes = [], params, onAdd }) 
     setLoading(true);
 
     API.Difusion.update(parameters.id, {
-      audiencias: data
+      audiencias: [...includes, ...data]
     }).then(() => onAdd(data))
       .finally(() => setLoading(false));
   }
+
+  const onSelectedChange = ({ target }, item) => {
+    const isAdd = target.checked;
+    const index = data.findIndex(x => x.id === item.id);
+    const newItems = [...selected];
+
+    if (isAdd) {
+      newItems.push(item);
+    } else {
+      newItems.splice(index, 1);
+    }
+
+    setSelected(newItems);
+  };
 
   if (loading) {
     return <Spinner />;
@@ -51,6 +66,14 @@ export default function AudienciaModal({ close, includes = [], params, onAdd }) 
             Agregar todos
           </Button>
         )}
+        {!!selected.length && (
+          <Button
+            color="primary"
+            onClick={() => add(selected)}
+          >
+            Agregar selección
+          </Button>
+        )}
         <Button
           color="primary"
           onClick={close}
@@ -59,7 +82,7 @@ export default function AudienciaModal({ close, includes = [], params, onAdd }) 
         </Button>
       </Box>
 
-      <AudienciaTable data={data} />
+      <AudienciaTable data={data} onSelected={onSelectedChange} selected={selected} />
     </Dialog>
   );
 }

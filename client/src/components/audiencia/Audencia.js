@@ -79,6 +79,7 @@ export default function Audiencia(props) {
   const [open, setOpen] = useState(false);
   const { openAlert } = useAlertDispatch();
   const parameters = useParams();
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     loadDependencies();
@@ -103,8 +104,14 @@ export default function Audiencia(props) {
     initParent();
   }
 
-  const onDelete = async () => {
-    return await API.Difusion.update(parameters.id, { audiencias: [] })
+  const onDelete = async (audienciaList = []) => {
+    let audiencias = data.filter(x => !audienciaList?.map(x => x.id)?.includes(x.id));
+
+    if (!audienciaList.length) {
+      audiencias = [];
+    }
+
+    return await API.Difusion.update(parameters.id, { audiencias })
       .then(() => initParent());
   };
 
@@ -115,11 +122,31 @@ export default function Audiencia(props) {
     }));
   };
 
+  const onSelectedChange = ({ target }, item) => {
+    const isAdd = target.checked;
+    const index = data.findIndex(x => x.id === item.id);
+    const newItems = [...selected];
+
+    if (isAdd) {
+      newItems.push(item);
+    } else {
+      newItems.splice(index, 1);
+    }
+
+    setSelected(newItems);
+  };
+
+  const onDeleteSelected = async () => {
+    await onDelete(selected);
+    setSelected([]);
+    return Promise.resolve();
+  };
+
   if (loadingDependencies) return null
 
   return (
     <div className={classes.root}>
-      <Box display="flex" alignItems={'baseline'} style={{width: '100%'}}>
+      <Box display="flex" alignItems={'baseline'} style={{ width: '100%' }}>
         {!!title && (
           <Typography component="legend" variant="h5" paragraph>
             {title}
@@ -142,6 +169,18 @@ export default function Audiencia(props) {
             color="inherit"
             onClose={async (accepted) =>
               accepted && (await onDelete())
+            }
+          />
+        )}
+
+        {!!selected.length && (
+          <DialogButton
+            label={'Sacar selección'}
+            title={'Sacar selección'}
+            description={'¿Estás seguro que deseas realizar esta acción?'}
+            color="inherit"
+            onClose={async (accepted) =>
+              accepted && (await onDeleteSelected())
             }
           />
         )}
@@ -182,11 +221,20 @@ export default function Audiencia(props) {
       </Grid>
 
       <Box width="100%" display="flex" flexWrap={"wrap"}>
-        <AudienciaTable data={data} />
+        <AudienciaTable
+          data={data}
+          onSelected={onSelectedChange}
+          selected={selected}
+        />
       </Box>
 
       {open && (
-        <AudienciaModal open={true} close={() => setOpen(false)} includes={data} params={values} onAdd={onAdd} />
+        <AudienciaModal
+          open={true} close={() => setOpen(false)}
+          includes={data}
+          params={values}
+          onAdd={onAdd}
+          />
       )}
     </div>
   );
