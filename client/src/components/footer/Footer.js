@@ -97,7 +97,7 @@ export default function AppFooter() {
             Cuenta con nosotros
           </Typography>
 
-          <Typography className={classes.titleAccent}>¡Contáctanos!</Typography>
+          <Typography className={classes.titleAccent}>¡Contáctanos.!</Typography>
         </Grid>
 
         <Grid container item xs={11} spacing={4}>
