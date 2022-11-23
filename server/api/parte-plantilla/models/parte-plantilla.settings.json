@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parte_plantillas",
+  "info": {
+    "name": "Parte Plantilla",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string"
+    },
+    "Html": {
+      "type": "richtext"
+    },
+    "TipoPartePlantilla": {
+      "model": "tipo-parte-plantilla"
+    }
+  }
+}
