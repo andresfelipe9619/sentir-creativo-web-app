@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plantillas",
+  "info": {
+    "name": "Plantilla"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

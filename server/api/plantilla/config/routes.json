@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/plantillas",
+      "handler": "plantilla.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/plantillas/count",
+      "handler": "plantilla.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/plantillas/:id",
+      "handler": "plantilla.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/plantillas",
+      "handler": "plantilla.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/plantillas/:id",
+      "handler": "plantilla.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/plantillas/:id",
+      "handler": "plantilla.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
