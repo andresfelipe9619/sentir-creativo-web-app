@@ -22,6 +22,9 @@
     },
     "estado": {
       "model": "estado-staff"
+    },
+    "test": {
+      "type": "string"
     }
   }
 }
