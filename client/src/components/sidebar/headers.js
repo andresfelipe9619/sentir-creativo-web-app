@@ -151,7 +151,7 @@ export function MobileHeader({ areas, classes, goTo }) {
             }}
             onClick={() => goTo(`/somos`)()}
           >
-            ¿Quiéness somos?
+            ¿Quiénesss somos?
           </Button>
         </Box>
       </Toolbar>
