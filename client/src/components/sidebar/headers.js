@@ -23,7 +23,7 @@ const buttonsStyle = {
   height: 64,
   lineHeight: 1.2,
   padding: "16px 24px",
-  fontWeight: 700,
+  fontWeight: 700, 
   textAlign: "left",
   textTransform: "none",
   flex: "1 1 auto",
@@ -151,7 +151,7 @@ export function MobileHeader({ areas, classes, goTo }) {
             }}
             onClick={() => goTo(`/somos`)()}
           >
-            ¿Quiénes somos?
+            ¿Quiéness somos?
           </Button>
         </Box>
       </Toolbar>
@@ -236,7 +236,7 @@ export function DesktopHeader({ areas, classes, goTo }) {
               onClick={() => goTo(`/somos`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
-              ¿Quiénes <br /> somos?
+              ¿Quiénesssss <br /> somos?
             </Button>
           </ButtonGroup>
         </Box>

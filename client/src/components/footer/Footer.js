@@ -39,7 +39,7 @@ const COLORS = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#ffcc01",
+    backgroundColor: "#212121",
     padding: "24px 0",
   },
   title: {
