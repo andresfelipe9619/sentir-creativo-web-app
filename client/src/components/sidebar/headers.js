@@ -236,7 +236,7 @@ export function DesktopHeader({ areas, classes, goTo }) {
               onClick={() => goTo(`/somos`)()}
               endIcon={<WbSunnyIcon style={{ fontSize: ICON_SIZE }} />}
             >
-              ¿Quiénesssss <br /> somos?
+              ¿Quiénes <br /> somos?
             </Button>
           </ButtonGroup>
         </Box>
