@@ -20,6 +20,10 @@
     },
     "TipoPartePlantilla": {
       "model": "tipo-parte-plantilla"
+    },
+    "plantilla": {
+      "model": "plantilla",
+      "via": "parte_plantillas"
     }
   }
 }
