@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const server = axios.create({
-  baseURL: "http://localhost:1337/",
- // baseURL: process.env.REACT_APP_API_ROOT,
+  baseURL: process.env.REACT_APP_API_ROOT,
 });
 
 let token = sessionStorage.getItem("colibri-token") || null;
