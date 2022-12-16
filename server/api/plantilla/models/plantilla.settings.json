@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "plantillas",
   "info": {
-    "name": "Plantilla"
+    "name": "Plantilla",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -13,6 +14,10 @@
   "attributes": {
     "nombre": {
       "type": "string"
+    },
+    "parte_plantillas": {
+      "via": "plantilla",
+      "collection": "parte-plantilla"
     }
   }
 }
