@@ -226,7 +226,7 @@ export default function AppFooter() {
                 style={{ backgroundColor: COLORS.blue, fontSize: "1.5rem" }}
                 onClick={() => history.push("/")}
               >
-                Explora el catalogo de productos
+                Explora el catalogo de producto
               </Button>
             </Grid>
           </Grid>
