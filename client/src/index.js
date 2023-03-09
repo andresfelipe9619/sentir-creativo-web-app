@@ -8,6 +8,7 @@ import { UserContext } from "./providers/context/User";
 import { FiltersContext } from "./providers/context/Filters";
 import "./index.css";
 
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

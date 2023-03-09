@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "better-sqlite3": "7.4.6",
     "bookshelf": "^1.2.0",
     "knex": "^0.95.14",
     "mui-datatables": "^4.0.0",
