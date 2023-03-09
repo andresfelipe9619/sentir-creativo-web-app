@@ -18,6 +18,9 @@
     "sintesis": {
       "type": "text"
     },
+    "test": {
+      "type": "string"
+    },
     "avance": {
       "type": "decimal"
     },
