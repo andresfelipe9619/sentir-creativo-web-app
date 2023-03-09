@@ -135,21 +135,6 @@ const columns = [
     },
   },
   {
-    name: "tipo_proyecto",
-    label: "Tipo Proyecto",
-    options: {
-      display: false,
-      filter: true,
-      sort: false,
-      customBodyRender: customBodyRender(),
-    },
-    form: {
-      size: 4,
-      type: "select",
-      dependency: "TipoProyecto",
-    },
-  },
-  {
     name: "descripcion",
     label: "Descripcion",
     options: {
