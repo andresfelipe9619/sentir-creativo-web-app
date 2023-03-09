@@ -22,7 +22,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://sentircreativo.com/">
-        Sentir Creativos
+        Sentir Creativo
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
