@@ -23,6 +23,7 @@ const { sanitizeEntity } = require('strapi-utils');
   'proyecto.audiencia.organizacion',
   'avance',
   'sintesis',
+  "test",
   'direccion',
   'bitacoras',
   'bitacoras.staf',
