@@ -16,7 +16,7 @@
       "type": "string"
     },
     "parte_plantillas": {
-      "via": "plantilla",
+      "via": "plantillas",
       "collection": "parte-plantilla"
     }
   }
