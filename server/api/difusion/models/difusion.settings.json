@@ -32,6 +32,12 @@
     },
     "coleccion": {
       "model": "coleccion"
+    },
+    "Slogan": {
+      "type": "text"
+    },
+    "Asunto": {
+      "type": "text"
     }
   }
 }
