@@ -38,6 +38,10 @@
     },
     "Asunto": {
       "type": "text"
+    },
+    "emailings": {
+      "via": "difusion",
+      "collection": "emailing"
     }
   }
 }
