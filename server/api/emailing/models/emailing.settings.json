@@ -32,25 +32,6 @@
     },
     "contenido": {
       "type": "text"
-    },
-    "fechaApertura": {
-      "type": "date"
-    },
-    "fechaEnvio": {
-      "type": "date"
-    },
-    "contadorAperturas": {
-      "type": "biginteger"
-    },
-    "estado_emailing": {
-      "model": "estado-emailing"
-    },
-    "difusion": {
-      "model": "difusion"
-    },
-    "difusions": {
-      "via": "emailings",
-      "model": "difusion"
     }
   }
 }

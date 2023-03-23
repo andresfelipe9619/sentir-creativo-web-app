@@ -22,8 +22,8 @@
       "model": "tipo-parte-plantilla"
     },
     "plantillas": {
-      "via": "parte_plantillas",
       "collection": "plantilla",
+      "via": "parte_plantillas",
       "dominant": true
     }
   }

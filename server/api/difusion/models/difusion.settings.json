@@ -44,10 +44,6 @@
     },
     "plantilla": {
       "model": "plantilla"
-    },
-    "emailings": {
-      "collection": "emailing",
-      "via": "difusions"
     }
   }
 }
