@@ -38,12 +38,6 @@
     },
     "Asunto": {
       "type": "text"
-    },
-    "PreHeader": {
-      "type": "text"
-    },
-    "plantilla": {
-      "model": "plantilla"
     }
   }
 }
