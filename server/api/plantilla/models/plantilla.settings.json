@@ -18,6 +18,9 @@
     "parte_plantillas": {
       "via": "plantillas",
       "collection": "parte-plantilla"
+    },
+    "difusions": {
+      "collection": "difusion"
     }
   }
 }
