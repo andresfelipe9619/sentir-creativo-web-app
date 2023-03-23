@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: "72px",
     lineHeight: 1,
-    fontWeight: 900,
+    fontWeight: 800,
     fontStyle: 'italic',
     [theme.breakpoints.down('md')]: {
       fontSize: '64px'
