@@ -15,24 +15,23 @@
     "Nombre": {
       "type": "string"
     },
-    "fechaEnvio": {
-      "type": "date"
+    "Asunto": {
+      "type": "string"
     },
-    "fechaApertura": {
-      "type": "date"
+    "prioridad": {
+      "model": "prioridad"
     },
-    "difusion": {
-      "model": "difusion",
-      "via": "emailings"
+    "archivos": {
+      "collection": "archivo"
     },
-    "emailing": {
-      "model": "estado-emailing"
+    "utm": {
+      "type": "string"
     },
-    "audiencia": {
-      "model": "audiencia"
+    "saludos": {
+      "collection": "saludo"
     },
-    "coleccion": {
-      "model": "coleccion"
+    "contenido": {
+      "type": "text"
     }
   }
 }
