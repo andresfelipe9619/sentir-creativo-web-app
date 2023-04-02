@@ -17,8 +17,8 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Bitacora from '../bitacora/Bitacora';
 import Audiencia from '../audiencia/Audencia';
+import Bitacora from '../bitacora/Bitacora';
 import CitySelect from '../city-select/CitySelect';
 import Comments from '../commets';
 import Files from '../files/Files';
@@ -181,7 +181,6 @@ export default function FormItem(props) {
     ),
     select: canRender("select") && (
       <Autocomplete
-        disablePortal
         id={key}
         key={key}
         options={options.map((option) => option.value)}
