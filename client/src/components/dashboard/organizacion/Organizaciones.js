@@ -1,8 +1,7 @@
-import { Grid } from "@material-ui/core";
-import React from "react";
-import MasterDetail, {
-  customBodyRender,
-} from "../../master-detail/MasterDetail";
+import { Grid } from '@material-ui/core';
+import React from 'react';
+
+import MasterDetail, { customBodyRender } from '../../master-detail/MasterDetail';
 
 const columns = [
   {
@@ -131,11 +130,7 @@ const columns = [
       dependency: "Rubro",
       renderLabel: (i) => {
         const prop = i?.tipo_rubro?.nombre;
-        return (
-          <span>
-            {i.nombre} {prop ? "•" : ""} <strong>{prop || ""}</strong>
-          </span>
-        );
+        return `${i.nombre}${prop ? " • " : ""}${prop || ""}`;
       },
     },
   },
